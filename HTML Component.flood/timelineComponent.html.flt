@@ -1,0 +1,1 @@
+<<%= timelineNameLowercased %>-element id="<%= timelineNameLowercased %><%= instanceSuffix %>"></<%= timelineNameLowercased %>-element>

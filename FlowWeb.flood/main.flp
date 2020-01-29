@@ -1,0 +1,82 @@
+import Web
+
+rm("debug.txt")
+process("debug.flt", into: "debug.txt", indentation: 0)
+
+var pathFromBaseToOutputFolder = "pages/\(outputFolderName)"
+var pathFromOutputFolderToBase = "../.."
+
+var animationsFolder = "animations"
+var htmlFolder = "html"
+var cssFolder = "css"
+var jsFolder = "js"
+var codeFolder = "code"
+var fontsFolder = "fonts"
+var imagesFolder = "images"
+
+rm(animationsFolder)
+mkdir("\(animationsFolder)/\(htmlFolder)")
+mkdir("\(animationsFolder)/\(cssFolder)")
+mkdir("\(animationsFolder)/\(jsFolder)")
+mkdir("\(animationsFolder)/\(codeFolder)")
+mkdir("\(animationsFolder)/\(fontsFolder)")
+mkdir("\(animationsFolder)/\(imagesFolder)")
+
+// The paths to use when reference assets in the image, font, js or css folders
+var imageFolderAbsPath = "{{ site.baseurl }}/\(pathFromBaseToOutputFolder)/\(animationsFolder)/\(imagesFolder)"
+var fontFolderAbsPath = "{{ site.baseurl }}/\(fontsFolder)"
+var jsFolderAbsPath = "{{ site.baseurl }}/\(pathFromBaseToOutputFolder)/\(animationsFolder)/\(jsFolder)"
+var cssFolderAbsPath = "{{ site.baseurl }}/\(pathFromBaseToOutputFolder)/\(animationsFolder)/\(cssFolder)"
+
+rm("animations.md.txt")
+process("animations.md.flt", into: "animations.md.txt", indentation: 0)
+process("js/timelines.js.flt", into: "\(animationsFolder)/\(jsFolder)/timelines.js", indentation: 0)
+process("css/styles.css.flt", into: "\(animationsFolder)/\(cssFolder)/styles.css", indentation: 0)
+process("readme.txt.flt", into: "\(animationsFolder)/readme.txt", indentation: 0)
+
+for timeline in timelines
+    // Get a snapshot of the rootLayer at time 0
+    var layer = timeline.rootLayer(at: 0)
+    
+    // Get the name of the timeline folder
+    var timelineFolder = folderTable.symbolForID(timeline.id, "\(outputFolderPath)/\(documentFolderName)/\(templateFolderName)").name
+
+    // Set the name for the html & css files to the name of the timeline
+    var timelineName = timelineFolder
+    
+    // Set the name of timeline class
+    var timelineClassName =  timelineName
+
+    // Get all assets for this timeline
+    var fontsInTimeline = document.fonts(forTimeline: timeline)
+    var imagesInTimeline = document.images(forTimeline: timeline)
+
+    var shapeIDs = []
+    if generateFullHTML
+        process("index.html.flt", into: "\(animationsFolder)/\(htmlFolder)/\(timelineName.lowerCamelCased()).html", indentation: 0)
+    else 
+        process("artboard.html.flt", into: "\(animationsFolder)/\(htmlFolder)/\(timelineName.lowerCamelCased()).html", indentation: 0)
+    end
+
+    process("css/style.css.flt", into: "\(animationsFolder)/\(cssFolder)/\(timelineName).css", indentation: 0)
+    process("js/animations.js.flt", from: Web, into: "\(animationsFolder)/\(jsFolder)/\(timelineName).js", indentation: 0)
+    process("code.md.flt", into: "\(animationsFolder)/\(codeFolder)/\(timelineName).md", indentation: 0)
+    
+    // Copy Images
+    for image in imagesInTimeline
+        var imageData = image.serializeAsPNGData()
+        if imageData != nil
+            write(data: imageData, to: "\(animationsFolder)/\(imagesFolder)/\(image.name).png")
+        end
+    end
+
+    // Copy Fonts
+    for font in fontsInTimeline
+        if !Web.webFonts.contains(font.name) && font.path != nil
+            copy(from: font.path, to: "\(animationsFolder)/\(fontsFolder)/\(font.name).\(font.extension)")
+        end
+    end
+
+    // Clear the symbol table
+    symbolTable.removeAllSymbols()
+end

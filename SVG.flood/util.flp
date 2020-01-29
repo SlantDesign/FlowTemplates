@@ -1,0 +1,189 @@
+/// Returns the SVG attribute name of a property.
+func svgAttributeName(of property)
+  switch property.id
+  case "position.x": return "x"
+  case "position.y": return "y"
+  case "bounds.size.width": return "width"
+  case "bounds.size.height": return "height"
+  case "anchorPoint.x": return "transform"
+  case "anchorPoint.y": return "transform"
+  case "transform.rotation.z": return "transform"
+  case "opacity": return "opacity"
+  case "backgroundColor": return "background-color"
+  case "borderWidth": return "border-width"
+  case "borderColor": return "border-color"
+  case "cornerRadius": return "border-radius"
+  case "shadowColor": return "flood-color"
+  case "shadowRadius": return "stdDeviation"
+  case "shadowOffset.width": return "dx"
+  case "shadowOffset.height": return "dy"
+  case "resizing.margin.top": return "top"
+  case "resizing.margin.left": return "left"
+  case "resizing.margin.bottom": return "bottom"
+  case "resizing.margin.right": return "right"
+  case "transform.scale.x": return "transform"
+  case "transform.scale.y": return "transform"
+
+  // Image
+  case "image": return "src"
+
+  // Path
+
+  // Shape
+  case "combinedPath": return "d"
+  case "fillColor": return "fill"
+  case "strokeColor": return "stroke"
+  case "lineWidth": return "stroke-width"
+  case "strokeStart": return "stroke-dashoffset"
+  case "strokeEnd": return ""
+  case "miterLimit": return "stroke-miterlimit"
+  case "lineCap": return "stroke-linecap"
+  case "lineJoin": return "stroke-linejoin"
+  case "lineDashPattern": return "stroke-dasharray"
+  case "lineDashPhase": return "stroke-dashoffset"
+
+  // Shape Mask
+  case "maskPath": return "d"
+
+  // Text
+  case "font": return "font-family"
+  case "fontSize": return "font-size"
+  case "foregroundColor": return "color"
+  case "truncationMode": return "text-overflow"
+  end
+end
+
+func isTransform(property)
+  switch property.id
+  case "position.x": return true
+  case "position.y": return true
+  case "anchorPoint.x": return true
+  case "anchorPoint.y": return true
+  case "transform.rotation.z": return true
+  case "transform.scale.x": return true
+  case "transform.scale.y": return true
+  default: return false
+  end
+end
+
+func transformPropertyType(of property)
+  switch property.id
+  case "position.x": return "translate"
+  case "position.y": return "translate"
+  case "anchorPoint.x": return "translate"
+  case "anchorPoint.y": return "translate"
+  case "transform.rotation.z": return "rotate"
+  case "transform.scale.x": return "scale"
+  case "transform.scale.y": return "scale"
+  end
+end
+
+/// Returns the SVG value for a property
+func svgValue(_ value, property, layer)
+  switch property.id
+  case "position.x": return "\(value - layer.anchorPoint.x * layer.size.width) 0"
+  case "position.y": return "0 \(value - layer.anchorPoint.y * layer.size.height)"
+  case "bounds.size.width": return "\(value / layer.size.width) 1"
+  case "bounds.size.height": return "1 \(value / layer.size.height)"
+  case "anchorPoint.x": return "\(value * 100)%, 0"
+  case "anchorPoint.y": return "0 \(value * 100)%"
+  case "transform.rotation.z": return "\(value.degrees) \(layer.anchorPoint.x * layer.size.width) \(layer.anchorPoint.y * layer.size.height)"
+  case "opacity": return "\(value)"
+  case "backgroundColor": return value.hex
+  case "borderWidth": return "\(value)"
+  case "borderColor": return value.hex
+  case "cornerRadius": return "\(value)"
+  case "resizing.margin.top": return "\(value)"
+  case "resizing.margin.left": return "\(value)"
+  case "resizing.margin.bottom": return "\(value)"
+  case "resizing.margin.right": return "\(value)"
+  case "transform.scale.x": return "\(value), 1"
+  case "transform.scale.y": return "1, \(value)"
+  case "shadowColor": return value.hex
+  case "shadowRadius": return value
+  case "shadowOffset.width": return "\(value)"
+  case "shadowOffset.height": return "\(value)"
+
+  // Image
+  case "image": return "\(value)"
+
+  // Shape
+  case "combinedPath": return value.svg
+  case "fillColor": return value.hex
+  case "strokeColor": return value.hex
+  case "lineWidth": return "\(value)"
+  case "strokeStart": return "\(value)"
+  case "strokeEnd": return ""
+  case "miterLimit": return "\(value)"
+  case "lineCap": return "\(value)"
+  case "lineJoin": return "\(value)"
+  case "fillGradient": return ""
+  case "fillImage": return ""
+  case "lineDashPattern": return SVG.printDashPatternArray(value)
+  case "lineDashPhase": return "\(value)"
+
+  // Shape Mask
+  case "maskPath": return value.svg
+
+  // Text
+  case "string": return ""
+  case "font": return "\(value)"
+  case "fontSize": return "\(value)"
+  case "foregroundColor": return value.hex
+  case "truncationMode": return "\(value)"
+  end
+end
+
+func svgPreserveAspectRatio(_ value)
+  switch value.name
+    case "center": return "xMidYMid slice"
+    case "top": return "xMidYMin slice"
+    case "bottom": return "xMidYMax slice"
+    case "left": return "xMinYMid slice"
+    case "right": return "xMaxYMid slice"
+    case "topLeft": return "xMinYMin slice"
+    case "topRight": return "xMaxYMin slice"
+    case "bottomLeft": return "xMaxYMin slice"
+    case "bottomRight": return "xMaxYMax slice"
+    case "resize": return "none"
+    case "resizeAspect": return "xMidYMid meet"
+    case "resizeAspectFill": return "xMidYMid slice"
+  end
+end
+
+func trackIsForTransform(_ track)
+  var name = svgAttributeName(of: track.property)
+  return
+    name == "transform" ||
+    name == "x" ||
+    name == "y" ||
+    name == "width" ||
+    name == "height"
+end
+
+func trackIsForShadow(_ track)
+  var name = track.property.id
+  return
+    name == "shadowColor" ||
+    name == "shadowRadius" ||
+    name == "shadowOffset.width" ||
+    name == "shadowOffset.height"
+end
+
+func trackIsForElement(_ track)
+  var name = svgAttributeName(of: track.property)
+  return !trackIsForTransform(track) && !trackIsForShadow(track) && name != "d"
+end
+
+func transform(of layer)
+  var dx = layer.anchorPoint.x * layer.size.width
+  var dy = layer.anchorPoint.y * layer.size.height
+  var transform = "translate(\(-dx) \(-dy))"
+  if layer.rotation.degrees != 0
+    transform = "\(transform) rotate(\(layer.rotation.degrees))"
+  end
+  if layer.flippedHorizontal != 1 || layer.flippedVertical != 1
+    transform = "\(transform) scale(\(layer.flippedHorizontal) \(layer.flippedVertical)"
+  end
+  return transform
+end

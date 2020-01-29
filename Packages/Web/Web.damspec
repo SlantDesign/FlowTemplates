@@ -1,0 +1,4 @@
+name: Web
+version: 1.0.0
+summary: Web template utilities
+description: Provides functions and templates for generating HTML/CSS/Javascript code

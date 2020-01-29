@@ -1,0 +1,6 @@
+<div class="flow-layer <%= id %>">
+<% for layer in layer.sublayers -%>
+<%   insert("html/layer.html.flt",  from: Web, indentation: indentation + 1) -%>
+<% end -%>
+    <div class="flow-border <%= symbol.name %>-border"></div>
+</div>

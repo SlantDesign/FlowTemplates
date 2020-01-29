@@ -1,0 +1,12 @@
+createDriver("driver", "<%= timelineNameLowercased %>", driverResourcesPath, callback, <%= resourcesPath %>, <%= forwardTimelineName %>);
+
+// let player = createPlayer(
+//     <%= forwardTimelineName %>,
+//     "timerID",
+//     true,
+//     0,
+//     callback,
+//     "<%= timelineNameLowercased %>",
+//     <%= resourcesPath %>
+// );
+// player.play();

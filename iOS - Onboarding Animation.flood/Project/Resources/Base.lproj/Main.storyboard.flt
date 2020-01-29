@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="gNs-5D-dvo">
+<device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--<%= viewControllerClassName %>-->
+        <scene sceneID="<%= timeline.scene.id %>">
+            <objects>
+                <viewController storyboardIdentifier="<%= viewControllerClassName %>" id="<%= viewControllerClassName %>" customClass="<%= viewControllerClassName %>" customModule="<%= document.name %>" customModuleProvider="target" sceneMemberID="viewController">
+                    <%- 
+                    var mainViewID = makeUUID()
+                    var viewID = makeUUID()
+                    var pageControlID = makeUUID()
+                    var scrollViewID = makeUUID()
+                    var topLayoutGuideID = makeUUID()
+                    var bottomLayoutGuideID = makeUUID()
+                    -%>
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="<%= topLayoutGuideID %>"/>
+                        <viewControllerLayoutGuide type="bottom" id="<%= bottomLayoutGuideID %>"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="<%= mainViewID %>">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="<%= viewID %>" customClass="<%= viewName %>" customModule="<%= document.name %>" customModuleProvider="target">
+                                <rect key="frame" x="<%= (375 - timeline.scene.size.width) / 2 %>" y="<%= (667 - timeline.scene.size.height) / 2 %>" width="<%= timeline.scene.size.width %>" height="<%= timeline.scene.size.height %>"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="<%= timeline.scene.size.width %>" id="<%= makeUUID() %>"/>
+                                    <constraint firstAttribute="height" constant="<%= timeline.scene.size.height %>" id="<%= makeUUID() %>"/>
+                                </constraints>
+                            </view>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="<%= numberOfPages %>" translatesAutoresizingMaskIntoConstraints="NO" id="<%= pageControlID %>">
+                                <rect key="frame" x="168" y="622" width="39" height="37"/>
+                                <color key="pageIndicatorTintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="currentPageIndicatorTintColor" cocoaTouchSystemColor="darkTextColor"/>
+                            </pageControl>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="<%= scrollViewID %>">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="<%= viewID %>" firstAttribute="centerY" secondItem="<%= mainViewID %>" secondAttribute="centerY" id="<%= makeUUID() %>"/>
+                            <constraint firstItem="<%= viewID %>" firstAttribute="centerX" secondItem="<%= mainViewID %>" secondAttribute="centerX" id="<%= makeUUID() %>"/>
+                            <constraint firstItem="<%= pageControlID %>" firstAttribute="centerX" secondItem="<%= mainViewID %>" secondAttribute="centerX" id="<%= makeUUID() %>"/>
+                            <constraint firstItem="<%= bottomLayoutGuideID %>" firstAttribute="top" secondItem="<%= scrollViewID %>" secondAttribute="bottom" id="<%= makeUUID() %>"/>
+                            <constraint firstItem="<%= bottomLayoutGuideID %>" firstAttribute="top" secondItem="<%= pageControlID %>" secondAttribute="bottom" constant="8" id="<%= makeUUID() %>"/>
+                            <constraint firstItem="<%= scrollViewID %>" firstAttribute="leading" secondItem="<%= mainViewID %>" secondAttribute="leading" id="<%= makeUUID() %>"/>
+                            <constraint firstItem="<%= scrollViewID %>" firstAttribute="top" secondItem="<%= topLayoutGuideID %>" secondAttribute="bottom" id="<%= makeUUID() %>"/>
+                            <constraint firstAttribute="trailing" secondItem="<%= scrollViewID %>" secondAttribute="trailing" id="<%= makeUUID() %>"/>
+                        </constraints>
+                    </view>
+                    <value key="contentSizeForViewInPopover" type="size" width="<%= timeline.scene.size.width %>" height="<%= timeline.scene.size.height %>"/>
+                    <connections>
+                        <outlet property="pageControl" destination="<%= pageControlID %>" id="<%= makeUUID() %>"/>
+                        <outlet property="<%= timeline.scene.name.lowerCamelCased() %>" destination="<%= viewID %>" id="<%= makeUUID() %>"/>
+                        <outlet property="scrollview" destination="<%= scrollViewID %>" id="<%= makeUUID() %>"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="<%= makeUUID() %>" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="0.0" y="0.0"/>
+        </scene>
+        <!--Launch Animation View Controller-->
+        <scene sceneID="uPg-I4-Jwi">
+            <objects>
+                <viewController id="gNs-5D-dvo" customClass="LaunchAnimationViewController" customModule="Wordmark" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Lws-Dv-aGB"/>
+                        <viewControllerLayoutGuide type="bottom" id="NOy-1h-cy6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Lsv-YY-aZj">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CJs-KB-Ydh" customClass="LaunchAnimationView" customModule="Wordmark" customModuleProvider="target">
+                                <rect key="frame" x="42.5" y="303.5" width="290" height="60"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="F34-UY-EOV"/>
+                                    <constraint firstAttribute="width" constant="290" id="lnu-tW-77y"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="CJs-KB-Ydh" firstAttribute="centerY" secondItem="Lsv-YY-aZj" secondAttribute="centerY" id="Uwo-hT-4Ki"/>
+                            <constraint firstItem="CJs-KB-Ydh" firstAttribute="centerX" secondItem="Lsv-YY-aZj" secondAttribute="centerX" id="pPV-qb-LTz"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="scene" destination="CJs-KB-Ydh" id="KDI-Qj-fDB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vxw-N1-2S8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1" y="649"/>
+        </scene>
+
+    </scenes>
+</document>

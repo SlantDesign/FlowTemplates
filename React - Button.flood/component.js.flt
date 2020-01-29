@@ -1,0 +1,35 @@
+<% for image in imagesInTimeline -%>
+import <%= image.name %> from "<%= "../img/\(image.name).png" -%>";
+<% end -%>
+
+export default class <%= timelineName %>Button extends HTMLElement {
+    constructor() {
+        super();
+
+        const shadow = this.attachShadow({ mode: "open" });
+        const <%= timelineNameLowercased %> = document.createElement("div");
+        <%= timelineNameLowercased %>.id = "container";
+        <%= timelineNameLowercased %>.innerHTML = `
+
+        <head>
+        <%- var buttonName = "button\(timelineName)" -%>
+            <title><%= timelineName %></title>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <style>
+                <% insert("css/style.css.flt", from: Web, indentation: 3) %>
+            </style>
+        </head>
+
+    <!-- A div element is used instead of a button to avoid default properties, 
+         as well as allowing the element to resize with the animation. -->
+        <% insert("html/artboard.html.flt", from: Web, indentation: 3) %>
+    `;
+    shadow.append(<%= timelineNameLowercased %>);
+
+      const timer = document.createElement("div");
+      timer.id = "timerID";
+      <%= timelineNameLowercased %>.append(timer);
+        }
+    }
+    customElements.define("<%= customElementName %>", <%= timelineName %>Button); 

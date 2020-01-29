@@ -1,0 +1,41 @@
+<text
+  id="<%= id %>"
+  x="<%= layer.position.x %>"
+  y="<%= layer.position.y %>"
+  width="<%= layer.size.width %>"
+  height="<%= layer.size.height %>"
+  font-family="<%= layer.font.name %>"
+  font-size="<%= layer.fontSize %>"
+  text-anchor="middle"
+  style="inline-size: <%= layer.size.width %>"
+  fill="<%= layer.foregroundColor.hex %>"
+<%- if !layer.visible -%>
+  opacity="0"
+<%- else if layer.opacity != 1 -%>
+  opacity="<%= layer.opacity %>"
+<%- end -%>
+  transform="<%= transform(of: layer) %>"
+>
+<%- if layer.attributedString != nil -%>
+  <%- for run in layer.attributedString.runs -%>
+  <tspan
+    <%- if run.attributes["font"] != nil -%>
+    font-family="<%= run.attributes["font"].name %>"
+    font-size="<%= run.attributes["font"].size %>"
+    <%- end -%>
+    <%- if run.attributes["foregroundColor"] != nil -%>
+    fill="<%= run.attributes["foregroundColor"].hex %>"
+    <%- end -%>
+    <%- if run.attributes["underlineStyle"] != nil && run.attributes["underlineStyle"] != 0 -%>
+    text-decoration="underline"
+    <%- end -%>
+  ><%= run.string %></tspan>
+  <%- end -%>
+<%- else if layer.string != nil -%>
+  <%= layer.string %>
+<%- end -%>
+<%
+var tracks = timeline.tracksForLayer(layer.layer).filter(trackIsForElement)
+insert("animations.svg.flt", indentation: indentation + 1)
+-%>
+</text>

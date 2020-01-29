@@ -1,0 +1,67 @@
+<% // Shadow animations
+
+// Returns the css shadow value at the given time.
+func shadow(at time)
+    var offsetX = timeline.value(property: "shadowOffset.width", layer: layer.layer, time: time)
+    var offsetY = timeline.value(property: "shadowOffset.height", layer: layer.layer, time: time)
+    var radius = timeline.value(property: "shadowRadius", layer: layer.layer, time: time)
+    var color = timeline.value(property: "shadowColor", layer: layer.layer, time: time)
+    return "'drop-shadow(\(Web.cssShadow(offsetX: offsetX, offsetY: offsetY, radius: radius, color: color)))'"
+end
+
+// All shadow properties need to change at the same times, otherwise animation blocks will interfere with each
+// other. We gather all relevant keyvalues and use their times to generate animation keyframes.
+var keyvalues = []
+var properties = ["shadowOffset.width", "shadowOffset.height", "shadowRadius", "shadowColor"]
+for property in properties
+  var track = timeline.trackFor(layer: layer, property: property)
+  if track != nil
+    for keyvalue in track.keyvalues
+        keyvalues = keyvalues.appending(keyvalue)
+    end
+  end
+end
+
+// Sort by time
+func timeLess(lhs, rhs) return lhs.time < rhs.time end
+keyvalues = keyvalues.sorted(by: timeLess)
+
+if !keyvalues.isEmpty
+  var shadows = [shadow(at: 0)]
+  var offsets = [0]
+  var easings = []
+  var previous = keyvalues[0]
+  var time = 0
+  for keyvalue in keyvalues
+    if keyvalue.time == time continue end // Skip repeated times
+    time = keyvalue.time
+
+    shadows = shadows.appending(shadow(at: time))
+    offsets = offsets.appending(keyvalue.time / timeline.duration)
+    if previous != nil
+      easings = easings.appending(Web.timing(keyvalue: previous))
+    end
+    previous = keyvalue
+  end
+
+  if offsets.count > 0 && offsets[offsets.count-1] != 1.0 
+    shadows = shadows.appending(shadows[shadows.count-1])
+    offsets = offsets.appending(1)
+  end
+
+  var animationName = "\(id)ShadowAnimation"
+  animationNames = animationNames.appending(animationName) -%>
+ <%= animationName %>() {
+    return this.rootElement.querySelector('#<%= timelineName %> .<%= symbol.name %>').animate([
+<%for i in 0..<shadows.count -%>
+        { filter: <%= shadows[i] %>, offset: <%= offsets[i] %><% if i < easings.count %>, easing: <%= easings[i] %><% end %> },
+<%end -%>
+    ], {
+        duration: this.duration,
+        composite: 'add',
+        fill: 'forwards'
+    });
+}
+<%
+end
+-%>

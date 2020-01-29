@@ -1,0 +1,44 @@
+"use strict";
+
+(function() {
+  class DriverComponent extends HTMLElement {
+    constructor() {
+      super();
+
+      const driverShadow = this.attachShadow({ mode: "open" });
+      const driverComponent = document.createElement("div");
+      driverComponent.id = "container";
+      driverComponent.innerHTML = `
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="${driverResourcesPath}/css/driver.css">
+    </head>
+    <div class="playback">
+        <div class="slider">
+            <input type="range" min="0" max="1" step="0.001" value="0.0" id="slider-<%= timelineNameLowercased %>" />
+        </div>
+        <div class="controls">
+            <div class="playPauseLoop">
+                <div class="playPauseContainer loop">
+                    <input type='checkbox' id="loopButton-<%= timelineNameLowercased %>"><label for="loopButton-<%= timelineNameLowercased %>" class="loopLabel" id="loopLabel" />
+                </div>
+                <div class="playPauseContainer">
+                    <input type='checkbox' id="playPauseButton-<%= timelineNameLowercased %>"><label for="playPauseButton-<%= timelineNameLowercased %>" class="playPauseLabel" id="playPauseLabel" />
+                </div>
+                <div class="playPauseContainer">
+                    <div class="time" id="timeLabel-<%= timelineNameLowercased %>">0 s</div>
+                </div>
+            </div>
+        </div>
+    </div>
+`;
+      driverShadow.append(driverComponent);
+
+      const driverTimer = document.createElement("div");
+      driverTimer.id = "driverTimerID";
+      driverComponent.append(driverTimer);
+    }
+  }
+  customElements.define("driver-element", DriverComponent);
+})();

@@ -1,0 +1,13 @@
+<% if showLinkToAnimationCode %>
+<div class="animationLink"><a href="{{site.url}}/pages{{page.permalink}}<%= outputFolderName %>/code/<%= timelineName.lowerCamelCased() %>.html">
+<% end %>
+    <div class="flow-artboard" id="<%= timelineName %>">
+<% for layer in layer.sublayers -%>
+<% insert("html/layer.html.flt", from: Web, indentation: 1) %>
+<% end -%>
+    </div>
+<% if showLinkToAnimationCode -%>
+    <p>&lt; click to view code &gt;</p></a>
+<% end -%>
+</div>
+<div id="<%= timelineName %>Timer"></div>

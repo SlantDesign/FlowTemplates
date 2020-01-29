@@ -1,0 +1,68 @@
+<% // Transform animations
+
+// Returns the css transform value at the given time.
+func transform(at time)
+    var scaleX = timeline.value(property: "transform.scale.x", layer: layer.layer, time: time)
+    var scaleY = timeline.value(property: "transform.scale.y", layer: layer.layer, time: time)
+    var rotation = timeline.value(property: "transform.rotation.z", layer: layer.layer, time: time)
+    var anchorX = timeline.value(property: "anchorPoint.x", layer: layer.layer, time: time)
+    var anchorY = timeline.value(property: "anchorPoint.y", layer: layer.layer, time: time)
+    return "'\(Web.cssTransformFormValues(anchorX: anchorX, anchorY: anchorY, scaleX: scaleX, scaleY: scaleY, rotation: rotation))'"
+end
+
+// All transform properties need to change at the same times, otherwise animation blocks will interfere with each
+// other. We gather all relevant keyvalues and use their times to generate animation keyframes.
+var keyvalues = []
+var properties = ["transform.scale.x", "transform.scale.y", "transform.rotation.z", "anchorPoint.x", "anchorPoint.y"]
+for property in properties
+  var track = timeline.trackFor(layer: layer, property: property)
+  if track != nil
+    for keyvalue in track.keyvalues
+        keyvalues = keyvalues.appending(keyvalue)
+    end
+  end
+end
+
+// Sort by time
+func timeLess(lhs, rhs) return lhs.time < rhs.time end
+keyvalues = keyvalues.sorted(by: timeLess)
+
+if !keyvalues.isEmpty
+  var transforms = [transform(at: 0)]
+  var offsets = [0]
+  var easings = []
+  var previous = keyvalues[0]
+  var time = 0
+  for keyvalue in keyvalues
+    if keyvalue.time == time continue end // Skip repeated times
+    time = keyvalue.time
+
+    transforms = transforms.appending(transform(at: time))
+    offsets = offsets.appending(keyvalue.time / timeline.duration)
+    if previous != nil
+      easings = easings.appending(Web.timing(keyvalue: previous))
+    end
+    previous = keyvalue
+  end
+
+if offsets.count > 0 && offsets[offsets.count-1] != 1.0
+    transforms = transforms.appending(transforms[transforms.count-1])
+    offsets = offsets.appending(1)
+  end
+
+  var animationName = "\(id)TransformAnimation"
+  animationNames = animationNames.appending(animationName) -%>
+ <%= animationName %>() {
+    return this.rootElement.querySelector('#<%= timelineName %> .<%= symbol.name %>').animate([
+<%for i in 0..<transforms.count -%>
+        { transform: <%= transforms[i] %>, offset: <%= offsets[i] %><% if i < easings.count %>, easing: <%= easings[i] %><% end %> },
+<%end -%>
+    ], {
+        duration: this.duration,
+        composite: 'add',
+        fill: 'forwards'
+    });
+}
+<%
+end
+-%>

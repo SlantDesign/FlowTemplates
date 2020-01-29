@@ -1,0 +1,9 @@
+<animate
+  attributeName="<%= attributeName %>"
+  values="<%= values.joined(separator: ";") %>"
+  dur="<%= timeline.duration %>s"
+  fill="freeze"
+  calcMode="spline"
+  keyTimes="<%= keytimes.joined(separator: ";") %>"
+  keySplines="<%= keysplines.joined(separator: ";") %>"
+/>

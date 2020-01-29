@@ -1,0 +1,52 @@
+<%-
+// Properties that affect the scale values.
+var properties = [
+  "bounds.size.width",
+  "bounds.size.height"
+]
+
+func affectsScale(kv)
+  return properties.contains(kv.property.id)
+end
+
+var values = []
+var keytimes = []
+var keysplines = []
+for keyframe in timeline.keyframesForLayer(layer, simulateStepsWithKeyvalues: false)
+  var keyvalues = keyframe.keyvalues.filter(affectsScale)
+  if keyvalues.isEmpty
+    continue
+  end
+
+  keytimes = keytimes.appending(keyframe.time / timeline.duration)
+
+  var w = layer.size.width
+  var h = layer.size.height
+  var sx = timeline.value(property: "bounds.size.width", layer: layer.layer, time: keyframe.time) / w
+  var sy = timeline.value(property: "bounds.size.height", layer: layer.layer, time: keyframe.time) / h
+  values = values.appending("\(sx) \(sy)")
+
+  if keyframe.time < timeline.duration
+    // Arbitrarily choose the first keyvalue's timing function.
+    var c1 = keyvalues[0].trailingTimingFunction.controlPoints[0]
+    var c2 = keyvalues[0].trailingTimingFunction.controlPoints[1]
+    keysplines = keysplines.appending("\(c1.x) \(c1.y) \(c2.x) \(c2.y)")
+  end
+end
+
+if !keytimes.isEmpty
+-%>
+<animateTransform
+  attributeName="transform"
+  type="scale"
+  values="<%= values.joined(separator: ";") %>"
+  dur="<%= timeline.duration %>s"
+  fill="freeze"
+  calcMode="spline"
+  keyTimes="<%= keytimes.joined(separator: ";") %>"
+  keySplines="<%= keysplines.joined(separator: ";") %>"
+  <%- if repeats -%>
+  repeatCount="indefinite"
+  <%- end -%>
+/>
+<% end -%>

@@ -1,0 +1,116 @@
+    <div class="container content integrating an react button tutorials">
+        <div class="row">
+            <div class="col-md-3 d-none d-md-block float-left">
+                <br><br>
+                <div id="toc" class="d-none d-md-block toc sticky">
+                    <ul class="toc-ul-root nav">
+                        <li><a class="nav-link toc-link-1" href="#custom-code"><span>1.</span>Custom Code</a></li>
+                        <li><a class="nav-link toc-link-1" href="#folder-breakdown"><span>2.</span>Folder Breakdown</a></li>
+                        <li><a class="nav-link toc-link-1" href="#integrating-a-single-instance"><span>3.</span>Integrating </a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-9 col-lg-9 tutorial relative">
+                <div class="row justify-content-left">
+                    <div class="col-auto">
+                        <p class="post-tags">
+                            <small class="blue">
+                                WebComponent,
+                                React,
+                                Button
+                            </small>
+                        </p>
+                    </div>
+                </div>
+                <hr class="underliner">
+                <div class="docs-content">
+                    <h1>Integrating a React Button</h1>
+                    <p class="intro">This document covers all the details you need to know to integrate Flow's custom React Toggle Button Components into your site. The steps below pertain to the <u>React Toggle Button Component</u> export.</p>
+                    <p class="intro">When working through this doc, remember:</p>
+                    <ul class="readme">
+                      <li>The code below contains variables from your Flow file.</li>
+                      <li>That means you can copy and paste it verbatim into your project.</li>
+                      <li>We used our code export engine to produce it, so you can be sure that it is <b>exact</b></li>
+                    </ul>
+                    <h2 id="custom-code">Custom Code</h2>
+                    <p>Every time you export a timeline to code it varies depending on the animations, layer names, etc.
+                        To ensure these instructions are crystal clear they are tailored to the code you have just exported.
+                        For example, the name of the timeline you just exported is <code class="highlighter-rouge"><%= timelineName %></code>.</p>
+                    <p>Let’s get to it.</p>
+                    <h2 id="folder-breakdown">Folder Breakdown</h2>
+                    <p>When you export a project you’ll see the following structure:</p>
+                    <ul>
+                        <li><%= timelineFolder %> (Folder)
+                            <ul>
+                                <li>css (Folder)</li>
+                                <li>FlowCommon (Folder)</li>
+                                <li>fonts (Folder)</li>
+                                <li>img (Folder)</li>
+                                <li>index.js</li>
+                                <li>js (Folder)</li>
+                                <li>README.html</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <h2 id="integrating-a-single-instance">Integrating the Animation</h2>
+                    <p>This section explains how to integrate your component into your React project.</p>
+                    <ol>
+                        <li>The first step is to move the entire <code class="highlighter-rouge"><%= timelineFolder %></code> folder to a location of your choice inside your React Project.
+                        <blockquote><p>Inside your components folder would be a lovely place if you happened to have one.</p></blockquote>
+                        </li>
+                        <li>Import your new button like any other React Component. Use the following code:
+                            <div class="highlighter-rouge">
+                                <div class="highlight">
+                                    <pre class="highlight">
+                                        <code>import <%=timelineName%> from "./components/<%=timelineName%>";</code>
+                                    </pre>
+                                </div>
+                            </div>
+                        </li>
+                        <li> Now you can copy and paste the following code to use the component.
+                            <div class="highlighter-rouge">
+                                <div class="highlight">
+                                    <pre class="highlight">
+                                        <code><%= Web.escapeOpenClosingTags(input: process("button/timelineToggleButton.html.flt", into: nil, indentation: 0)) -%></code>
+                                    </pre>
+                                </div>
+                            </div>
+                        </li>
+                        <li>To use multiple <code><%= timelineName %></code> components you simply only need to repeat step 3. (Make sure you change the elementID to something <b>unique</b>.)</li>
+                        <li>If you would like to use a different animation, feel free to repeat this process as many times as you wish with as many animations as you like</li>
+                    </ol>
+                    <h3>Notes for Step 3</h3>
+                    <p>The component takes in two properties. <strong>elementID</strong> and <strong>callback</strong>.</p>
+                    <p>The <strong>elementID</strong> is used as the ID of the element in the DOM, so make sure it's <strong>unique</strong> for every component you use.</p>
+                    <p>The callback prop allows you to pass the component a function that will run every time the animation finishes. (Forward or reverse).</p>
+                    <p>The callback property can also be <code>{null}</code> if you don't want to use it.</p>
+                    <h3 id="details-for-what-you-just-did">Details For What You Just Did</h3>
+                    <p>You moved the entire <code><%= timelineName %></code> folder from your exported animation into your React project <strong>(without editing anything)</strong>.</p>
+                    <p>You imported a React component by using a <strong>single line of code</strong>: <br/><code>import <%=timelineName%> from "./components/<%=timelineName%>";</code></p>
+                    <p>You inserted your component using <strong>a single tag</strong>:<br/><code><%= Web.escapeOpenClosingTags(input: process("button/timelineToggleButton.html.flt", into: nil, indentation: 0)) -%></code></p>
+                    <p>You learned that the <b>elementID</b> property needs to be unique and that the <b>callback</b> property takes in a function that will execute at the end of the Animation.</p>
+                    <h2 id="flowcommon">FlowCommon</h2>
+                    <p>These are a set of files you’ll need to run your component on the web. One is a polyfill for the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API">Web Animations</a> api, the others are a player and a button class.</p>
+
+                    <p>The files are:</p>
+
+                    <h3>web-animations.min.js</h3>
+                    <p>The polyfill for the Web Animations api. This file comes from [W3C's Github Page](https://github.com/web-animations/web-animations-js), and is maintanied by W3C.</p>
+
+                    <h3>player.js</h3>
+                    <p>This file is the thing that actually controls your animations. If you want to learn some more about it, have a look at our <a href="https://createwithflow.com/docs/driverPlayer/?utm_source=readme&utm_medium=HTML%20Toggle%20Button%20Web%20Component#playerjs">player documentation</a>.</p>
+
+                    <h3>ToggleButton.js</h3>
+                    <p>This file is the button class that contains your component and handles user clicks. It also contains a player that drives your animation.</p>
+
+                    <h2 id="connect-with-us">Connect With Us</h2>
+                    <p>If you have questions about this, please reach out either:</p>
+
+                    <ul>
+                      <li>by <a href="mailto:info@createwithflow.com?subject=I Need Help Working With Components">email</a></li>
+                      <li>on our <a href="http://join-createwithflow.herokuapp.com">Slack Group</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>

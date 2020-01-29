@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="EN">
+<head>
+<title><%= timelineName %></title>
+    <meta charset="utf-8">
+    <%- insert("js/components/loadFlowCommonScripts.js.flt", from: Web, indentation: 1) %>
+    <%- insert("loadTimelineScripts.js.flt", indentation: 1) %>
+</head>
+
+<body>
+    <% var instanceSuffix = ""; insert("button/timelineToggleButton.html.flt", indentation: 1) %>
+</body>
+
+</html>

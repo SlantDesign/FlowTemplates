@@ -1,0 +1,4 @@
+background-image: url(<%= Web.imagePath(image: layer.image, importImage: importImage, relativePath:"../img", imageFolderAbsPath: imageFolderAbsPath, relative: relative) %>);
+background-size:  <%= Web.cssBackgroundSize(layer.contentMode) %>;
+background-repeat: no-repeat;
+background-position: <%= Web.cssBackgroundPosition(layer.contentMode) %>;

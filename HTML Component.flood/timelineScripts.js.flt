@@ -1,0 +1,10 @@
+function createScripts(resourcesPath) {
+    let sources = [
+        `${resourcesPath}/js/<%= timelineName %>Component.js`,
+        `${resourcesPath}/js/<%= forwardTimelineName %>.js`,
+        `${resourcesPath}/js/instances.js`
+    ];
+    loadScripts(sources);
+}
+
+createScripts(<%= resourcesPath %>);

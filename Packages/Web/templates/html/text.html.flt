@@ -1,0 +1,29 @@
+<div class="flow-layer <%= id %>">
+<%- if layer.attributedString != nil -%>
+  <%- for run in layer.attributedString.runs -%>
+  <%--%><span style="
+    <%- if run.attributes["font"] != nil -%>
+    font-family:<%= run.attributes["font"].name %>;
+    font-size:<%= run.attributes["font"].size %>;
+    <%- end -%>
+    <%- if run.attributes["foregroundColor"] != nil -%>
+    fill:<%= run.attributes["foregroundColor"].hex %>;
+    <%- end -%>
+    <%- if run.attributes["backgroundColor"] != nil -%>
+    background-color:<%= run.attributes["backgroundColor"].hex %>;
+    <%- end -%>
+    <%- if run.attributes["underlineStyle"] != nil && run.attributes["underlineStyle"] != 0 -%>
+    text-decoration:underline;
+    <%- end -%>
+    <%- if run.attributes["strikethroughStyle"] != nil && run.attributes["strikethroughStyle"] != 0 -%>
+    text-decoration:line-through;
+    <%- end -%>
+    <%- var shadow = run.attributes["shadow"]; if shadow != nil -%>
+    text-shadow:<%= shadow.offset.x %> <%= shadow.offset.y %> <%= shadow.blurRadius %> <%= shadow.color.hex %>;
+    <%- end -%>
+  "><%= run.string %></span><%--%>
+  <%- end -%>
+<%- else if layer.string != nil -%>
+  <%= layer.string %>
+<%- end -%>
+</div>

@@ -1,0 +1,10 @@
+<%- import Swift 
+
+var tracks = timeline.tracksForLayer(layer)
+var symbol = symbolTable.symbolForID(layer.id, "")
+
+if symbol != nil -%>// Keyframe Animations for <%= symbol.name %>
+    <%- for track in tracks -%>
+        <%- insert("Animation/CAKeyframeAnimation.flt", from: Swift, indentation: indentation) -%>
+    <%- end 
+end -%>

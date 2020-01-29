@@ -1,0 +1,175 @@
+<div class="container content integrating an html button tutorials">
+    <div class="row">
+        <div class="col-md-3 d-none d-md-block float-left">
+            <br><br>
+            <div id="toc" class="d-none d-md-block toc sticky">
+                <ul class="toc-ul-root nav">
+                    <li><a class="nav-link toc-link-1" href="#custom-code"><span>1.</span>Custom Code</a></li>
+                    <li><a class="nav-link toc-link-1" href="#folder-breakdown"><span>2.</span>Folder Breakdown</a></li>
+                    <li><a class="nav-link toc-link-1" href="#integrating-a-single-instance"><span>3.</span>Integrating a Single Instance</a></li>
+                    <li><a class="nav-link toc-link-1" href="#multiple-instances"><span>4.</span>Multiple Instances</a></li>
+                    <li><a class="nav-link toc-link-1" href="#multiple-types"><span>5.</span>Multiple Types</a></li>
+                    <li><a class="nav-link toc-link-1" href="#make-things-global"><span>6.</span>Make Things Global</a></li>
+                    <li><a class="nav-link toc-link-1" href="#flowcommon"><span>7.</span>Flow Common</a></li>
+                    <li><a class="nav-link toc-link-1" href="#connect-with-us"><span>8.</span>Connect With Us</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-9 col-lg-9 tutorial relative">
+            <div class="row justify-content-left">
+                <div class="col-auto">
+                    <p class="post-tags">
+                        <small class="blue">
+                            WebComponent,
+                            HTML,
+                            Button
+                        </small>
+                    </p>
+                </div>
+            </div>
+            <hr class="underliner">
+            <div class="docs-content">
+                <h1>Integrating an HTML Button</h1>
+                <p class="intro">This document covers all the details you need to know to integrate an HTML button into your site. The steps below pertain to the <u>HTML Toggle Button – WebComponent</u> export.</p>
+                <p class="intro">When working through this doc, remember:</p>
+                <ul class="readme">
+                    <li>The code below contains variables from your Flow file.</li>
+                    <li>That means you can copy and paste it verbatim into your project.</li>
+                    <li>We used our code export engine to produce it, so you can be sure that it is <b>exact</b></li>
+                </ul>
+                <h2 id="custom-code">Custom Code</h2>
+                <p>Every time you export a timeline to code it varies depending on the animations, layer names, etc.
+                    To ensure these instructions are crystal clear they are tailored to the code you have just exported.
+                    For example, the name of the timeline you just exported is: <code class="highlighter-rouge"><%= timelineName %></code>.</p>
+                <p>Let’s get to it.</p>
+                <h2 id="folder-breakdown">Folder Breakdown</h2>
+                <p>When you export a project you’ll see the following structure:</p>
+                <ul>
+                    <li><%= timelineFolder %> (Folder)
+                        <ul>
+                            <li>css (Folder)</li>
+                            <li>FlowCommon (Folder)</li>
+                            <li>fonts (Folder)</li>
+                            <li>img (Folder)</li>
+                            <li>index.html</li>
+                            <li>js (Folder)</li>
+                            <li>readme.html</li>
+                        </ul>
+                    </li>
+                </ul>
+                <p>The <code class="highlighter-rouge">index.html</code> file is included to allow you to quickly view/test your toggle button in a browser without having to integrate it into a webpage. You can get rid of it along with the <code class="highlighter-rouge">readme.html</code> before integrating your button code.</p>
+                <h2 id="integrating-a-single-instance">Integrating a Single Instance</h2>
+                <p>This section explains how to integrate a single instance of your component on a webpage. If you want to reuse the component several times throughout a page, you'll have to follow these steps, then continue with those in <a href="#multiple-instances">Multiple Instances</a> section.</p>
+                <ol>
+                    <li>The first step is to move the entire <code class="highlighter-rouge"><%= timelineFolder %></code> folder to a location of your choice inside your site’s file structure.</li>
+                    <li>Add the following code to the <code class="highlighter-rouge">&lt;head&gt;</code> or <code class="highlighter-rouge">&lt;footer&gt;</code> of your page.
+                        <div class="highlighter-rouge">
+                            <div class="highlight">
+                                <pre class="highlight">
+                                    <code><%= Web.escapeOpenClosingTags(input: process("js/components/loadFlowCommonScripts.js.flt", from: Web, into: nil, indentation: 0)) %></code>
+                                </pre>
+                            </div>
+                        </div>
+                    </li>
+                    <li>Also, add the following code to the <code class="highlighter-rouge">&lt;head&gt;</code> or <code class="highlighter-rouge">&lt;footer&gt;</code> of your page. Make sure this script executes after the script in step 2.
+                        <div class="highlighter-rouge">
+                            <div class="highlight">
+                                <pre class="highlight">
+                                    <code><%= Web.escapeOpenClosingTags(input: process("loadTimelineScripts.js.flt", into: nil, indentation: 0)) %></code>
+                                </pre>
+                            </div>
+                        </div>
+                    </li>
+                    <li>Integrate your button into your page by copy/pasting the following line of code into your page:
+                        <div class="highlighter-rouge">
+                            <div class="highlight">
+                                <pre class="highlight">
+                                <code><%var instanceSuffix = "";%><%= Web.escapeOpenClosingTags(input: process("button/timelineToggleButton.html.flt", into: nil, indentation: 0)) -%></code>
+                                </pre>
+                            </div>
+                        </div>
+                    </li>
+                    <li>Refresh the page to see the button.
+                        <blockquote>
+                            <p>If the button doesn’t show up at this point, check your browser’s console to see if there is an issue with either of the <code class="highlighter-rouge">commonFolderPath</code> or the <code class="highlighter-rouge"><%= resourcesPath %></code>.</p>
+                        </blockquote>
+                    </li>
+                    <li>To make your button actually do something, add some logic to the callback method:
+                        <div class="highlighter-rouge">
+                            <div class="highlight">
+                                <pre class="highlight"><code>
+function callback() {
+    //put your logic code here
+}</code>
+                                </pre>
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+                <h3 id="details-for-what-you-just-did">Details For What You Just Did</h3>
+                <p>You just integrated 2 scripts into your page. The first dynamically injects a few common scripts (used by all the Flow Web exports) into the <code class="highlighter-rouge">&lt;head&gt;</code> of your page.</p>
+                <p><code class="highlighter-rouge">commonFolderPath</code> is where the path to the Flow Common folder is specified. If you decide to move the FlowCommon folder, you must update the value of this variable.</p>
+                <p>The second script injects the timeline that drives the button’s animation. It also defines a callback which is triggered when the button’s state is toggled. You can replace the code inside of this callback with what ever logic you would like to trigger when the button is clicked.</p>
+                <p><code class="highlighter-rouge"><%= resourcesPath %></code> is where you specify the path to the <%= timelineFolder %> folder. You must update the value of this variable based on the new location you have chosen for your <%= timelineFolder %> folder.</p>
+                <p>The <code class="highlighter-rouge">callback()</code> gets triggered when the button’s animation completes.</p>
+                <h2 id="multiple-instances">Multiple Instances</h2>
+                <p>If you want multiple instances of a buttons on a page, do the following:</p>
+                <ol>
+                    <li>Create a second (third, or fourth…) instance of your button in <code class="highlighter-rouge">instances.js</code> by creating another <code class="highlighter-rouge">ToggleButton</code> variable with a different ID. For example:
+                        <div class="highlighter-rouge">
+                            <div class="highlight">
+                                <pre class="highlight">
+                                    <code><%instanceSuffix = "1";%><%= Web.escapeOpenClosingTags(input: process("button/instance.js.flt", into: nil, indentation: 0)) %></code>
+                                </pre>
+                            </div>
+                        </div>
+                    </li>
+                    <li>Add another button element to your page which uses the new ToggleButton variable you created in the previous step. For example:
+                        <div class="highlighter-rouge">
+                            <div class="highlight">
+                                <pre class="highlight"><code><%instanceSuffix = "1";%><%= Web.escapeOpenClosingTags(input: process("button/timelineToggleButton.html.flt", into: nil, indentation: 0)) %></code></pre>
+                            </div>
+                        </div>
+                    </li>
+                    <li>Refresh your browser and enjoy your second ToggleButton!</li>
+                </ol>
+                <p>For each new ToggleButton instance you would like to create, repeat the steps above using new variable names.</p>
+                <h2 id="multiple-types">Multiple Types</h2>
+                <p>If you want a different toggle button (with different timelines) on your page do the following:</p>
+                <ol>
+                    <li>Export another timeline</li>
+                    <li>Delete the <code class="highlighter-rouge">FlowCommon</code> folder from the exported code</li>
+                    <li>Add the folder to your project, right next to your first <%= timelineFolder %> folder.</li>
+                    <li>Hook everything up, by following the steps in the <a href="#integrating-a-single-instance">first section</a>.</li>
+                    <li>Refresh your browser.</li>
+                </ol>
+                <p>Repeat the steps above for each additional type you would like to integrate into your page.</p>
+                <h2 id="make-things-global">Make Things Global</h2>
+                <p>Best practice is to put the <%= timelineFolder %> and FlowCommon folders in a directory on your site that can be accessed from any other page.</p>
+                <p>Remember to modify the <code class="highlighter-rouge">commonFolderPath</code> or the <code class="highlighter-rouge"><%= resourcesPath %></code> variables to point to these folders if you do so.</p>
+                <p>You’ll want to <strong>make sure the common files are only imported one time on your page.</strong></p>
+                <h2 id="flowcommon">FlowCommon</h2>
+                <p>These are a set of files you’ll need to run your component on the web. One is a polyfill for the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API">Web Animations</a> api, the others are a player and a button class.</p>
+
+                <p>The files are:</p>
+
+                <h3>web-animations.min.js</h3>
+                <p>The polyfill for the Web Animations api. This file comes from [W3C's Github Page](https://github.com/web-animations/web-animations-js), and is maintanied by W3C.</p>
+
+                <h3>player.js</h3>
+                <p>This file is the thing that actually controls your animations. If you want to learn some more about it, have a look at our <a href="https://createwithflow.com/docs/driverPlayer/?utm_source=readme&utm_medium=HTML%20Toggle%20Button%20Web%20Component#playerjs">player documentation</a>.</p>
+
+                <h3>ToggleButton.js</h3>
+                <p>This file is the button class that contains your component and handles user clicks. It also contains a player that drives your animation.</p>
+
+                <h2 id="connect-with-us">Connect With Us</h2>
+                <p>If you have questions about this, please reach out either:</p>
+
+                <ul>
+                  <li>by <a href="mailto:info@createwithflow.com?subject=I Need Help Working With Components">email</a></li>
+                  <li>on our <a href="http://join-createwithflow.herokuapp.com">Slack Group</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

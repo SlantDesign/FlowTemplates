@@ -1,0 +1,41 @@
+// Made With Flow.
+//
+// DO NOT MODIFY, your changes will be lost when this file is regenerated.
+//
+
+import UIKit
+
+public class <%= viewControllerClassName %>: UIViewController, UIScrollViewDelegate {
+    @IBOutlet public weak var <%= timeline.scene.name.lowerCamelCased() %>: <%= viewName %>!
+    @IBOutlet public weak var scrollview: UIScrollView!
+    @IBOutlet var pageControl: UIPageControl!
+
+    private var keytimes: CGFloat = <%= numberOfPages %>
+    public var timeline: Timeline!
+
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        <%= timeline.scene.name.lowerCamelCased() %>.clipsToBounds = true
+        timeline = <%= timelineName %>(view: <%= timeline.scene.name.lowerCamelCased() %>, duration: <%= timeline.duration %>)
+        setupScrollView()
+    }
+
+    private func setupScrollView() {
+        scrollview.delegate = self
+        scrollview.isPagingEnabled = true
+        scrollview.showsVerticalScrollIndicator = false
+        scrollview.showsHorizontalScrollIndicator  = false
+        scrollview.contentSize = CGSize(width: scrollview.frame.width * (keytimes + 1), height: 1)
+    }
+
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let contentOffset = scrollView.contentOffset.x
+        let time = Double(contentOffset / scrollView.frame.width)
+        offset(time: time)
+    }
+
+    private func offset(time: TimeInterval) {
+        timeline.offset(to: time)
+        pageControl.currentPage = Int(time.rounded())
+    }
+}

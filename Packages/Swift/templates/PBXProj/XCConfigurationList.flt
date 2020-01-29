@@ -1,0 +1,20 @@
+/* Begin XCConfigurationList section */
+		<%= projectName.snakeCased() %>_Project_ConfigurationList /* Build configuration list for PBXProject "<%= projectName %>" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				Debug_Project_Debug_BuildConfiguration /* Debug */,
+				Release_Project_Release_BuildConfiguration /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		<%= projectName.snakeCased() %>_Target_ConfigurationList /* Build configuration list for PBXNativeTarget "<%= projectName %>" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				<%= projectName.snakeCased() %>_Target_Debug_BuildConfiguration /* Debug */,
+				<%= projectName.snakeCased() %>_Target_Release_BuildConfiguration /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */

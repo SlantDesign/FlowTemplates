@@ -1,0 +1,19 @@
+---
+---
+<% for timeline in timelines 
+    var name = folderTable.symbolForID(timeline.id, "\(outputFolderPath)/\(documentFolderName)/\(templateFolderName)").name -%>
+{% include_relative <%= name %>.js %}
+<% end -%>
+
+<% 
+var loops = true
+var delay = 1000
+for timeline in timelines 
+    var name = folderTable.symbolForID(timeline.id, "\(outputFolderPath)/\(documentFolderName)/\(templateFolderName)").name -%>
+var <%= name.lowercased() %>Player = new Player(<%= name %>, "<%= name %>Timer", <%= loops %>, <%= delay %>)
+<% end -%>
+
+<% for timeline in timelines 
+    var name = folderTable.symbolForID(timeline.id, "\(outputFolderPath)/\(documentFolderName)/\(templateFolderName)").name.lowercased() -%>
+<%= name %>Player.play()
+<% end -%>

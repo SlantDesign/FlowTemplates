@@ -1,0 +1,2 @@
+<%= symbol.name %>.image = #imageLiteral(resourceName: "<%= snapshot.image.name %>")
+<%= symbol.name %>.layer.contentsGravity = <%= Swift.code(snapshot.contentMode, layer: snapshot) %>

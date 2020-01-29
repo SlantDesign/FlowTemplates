@@ -1,0 +1,9 @@
+<%
+  for animation in animations
+    var propertyName = Web.jsPropertyName(property: animation.property)
+    if propertyName == nil || propertyName == "" continue end
+    var imageFolderPath = Web.pathPrefix(relativePath: "./img", absolutePath: imageFolderAbsPath, relative: relative)
+    var from = Web.cssValue(property: animation.property, value: animation.from, layer: layer, imageFolderPath: imageFolderPath, importImage: importImage)
+    var to = Web.cssValue(property: animation.property, value: animation.to, layer: layer, imageFolderPath: imageFolderPath, importImage: importImage) -%>
+<%= propertyName %>: [<%= from %>, <%= to %>],
+<%end -%>

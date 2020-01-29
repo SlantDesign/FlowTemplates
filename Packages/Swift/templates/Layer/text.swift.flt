@@ -1,0 +1,19 @@
+<%- import Swift
+if snapshot.attributedString != nil -%>
+<%= symbol.name %>.textLayer.string = {
+    let string = <% printCodeFor(string: snapshot.attributedString.string, withIndentation: "                ") %>
+    let attrString = NSMutableAttributedString(string: string)
+    <%- for run in snapshot.attributedString.runs -%>
+    attrString.setAttributes(<% printDictionary(run.attributes, keyPrinter: printAttrStringKey, valuePrinter: printAttrStringValue, indentation: "            ") %>, range: NSRange(location: <%= run.location %>, length: <%= run.length %>))
+    <%- end -%>
+    return attrString
+}()
+<%- else if snapshot.string != nil -%>
+<%= symbol.name %>.textLayer.string = <% printCodeFor(string: snapshot.string, withIndentation: "            ") %>
+<%= symbol.name %>.textLayer.font = "<%= snapshot.font.name %>" as NSString
+<%= symbol.name %>.textLayer.fontSize = <%= snapshot.fontSize %>
+<%= symbol.name %>.textLayer.foregroundColor = <%= Swift.code(snapshot.foregroundColor, layer: snapshot) %>.cgColor
+<%- end -%>
+<%= symbol.name %>.textLayer.alignmentMode = .<%= snapshot.alignment.name %>
+<%= symbol.name %>.textLayer.truncationMode = .<%= snapshot.truncation.name  %>
+<%= symbol.name %>.textLayer.isWrapped = <%= snapshot.truncation.name == "none" %>

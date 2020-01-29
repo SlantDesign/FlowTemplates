@@ -1,0 +1,31 @@
+import React from "react";
+import <%= timelineComponentName %> from "./<%= timelineComponentName %>";
+import {createToggleButton} from "../FlowCommon/ToggleButton";
+import <%= forwardTimelineName %> from "./<%= forwardTimelineName %>";
+import <%= reverseTimelineName %> from "./<%= reverseTimelineName %>";
+
+export default class <%= timelineName %> extends React.Component {
+  constructor() {
+    super();
+  }
+
+  componentDidMount() {
+    let toggleButton = createToggleButton(
+      this.props.elementID,
+      this.props.callback,
+      ".",
+      <%= forwardTimelineName %>,
+      <%= reverseTimelineName %>
+    );
+    this.setState({ toggleButton });
+  }
+
+  render() {
+    return (
+      <<%= customElementName %>
+        id={this.props.elementID}
+        onClick={() => this.state.toggleButton.toggle(true)}
+      ></<%= customElementName %>>
+    );
+  }
+}

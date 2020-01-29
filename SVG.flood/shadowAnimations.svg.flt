@@ -1,0 +1,32 @@
+<%-
+for track in tracks
+  var values = []
+  var keytimes = []
+  var attributeName = svgAttributeName(of: track.property)
+  for keyvalue in track.keyvaluesWithSimulatedSteps
+    keytimes = keytimes.appending(keyvalue.time / timeline.duration)
+    values = values.appending(svgValue(keyvalue.value, property: track.property, layer: layer))
+  end
+
+  var keysplines = []
+  for animation in track.animationsFromKeyvaluesWithSimulatedSteps
+    var c1 = animation.timingFunction.controlPoints[0]
+    var c2 = animation.timingFunction.controlPoints[1]
+    keysplines = keysplines.appending("\(c1.x) \(c1.y) \(c2.x) \(c2.y)")
+  end
+-%>
+<animate
+  href="#<%= id %>-shadow-filter"
+  attributeName="<%= attributeName %>"
+  values="<%= values.joined(separator: ";") %>"
+  dur="1s"
+  fill="freeze"
+  calcMode="spline"
+  keyTimes="<%= keytimes.joined(separator: ";") %>"
+  keySplines="<%= keysplines.joined(separator: ";") %>"
+  <%- if repeats -%>
+  repeatCount="indefinite"
+  <%- end -%>
+  attributeType="XML"
+/>
+<% end %>
