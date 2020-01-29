@@ -1,9 +1,0 @@
-<defs>
-  <filter id="<%= id %>-shadow" x="-50%" y="-50%" height="200%" width="200%" filterUnits="userSpaceOnUse">
-    <feDropShadow id="<%= id %>-shadow-filter" dx="<%= layer.shadowOffset.width %>" dy="<%= layer.shadowOffset.height %>" flood-color="<%= layer.shadowColor.hex %>" stdDeviation="<%= layer.shadowRadius %>"/>
-  </filter>
-  <%- 
-  var tracks = timeline.tracksForLayer(layer.layer).filter(trackIsForShadow)
-  insert("shadowAnimations.svg.flt", indentation: indentation + 1)
-  -%>
-</defs>
