@@ -1,0 +1,97 @@
+<%-
+var symbol = symbolTable.symbolForID(layer.id, "")
+if symbol == nil
+    symbol = symbolTable.addSymbolWithSuggestedName(layer.name.snakeCased(), type: "id", context: "", id: layer.id)
+end
+var id = symbol.name
+var groups = []
+
+insert("js/transformAnimations.js.flt", from: Web, indentation: indentation)
+insert("js/shadowAnimations.js.flt", from: Web, indentation: indentation)
+
+// Border animations
+groups = groupAnimationsByTiming(timeline.animationsForLayer(layer).filter(Web.animationIsForBorder))
+var borderAnimationIndex = 0
+for group in groups
+  var animations = group.animations
+  if !animations.isEmpty
+    var animationName = "\(id)BorderAnimation\(borderAnimationIndex)"
+    animationNames = animationNames.appending(animationName) -%>
+<%= animationName %>() {
+    return this.rootElement.querySelector('#<%= timelineName %> .flow-border.<%= symbol.name %>-border').animate({
+<%  insert("js/layerAnimationBlock.flt", from: Web, indentation: indentation + 2) %>
+    }, {
+<%  insert("js/animationParameters.js.flt", from: Web, indentation: indentation + 2) %>
+    });
+}
+<%
+    borderAnimationIndex = borderAnimationIndex + 1
+  end
+end
+
+// Gradient animations
+groups = groupAnimationsByTiming(timeline.animationsFor(layer: layer, property: "fillGradient"))
+var gradientAnimationIndex = 0
+for group in groups
+  for animation in group.animations
+    for i in 0 ..< animation.from.stops.count
+      var animationName = "\(id)GradientAnimation\(gradientAnimationIndex)"
+      animationNames = animationNames.appending(animationName) -%>
+<%= animationName %>() {
+    return this.rootElement.querySelector('#<%= timelineName %> .<%= symbol.name %>-svg .stop<%= i %>').animate({
+        stopColor: ['<%= animation.from.stops[i].color.hex %>', '<%= animation.to.stops[i].color.hex %>'],
+    }, {
+<%    insert("js/animationParameters.js.flt", from: Web, indentation: indentation + 2) %>
+    });
+}
+<%
+      gradientAnimationIndex = gradientAnimationIndex + 1
+    end
+  end
+end
+
+insert("js/contentsGravityAnimations.js.flt", from: Web, indentation: 0)
+
+// General animations
+var animationIndex = 0
+for group in timeline.animationsByTimingForLayer(layer)
+  var animations = group.animations.filter(Web.animationIsForRoot)
+  if !animations.isEmpty
+    var animationName = "\(id)Animation\(animationIndex)"
+    animationNames = animationNames.appending(animationName) -%>
+<%= animationName %>() {
+    return this.rootElement.querySelector('#<%= timelineName %> .<%= symbol.name %>').animate({
+<%  insert("js/layerAnimationBlock.flt", from: Web, indentation: indentation + 2) %>
+    }, {
+<%  insert("js/animationParameters.js.flt", from: Web, indentation: indentation + 2) %>
+    });
+}
+<%
+    animationIndex = animationIndex + 1
+  end
+end
+
+// Shape-specific animations applied to the SVG element
+var shapeAnimationIndex = 0
+if layer.type.name == "shape" && !timeline.nonPathShapeTracksFor(layer: layer).isEmpty
+  for group in timeline.animationsByTimingForLayer(layer)
+    var animations = group.animations.filter(Web.animationIsForShapeProperty)
+    var animationName = "\(id)ShapeAnimation\(shapeAnimationIndex)"
+    animationNames = animationNames.appending(animationName) -%>
+<%= animationName %>() {
+    return this.rootElement.querySelector('#<%= timelineName %> .<%= symbol.name %>-svg').animate({
+<%  insert("js/layerAnimationBlock.flt", from: Web, indentation: indentation + 2) %>
+    }, {
+<%  insert("js/animationParameters.js.flt", from: Web, indentation: indentation + 2) %>
+    });
+}
+<%
+    shapeAnimationIndex = shapeAnimationIndex + 1
+  end
+end
+
+for layer in layer.sublayers
+  if layer.type.name != "path"
+    insert("js/layerAnimation.js.flt", from: Web, indentation: 1)
+  end
+end -%>

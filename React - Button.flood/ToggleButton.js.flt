@@ -1,0 +1,3 @@
+import Player from "./player";
+<% insert("js/components/ToggleButton.js.flt", from: Web, indentation: 0) %>
+export {ToggleButton, createToggleButton};

@@ -1,0 +1,7 @@
+let <%= timelineNameLowercased %>Button<%= instanceSuffix %> = createToggleButton(
+  "<%= timelineNameLowercased %>Button<%= instanceSuffix %>",
+  callback,
+  <%= resourcesPath %>,
+  <%= forwardTimelineName %>,
+  <%= reverseTimelineName %>
+);

@@ -1,0 +1,1 @@
+<stop class="stop<%= i %>" offset="<%= stop.position * 100 %>%" stop-color="<%= stop.color.hex %>" ></stop>

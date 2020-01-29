@@ -1,0 +1,28 @@
+<% if layer.strokeColor != Color.clear -%>
+stroke: <%= layer.strokeColor.hex %>;
+<% end -%>
+<% if layer.fillGradient != nil -%>
+fill: url(#<%= id %>-fill);
+<% else if layer.fillImage !=nil -%>
+fill: url("#<%= timeline.name %>-<%= id %>-fillImage");
+<% else -%>
+fill: <%= layer.fillColor.hex %>;
+<% end -%>
+<% if layer.lineCap.name != "butt" -%>
+stroke-linecap: <%= layer.lineCap.name %>;
+<% end -%>
+<% if layer.lineJoin.name != "miter" -%>
+stroke-linejoin: <%= layer.lineJoin.name %>;
+<% end -%>
+<% if layer.miterLimit != 4 -%>
+stroke-miterlimit: <%= layer.miterLimit %>;
+<% end -%>
+<% if layer.dashPattern != [] -%>
+stroke-dasharray: <%= Web.printDashPatternArray(layer.dashPattern) %>;
+<% end -%>
+<% if layer.dashPatternOffset != 0 -%>
+stroke-dashoffset: <%= layer.dashPatternOffset %>;
+<% end -%>
+<% if layer.strokeWidth != 1 -%>
+stroke-width: <%= layer.strokeWidth %>px;
+<% end -%>

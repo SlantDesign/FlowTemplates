@@ -1,0 +1,30 @@
+// Made With Flow.
+//
+// DO NOT MODIFY, your changes will be lost when this file is regenerated.
+//
+
+import UIKit
+
+public class <%= viewControllerClassName %>: UIViewController {
+    @IBOutlet public weak var <%= timeline.scene.name.lowerCamelCased() %>: <%= viewName %>!
+    public var timeline: <%= timelineName %>!
+
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        <%= timeline.scene.name.lowerCamelCased() %>.clipsToBounds = true
+        timeline = <%= timelineName %>(view: <%= timeline.scene.name.lowerCamelCased() %>, duration: <%= timeline.duration %>)
+
+        timeline.play()
+        DispatchQueue.main.asyncAfter(deadline: .now() + timeline.duration) {
+            self.showStartViewController()
+        }
+    }
+
+    private func showStartViewController() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let startViewController = storyboard.instantiateViewController(withIdentifier: "StartViewController")
+        startViewController.modalPresentationStyle = .custom
+        startViewController.modalTransitionStyle = .crossDissolve
+        present(startViewController, animated: true, completion: nil)
+    }
+}

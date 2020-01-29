@@ -1,0 +1,40 @@
+execute("lib/util.flp")
+execute("lib/fonts.flp")
+
+/// Returns the SVG attribute name of a property.
+func attributeName(of property)
+  switch property.id
+  case "combinedPath": return "d"
+  case "maskPath": return "d"
+  end
+end
+
+/// Returns the SVG transform string for a layer.
+func transform(of layer)
+  var x = layer.position.x - layer.anchorPoint.x * layer.size.width
+  var y = layer.position.y - layer.anchorPoint.y * layer.size.height
+  var transform
+  transform = "translate(\(x) \(y)) rotate(\(layer.rotation.degrees))"
+  return transform
+end
+
+/// Returns the SVG representation of a dash pattern array.
+func printDashPatternArray(_ array)
+  if array.isEmpty
+    return "0"
+  end
+  return array.joined(separator: ",")
+end
+
+func alignmentCode(_ alignment)
+  switch alignment.name
+  case "left": return "start"
+  case "center": return "middle"
+  case "right": return "end"
+  default: return "inherit"
+  end
+end
+
+func escapeOpenClosingTags(input)
+  return input.replacingOccurrences(of: "<", with: "&lt;").replacingOccurrences(of: ">", with: "&gt;")
+end

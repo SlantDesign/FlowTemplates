@@ -1,0 +1,32 @@
+"use strict";
+
+(function() {
+    class <%= timelineName %> extends HTMLElement {
+        constructor() {
+            super();
+
+            const shadow = this.attachShadow({ mode: "open" });
+            const <%= timelineNameLowercased %> = document.createElement("div");
+            <%= timelineNameLowercased %>.id = "container";
+            <%= timelineNameLowercased %>.innerHTML = `
+
+<head>
+    <title><%= timelineName %></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="${<%= resourcesPath %>}<%= Web.pathPrefix(relativePath: "/css", absolutePath: cssFolderAbsPath, relative: relative) %>/<%= timelineName %>.css">
+</head>
+
+    <!-- A div element is used instead of a button to avoid default properties, 
+         as well as allowing the element to resize with the animation. -->
+        <% insert("html/artboard.html.flt", from: Web, indentation: 2) %>
+    `;
+    shadow.append(<%= timelineNameLowercased %>);
+
+      const timer = document.createElement("div");
+      timer.id = "timerID";
+      <%= timelineNameLowercased %>.append(timer);
+        }
+    }
+    customElements.define("<%= timelineNameLowercased %>-element", <%= timelineName %>); 
+})();

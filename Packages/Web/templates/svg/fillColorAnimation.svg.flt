@@ -1,0 +1,6 @@
+<%-
+/// Input: timeline, layer
+var attributeName = "fill"
+var property = "fillColor"
+insert("svg/propertyAnimation.svg.flt", from: Web, indentation: 0) 
+-%>

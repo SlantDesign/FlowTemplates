@@ -1,0 +1,171 @@
+/**
+* Class representing the <%= timelineClassName %> timeline.
+*
+* Made with Flow
+*/
+
+class <%= timelineClassName %> {
+    /**
+    * @constructor
+    *
+    * @param {HTMLElement} rootElement
+    *   Root Element of the DOM containing the elements that will be animated in this timeline.
+    *
+    * @param {String} resourcesPath
+    *   The path pointing to the root of the Timeline folder.
+    */
+    constructor(rootElement, resourcesPath) {
+        this.rootElement = rootElement;
+        this.resourcesPath = resourcesPath;
+        this.imagesFolderPath = resourcesPath + "/img";
+        this.loadFillImages();
+    }
+
+    /**
+    * Returns the timeline's duration in milliseconds.
+    */
+    get duration() { return <%= timeline.duration * 1000 %> }
+
+	loadFillImages() {
+        let pattern;
+<%- for layer in layer.descendants 
+	if layer.type.name == "shape" 
+ 		if layer.fillImage != nil 
+        var symbol = symbolTable.symbolForID(layer.id, "")
+        if symbol == nil
+        symbol = symbolTable.addSymbolWithSuggestedName(layer.name.snakeCased(), type: "id", context: "", id: layer.id)
+        end
+        var id = symbol.name -%>
+        pattern = this.rootElement.getElementById("<%= timelineName%>-<%= id %>-fillImage")
+        pattern.innerHTML = `<%- insert("/svg/image.svg.flt", from: Web, indentation: 1) -%>`
+        <%- if layer.fillImage.patternFillType == 0 -%>
+        pattern.setAttribute("width", "<%= layer.fillImage.tileSize.width %>");
+        pattern.setAttribute("height", "<%= layer.fillImage.tileSize.height %>");
+        <%- else -%>
+        pattern.setAttribute("width", "100%");
+        pattern.setAttribute("height", "100%");
+        <%- end -%>
+
+		<%- end
+	end 
+end -%>
+	}
+  
+    loadSVGAnimations() {
+        this.loadSVGShapeAnimations()
+        this.loadSVGShapeMaskAnimations()
+    }
+
+    loadSVGShapeAnimations() {
+        // Path Animations
+        let path;<%-
+    for layer in layer.descendants
+        if layer.type.name == "shape"
+            var symbol = symbolTable.symbolForID(layer.id, "")
+            if symbol == nil
+                symbol = symbolTable.addSymbolWithSuggestedName(layer.name.snakeCased(), type: "id", context: "", id: layer.id)
+            end
+            var id = symbol.name
+-%>         
+        path = this.rootElement.getElementById("<%= id %>-path")
+        path.d = "<%= layer.path.svgc(size: layer.size) %>"
+        path.innerHTML = `
+<%- insert("svg/pathAnimation.svg.flt", from: Web, indentation: 2)
+insert("svg/viewBoxAnimation.svg.flt", from: Web, indentation: 2)
+insert("svg/fillColorAnimation.svg.flt", from: Web, indentation: 2) -%>`
+<%      end 
+    end -%>
+
+        // Gradient Animations
+        let defs;<%-
+    for layer in layer.descendants
+        if layer.type.name == "shape"
+            var symbol = symbolTable.symbolForID(layer.id, "")
+            if symbol == nil
+                symbol = symbolTable.addSymbolWithSuggestedName(layer.name.snakeCased(), type: "id", context: "", id: layer.id)
+            end
+            var id = symbol.name
+            var gradientTrack = timeline.trackFor(layer: layer, property: "fillGradient") 
+            if gradientTrack != nil
+-%>         
+        defs = this.rootElement.getElementById("<%= id %>-defs")
+        defs.innerHTML = `<% insert("svg/gradient.svg.flt", from: Web, indentation: 0) %>`
+            <%- end 
+        end 
+    end -%>
+    } 
+
+    loadSVGShapeMaskAnimations() {<%-
+    for layer in layer.descendants
+        if layer.type.name == "shapeMask"
+            var symbol = symbolTable.symbolForID(layer.id, "mask")
+            if symbol == nil
+                symbol = symbolTable.addSymbolWithSuggestedName("\(timeline.name.snakeCased())-\(layer.name.snakeCased())-mask", type: "id", context: "mask", id: layer.id)
+            end
+            var maskID = symbol.name
+            var property = "maskPath"
+            var pathTrack = timeline.trackFor(layer: layer, property: property) 
+            if pathTrack != nil
+-%> 
+            this.rootElement.querySelector(
+                "#<%= maskID %>"
+            ).innerHTML = `
+            <path vector-effect="non-scaling-stroke" d="<%= layer.maskPath.svgc(size: layer.size) %>">
+<% 
+            insert("svg/pathAnimation.svg.flt", from: Web, indentation: 2)
+-%>
+            </path>
+<% 
+            insert("svg/viewBoxAnimation.svg.flt", from: Web, indentation: 2)
+-%>
+        </path>
+        `
+<% 
+
+            end 
+        end 
+    end        
+-%>
+    } 
+
+    /**
+    * @return
+    * Returns the list of svg shapes that are animated in this timeline.
+    */
+    get allShapes() {
+        return [
+    <%  for shapeID in shapeIDs -%>
+        this.rootElement.querySelector("#<%= timelineName %> .<%= shapeID %>"),
+    <%  end -%>
+    ]
+    }
+
+    artboardAnimation() {
+        // Workaround for Safari bug
+        return this.rootElement.querySelector('#<%= timelineName %>.flow-artboard').animate({
+        backgroundPosition: ['0px', '1px'],
+        }, {
+            delay: 0,
+            duration: <%= timeline.duration * 1000 %>,
+        });
+    }
+    <%
+    var animationNames = []
+    for layer in layer.sublayers
+    insert("js/layerAnimation.js.flt", from: Web, indentation: 1)
+    end -%>
+
+    /**
+    * Creates and returns all animations for this timeline.
+    */
+    createAllAnimations() {
+        return [
+            this.artboardAnimation(),
+    <% for animationName in animationNames -%>
+        this.<%= animationName %>(),
+    <% end -%>
+    ]
+    }
+}
+
+Object.freeze(<%= timelineClassName %>)

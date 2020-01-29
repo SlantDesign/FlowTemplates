@@ -1,0 +1,67 @@
+<!-- Made with Flow -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= timelineName %></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="<%= Web.pathPrefix(relativePath: "./css", absolutePath: cssFolderAbsPath, relative: relative) %>/<%= timelineName %>.css">
+<% if generateUI -%>
+    <link rel="stylesheet" href="<%= Web.pathPrefix(relativePath: "./css", absolutePath: cssFolderAbsPath, relative: relative) %>/driver.css">
+<% end -%>
+</head>
+<body>
+    <% insert("html/artboard.html.flt", from: Web, indentation: 0) %>
+    <script src="<%= Web.pathPrefix(relativePath: "./FlowCommon", absolutePath: commonFolderAbsPath, relative: relative) %>/web-animations.min.js"></script>
+    <script src="<%= Web.pathPrefix(relativePath: "./js", absolutePath: jsFolderAbsPath, relative: relative) %>/<%= forwardTimelineName %>.js"></script>
+<% if generateUI -%>
+    <!-- Animation driver panel, remove if desired -->
+    <div class="playback">
+        <div class="slider">
+            <input type="range" min="0" max="1" step="0.001" value="0.0" id="<%= sliderID %>" />
+        </div>
+        <div class="controls">
+            <div class="playPauseLoop">
+                <div class="playPauseContainer loop">
+                    <input type='checkbox' id="<%= loopButtonID %>"><label for="<%= loopButtonID %>" class="loopLabel" id="loopLabel" />
+                </div>
+                <div class="playPauseContainer">
+                    <input type='checkbox' id="<%= playPauseButtonID %>"><label for="<%= playPauseButtonID %>" class="playPauseLabel" id="playPauseLabel" />
+                </div>
+                <div class="playPauseContainer">
+                    <div class="time" id="<%= timeLabelID %>">0 s</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="<%= timerID %>"></div>
+    <script src="<%= Web.pathPrefix(relativePath: "./FlowCommon", absolutePath: commonFolderAbsPath, relative: relative) %>/player.js"></script>
+    <script src="<%= Web.pathPrefix(relativePath: "./js", absolutePath: jsFolderAbsPath, relative: relative) %>/driver.js"></script>
+    <%- var driverName = "driver\(timelineName)" -%>
+    <script type="text/javascript">
+    let <%= timelineNameLowerCamelCased %>Timer = document.getElementById('<%= timerID %>')
+    let <%= resourcesPath %> = "."
+    let <%= timelineNameLowerCamelCased %> = new <%= forwardTimelineName %>(document, <%= resourcesPath %>)
+        document.<%= driverName %> = new Driver(<%= timelineNameLowerCamelCased %>, '<%= loopButtonID %>', '<%= playPauseButtonID %>', '<%= sliderID %>', '<%= timeLabelID %>', <%= timelineNameLowerCamelCased %>Timer)
+        document.<%= driverName %>.pause()
+        document.<%= driverName %>.currentTime = 0
+        document.addEventListener('keyup', function (event) {
+            if (event.defaultPrevented) {
+                return;
+            }
+
+            var key = event.key || event.keyCode;
+
+            if (key === 'Space' || key === " " || key === 32) {
+                let button = document.<%= driverName %>.playPauseButton
+                button.checked = !button.checked
+                document.<%= driverName %>.togglePlayback()
+            }
+        });
+    </script>
+
+    <!-- Animation driver panel end -->
+
+<% end -%>
+</body>
+</html>

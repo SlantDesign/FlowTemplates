@@ -1,0 +1,21 @@
+<%-
+var symbol = symbolTable.symbolForID(layer.id, "mask")
+if symbol == nil
+    symbol = symbolTable.addSymbolWithSuggestedName("\(timeline.name.snakeCased())-\(layer.name.snakeCased())-mask", type: "id", context: "mask", id: layer.id)
+end
+var maskID = symbol.name
+shapeIDs = shapeIDs.appending("\(id)-svg")
+-%>
+<div class="flow-layer <%= id %>">
+    <svg class="flow-layer <%= id %>-svg" preserveAspectRatio="none" viewBox="0 0 <%= layer.size.width %> <%= layer.size.height %>">
+        <defs>
+            <clipPath id="<%= maskID %>">
+                <path vector-effect="non-scaling-stroke" d="<%= layer.maskPath.svgc(size: layer.size) %>">
+                </path>
+            </clipPath>
+        </defs>
+    </svg>
+<% for layer in layer.sublayers -%>
+<%   insert("html/layer.html.flt", from: Web, indentation: indentation + 1) -%>
+<% end -%>
+</div>

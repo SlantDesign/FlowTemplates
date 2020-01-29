@@ -1,0 +1,14 @@
+<%
+func aspect(_ pattern)
+    switch pattern
+    case 1: return "xMidYMid slice"
+    case 3: return "xMidYMid meet"
+    default: return "none"
+    end
+end
+
+if layer.fillImage.patternFillType == 0 -%>
+<image x="0" y="0" width="<%= layer.fillImage.tileSize.width %>" height="<%= layer.fillImage.tileSize.height -%>" href="<%= Web.imagePath(image: layer.fillImage.image, importImage: importImage, relativePath: "${this.imagesFolderPath}", imageFolderAbsPath: imageFolderAbsPath, relative: relative) %>" /><% 
+else -%>
+<image x="0" y="0" width="100%" height="100%" preserveAspectRatio="<%= aspect(layer.fillImage.patternFillType) -%>" href="<%= Web.imagePath(image: layer.fillImage.image, importImage: importImage, relativePath: "${this.imagesFolderPath}", imageFolderAbsPath: imageFolderAbsPath, relative: relative) -%>" /><% 
+end -%>

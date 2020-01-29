@@ -1,0 +1,21 @@
+{
+  "uuid": "731FCF42-C33C-416E-8D46-EEE3FB69B166",
+  "title": "iOS",
+  "description": "An iOS project containing a driveable animation.",
+  "parameters": [
+    {
+      "label": "Output Folder",
+      "description": "Folder name for export, relative to main export folder",
+      "variable": "folderName",
+      "type": "text",
+      "default": "iOS"
+    },
+    {
+      "label": "Organization",
+      "description": "Organization of the exported Xcode project",
+      "variable": "organization",
+      "type": "text",
+      "default": "Flow"
+    }
+  ]
+}

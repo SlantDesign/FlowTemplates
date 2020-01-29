@@ -1,0 +1,3 @@
+let <%= symbol.name %>Mask = CAShapeLayer()
+<%= symbol.name %>Mask.path = <%= Swift.code(snapshot.maskPath, layer: snapshot) %>
+<%= symbol.name %>.layer.mask = <%= symbol.name %>Mask

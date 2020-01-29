@@ -1,0 +1,1 @@
+<<%= timelineNameLowercased %>-button id="<%= timelineNameLowercased %>Button<%= instanceSuffix %>" onclick="<%= timelineNameLowercased %>Button<%= instanceSuffix %>.toggle(true)"></<%= timelineNameLowercased %>-button>

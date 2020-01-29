@@ -1,0 +1,2 @@
+import <%= timelineName %> from "./js/<%= timelineName %>";
+export default <%= timelineName %>;
