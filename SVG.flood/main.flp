@@ -1,0 +1,32 @@
+import SVG
+
+execute("util.flp")
+
+for timeline in timelines
+  // Get the name of the timeline folder
+  var timelineFolder = folderTable.symbolForID(timeline.id, outputFolderPath).name.upperCamelCased()
+
+  // Get the timeline output path
+  var timelineOutputPath = timelinePathsById[timeline.id]
+
+  // Set the name for the html & css files to the name of the timeline
+  var timelineName = timelineFolder
+
+  // Get all assets for this timeline
+  var imagesInTimeline = document.images(forTimeline: timeline)
+
+    // Create output directories
+    mkdir("\(timelineOutputPath)")
+    mkdir("\(timelineOutputPath)/img")
+    mkdir("\(timelineOutputPath)/css")
+
+
+  var layer = timeline.rootLayer(at: 0)
+  process("svg.svg.flt", into: "\(timelineFolder)/\(timelineName).svg", indentation: 0)
+  process("index.html.flt", into: "\(timelineFolder)/\(timelineName).html", indentation: 0)
+  process("style.css.flt", into: "\(timelineFolder)/css/\(timelineName)Style.css", indentation: 0) 
+  // Copy Images
+  for image in document.images(forTimeline: timeline)
+      image.writeAsPNG("\(outputFolderPath)/\(image.name).png")
+  end
+end

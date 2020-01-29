@@ -1,0 +1,15 @@
+<% shapeIDs = shapeIDs.appending("\(id)-svg") -%>
+<div class="flow-layer <%= id %>">
+  <svg class="<%= id %>-svg" preserveAspectRatio="none" viewBox="0 0 <%= layer.size.width %> <%= layer.size.height %>">
+    <title><%= layer.name %></title>
+    <desc>Made with Flow.</desc>
+    <defs id="<%= id %>-defs">
+    </defs>
+<%- if layer.fillImage != nil -%>
+  <%- insert("svg/pattern.svg.flt", from: Web, indentation: indentation + 1) -%>
+<% end -%>
+  <path id="<%= id %>-path" vector-effect="non-scaling-stroke" d="<%= layer.path.svgc(size: layer.size) %>">
+    </path>
+  </svg>
+  <div class="flow-border <%= id %>-border"></div>
+</div>

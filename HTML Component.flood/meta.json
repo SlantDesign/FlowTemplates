@@ -1,0 +1,35 @@
+{
+  "uuid": "ADACD58E-433E-4D79-823D-F52C157AF16A",
+  "title": "HTML Component",
+  "description": "A template that generates a reuseable animated component implemented as a native HTML web component.",
+  "parameters": [
+    {
+      "label": "Output Folder",
+      "description": "Folder name for export, relative to main export folder",
+      "variable": "folderName",
+      "type": "text",
+      "default": "HTML Component"
+    },
+    {
+      "label": "Generate UI",
+      "description": "Whether to generate a UI to control playback of the timeline.",
+      "variable": "generateUI",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "label": "Hostable",
+      "description": "Determines if the output of this template is meant to be hosted on FlowServices.",
+      "variable": "hostable",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "label": "Base resource url",
+      "description": "Indicates the base url path for the root directory on the remote server where templates are uploaded.",
+      "variable": "baseUrl",
+      "type": "text",
+      "default": "https://flow-services.s3-us-west-2.amazonaws.com/"
+    }
+  ]
+}

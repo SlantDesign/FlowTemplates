@@ -1,0 +1,5 @@
+<%- /// Input: timeline, layer
+var attributeName = "viewBox"
+var property = "combinedPath"
+insert("svg/propertyAnimation.svg.flt", from: Web, indentation: 0) 
+-%>

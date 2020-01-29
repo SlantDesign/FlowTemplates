@@ -1,0 +1,5 @@
+delay: <%= group.beginTime * 1000 %>,
+duration: <%= Web.animationDuration(dur: group.duration * 1000, of: group.timingFunction) %>,
+easing: '<%= Web.cssTimingFunction(of: group.timingFunction) %>',
+composite: 'add',
+fill: 'forwards',

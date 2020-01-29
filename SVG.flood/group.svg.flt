@@ -1,0 +1,17 @@
+<g
+  id="<%= id %>"
+<% if !layer.visible -%>
+  opacity="0"
+<% else if layer.opacity != 1 -%>
+  opacity="<%= layer.opacity %>"
+<% end -%>
+  transform="<%= transform(of: layer) %>"
+>
+<%
+for layer in layer.sublayers
+  insert("layer.svg.flt", indentation: indentation + 1)
+end
+var tracks = timeline.tracksForLayer(layer.layer).filter(trackIsForElement)
+insert("animations.svg.flt", indentation: indentation + 1)
+-%>
+</g>

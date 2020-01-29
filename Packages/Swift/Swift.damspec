@@ -1,0 +1,4 @@
+name: Swift
+version: 1.0.0
+summary: Swift template utilities
+description: Provides functions and templates for generating Swift code

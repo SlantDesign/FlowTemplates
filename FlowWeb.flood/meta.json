@@ -1,0 +1,35 @@
+{
+  "uuid": "2078B55D-ABA9-4354-8118-929EC2C3B5D1",
+  "title": "Flow Site HTML",
+  "description": "A reduced output with only the necessary divs SVGs and JS animations. Formatted for the Flow Website.",
+  "parameters": [
+    {
+      "label": "Output Folder",
+      "description": "Folder name for export, relative to main export folder",
+      "variable": "folderName",
+      "type": "text",
+      "default": "Flow Stite HTML"
+    },
+    {
+      "label": "Generate UI",
+      "description": "Whether to generate a UI to control playback of the timeline.",
+      "variable": "generateUI",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "label": "Generate Full Page",
+      "description": "Outputs artboards embedded in standard <html> tags.",
+      "variable": "generateFullHTML",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "label": "Link to Animation Code",
+      "description": "When true, adds a link to the animation's code.",
+      "variable": "showLinkToAnimationCode",
+      "type": "boolean",
+      "default": true
+    }
+  ]
+}

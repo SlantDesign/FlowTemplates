@@ -1,0 +1,37 @@
+<%
+/// Input: timeline, layer, tracks
+for track in tracks
+  var values = []
+  var keytimes = []
+  for keyvalue in track.keyvaluesWithSimulatedSteps
+    keytimes = keytimes.appending(keyvalue.time / timeline.duration)
+    if track.property.id == "combinedPath" || track.property.id == "maskPath"
+      var size = timeline.value(property: "size", layer: layer.layer, time: keyvalue.time)
+      values = values.appending(keyvalue.value.svgc(size: size))
+    else
+      values = values.appending(svgValue(keyvalue.value, property: track.property, layer: layer))
+    end
+  end
+
+  var keysplines = []
+  for animation in track.animationsFromKeyvaluesWithSimulatedSteps
+    var c1 = animation.timingFunction.controlPoints[0]
+    var c2 = animation.timingFunction.controlPoints[1]
+    keysplines = keysplines.appending("\(c1.x) \(c1.y) \(c2.x) \(c2.y)")
+  end
+  -%>
+<animate
+  attributeName="<%= svgAttributeName(of: track.property) %>"
+  values="<%= values.joined(separator: ";") %>"
+  dur="<%= timeline.duration %>s"
+  fill="freeze"
+  calcMode="spline"
+  keyTimes="<%= keytimes.joined(separator: ";") %>"
+  keySplines="<%= keysplines.joined(separator: ";") %>"
+  <%- if repeats -%>
+  repeatCount="indefinite"
+  <%- end -%>
+/>
+<%
+end
+-%>

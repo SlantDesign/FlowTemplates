@@ -1,0 +1,8 @@
+<script>
+    function callback() {
+        console.log("I've been clicked!")
+    }
+    let <%= resourcesPath %> = ".";
+    let <%= timelineNameLowercased %>Script = [`${<%= resourcesPath %>}/js/<%= timelineToggleButtonName %>`];
+    loadScripts(<%= timelineNameLowercased %>Script)
+</script>

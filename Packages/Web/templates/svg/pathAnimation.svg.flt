@@ -1,0 +1,15 @@
+<%- /// Input: timeline, layer
+var attributeName = "d"
+
+var property
+switch layer.type.name 
+case "shape":
+  property = "combinedPath"
+case "shapeMask":
+  property = "maskPath"
+default:
+  property = nil
+end
+
+insert("svg/propertyAnimation.svg.flt", from: Web, indentation: 4) -%>
+

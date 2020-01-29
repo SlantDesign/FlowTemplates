@@ -1,0 +1,38 @@
+<% // Image contents gravity animations
+var track = timeline.trackFor(layer: layer, property: "contentsGravity")
+if track != nil && !track.keyvalues.isEmpty
+  var sizes = ["'\(Web.cssBackgroundSize(track.keyvalues[0].value))'"]
+  var positions = ["'\(Web.cssBackgroundPosition(track.keyvalues[0].value))'"]
+  var offsets = [0]
+  var easings = []
+  var previous = track.keyvalues[0]
+  var time = 0
+  for keyvalue in track.keyvalues
+    if keyvalue.time == time continue end // Skip repeated times
+    time = keyvalue.time
+
+    sizes = sizes.appending("'\(Web.cssBackgroundSize(keyvalue.value))'")
+    positions = positions.appending("'\(Web.cssBackgroundPosition(keyvalue.value))'")
+    offsets = offsets.appending(keyvalue.time / timeline.duration)
+    if previous != nil
+      easings = easings.appending(Web.timing(keyvalue: previous))
+    end
+    previous = keyvalue
+  end
+
+  var animationName = "\(id)ContentsGravityAnimation"
+  animationNames = animationNames.appending(animationName) -%>
+ <%= animationName %>() {
+    return this.rootElement.querySelector('#<%= timelineName %> .<%= symbol.name %>').animate([
+<%for i in 0..<sizes.count -%>
+        { backgroundSize: <%= sizes[i] %>, backgroundPosition: <%= positions[i] %>, offset: <%= offsets[i] %><% if i < easings.count %>, easing: <%= easings[i] %><% end %> },
+<%end -%>
+    ], {
+        duration: this.duration,
+        composite: 'add',
+        fill: 'forwards'
+    });
+}
+<%
+end
+-%>

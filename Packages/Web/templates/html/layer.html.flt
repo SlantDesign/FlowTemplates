@@ -1,0 +1,8 @@
+<%-
+var symbol = symbolTable.symbolForID(layer.id, "")
+if symbol == nil
+    symbol = symbolTable.addSymbolWithSuggestedName(layer.name.snakeCased(), type: "id", context: "", id: layer.id)
+end
+var id = symbol.name
+insert("html/\(layer.type.name).html.flt", from: Web, indentation: indentation)
+-%>

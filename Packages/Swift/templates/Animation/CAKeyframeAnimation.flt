@@ -1,0 +1,26 @@
+<%- // Used to prepare variables for KeyframeAnimation.swift.flt
+import Swift
+
+var duration = timeline.duration
+var keyPaths = Swift.keyPaths(property: track.property)
+var property = track.property
+
+var keyTimes = track.keyvaluesWithSimulatedSteps.map(Swift.timeFromKeyvalue)
+var timingFunctions = track.animationsFromKeyvaluesWithSimulatedSteps.map(Swift.timingFunctionFromAnimation)
+
+// This function is declared to remove the `layer` parameter from `Swift.valuesByKeyPath`.
+func valuesByKeyPath(keyvalue)
+	return Swift.valuesByKeyPath(keyvalue: keyvalue, layer: layer)
+end
+
+// Returns the values to include in the keyframe animation for the given track and keypath.
+func valuesFor(track, keyPath)
+	func valueForKeypath(values) return values[keyPath] end
+	var valuesByKeyPathArray = track.keyvaluesWithSimulatedSteps.map(valuesByKeyPath)
+	return valuesByKeyPathArray.map(valueForKeypath)
+end
+
+for keyPath in keyPaths
+	var values = valuesFor(track: track, keyPath: keyPath)
+	insert("Animation/CAKeyframeAnimationBlock.swift.flt", from: Swift, indentation: indentation)
+end	-%>

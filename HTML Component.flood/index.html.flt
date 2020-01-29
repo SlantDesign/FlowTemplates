@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="EN">
+<head>
+<title><%= timelineName %></title>
+    <meta charset="utf-8">
+    <%- insert("js/components/loadFlowCommonScripts.js.flt", from: Web, indentation: 2) %>
+    <%- insert("driver/loadDriverScripts.js.flt", indentation: 2) %>
+    <%- insert("loadTimelineScripts.js.flt", indentation: 2) %>
+</head>
+
+<body>
+    <% var instanceSuffix = ""; insert("timelineComponent.html.flt", indentation: 2) %>
+    <% instanceSuffix = ""; insert("driver/driverComponent.html.flt", indentation: 2) %>  
+</body>
+
+</html>

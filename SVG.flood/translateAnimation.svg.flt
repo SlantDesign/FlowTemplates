@@ -1,0 +1,50 @@
+<%-
+// Properties that affect the translation values.
+var properties = [
+  "position.x",
+  "position.y"
+]
+
+func affectsTranslation(kv)
+  return properties.contains(kv.property.id)
+end
+
+var values = []
+var keytimes = []
+var keysplines = []
+for keyframe in timeline.keyframesForLayer(layer, simulateStepsWithKeyvalues: false)
+  var keyvalues = keyframe.keyvalues.filter(affectsTranslation)
+  if keyvalues.isEmpty
+    continue
+  end
+
+  keytimes = keytimes.appending(keyframe.time / timeline.duration)
+
+  var x = timeline.value(property: "position.x", layer: layer.layer, time: keyframe.time)
+  var y = timeline.value(property: "position.y", layer: layer.layer, time: keyframe.time)
+  values = values.appending("\(x) \(y)")
+
+  if keyframe.time < timeline.duration
+    // Arbitrarily choose the first keyvalue's timing function.
+    var c1 = keyvalues[0].trailingTimingFunction.controlPoints[0]
+    var c2 = keyvalues[0].trailingTimingFunction.controlPoints[1]
+    keysplines = keysplines.appending("\(c1.x) \(c1.y) \(c2.x) \(c2.y)")
+  end
+end
+
+if !keytimes.isEmpty
+-%>
+<animateTransform
+  attributeName="transform"
+  type="translate"
+  values="<%= values.joined(separator: ";") %>"
+  dur="<%= timeline.duration %>s"
+  fill="freeze"
+  calcMode="spline"
+  keyTimes="<%= keytimes.joined(separator: ";") %>"
+  keySplines="<%= keysplines.joined(separator: ";") %>"
+  <%- if repeats -%>
+  repeatCount="indefinite"
+  <%- end -%>
+/>
+<% end -%>

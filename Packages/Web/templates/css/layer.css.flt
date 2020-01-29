@@ -1,0 +1,62 @@
+<%-
+var symbol = symbolTable.symbolForID(layer.id, "")
+if symbol == nil
+    symbol = symbolTable.addSymbolWithSuggestedName(layer.name.snakeCased(), type: "id", context: "", id: layer.id)
+end
+var id = symbol.name
+-%>
+#<%= timelineName %> .<%= symbol.name %> {
+    width: <%= layer.bounds.size.width %>px;
+    height: <%= layer.bounds.size.height %>px;
+    left: <%= layer.position.x %>px;
+    top: <%= layer.position.y %>px;
+  <%- var transform = Web.cssTransform(of: layer); if transform != "" -%>
+    transform: <%= Web.cssTransform(of: layer) %>;
+  <%- end -%>
+  <%- if layer.anchorPoint.x != 0.5 || layer.anchorPoint.y != 0.5 -%>
+    transform-origin: <%= 100 * layer.anchorPoint.x %>% <%= 100 * layer.anchorPoint.y %>%;
+  <%- end -%>
+  <%- if !layer.visible -%>
+    opacity: 0;
+  <%- else if layer.opacity != 1 -%>
+    opacity: <%= layer.opacity %>;
+  <%- end -%>
+    background-color: <%= layer.backgroundColor.hex %>;
+  <%- if layer.shadowColor != Color.clear || layer.shadowOffset.width != 0 || layer.shadowOffset.height != 0 -%>
+    filter: drop-shadow(<%= layer.shadowOffset.width %>px <%= layer.shadowOffset.height %>px <%= layer.shadowRadius %>px <%= layer.shadowColor.hex %>);
+  <%- end -%>
+  <%- if layer.cornerRadius != 0 -%>
+    border-radius: <%= layer.cornerRadius %>px;
+  <%- end -%>
+  <%- if layer.masksToBounds %>
+    overflow: hidden;
+  <%- else -%>
+    overflow: visible;
+  <%- end -%>
+<%- if layer.type.name != "shape"
+    insert("css/\(layer.type.name).css.flt", from: Web, indentation: 1)
+end -%>
+}
+
+<% if layer.borderWidth !=0 || layer.cornerRadius != 0 -%>
+#<%= timelineName %> .<%= symbol.name %>-border {
+    border-width: <%= layer.borderWidth %>px;
+    border-radius: <%= layer.cornerRadius %>px;
+    border-color: <%= layer.borderColor.hex %>;
+}
+
+<% end -%>
+<% if layer.type.name == "shape" -%>
+#<%= timelineName %> .<%= symbol.name %>-svg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+<% insert("css/shape.css.flt", from: Web, indentation: 1) -%>
+}
+<% end
+
+for layer in layer.sublayers
+  if layer.type.name != "path"
+    insert("css/layer.css.flt", from: Web, indentation: 0)
+  end
+end -%>

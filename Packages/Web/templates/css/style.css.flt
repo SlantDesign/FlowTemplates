@@ -1,0 +1,46 @@
+<%-
+  for font in fontsInTimeline
+    if !Web.webFonts.contains(font.name) && font.path != nil -%>
+@font-face {
+    font-family: "<%= font.name %>";
+    src: url("<%= Web.pathPrefix(relativePath: "../fonts", absolutePath: fontFolderAbsPath, relative: relative) %>/<%= font.name %>.<%= font.extension %>");
+}
+    <%- end -%>
+<%- end -%>
+
+.flow-layer {
+    position: absolute;
+    overflow: visible;
+    box-sizing: border-box;
+    border-width: 0px;
+}
+
+.flow-bg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    box-sizing: border-box;
+    border-width: 0px;
+}
+
+.flow-border {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    box-sizing: border-box;
+    border-style: solid;
+    border-width: 0px;
+}
+
+<% insert("css/artboard.css.flt", from: Web, indentation: 0) %>
+
+<% for layer in layer.sublayers -%>
+<% insert("css/layer.css.flt", from: Web, indentation: 0) %>
+<% end -%>
+path {
+    fill-rule: evenodd; 
+}
+
+svg {
+   overflow: visible;
+}

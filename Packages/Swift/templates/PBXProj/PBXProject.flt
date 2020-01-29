@@ -1,0 +1,28 @@
+/* Begin PBXProject section */
+		<%= projectName.snakeCased() %>_Project /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1020;
+				ORGANIZATIONNAME = "<%= organization %>";
+				TargetAttributes = {
+					<%= projectName.snakeCased() %>_Target = {
+						LastSwiftMigration = 1020;
+					};
+				};
+			};
+			buildConfigurationList = <%= projectName.snakeCased() %>_Project_ConfigurationList /* Build configuration list for PBXProject "<%= projectName %>" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = Main_Group /* Main */;
+			productRefGroup = Products_Group /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				<%= projectName.snakeCased() %>_Target /* <%= projectName %> */,
+			);
+		};
+/* End PBXProject section */

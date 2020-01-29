@@ -1,0 +1,2 @@
+<% insert("js/player.js.flt", from: Web, indentation: 0) %>
+export default Player;

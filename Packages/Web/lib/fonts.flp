@@ -1,0 +1,25 @@
+// List of web-safe fonts
+var webFonts = [
+    "Arial Black",
+    "Arial",
+    "Charcoal",
+    "Comic Sans MS",
+    "Courier New",
+    "Courier",
+    "Gadget",
+    "Geneva",
+    "Georgia",
+    "Helvetica",
+    "Impact",
+    "Lucida Console",
+    "Lucida Grande",
+    "Lucida Sans Unicode",
+    "Monaco",
+    "Palatino Linotype",
+    "Palatino",
+    "Tahoma",
+    "Times New Roman",
+    "Times",
+    "Trebuchet MS",
+    "Verdana"
+]

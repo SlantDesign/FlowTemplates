@@ -1,0 +1,8 @@
+<%- /// Input: timeline, layer, property
+var track = timeline.trackFor(layer: layer, property: property)
+if track != nil
+  var values = Web.svgAnimationValues(attributeName: attributeName, from: track)
+  var keytimes = Web.svgAnimationKeytimes(track: track, duration: timeline.duration)
+  var keysplines = Web.svgAnimationKeysplines(track: track)
+  insert("svg/animate.svg.flt", from: Web, indentation: 0)
+end -%>
