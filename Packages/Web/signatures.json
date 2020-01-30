@@ -1,7 +1,7 @@
 {
   "lib\/fonts.flp" : "MEYCIQCAw8LomhJ3vL0DQzBzyNo6UwBqKIADIIWrbQv0I1eHdAIhALr1lxVFA\/gSjqwIR7LCViiWUldm+GXyvr5BrfFwM+LH",
   "lib\/main.flp" : "MEUCIHdfXsZa9pHeQxMvNd\/F99HmfnzdZLTY+vQC9i4ykCTwAiEAxQSOl12hpZMIv3MApC8DLxjZhVA8VJZA95V3jAgX\/bA=",
-  "lib\/util.flp" : "MEYCIQDDqPktCb9UoWcKO3zLYcdbM4djyXxbETujkA8I56Z0dwIhALyLMo8XLelETUcVCRGgeAHCbKUWfCIMAm3QYgGJpzgQ",
+  "lib\/util.flp" : "MEUCIE2VAg9fueP9cqZr6RF+I6s3H6vstMHHW7JDvXQLpb73AiEA8oy9AEXEQZmFfVhjcdmMli0gTQnKfoPwZG1w6enjBlc=",
   "templates\/css\/artboard.css.flt" : "MEUCIQCADW5lx\/z6AC7I\/FBy2mZ4+bueMak4xoktheBP22Fj2gIgKLlRloryZw9CJsIah5j\/hsXDQyx85R52443X2a1kQe4=",
   "templates\/css\/group.css.flt" : "MEYCIQCA+Ja+qdxQiSZf8J94imMqFnLYZcSHdSZ7Gv5nKsUHXwIhAMPpcR\/kFzfH3m9\/X7ElzKS2VkG6CIsftr3PLNC6D7ww",
   "templates\/css\/image.css.flt" : "MEQCIHs8b2qCR71iiK1QY3\/Heq0Uod4q\/NSvomLDc+QVVKtuAiAQZFMCE2y6BASeqcJkR+BpLsE4aUTueLQZQP0uqKxQLQ==",
@@ -27,7 +27,7 @@
   "templates\/js\/layerAnimationBlock.flt" : "MEYCIQCNiDPGla3jkMzkxpp7vBCyn0NzGa3slh7wBfKPn8\/nGQIhAJTYog0DjTYuE203p0F8tSjmWVS5lw7FunjbO1SaUH7K",
   "templates\/js\/player.js.flt" : "MEUCIQDy3qBT4pMnRomccdgK1KdUh9efiKGdWaywUmkrHVqKcgIgVtMrl9uVvmSsUmcsf3a+PgxyOiue90xLYaciUavmxRo=",
   "templates\/js\/shadowAnimations.js.flt" : "MEUCIQCB7AflQDRWM2j0B+nsrraXc6Yck+6IckfCrSXMYgjsJAIgDZ2q8ivJdqYaoWa2TmMzZfwlNkBpo0g9F6vK87DNhS0=",
-  "templates\/js\/timeline.js.flt" : "MEQCICeEXSF\/Q2cX8DNIb5L0HyuVjJOzVAY8ctlpmHxmNcP0AiBwOjQuzCOuMHM+PwBPIvKi7g0t57p1pfCRERCxMdJLOg==",
+  "templates\/js\/timeline.js.flt" : "MEQCIHAwBTNDckRDj7o2FahZqI1veBh86EYzC8aMqoITHw+mAiB4o6RBAzigAqrdIjGrob84PPmf7hPs25oiGNd7r6xDaw==",
   "templates\/js\/transformAnimations.js.flt" : "MEYCIQC+J6GYoucTjLhrsfAjXGw\/F9zZFORl2LZ5XKxaaXMY\/AIhANtQFkITmRhOafMEYT4QUWYpG2tMr1OdrX7oJLvFTGG7",
   "templates\/svg\/animate.svg.flt" : "MEUCIQDrM7mvzF7ZEKIxTcEJAtfzXoDIQr9bY20ruOGr6XRd3QIgfva9no+TMumjT+iJpGhEuKHkqvtHZxiIQLjOva8KqHE=",
   "templates\/svg\/fillColorAnimation.svg.flt" : "MEQCIGvI9Ujbwjui9m510\/WAxiBLrtl1FA5p+GvDVCGlf0vtAiBwOGjblYrNY4G9eIUqStlxyMienaKcTw5z5J+ZqjR2Dw==",
@@ -36,8 +36,9 @@
   "templates\/svg\/image.svg.flt" : "MEYCIQDqxTaT5szzOvMtQT2\/bwN1KvtRoGvW2LEVbEihjEmtzQIhAKvLsXjQ76z6Md7x4cZWGtnqGpqk7MI\/\/73oRzEt3Tie",
   "templates\/svg\/pathAnimation.svg.flt" : "MEQCIAUeIzZksBFw5hpaRZPYIY5\/N1siYT23Nyioz5vqVbE5AiBxPYfPVH4rhTRwb\/BMEdiaAinvd4Sombj7UA\/6zCQ6Tg==",
   "templates\/svg\/pattern.svg.flt" : "MEUCIGF7kyvK6LwxK2gleLRzdo7sqQ6TK2Ft13Ts97iWTKpFAiEA63TT\/iEVBaY9893HkO8U\/Gs3HGrdYXh5baAB5zn5Y2U=",
-  "templates\/svg\/propertyAnimation.svg.flt" : "MEQCIHi7wgXXoow1+JvXV6bUBASTnlcL7FA4ruuOg\/nYKOroAiARlHqRZ0eK3diuylOw3hqGnY5g7WcXs8eXkyDKHKnhEA==",
+  "templates\/svg\/propertyAnimation.svg.flt" : "MEYCIQC\/MFV8dq5v50aVLTvz5XilB6gV5or+S2dCJwYrjbJJfAIhAIpCtClFoDnEnh1leuJQDoxgaFCRAVGYC70BzYBogagv",
   "templates\/svg\/stop.svg.flt" : "MEQCIE48mA2u6Yecd5kYeSDTJRigoFidEqB2ENgWTAvo8jseAiA1Od5ALIsALDUoBNKB1\/oZhr5hqazwVMjZChuvhxf1DA==",
   "templates\/svg\/stops.svg.flt" : "MEUCIQCFXSrVpmNSyHkvomhDKkPrmWe9bF2NDSAx2xI37Sgz5wIgAeYEre3KgwAIN\/ittSuCOjnATw\/geVch\/b+34k1KH1E=",
+  "templates\/svg\/strokeWidthAnimation.svg.flt" : "MEUCIQDOPxY+vTb3eRADzUJFp9DyncMbBm3HtomZ5khJluG4iwIgZGdA5gVTwGKk0mflbMAtXak58MbqryieP8cCAT5TPus=",
   "templates\/svg\/viewBoxAnimation.svg.flt" : "MEQCIFMkGj9QV+dBGL\/m4n4gpyfWT8U29\/1j8EqqMnFxDKxIAiAHLeZYMo\/ztgSgxkH\/m8\/KC46tHWFXPtkpGev+\/2XMEg=="
 }
