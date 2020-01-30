@@ -450,6 +450,10 @@ func svgAnimationValue(attributeName, from keyvalue)
 
   case "fill":
     return keyvalue.value.hex
+
+  case "stroke-width":
+    return keyvalue.value
+
   default:
     return nil
   end
