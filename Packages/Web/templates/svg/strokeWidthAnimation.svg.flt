@@ -1,0 +1,6 @@
+<%
+/// Input: timeline, layer
+var attributeName = "stroke-width"
+var property = "lineWidth"
+insert("svg/propertyAnimation.svg.flt", from: Web, indentation: 0)
+%>
