@@ -37,6 +37,8 @@
     <div id="<%= timerID %>"></div>
     <script src="<%= Web.pathPrefix(relativePath: "./FlowCommon", absolutePath: commonFolderAbsPath, relative: relative) %>/player.js"></script>
     <script src="<%= Web.pathPrefix(relativePath: "./js", absolutePath: jsFolderAbsPath, relative: relative) %>/driver.js"></script>
+    <script src="<%= Web.pathPrefix(relativePath: "./FlowCommon", absolutePath: commonFolderAbsPath, relative: relative) %>/Track.js"></script>
+    <script src="<%= Web.pathPrefix(relativePath: "./FlowCommon", absolutePath: commonFolderAbsPath, relative: relative) %>/Animation.js"></script>
     <%- var driverName = "driver\(timelineName)" -%>
     <script type="text/javascript">
     let <%= timelineNameLowerCamelCased %>Timer = document.getElementById('<%= timerID %>')
