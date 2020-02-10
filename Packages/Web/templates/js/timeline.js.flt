@@ -161,13 +161,15 @@ insert("svg/strokeWidthAnimation.svg.flt", from: Web, indentation: 2)
     /**
     * Creates and returns all animations for this timeline.
     */
-    createAllAnimations() {
-        return [
-            this.artboardAnimation(),
+    createAllAnimations() {      
     <% for animationName in animationNames -%>
-        this.<%= animationName %>(),
+        let <%= animationName %> = this.<%= animationName %>().animations;
     <% end -%>
-    ]
+    return [
+    <% for animationName in animationNames -%>
+        <%= animationName %>,
+    <% end -%>
+    ].flat()
     }
 }
 

@@ -60,11 +60,7 @@ for group in timeline.animationsByTimingForLayer(layer)
     var animationName = "\(id)Animation\(animationIndex)"
     animationNames = animationNames.appending(animationName) -%>
 <%= animationName %>() {
-    return this.rootElement.querySelector('#<%= timelineName %> .<%= symbol.name %>').animate({
-<%  insert("js/layerAnimationBlock.flt", from: Web, indentation: indentation + 2) %>
-    }, {
-<%  insert("js/animationParameters.js.flt", from: Web, indentation: indentation + 2) %>
-    });
+    <% insert("js/track.js.flt", from: Web, indentation: indentation + 2) %>
 }
 <%
     animationIndex = animationIndex + 1
