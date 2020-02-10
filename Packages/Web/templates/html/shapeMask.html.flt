@@ -1,9 +1,5 @@
 <%-
-var symbol = symbolTable.symbolForID(layer.id, "mask")
-if symbol == nil
-    symbol = symbolTable.addSymbolWithSuggestedName("\(timeline.name.snakeCased())-\(layer.name.snakeCased())-mask", type: "id", context: "mask", id: layer.id)
-end
-var maskID = symbol.name
+var maskID = elementIDForMask(layer: layer, symbolTable: symbolTable) 
 shapeIDs = shapeIDs.appending("\(id)-svg")
 -%>
 <div class="flow-layer <%= id %>">

@@ -474,3 +474,12 @@ func elementIDFor(layer, symbolTable)
   end
   return symbol.name
 end
+
+func elementIDForMask(layer, symbolTable)
+  var symbol = symbolTable.symbolForID(layer.id, "mask")
+  if symbol == nil
+      symbol = symbolTable.addSymbolWithSuggestedName("\(timeline.name.snakeCased())-\(layer.name.snakeCased())-mask", type: "id", context: "mask", id: layer.id)
+  end
+  return symbol.name
+end
+

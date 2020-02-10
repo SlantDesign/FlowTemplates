@@ -89,11 +89,7 @@ insert("svg/strokeWidthAnimation.svg.flt", from: Web, indentation: 2)
     loadSVGShapeMaskAnimations() {<%-
     for layer in layer.descendants
         if layer.type.name == "shapeMask"
-            var symbol = symbolTable.symbolForID(layer.id, "mask")
-            if symbol == nil
-                symbol = symbolTable.addSymbolWithSuggestedName("\(timeline.name.snakeCased())-\(layer.name.snakeCased())-mask", type: "id", context: "mask", id: layer.id)
-            end
-            var maskID = symbol.name
+            var maskID = elementIDForMask(layer: layer, symbolTable: symbolTable) 
             var property = "maskPath"
             var pathTrack = timeline.trackFor(layer: layer, property: property) 
             if pathTrack != nil
