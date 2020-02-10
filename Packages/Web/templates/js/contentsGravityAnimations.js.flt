@@ -23,7 +23,7 @@ if track != nil && !track.keyvalues.isEmpty
   var animationName = "\(id)ContentsGravityAnimation"
   animationNames = animationNames.appending(animationName) -%>
  <%= animationName %>() {
-    return this.rootElement.querySelector('#<%= timelineName %> .<%= symbol.name %>').animate([
+    return this.rootElement.querySelector('#<%= timelineName %> .<%= id %>').animate([
 <%for i in 0..<sizes.count -%>
         { backgroundSize: <%= sizes[i] %>, backgroundPosition: <%= positions[i] %>, offset: <%= offsets[i] %><% if i < easings.count %>, easing: <%= easings[i] %><% end %> },
 <%end -%>

@@ -53,7 +53,7 @@ if offsets.count > 0 && offsets[offsets.count-1] != 1.0
   var animationName = "\(id)TransformAnimation"
   animationNames = animationNames.appending(animationName) -%>
  <%= animationName %>() {
-    return this.rootElement.querySelector('#<%= timelineName %> .<%= symbol.name %>').animate([
+    return this.rootElement.querySelector('#<%= timelineName %> .<%= id %>').animate([
 <%for i in 0..<transforms.count -%>
         { transform: <%= transforms[i] %>, offset: <%= offsets[i] %><% if i < easings.count %>, easing: <%= easings[i] %><% end %> },
 <%end -%>

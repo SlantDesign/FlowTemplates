@@ -467,3 +467,10 @@ func imagePath(image, importImage, relativePath, imageFolderAbsPath, relative)
   end
 end
 
+func elementIDFor(layer, symbolTable)
+  var symbol = symbolTable.symbolForID(layer.id, "")
+  if symbol == nil
+      symbol = symbolTable.addSymbolWithSuggestedName(layer.name.snakeCased(), type: "id", context: "", id: layer.id)
+  end
+  return symbol.name
+end

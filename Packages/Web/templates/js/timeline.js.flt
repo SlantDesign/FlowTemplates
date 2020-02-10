@@ -31,11 +31,7 @@ class <%= timelineClassName %> {
 <%- for layer in layer.descendants 
 	if layer.type.name == "shape" 
  		if layer.fillImage != nil 
-        var symbol = symbolTable.symbolForID(layer.id, "")
-        if symbol == nil
-        symbol = symbolTable.addSymbolWithSuggestedName(layer.name.snakeCased(), type: "id", context: "", id: layer.id)
-        end
-        var id = symbol.name -%>
+        var id = Web.elementIDFor(layer: layer, symbolTable: symbolTable) -%>
         pattern = this.rootElement.getElementById("<%= timelineNameLowercased %>-<%= id %>-fillImage")
         pattern.innerHTML = `<%- insert("/svg/image.svg.flt", from: Web, indentation: 1) -%>`
         <%- if layer.fillImage.patternFillType == 0 -%>
@@ -61,11 +57,7 @@ end -%>
         let path;<%-
     for layer in layer.descendants
         if layer.type.name == "shape"
-            var symbol = symbolTable.symbolForID(layer.id, "")
-            if symbol == nil
-                symbol = symbolTable.addSymbolWithSuggestedName(layer.name.snakeCased(), type: "id", context: "", id: layer.id)
-            end
-            var id = symbol.name
+            var id = Web.elementIDFor(layer: layer, symbolTable: symbolTable)
 -%>         
         path = this.rootElement.getElementById("<%= id %>-path")
         path.d = "<%= layer.path.svgc(size: layer.size) %>"
@@ -83,11 +75,7 @@ insert("svg/strokeWidthAnimation.svg.flt", from: Web, indentation: 2)
         let defs;<%-
     for layer in layer.descendants
         if layer.type.name == "shape"
-            var symbol = symbolTable.symbolForID(layer.id, "")
-            if symbol == nil
-                symbol = symbolTable.addSymbolWithSuggestedName(layer.name.snakeCased(), type: "id", context: "", id: layer.id)
-            end
-            var id = symbol.name
+            var id = Web.elementIDFor(layer: layer, symbolTable: symbolTable)
             var gradientTrack = timeline.trackFor(layer: layer, property: "fillGradient") 
             if gradientTrack != nil
 -%>         
@@ -154,9 +142,7 @@ insert("svg/strokeWidthAnimation.svg.flt", from: Web, indentation: 2)
     }
     <%
     var animationNames = []
-    for layer in layer.sublayers
-    insert("js/layers.flt", from: Web, indentation: 1)
-    end -%>
+    insert("js/layers.flt", from: Web, indentation: 1)-%>
 
     /**
     * Creates and returns all animations for this timeline.

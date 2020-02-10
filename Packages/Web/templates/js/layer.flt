@@ -1,9 +1,5 @@
 <%-
-var symbol = symbolTable.symbolForID(layer.id, "")
-if symbol == nil
-    symbol = symbolTable.addSymbolWithSuggestedName(layer.name.snakeCased(), type: "id", context: "", id: layer.id)
-end
-var id = symbol.name
+var id = Web.elementIDFor(layer: layer, symbolTable: symbolTable)
 var groups = []
 
 insert("js/transformAnimations.js.flt", from: Web, indentation: indentation)
@@ -18,7 +14,7 @@ for group in groups
     var animationName = "\(id)BorderAnimation\(borderAnimationIndex)"
     animationNames = animationNames.appending(animationName) -%>
 <%= animationName %>() {
-    return this.rootElement.querySelector('#<%= timelineName %> .flow-border.<%= symbol.name %>-border').animate({
+    return this.rootElement.querySelector('#<%= timelineName %> .flow-border.<%= id %>-border').animate({
 <%  insert("js/layerAnimationBlock.flt", from: Web, indentation: indentation + 2) %>
     }, {
 <%  insert("js/animationParameters.js.flt", from: Web, indentation: indentation + 2) %>
@@ -38,7 +34,7 @@ for group in groups
       var animationName = "\(id)GradientAnimation\(gradientAnimationIndex)"
       animationNames = animationNames.appending(animationName) -%>
 <%= animationName %>() {
-    return this.rootElement.querySelector('#<%= timelineName %> .<%= symbol.name %>-svg .stop<%= i %>').animate({
+    return this.rootElement.querySelector('#<%= timelineName %> .<%= id %>-svg .stop<%= i %>').animate({
         stopColor: ['<%= animation.from.stops[i].color.hex %>', '<%= animation.to.stops[i].color.hex %>'],
     }, {
 <%    insert("js/animationParameters.js.flt", from: Web, indentation: indentation + 2) %>
@@ -76,7 +72,7 @@ if layer.type.name == "shape" && !timeline.nonPathShapeTracksFor(layer: layer).i
     var animationName = "\(id)ShapeAnimation\(shapeAnimationIndex)"
     animationNames = animationNames.appending(animationName) -%>
 <%= animationName %>() {
-    return this.rootElement.querySelector('#<%= timelineName %> .<%= symbol.name %>-svg').animate({
+    return this.rootElement.querySelector('#<%= timelineName %> .<%= id %>-svg').animate({
 <%  insert("js/layerAnimationBlock.flt", from: Web, indentation: indentation + 2) %>
     }, {
 <%  insert("js/animationParameters.js.flt", from: Web, indentation: indentation + 2) %>

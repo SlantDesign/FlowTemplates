@@ -10,9 +10,9 @@ let property = "<%= propertyName -%>";
 let values = [<%= from %>, <%= to -%>];
 let timingFunctions = ["<%= Web.cssTimingFunction(of: group.timingFunction) -%>"];
 let times = [<%= group.beginTime * 1000 %>, <%= Web.animationDuration(dur: group.duration * 1000, of: group.timingFunction) %> + <%= group.beginTime * 1000 -%>];
-let element = this.rootElement.querySelector("#<%= timelineName %> .<%= symbol.name %>")
+let element = this.rootElement.querySelector("#<%= timelineName %> .<%= id %>")
 
-let <%= symbol.name %>_track = new Track(
+let <%= id %>_track = new Track(
   property,
   values,
   timingFunctions,
@@ -20,5 +20,5 @@ let <%= symbol.name %>_track = new Track(
   element
 );
 
-return <%= symbol.name %>_track;
+return <%= id %>_track;
 <%end -%> 
