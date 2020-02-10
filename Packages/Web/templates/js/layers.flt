@@ -89,6 +89,6 @@ end
 
 for layer in layer.sublayers
   if layer.type.name != "path"
-    insert("js/layerAnimation.js.flt", from: Web, indentation: 1)
+    insert("js/layers.flt", from: Web, indentation: 1)
   end
 end -%>

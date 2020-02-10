@@ -155,7 +155,7 @@ insert("svg/strokeWidthAnimation.svg.flt", from: Web, indentation: 2)
     <%
     var animationNames = []
     for layer in layer.sublayers
-    insert("js/layerAnimation.js.flt", from: Web, indentation: 1)
+    insert("js/layers.flt", from: Web, indentation: 1)
     end -%>
 
     /**
