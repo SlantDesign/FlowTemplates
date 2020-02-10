@@ -59,8 +59,9 @@ for group in timeline.animationsByTimingForLayer(layer)
   if !animations.isEmpty
     var animationName = "\(id)Animation\(animationIndex)"
     animationNames = animationNames.appending(animationName) -%>
-<%= animationName %>() {
-    <% insert("js/track.js.flt", from: Web, indentation: indentation + 2) %>
+<%= animationName -%>() {
+    <% insert("js/track.js.flt", from: Web, indentation: indentation + 1) -%>
+    
 }
 <%
     animationIndex = animationIndex + 1

@@ -6,19 +6,19 @@
     var from = Web.cssValue(property: animation.property, value: animation.from, layer: layer, imageFolderPath: imageFolderPath, importImage: importImage)
     var to = Web.cssValue(property: animation.property, value: animation.to, layer: layer, imageFolderPath: imageFolderPath, importImage: importImage)
  -%>
-let property = "<%= propertyName %>";
-let values = [<%= from %>, <%= to %>];
-let timingFunctions = ["<%= Web.cssTimingFunction(of: group.timingFunction) %>"];
-let times = [<%= group.beginTime * 1000 %>, <%= Web.animationDuration(dur: group.duration * 1000, of: group.timingFunction) %> + <%= group.beginTime * 1000 %>];
+let property = "<%= propertyName -%>";
+let values = [<%= from %>, <%= to -%>];
+let timingFunctions = ["<%= Web.cssTimingFunction(of: group.timingFunction) -%>"];
+let times = [<%= group.beginTime * 1000 %>, <%= Web.animationDuration(dur: group.duration * 1000, of: group.timingFunction) %> + <%= group.beginTime * 1000 -%>];
 let element = this.rootElement.querySelector("#<%= timelineName %> .<%= symbol.name %>")
 
 let <%= symbol.name %>_track = new Track(
-      property,
-      values,
-      timingFunctions,
-      times,
-      element
-    );
+  property,
+  values,
+  timingFunctions,
+  times,
+  element
+);
 
-    return <%= symbol.name %>_track;
-<%end -%>
+return <%= symbol.name %>_track;
+<%end -%> 

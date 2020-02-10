@@ -163,11 +163,11 @@ insert("svg/strokeWidthAnimation.svg.flt", from: Web, indentation: 2)
     */
     createAllAnimations() {      
     <% for animationName in animationNames -%>
-        let <%= animationName %> = this.<%= animationName %>().animations;
+    let <%= animationName -%> = this.<%= animationName -%>().animations;
     <% end -%>
     return [
     <% for animationName in animationNames -%>
-        <%= animationName %>,
+        <%= animationName -%>,
     <% end -%>
     ].flat()
     }
