@@ -36,7 +36,7 @@ class <%= timelineClassName %> {
         symbol = symbolTable.addSymbolWithSuggestedName(layer.name.snakeCased(), type: "id", context: "", id: layer.id)
         end
         var id = symbol.name -%>
-        pattern = this.rootElement.getElementById("<%= timelineName%>-<%= id %>-fillImage")
+        pattern = this.rootElement.getElementById("<%= timelineNameLowercased %>-<%= id %>-fillImage")
         pattern.innerHTML = `<%- insert("/svg/image.svg.flt", from: Web, indentation: 1) -%>`
         <%- if layer.fillImage.patternFillType == 0 -%>
         pattern.setAttribute("width", "<%= layer.fillImage.tileSize.width %>");
