@@ -1,24 +1,44 @@
 <%
-  for animation in animations
-    var propertyName = Web.jsPropertyName(property: animation.property)
-    if propertyName == nil || propertyName == "" continue end
-    var imageFolderPath = Web.pathPrefix(relativePath: "./img", absolutePath: imageFolderAbsPath, relative: relative)
-    var from = Web.cssValue(property: animation.property, value: animation.from, layer: layer, imageFolderPath: imageFolderPath, importImage: importImage)
-    var to = Web.cssValue(property: animation.property, value: animation.to, layer: layer, imageFolderPath: imageFolderPath, importImage: importImage)
- -%>
-let property = "<%= propertyName -%>";
-let values = [<%= from %>, <%= to -%>];
-let timingFunctions = ["<%= Web.cssTimingFunction(of: group.timingFunction) -%>"];
-let times = [<%= group.beginTime * 1000 %>, <%= Web.animationDuration(dur: group.duration * 1000, of: group.timingFunction) %> + <%= group.beginTime * 1000 -%>];
-let element = this.rootElement.querySelector("#<%= timelineName %> .<%= id %>")
+var imageFolderPath = Web.pathPrefix(relativePath: "./img", absolutePath: imageFolderAbsPath, relative: relative)
+var keyvalues = track.keyvalues
+// Get all the keyvalue times
+var times = []
+for keyvalue in keyvalues
+  times = times.appending(keyvalue.time * 1000)
+end
 
-let <%= id %>_track = new Track(
-  property,
-  values,
-  timingFunctions,
-  times,
-  element
-);
+// Get all the keyvalue values
+var values = []
+for keyvalue in keyvalues
+  var value = Web.cssValue(property: keyvalue.property, value: keyvalue.value, layer: layer, imageFolderPath: imageFolderPath, importImage: importImage)
+  values = values.appending(value)
+end
 
-return <%= id %>_track;
+// Get all the keyvalue timing functions
+var timingFunctions = []
+for keyvalue in keyvalues.dropLast()
+  var timingFunction = Web.cssTimingFunction(of: keyvalue.trailingTimingFunction).inQuotes()
+  timingFunctions = timingFunctions.appending(timingFunction)
+end
+
+var propertyName = Web.jsPropertyName(property: track.property)
+if propertyName != nil && propertyName != ""
+%>
+<%= animationName -%>() {
+    let property = "<%= propertyName -%>";
+    let values = <%= values %>;
+    let timingFunctions = <%= timingFunctions %>;
+    let times = <%= times %>;
+    let element = this.rootElement.querySelector("#<%= timelineName %> .<%= id %>")
+
+    let <%= id %>_track = new Track(
+      property,
+      values,
+      timingFunctions,
+      times,
+      element
+    );
+
+    return <%= id %>_track;
+}
 <%end -%> 

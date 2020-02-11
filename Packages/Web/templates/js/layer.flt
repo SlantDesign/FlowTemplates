@@ -49,19 +49,12 @@ end
 insert("js/contentsGravityAnimations.js.flt", from: Web, indentation: 0)
 
 // General animations
-var animationIndex = 0
-for group in timeline.animationsByTimingForLayer(layer)
-  var animations = group.animations.filter(Web.animationIsForRoot)
-  if !animations.isEmpty
-    var animationName = "\(id)Animation\(animationIndex)"
+for track in timeline.tracksForLayer(layer.layer)
+  if Web.propertyIsForRoot(track.property)
+    var animationName = "\(id)_\(track.property.name)"
     animationNames = animationNames.appending(animationName) -%>
-<%= animationName -%>() {
-    <% insert("js/track.js.flt", from: Web, indentation: indentation + 1) -%>
-    
-}
-<%
-    animationIndex = animationIndex + 1
-  end
+    <% insert("js/track.js.flt", from: Web, indentation: indentation) %>
+  <%- end
 end
 
 // Shape-specific animations applied to the SVG element
