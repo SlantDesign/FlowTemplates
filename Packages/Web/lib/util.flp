@@ -197,12 +197,14 @@ func cssTimingFunction(of tf)
     case "Ease In": return "ease-in"
     case "Ease Out": return "ease-out"
     case "Ease In, Ease Out": return "ease-in-out"
-    case "Step Left": return "steps(1)"
-    case "Step Right": return "steps(1)"
+    // Use dirrent representations of step-end to differentiate between Step Right and Step Middle and Step Left
+    // so that Animation.js object can adjust the duration
+    case "Step Left": return "steps(1,end)"
+    case "Step Right": return "step-end"
     case "Step Middle": return "steps(1)"
     case "Custom":
       var c1 = tf.controlPoints[0]
-      var c2 = tf.controlPoints[1]
+      var c2 = tf.controlPoints[1]  
       return "cubic-bezier(\(c1.x), \(c1.y), \(c2.x), \(c2.y))"
   end
 end

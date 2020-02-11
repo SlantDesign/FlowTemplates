@@ -74,7 +74,17 @@ class Animation {
     * Returns the duration of `self`.
     */
   duration() {
-      return this.endTime - this.startTime;
+    let duration = this.endTime - this.startTime;
+    switch (this.timingFunction) {
+      case "steps(1,end)":
+        return 1
+      case "steps(1)":
+        return duration / 2
+      case "step-end":
+        return duration - 1
+      default:
+        return duration
+    }    
   }
 
   /**
