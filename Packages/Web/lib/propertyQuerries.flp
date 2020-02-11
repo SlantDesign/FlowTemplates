@@ -1,0 +1,72 @@
+/// Determines if a property is for the root div.
+func propertyIsForRoot(_ property)
+  return
+    property.id != "borderWidth" &&
+    property.id != "borderColor" &&
+    property.id != "contentsGravity" &&
+    property.layerType != "shape" &&
+    !propertyIsForTransform(property) &&
+    !propertyIsForShadow(property)
+end
+
+func propertyIsForShape(_ property)
+  return property.layerType == "shape"
+end
+
+func propertyIsNotForShape(_ property)
+  return property.layerType != "shape"
+end
+
+func propertyIsForTransform(_ property)
+  return
+    property.id == "transform.scale.x" ||
+    property.id == "transform.scale.y" ||
+    property.id == "transform.rotation.z" ||
+    property.id == "anchorPoint.x" ||
+    property.id == "anchorPoint.y"
+end
+
+func propertyIsForBorder(_ property)
+  return
+    property.id == "borderWidth" ||
+    property.id == "borderColor" ||
+    property.id == "cornerRadius"
+end
+
+func propertyIsForShadow(_ property)
+  return
+    property.id == "shadowOffset.width" ||
+    property.id == "shadowOffset.height" ||
+    property.id == "shadowColor" ||
+    property.id == "shadowRadius"
+end
+
+// Animation
+
+func animationIsForShapeProperty(_ animation)
+  return propertyIsForShape(animation.property)
+end
+
+func animationIsNotForShapeProperty(_ animation)
+  return propertyIsNotForShape(animation.property)
+end
+
+func animationIsForTransform(_ animation)
+  return propertyIsForTransform(animation.property)
+end
+
+func animationIsForBorder(_ animation)
+  return propertyIsForBorder(animation.property)
+end
+
+func animationIsForShadow(_ animation)
+  return propertyIsForShadow(animation.property)
+end
+
+func groupContainsShapeProperty(_ group)
+  return group.animations.contains(animationIsForShapeProperty)
+end
+
+func groupContainsNonShapeProperty(_ group)
+  return group.animations.contains(animationIsNotForShapeProperty)
+end
