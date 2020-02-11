@@ -22,6 +22,7 @@ for keyvalue in keyvalues.dropLast()
 end
 
 var propertyName = Web.jsPropertyName(property: track.property)
+var querrySelector = Web.querrySelectorFor(property: track.property, timelineName: timelineName, id: id)
 if propertyName != nil && propertyName != ""
 %>
 <%= animationName -%>() {
@@ -29,7 +30,7 @@ if propertyName != nil && propertyName != ""
     let values = <%= values %>;
     let timingFunctions = <%= timingFunctions %>;
     let times = <%= times %>;
-    let element = this.rootElement.querySelector("#<%= timelineName %> .<%= id %>")
+    let element = this.rootElement.querySelector(<%= querrySelector %>)
 
     let <%= id %>_track = new Track(
       property,

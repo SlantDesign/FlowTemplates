@@ -41,6 +41,16 @@ func propertyIsForShadow(_ property)
     property.id == "shadowRadius"
 end
 
+// Querry Selector
+
+func querrySelectorFor(property, timelineName, id)
+  if propertyIsForShape(property)
+    return "#\(timelineName) .\(id)-svg".inQuotes()
+  else if propertyIsForRoot(property)
+    return "#\(timelineName) .\(id)".inQuotes()
+  end
+end
+
 // Animation
 
 func animationIsForShapeProperty(_ animation)

@@ -50,28 +50,9 @@ insert("js/contentsGravityAnimations.js.flt", from: Web, indentation: 0)
 
 // General animations
 for track in timeline.tracksForLayer(layer.layer)
-  if Web.propertyIsForRoot(track.property)
-    var animationName = "\(id)_\(track.property.name)"
+  if Web.propertyIsForRoot(track.property) || Web.propertyIsForShape(track.property)
+    var animationName = "\(id)_\(track.property.name.snakeCased())"
     animationNames = animationNames.appending(animationName) -%>
     <% insert("js/track.js.flt", from: Web, indentation: indentation) %>
   <%- end
-end
-
-// Shape-specific animations applied to the SVG element
-var shapeAnimationIndex = 0
-if layer.type.name == "shape" && !timeline.nonPathShapeTracksFor(layer: layer).isEmpty
-  for group in timeline.animationsByTimingForLayer(layer)
-    var animations = group.animations.filter(Web.animationIsForShapeProperty)
-    var animationName = "\(id)ShapeAnimation\(shapeAnimationIndex)"
-    animationNames = animationNames.appending(animationName) -%>
-<%= animationName %>() {
-    return this.rootElement.querySelector('#<%= timelineName %> .<%= id %>-svg').animate({
-<%  insert("js/layerAnimationBlock.flt", from: Web, indentation: indentation + 2) %>
-    }, {
-<%  insert("js/animationParameters.js.flt", from: Web, indentation: indentation + 2) %>
-    });
-}
-<%
-    shapeAnimationIndex = shapeAnimationIndex + 1
-  end
 end %>
