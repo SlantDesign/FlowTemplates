@@ -46,6 +46,8 @@ end
 func querrySelectorFor(property, timelineName, id)
   if propertyIsForShape(property)
     return "#\(timelineName) .\(id)-svg".inQuotes()
+  else if propertyIsForBorder(property)
+      return "#\(timelineName) .flow-border.\(id)-border".inQuotes()
   else if propertyIsForRoot(property)
     return "#\(timelineName) .\(id)".inQuotes()
   end
