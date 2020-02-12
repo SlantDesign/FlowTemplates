@@ -1,7 +1,6 @@
 
 <%-
 // Add the track name to the list of track names to create
-var animationName = "\(id)_\(propertyName.snakeCased())"
 animationNames = animationNames.appending(animationName) 
 -%>
 <%= animationName %>() {

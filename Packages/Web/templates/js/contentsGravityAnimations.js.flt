@@ -1,6 +1,6 @@
 <% // Image contents gravity animations
 // Make a track for backgroundSize
-var propertyName = "backgroundSize"
+propertyName = "backgroundSize"
 var sizes = []
 for keyvalue in track.keyvalues
   sizes = sizes.appending("'\(Web.cssBackgroundSize(keyvalue.value))'")
