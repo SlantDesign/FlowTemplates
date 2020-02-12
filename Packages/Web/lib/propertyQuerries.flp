@@ -3,7 +3,6 @@ func propertyIsForRoot(_ property)
   return
     property.id != "borderWidth" &&
     property.id != "borderColor" &&
-    property.id != "contentsGravity" &&
     property.layerType != "shape" &&
     !propertyIsForTransform(property) &&
     !propertyIsForShadow(property)

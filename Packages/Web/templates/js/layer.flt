@@ -26,13 +26,9 @@ for group in groups
   end
 end
 
-insert("js/contentsGravityAnimations.js.flt", from: Web, indentation: 0)
-
 // General animations
 for track in timeline.tracksForLayer(layer.layer)
-  if Web.propertyIsForRoot(track.property) || Web.propertyIsForShape(track.property) || Web.propertyIsForBorder(track.property)
-    var animationName = "\(id)_\(track.property.name.snakeCased())"
-    animationNames = animationNames.appending(animationName) -%>
-    <% insert("js/track.js.flt", from: Web, indentation: indentation) %>
+  if Web.propertyIsForRoot(track.property) || Web.propertyIsForShape(track.property) || Web.propertyIsForBorder(track.property) -%>
+    <%- insert("js/track.js.flt", from: Web, indentation: indentation) -%>
   <%- end
 end %>
