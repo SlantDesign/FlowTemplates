@@ -17,7 +17,7 @@ var timingFunctions = Web.timingFunctions(keyvalues: keyvalues.dropLast())
 
 var querrySelector = Web.querrySelectorFor(property: property, timelineName: timelineName, id: id).inQuotes()
 var propertyName = Web.jsPropertyName(property: property)
-var animationName = "\(id)_\(propertyName.snakeCased())"
+var trackName = Web.trackName(propertyName: propertyName, id: id)
 
 switch property.id
   case "contentsGravity":

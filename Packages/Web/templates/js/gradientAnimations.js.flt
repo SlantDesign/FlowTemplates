@@ -8,7 +8,7 @@ for stopIndex in 0 ..< stopCount
     end
     values = stopColors
     querrySelector = "\(Web.querrySelectorFor(property: track.property, timelineName: timelineName, id: id))\(stopIndex)".inQuotes()
-    animationName = "\(id)_\(propertyName.snakeCased())_\(stopIndex)"
+    trackName = "\(Web.trackName(propertyName: propertyName, id: id))_\(stopIndex)"
     insert("js/trackConstructor.js.flt", from: Web, indentation: indentation)
 end 
 %>

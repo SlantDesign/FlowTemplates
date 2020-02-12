@@ -456,3 +456,6 @@ func elementIDForMask(layer, symbolTable, timeline)
   return symbol.name
 end
 
+func trackName(propertyName, id)
+  return "\(id)_\(propertyName.snakeCased())Track"
+end

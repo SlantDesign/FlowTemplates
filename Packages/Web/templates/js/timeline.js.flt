@@ -138,21 +138,10 @@ insert("svg/strokeWidthAnimation.svg.flt", from: Web, indentation: 2)
     }
     <%
     var animationNames = []
+    var trackNames = []
     insert("js/layers.flt", from: Web, indentation: 1) -%>
 
-    /**
-    * Creates and returns all animations for this timeline.
-    */
-    createAllAnimations() {      
-    <% for animationName in animationNames -%>
-    let <%= animationName -%> = this.<%= animationName -%>().animations;
-    <% end -%>
-    return [
-    <% for animationName in animationNames -%>
-        <%= animationName -%>,
-    <% end -%>
-    ].flat()
-    }
+    <%- insert("js/createAnimations.js.flt", from: Web, indentation: 1) %>
 }
 
 Object.freeze(<%= timelineClassName %>)

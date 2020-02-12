@@ -1,9 +1,9 @@
 
 <%-
 // Add the track name to the list of track names to create
-animationNames = animationNames.appending(animationName) 
+trackNames = trackNames.appending(trackName) 
 -%>
-<%= animationName %>() {
+<%= trackName %>() {
     let property = "<%= propertyName -%>";
     let values = <%= values %>;
     let timingFunctions = <%= timingFunctions %>;
