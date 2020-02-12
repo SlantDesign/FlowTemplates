@@ -20,7 +20,7 @@ for timeline in timelines
     var buttonID = "\(timelineName)-ButtonID"
 
     //Import image file or generate path to image file
-    var importImage = true
+    var importImage = false
 
     // Get all assets for this timeline
     var fontsInTimeline = document.fonts(forTimeline: timeline)
