@@ -1,11 +1,9 @@
 <%-
 var imageFolderPath = Web.pathPrefix(relativePath: "./img", absolutePath: imageFolderAbsPath, relative: relative)
 var keyvalues = track.keyvalues
+
 // Get all the keyvalue times
-var times = []
-for keyvalue in keyvalues
-  times = times.appending(keyvalue.time * 1000)
-end
+var times = animationTimes(of: keyvalues)
 
 // Get all the keyvalue values
 var values = []
@@ -15,12 +13,7 @@ for keyvalue in keyvalues
 end
 
 // Get all the keyvalue timing functions
-var timingFunctions = []
-for keyvalue in keyvalues.dropLast()
-  var timingFunction = Web.cssTimingFunction(of: keyvalue.trailingTimingFunction).inQuotes()
-  timingFunctions = timingFunctions.appending(timingFunction)
-end
-
+var timingFunctions = timingFunctions(keyvalues: keyvalues.dropLast())
 
 var querrySelector = Web.querrySelectorFor(property: property, timelineName: timelineName, id: id).inQuotes()
 var propertyName = Web.jsPropertyName(property: property)

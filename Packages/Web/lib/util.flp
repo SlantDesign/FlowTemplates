@@ -185,6 +185,28 @@ func cssPropertyDecl(property, value, layer)
   end
 end
 
+// Returns the a list of the keyvalues times in milli seconds
+func animationTimes(of keyvalues)
+  var times = []
+  for keyvalue in keyvalues
+    times = times.appending(keyvalue.time * 1000)
+  end
+  return times
+end
+
+
+// Returns timing functions for the keyvalues
+func timingFunctions(keyvalues)
+  var timingFunctions = []
+  for keyvalue in keyvalues
+    var timingFunction = cssTimingFunction(of: keyvalue.trailingTimingFunction).inQuotes()
+    timingFunctions = timingFunctions.appending(timingFunction)
+  end
+
+  return timingFunctions
+end
+
+
 // Returns the css timing function of the animation starting at `keyvalue`.
 func timing(keyvalue)
   return "'\(cssTimingFunction(of: keyvalue.trailingTimingFunction))'"
