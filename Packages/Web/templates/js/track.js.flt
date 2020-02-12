@@ -10,7 +10,7 @@ end
 // Get all the keyvalue values
 var values = []
 for keyvalue in keyvalues
-  var value = Web.cssValue(property: keyvalue.property, value: keyvalue.value, layer: layer, imageFolderPath: imageFolderPath, importImage: importImage)
+  var value = Web.cssValue(property: property, value: keyvalue.value, layer: layer, imageFolderPath: imageFolderPath, importImage: importImage)
   values = values.appending(value)
 end
 
@@ -22,11 +22,12 @@ for keyvalue in keyvalues.dropLast()
 end
 
 
-var querrySelector = Web.querrySelectorFor(property: track.property, timelineName: timelineName, id: id).inQuotes()
-var propertyName = Web.jsPropertyName(property: track.property)
+var querrySelector = Web.querrySelectorFor(property: property, timelineName: timelineName, id: id).inQuotes()
+var propertyName = Web.jsPropertyName(property: property)
 var animationName = "\(id)_\(propertyName.snakeCased())"
 
-switch track.property.id
+switch property.id
+  case 
   case "contentsGravity":
     insert("js/contentsGravityAnimations.js.flt", from: Web, indentation: 0)
   case "fillGradient":

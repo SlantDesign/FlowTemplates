@@ -138,7 +138,7 @@ insert("svg/strokeWidthAnimation.svg.flt", from: Web, indentation: 2)
     }
     <%
     var animationNames = []
-    insert("js/layers.flt", from: Web, indentation: 1)-%>
+    insert("js/layers.flt", from: Web, indentation: 1) -%>
 
     /**
     * Creates and returns all animations for this timeline.

@@ -7,7 +7,10 @@ insert("js/shadowAnimations.js.flt", from: Web, indentation: indentation)
 
 // General animations
 for track in timeline.tracksForLayer(layer.layer)
-  if Web.propertyIsForRoot(track.property) || Web.propertyIsForShape(track.property) || Web.propertyIsForBorder(track.property) -%>
-    <%- insert("js/track.js.flt", from: Web, indentation: indentation) -%>
-  <%- end
-end %>
+  var property = track.property
+  if Web.propertyIsForTransform(property) || Web.propertyIsForShadow(property)
+    // skip transform and shadow tracks because they are dealt with else where
+    continue
+  end -%>
+  <%- insert("js/track.js.flt", from: Web, indentation: indentation) -%>
+<% end %>
