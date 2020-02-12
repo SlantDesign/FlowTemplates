@@ -1,5 +1,5 @@
 <%-
-var maskID = elementIDForMask(layer: layer, symbolTable: symbolTable) 
+var maskID = Web.elementIDForMask(layer: layer, symbolTable: symbolTable, timeline: timeline) 
 shapeIDs = shapeIDs.appending("\(id)-svg")
 -%>
 <div class="flow-layer <%= id %>">
