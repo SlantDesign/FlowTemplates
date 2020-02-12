@@ -1,0 +1,5 @@
+func copyOverCommonFile(to flowCommonFolderPath)
+    copy(from: "../Packages/web/templates/js/web-animations.min.js", to: "\(flowCommonFolderPath)/web-animations.min.js")
+    copy(from: "../Packages/Web/templates/js/components/Track.js", to: "\(flowCommonFolderPath)/Track.js")
+    copy(from: "../Packages/web/templates/js/components/Animation.js", to: "\(flowCommonFolderPath)/Animation.js")
+end
