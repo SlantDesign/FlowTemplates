@@ -8,9 +8,9 @@ func aspect(_ pattern)
 end
 
 if layer.fillImage.patternFillType == 0 -%>
-<pattern id="<%= timeline.name %>-<%= id %>-fillImage" x="0" y="0" width="<%= layer.fillImage.tileSize.width %>" height="<%= layer.fillImage.tileSize.height %>" patternUnits="userSpaceOnUse">
+<pattern id="<%= timelineNameLowercased %>-<%= id %>-fillImage" x="0" y="0" width="<%= layer.fillImage.tileSize.width %>" height="<%= layer.fillImage.tileSize.height %>" patternUnits="userSpaceOnUse">
 <% else -%>
-<pattern id="<%= timeline.name %>-<%= id %>-fillImage" x="0" y="0" width="100%" height="100%" patternUnits="userSpaceOnUse">
+<pattern id="<%= timelineNameLowercased %>-<%= id %>-fillImage" x="0" y="0" width="100%" height="100%" patternUnits="userSpaceOnUse">
 <% end -%>
 <% insert("svg/image.svg.flt", from: Web, indentation: 1) -%>
 </pattern>
