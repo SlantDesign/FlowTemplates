@@ -13,6 +13,8 @@
 <body>
     <% insert("html/artboard.html.flt", from: Web, indentation: 0) %>
     <script src="<%= Web.pathPrefix(relativePath: "./FlowCommon", absolutePath: commonFolderAbsPath, relative: relative) %>/web-animations.min.js"></script>
+    <script src="<%= Web.pathPrefix(relativePath: "./FlowCommon", absolutePath: commonFolderAbsPath, relative: relative) %>/Animation.js"></script>
+    <script src="<%= Web.pathPrefix(relativePath: "./FlowCommon", absolutePath: commonFolderAbsPath, relative: relative) %>/Track.js"></script>
     <script src="<%= Web.pathPrefix(relativePath: "./js", absolutePath: jsFolderAbsPath, relative: relative) %>/<%= forwardTimelineName %>.js"></script>
 <% if generateUI -%>
     <!-- Animation driver panel, remove if desired -->

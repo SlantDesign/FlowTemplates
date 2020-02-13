@@ -17,6 +17,8 @@
     </div>
 
     <script src="<%= Web.pathPrefix(relativePath: "./FlowCommon", absolutePath: commonFolderAbsPath, relative: relative) %>/web-animations.min.js"></script>
+    <script src="<%= Web.pathPrefix(relativePath: "./FlowCommon", absolutePath: commonFolderAbsPath, relative: relative) %>/Animation.js"></script>
+    <script src="<%= Web.pathPrefix(relativePath: "./FlowCommon", absolutePath: commonFolderAbsPath, relative: relative) %>/Track.js"></script>
     <script src="<%= Web.pathPrefix(relativePath: "./js", absolutePath: jsFolderAbsPath, relative: relative) %>/<%= forwardTimelineName %>.js"></script>
     <script src="<%= Web.pathPrefix(relativePath: "./FlowCommon", absolutePath: commonFolderAbsPath, relative: relative) %>/player.js"></script>
     <script src="<%= Web.pathPrefix(relativePath: "./FlowCommon", absolutePath: commonFolderAbsPath, relative: relative) %>/ToggleButton.js"></script>

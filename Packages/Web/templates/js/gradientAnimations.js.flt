@@ -1,0 +1,14 @@
+<%
+propertyName = "stopColor"
+var stopCount = track.keyvalues[0].value.stops.count
+for stopIndex in 0 ..< stopCount
+    var stopColors = []
+    for keyvalue in track.keyvalues
+        stopColors = stopColors.appending(keyvalue.value.stops[stopIndex].color.hex.inQuotes())
+    end
+    values = stopColors
+    querrySelector = "\(Web.querrySelectorFor(property: track.property, timelineName: timelineName, id: id))\(stopIndex)".inQuotes()
+    trackName = "\(Web.trackName(propertyName: propertyName, id: id))_\(stopIndex)"
+    insert("js/trackConstructor.js.flt", from: Web, indentation: indentation)
+end 
+%>

@@ -1,0 +1,22 @@
+    /**
+    * Creates and returns all animations for this timeline.
+    */
+    createAllAnimations() {
+        // Animations      
+    <%- for animationName in animationNames -%>
+        let <%= animationName -%> = this.<%= animationName -%>();
+    <%- end -%>
+    
+        // Tracks
+    <%- for trackName in trackNames -%>
+        let <%= trackName -%>Animations = this.<%= trackName -%>().animations;
+    <%- end -%>
+        return [
+    <%- for animationName in animationNames -%>
+            <%= animationName -%>,
+    <%- end -%>
+    <%- for trackName in trackNames -%>
+            <%= trackName -%>Animations,
+    <%- end -%>
+        ].flat()
+    }

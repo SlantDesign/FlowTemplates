@@ -1,54 +1,3 @@
-/// Determines if an animaton if for the root div.
-func animationIsForRoot(_ animation)
-  return
-    animation.property.id != "borderWidth" &&
-    animation.property.id != "borderColor" &&
-    animation.property.id != "contentsGravity" &&
-    animation.property.layerType != "shape" &&
-    !animationIsForTransform(animation) &&
-    !animationIsForShadow(animation)
-end
-
-func animationIsForShapeProperty(_ animation)
-  return animation.property.layerType == "shape"
-end
-
-func animationIsNotForShapeProperty(_ animation)
-  return animation.property.layerType != "shape"
-end
-
-func animationIsForTransform(_ animation)
-  return
-    animation.property.id == "transform.scale.x" ||
-    animation.property.id == "transform.scale.y" ||
-    animation.property.id == "transform.rotation.z" ||
-    animation.property.id == "anchorPoint.x" ||
-    animation.property.id == "anchorPoint.y"
-end
-
-func animationIsForBorder(_ animation)
-  return
-    animation.property.id == "borderWidth" ||
-    animation.property.id == "borderColor" ||
-    animation.property.id == "cornerRadius"
-end
-
-func animationIsForShadow(_ animation)
-  return
-    animation.property.id == "shadowOffset.width" ||
-    animation.property.id == "shadowOffset.height" ||
-    animation.property.id == "shadowColor" ||
-    animation.property.id == "shadowRadius"
-end
-
-func groupContainsShapeProperty(_ group)
-  return group.animations.contains(animationIsForShapeProperty)
-end
-
-func groupContainsNonShapeProperty(_ group)
-  return group.animations.contains(animationIsNotForShapeProperty)
-end
-
 /// Returns the css property name for the provided property.
 func jsPropertyName(property)
   switch property.id
@@ -236,6 +185,28 @@ func cssPropertyDecl(property, value, layer)
   end
 end
 
+// Returns the a list of the keyvalues times in milli seconds
+func animationTimes(of keyvalues)
+  var times = []
+  for keyvalue in keyvalues
+    times = times.appending(keyvalue.time * 1000)
+  end
+  return times
+end
+
+
+// Returns timing functions for the keyvalues
+func timingFunctions(keyvalues)
+  var timingFunctions = []
+  for keyvalue in keyvalues
+    var timingFunction = cssTimingFunction(of: keyvalue.trailingTimingFunction).inQuotes()
+    timingFunctions = timingFunctions.appending(timingFunction)
+  end
+
+  return timingFunctions
+end
+
+
 // Returns the css timing function of the animation starting at `keyvalue`.
 func timing(keyvalue)
   return "'\(cssTimingFunction(of: keyvalue.trailingTimingFunction))'"
@@ -248,12 +219,14 @@ func cssTimingFunction(of tf)
     case "Ease In": return "ease-in"
     case "Ease Out": return "ease-out"
     case "Ease In, Ease Out": return "ease-in-out"
-    case "Step Left": return "steps(1)"
-    case "Step Right": return "steps(1)"
+    // Use dirrent representations of step-end to differentiate between Step Right and Step Middle and Step Left
+    // so that Animation.js object can adjust the duration
+    case "Step Left": return "steps(1,end)"
+    case "Step Right": return "step-end"
     case "Step Middle": return "steps(1)"
     case "Custom":
       var c1 = tf.controlPoints[0]
-      var c2 = tf.controlPoints[1]
+      var c2 = tf.controlPoints[1]  
       return "cubic-bezier(\(c1.x), \(c1.y), \(c2.x), \(c2.y))"
   end
 end
@@ -467,3 +440,22 @@ func imagePath(image, importImage, relativePath, imageFolderAbsPath, relative)
   end
 end
 
+func elementIDFor(layer, symbolTable)
+  var symbol = symbolTable.symbolForID(layer.id, "")
+  if symbol == nil
+      symbol = symbolTable.addSymbolWithSuggestedName(layer.name.snakeCased(), type: "id", context: "", id: layer.id)
+  end
+  return symbol.name
+end
+
+func elementIDForMask(layer, symbolTable, timeline)
+  var symbol = symbolTable.symbolForID(layer.id, "mask")
+  if symbol == nil
+      symbol = symbolTable.addSymbolWithSuggestedName("\(timeline.name.snakeCased())-\(layer.name.snakeCased())-mask", type: "id", context: "mask", id: layer.id)
+  end
+  return symbol.name
+end
+
+func trackName(propertyName, id)
+  return "\(id)_\(propertyName.snakeCased())Track"
+end

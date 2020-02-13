@@ -1,0 +1,22 @@
+
+<%-
+// Add the track name to the list of track names to create
+trackNames = trackNames.appending(trackName) 
+-%>
+<%= trackName %>() {
+    let property = "<%= propertyName -%>";
+    let values = <%= values %>;
+    let timingFunctions = <%= timingFunctions %>;
+    let times = <%= times %>;
+    let element = this.rootElement.querySelector(<%= querrySelector %>)
+
+    let <%= id %>_track = new Track(
+      property,
+      values,
+      timingFunctions,
+      times,
+      element
+    );
+
+    return <%= id %>_track;
+}

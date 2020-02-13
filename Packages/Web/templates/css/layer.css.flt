@@ -1,11 +1,7 @@
 <%-
-var symbol = symbolTable.symbolForID(layer.id, "")
-if symbol == nil
-    symbol = symbolTable.addSymbolWithSuggestedName(layer.name.snakeCased(), type: "id", context: "", id: layer.id)
-end
-var id = symbol.name
+var id = Web.elementIDFor(layer: layer, symbolTable: symbolTable)
 -%>
-#<%= timelineName %> .<%= symbol.name %> {
+#<%= timelineName %> .<%= id %> {
     width: <%= layer.bounds.size.width %>px;
     height: <%= layer.bounds.size.height %>px;
     left: <%= layer.position.x %>px;
@@ -39,7 +35,7 @@ end -%>
 }
 
 <% if layer.borderWidth !=0 || layer.cornerRadius != 0 -%>
-#<%= timelineName %> .<%= symbol.name %>-border {
+#<%= timelineName %> .<%= id %>-border {
     border-width: <%= layer.borderWidth %>px;
     border-radius: <%= layer.cornerRadius %>px;
     border-color: <%= layer.borderColor.hex %>;
@@ -47,7 +43,7 @@ end -%>
 
 <% end -%>
 <% if layer.type.name == "shape" -%>
-#<%= timelineName %> .<%= symbol.name %>-svg {
+#<%= timelineName %> .<%= id %>-svg {
     position: absolute;
     width: 100%;
     height: 100%;

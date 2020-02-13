@@ -62,7 +62,7 @@ for timeline in timelines
     // Generate Forward Timeline
     var timelineClassName =  forwardTimelineName
     process("js/timeline.js.flt", from: Web, into: "\(timelineOutputPath)/\(jsFolderName)/\(forwardTimelineName).js", indentation: 0)
-    copy(from: "../Packages/web/templates/js/web-animations.min.js", to: "\(timelineOutputPath)/\(commonFolderName)/web-animations.min.js")
+    Web.copyOverCommonFile(to: "\(timelineOutputPath)/\(commonFolderName)")
     process("js/components/ToggleButton.js.flt", from: Web, into: "\(timelineOutputPath)/\(commonFolderName)/ToggleButton.js", indentation: 0)
     copy(from: "../Packages/web/templates/js/components/flowCommon.js", to: "\(timelineOutputPath)/\(commonFolderName)/flowCommon.js")
     process("button/instances.js.flt", into: "\(timelineOutputPath)/\(jsFolderName)/instances.js", indentation: 0)

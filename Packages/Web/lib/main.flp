@@ -1,5 +1,7 @@
 execute("lib/util.flp")
 execute("lib/fonts.flp")
+execute("lib/propertyQuerries.flp")
+execute("lib/flowCommon.flp")
 
 /// Returns the SVG attribute name of a property.
 func attributeName(of property)

@@ -1,0 +1,10 @@
+<%-
+if layer.type.name != "path"
+    insert("js/layer.flt", from: Web, indentation: 1)
+end
+
+for layer in layer.sublayers
+    if layer.type.name != "path"
+        insert("js/layers.flt", from: Web, indentation: 1)
+    end
+end -%>
