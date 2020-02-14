@@ -12,6 +12,7 @@
         let <%= trackName -%>Animations = this.<%= trackName -%>().animations;
     <%- end -%>
         return [
+            this.artboardAnimation(),
     <%- for animationName in animationNames -%>
             <%= animationName -%>,
     <%- end -%>
