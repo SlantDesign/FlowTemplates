@@ -44,3 +44,11 @@ path {
 svg {
    overflow: visible;
 }
+
+.disablePointer {
+  pointer-events: none;
+}
+
+textarea:focus, input:focus{
+  outline: none;
+}

@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%- var buttonName = "button\(timelineName)" -%>
+<%- var inputFieldName = "input\(timelineName)" -%>
     <title><%= timelineName %></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,7 +12,7 @@
 
     <!-- A div element is used instead of a button to avoid default properties, 
          as well as allowing the element to resize with the animation. -->
-    <div onclick="<%= buttonName %>.toggle(true)" class="flow-artboard" id="<%= buttonID %>">
+    <div class="flow-artboard" id="<%= inputID %>">
         <% insert("html/artboard.html.flt", from: Web, indentation: 2) %>
     </div>
 
@@ -31,8 +31,27 @@
     let <%= resourcesPath %> = "."
     let <%= forwardTimelineNameLowerCased %> = new <%= forwardTimelineName %>(document, <%= resourcesPath %>)
     let <%= reverseTimelineName.lowerCamelCased() %> = new <%= reverseTimelineName %>(document, <%= resourcesPath %>)
-    <%= buttonName %> = new ToggleButton(<%= forwardTimelineNameLowerCased %>, <%= reverseTimelineName.lowerCamelCased() %>, '<%= buttonID %>', timer, false, null)
+    <%= inputFieldName %> = new ToggleButton(<%= forwardTimelineNameLowerCased %>, <%= reverseTimelineName.lowerCamelCased() %>, '<%= inputID %>', timer, false, null)
     </script>
- 
+  
+  <script type="text/javascript">
+  const form = document.getElementById('<%= inputID %>-form');
+
+  const eventIds = ["focus","blur"];
+  eventIds.forEach(addEventListener);
+
+  function addEventListener(eventId) {
+    form.addEventListener(eventId, toggleButtonFormExample, true);
+  }
+
+  function toggleButtonFormExample() {
+    let input = document.getElementById("<%= inputID %>-input");
+    if (input.value.length == 0) {
+      <%= inputFieldName %>.toggle(true)
+    } else {
+      <%= inputFieldName %>.state = true
+    }
+  }
+  </script>
 </body>
 </html>

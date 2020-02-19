@@ -56,3 +56,13 @@ for layer in layer.sublayers
     insert("css/layer.css.flt", from: Web, indentation: 0)
   end
 end -%>
+
+<% if id == "inputcontainer" -%>
+#<%= inputID %>-input {
+  width: <%= layer.bounds.size.width %>px;
+  height: <%= layer.bounds.size.height %>px;
+  left: <%= layer.position.x %>px;
+  top: <%= layer.position.y %>px;
+  font-size: 2em;
+}
+<% end -%>
