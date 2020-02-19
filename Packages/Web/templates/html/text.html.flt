@@ -1,4 +1,4 @@
-<div class="flow-layer <%= id %>">
+<div class="flow-layer disablePointer <%= id %>">
 <%- if layer.attributedString != nil -%>
   <%- for run in layer.attributedString.runs -%>
   <%--%><span style="
