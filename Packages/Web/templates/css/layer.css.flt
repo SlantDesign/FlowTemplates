@@ -64,5 +64,8 @@ end -%>
   left: <%= layer.position.x %>px;
   top: <%= layer.position.y %>px;
   font-size: 2em;
+  font-weight: bold;
+  color: #979797;
+  background-color: transparent;
 }
 <% end -%>
