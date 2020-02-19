@@ -2,5 +2,10 @@
 <% for layer in layer.sublayers -%>
 <%   insert("html/layer.html.flt",  from: Web, indentation: indentation + 1) -%>
 <% end -%>
+<% if id == "inputcontainer" -%>
+    <form id="<%= inputID %>-form">
+      <input type="text" id="<%= inputID %>-input" style="border:none;">
+    </form>
+<% end -%>
     <div class="flow-border <%= id %>-border"></div>
 </div>
