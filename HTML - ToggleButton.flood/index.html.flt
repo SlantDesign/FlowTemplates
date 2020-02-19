@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%- var buttonName = "button\(timelineName)" -%>
+<%- var inputFieldName = "input\(timelineName)" -%>
     <title><%= timelineName %></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,7 +31,7 @@
     let <%= resourcesPath %> = "."
     let <%= forwardTimelineNameLowerCased %> = new <%= forwardTimelineName %>(document, <%= resourcesPath %>)
     let <%= reverseTimelineName.lowerCamelCased() %> = new <%= reverseTimelineName %>(document, <%= resourcesPath %>)
-    <%= buttonName %> = new ToggleButton(<%= forwardTimelineNameLowerCased %>, <%= reverseTimelineName.lowerCamelCased() %>, '<%= buttonID %>', timer, false, null)
+    <%= inputFieldName %> = new ToggleButton(<%= forwardTimelineNameLowerCased %>, <%= reverseTimelineName.lowerCamelCased() %>, '<%= inputID %>', timer, false, null)
     </script>
   
   <script type="text/javascript">
