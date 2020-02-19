@@ -52,7 +52,12 @@ class ToggleButton {
    *
    */
   setState(state) {
-    let newTime = this.player.duration - this.player.currentTime
+    let newTime = 0;
+
+    if (this.player.currentTime > 0) {
+      newTime = this.player.duration - this.player.currentTime
+    }
+    
     this.player.timeline = this.state
       ? this.reverseTimeline
       : this.forwardTimeline;
