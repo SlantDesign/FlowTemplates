@@ -33,6 +33,25 @@
     let <%= reverseTimelineName.lowerCamelCased() %> = new <%= reverseTimelineName %>(document, <%= resourcesPath %>)
     <%= buttonName %> = new ToggleButton(<%= forwardTimelineNameLowerCased %>, <%= reverseTimelineName.lowerCamelCased() %>, '<%= buttonID %>', timer, false, null)
     </script>
- 
+  
+  <script type="text/javascript">
+  const form = document.getElementById('<%= inputID %>-form');
+
+  const eventIds = ["focus","blur"];
+  eventIds.forEach(addEventListener);
+
+  function addEventListener(eventId) {
+    form.addEventListener(eventId, toggleButtonFormExample, true);
+  }
+
+  function toggleButtonFormExample() {
+    let input = document.getElementById("<%= inputID %>-input");
+    if (input.value.length == 0) {
+      <%= inputFieldName %>.toggle(true)
+    } else {
+      <%= inputFieldName %>.state = true
+    }
+  }
+  </script>
 </body>
 </html>
