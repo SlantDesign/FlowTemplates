@@ -4,7 +4,9 @@ function createCommonScripts(commonFolderPath) {
     `${commonFolderPath}/Animation.js`,
     `${commonFolderPath}/Track.js`,
     `${commonFolderPath}/Player.js`,
-    `${commonFolderPath}/ToggleButton.js`
+    `${commonFolderPath}/ToggleButton.js`,
+    `${commonFolderPath}/HoverElement.js`,
+    `${commonFolderPath}/HoverButton.js`
   ];
   loadScripts(sources);
 }
