@@ -51,13 +51,12 @@ class ToggleButton {
    *  The new state of `self`.
    *
    */
-  setState(state) {
-    let newTime = this.player.duration - this.player.currentTime
+  setState(state, time=0) {
     this.player.timeline = this.state
       ? this.reverseTimeline
       : this.forwardTimeline;
     this.state = state;
-    this.player.currentTime = newTime;
+    this.player.currentTime = time;
   }
 
   /**
@@ -66,10 +65,15 @@ class ToggleButton {
    * @param {Boolean} animated
    *  Determines whether or not to animate the state transtion of `self`.
    */
-  toggle(amimated) {
-    this.setState(!this.state);
+  toggle(animated) {
+    if (this.isAnimating()) {
+      let newTime = this.player.duration - this.player.currentTime
+      this.setState(!this.state, newTime);
+    } else {
+      this.setState(!this.state)
+    }
 
-    if (amimated) {
+    if (animated) {
       this.player.play();
     }
   }
