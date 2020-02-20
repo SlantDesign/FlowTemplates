@@ -174,6 +174,9 @@ class HoverButton {
   }
 }
 
+/**
+ * Used when button is a component
+ */
 function createHoverButton(rootID, callback, resourcesPath, ForwardTimeline, ReverseTimeline, ClickForwardTimeline, ClickReverseTimeline, ResetTimeline) {
   let shadowDomContainer = document.getElementById(rootID);
   let shadowRoot = shadowDomContainer.shadowRoot;
