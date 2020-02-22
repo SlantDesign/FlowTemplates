@@ -89,10 +89,10 @@ class ToggleButton {
  *  The path pointing to the root of the Timeline folder.
  *
  * @param {timeline} ForwardTimeline
- *  Animation played when button transitions from off to on.
+ *  The type of animation played when button transitions from on to off.
  * 
  * @param ReverseTimeline
- *  Animation played when button transitions from on to off.
+ *  The type of animation played when button transitions from on to off.
  * 
  * @return
  *  A callback function which is executed when the toggle button is clicked.
