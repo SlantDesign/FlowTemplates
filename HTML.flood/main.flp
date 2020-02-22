@@ -62,7 +62,7 @@ for timeline in timelines
     process("js/timeline.js.flt", from: Web, into: "\(timelineOutputPath)/\(jsFolderName)/\(forwardTimelineName).js", indentation: 0)
     process("js/player.js.flt", from: Web, into: "\(timelineOutputPath)/\(commonFolderName)/player.js", indentation: 0)
 
-    Web.copyOverCommonFile(to: "\(timelineOutputPath)/\(commonFolderName)")
+    Web.copyOverCommonFile(from: "../Packages/web/templates/js", to: "\(timelineOutputPath)/\(commonFolderName)")
 
     // Copy driver panel assets
     if generateUI

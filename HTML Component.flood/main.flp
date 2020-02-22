@@ -70,9 +70,8 @@ for timeline in timelines
     process("instances.js.flt", into: "\(timelineOutputPath)/\(jsFolderName)/instances.js", indentation: 0)
     process("timelineScripts.js.flt", into: "\(timelineOutputPath)/\(jsFolderName)/\(timelineNameLowerCamelCased).js", indentation: 0)
 
-    Web.copyOverCommonFile(to: "\(timelineOutputPath)/\(commonFolderName)")
+    Web.copyOverCommonFile(from: "../Packages/web/templates/js", to: "\(timelineOutputPath)/\(commonFolderName)")
     process("js/components/ToggleButton.js.flt", from: Web, into: "\(timelineOutputPath)/\(commonFolderName)/ToggleButton.js", indentation: 0)
-    copy(from: "../Packages/web/templates/js/components/flowCommon.js", to: "\(timelineOutputPath)/\(commonFolderName)/flowCommon.js")
 
     // Driver Code
     var driverFolderName = "driver"
