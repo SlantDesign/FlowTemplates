@@ -16,9 +16,6 @@ class ToggleButton {
    * @param {String} timer
    *  The HTML Element for the Timer.
    *
-   * @param {Boolean} loop
-   *  True if the animation should restart upon completion false otherwise.
-   *
    * @param {Boolean} state
    *  The initial state of the button.
    *
@@ -26,13 +23,13 @@ class ToggleButton {
    * A callback function passed to the player that runs upon animation completion.
    * This callback does not take in any parameters.
    */
-  constructor(forwardTimeline, reverseTimeline, timer, loop, state, callback) {
+  constructor(forwardTimeline, reverseTimeline, timer, state, callback) {
     this.callback = callback;
     this.state = state;
     this.timer = timer;
     this.forwardTimeline = forwardTimeline;
     this.reverseTimeline = reverseTimeline;
-    this.player = new Player(forwardTimeline, timer, loop, 0, callback);
+    this.player = new Player(forwardTimeline, timer, false, 0, callback);
     this.setState(this.state);
   }
 
@@ -91,6 +88,12 @@ class ToggleButton {
  * @param {String} resourcesPath
  *  The path pointing to the root of the Timeline folder.
  *
+ * @param {timeline} ForwardTimeline
+ *  Animation played when button transitions from off to on.
+ * 
+ * @param ReverseTimeline
+ *  Animation played when button transitions from on to off.
+ * 
  * @return
  *  A callback function which is executed when the toggle button is clicked.
  */
@@ -105,7 +108,6 @@ function createToggleButton(rootID, callback, resourcesPath, ForwardTimeline, Re
     forwardTimeline,
     reverseTimeline,
     timer,
-    false,
     false,
     callback
   );
