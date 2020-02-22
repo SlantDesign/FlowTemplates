@@ -31,7 +31,7 @@
     let <%= resourcesPath %> = "."
     let <%= forwardTimelineNameLowerCased %> = new <%= forwardTimelineName %>(document, <%= resourcesPath %>)
     let <%= reverseTimelineName.lowerCamelCased() %> = new <%= reverseTimelineName %>(document, <%= resourcesPath %>)
-    <%= buttonName %> = new ToggleButton(<%= forwardTimelineNameLowerCased %>, <%= reverseTimelineName.lowerCamelCased() %>, '<%= buttonID %>', timer, false, null)
+    <%= buttonName %> = new ToggleButton(<%= forwardTimelineNameLowerCased %>, <%= reverseTimelineName.lowerCamelCased() %>, timer, false, null)
     </script>
  
 </body>
