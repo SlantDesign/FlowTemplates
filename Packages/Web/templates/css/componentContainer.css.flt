@@ -1,0 +1,1 @@
+margin: 0px auto; width: <%= timeline.rootLayer(at: 0).bounds.size.width %>px; height: <%= timeline.rootLayer(at: 0).bounds.size.height %>px;
