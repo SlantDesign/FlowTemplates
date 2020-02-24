@@ -37,6 +37,10 @@
 <% for layer in layer.sublayers -%>
 <% insert("css/layer.css.flt", from: Web, indentation: 0) %>
 <% end -%>
+
+<% insert("css/container.css.flt", from: Web, indentation: 0) -%>
+
+
 path {
     fill-rule: evenodd; 
 }
