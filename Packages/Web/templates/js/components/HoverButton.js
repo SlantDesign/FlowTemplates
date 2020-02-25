@@ -181,6 +181,10 @@ function createHoverButton(rootID, callback, resourcesPath, ForwardTimeline, Rev
   let shadowDomContainer = document.getElementById(rootID);
   let shadowRoot = shadowDomContainer.shadowRoot;
   let timer = shadowRoot.getElementById("timerID");
+  let container = shadowRoot.getElementById("container");
+  container.setAttribute("onmouseenter", `${rootID}.enter()`)
+  container.setAttribute("onmouseleave", `${rootID}.exit()`)
+  container.setAttribute("onclick", `${rootID}.click()`)
   let forwardTimeline = new ForwardTimeline(shadowRoot, resourcesPath);
   let reverseTimeline = new ReverseTimeline(shadowRoot, resourcesPath);
   let clickForwardTimeline = new ClickForwardTimeline(shadowRoot, resourcesPath);
