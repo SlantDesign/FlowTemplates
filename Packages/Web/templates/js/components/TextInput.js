@@ -34,12 +34,19 @@ class TextInput extends ToggleButton {
   }
 
   set textInputLabel(text) {
-    this.rootElement.querySelector("#Hoshi .labeloff").innerHTML = text;
-    this.rootElement.querySelector("#Hoshi .labelon").innerHTML = text;
+    let off = this.rootElement.querySelector("#Hoshi .labelOff")
+    if (off !== null) {
+      off.innerHTML = text;
+    }
+
+    let on = this.rootElement.querySelector("#Hoshi .labelOn")
+    if (on !== null) {
+      on.innerHTML = text;
+    }
   }
 
   get textInputLabel() {
-    return this.rootElement.querySelector("#Hoshi .labelon").innerHTML
+    return this.rootElement.querySelector("#Hoshi .labelOn").innerHTML
   }
 }
 
