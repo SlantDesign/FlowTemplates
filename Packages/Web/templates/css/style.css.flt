@@ -38,8 +38,9 @@
 <% insert("css/layer.css.flt", from: Web, indentation: 0) %>
 <% end -%>
 
+<% if containerID != nil -%>
 <% insert("css/container.css.flt", from: Web, indentation: 0) -%>
-
+<% end -%>
 
 path {
     fill-rule: evenodd; 
