@@ -1,5 +1,6 @@
 class TextInput extends ToggleButton {
   constructor(
+    timelineName,
     forwardTimeline,
     reverseTimeline,
     timer,
@@ -9,9 +10,11 @@ class TextInput extends ToggleButton {
     textInputLabel
   ) {
     super(forwardTimeline, reverseTimeline, timer, loop, state, callback);
+    this.timelineName = timelineName
     this.rootElement = this.forwardTimeline.rootElement;
     this.textInputLabel = textInputLabel;
     this.addEventListener();
+    this.labelClass = ".label"
   }
   addEventListener() {
     const eventIds = ["focus", "blur"];
@@ -25,7 +28,7 @@ class TextInput extends ToggleButton {
   }
 
   toggleTextInput() {
-    let input = this.rootElement.getElementById("Hoshi-inputID-input");
+    let input = this.rootElement.getElementById(`${this.timelineName}-inputID-input`);
     if (input.value.length == 0) {
       this.toggle(true);
     } else {
@@ -34,16 +37,35 @@ class TextInput extends ToggleButton {
   }
 
   set textInputLabel(text) {
-    this.rootElement.querySelector("#Hoshi .labeloff").innerHTML = text;
-    this.rootElement.querySelector("#Hoshi .labelon").innerHTML = text;
+    let label = this.rootElement.querySelector(`#${this.timelineName} .label`);
+    if (label !== null) {
+        label.innerHTML = text;
+      return;
+    }
+
+    let off = this.rootElement.querySelector(`#${this.timelineName} .labeloff`)
+    if (off !== null) {
+      off.innerHTML = text;
+    }
+
+    let on = this.rootElement.querySelector(`#${this.timelineName} .labelon`)
+    if (on !== null) {
+      on.innerHTML = text;
+    }
   }
 
   get textInputLabel() {
-    return this.rootElement.querySelector("#Hoshi .labelon").innerHTML
+    let label = this.rootElement.querySelector(`#${this.timelineName} .label`);
+    if (label !== null) {
+      return label.innerHTML;
+    }
+
+    return this.rootElement.querySelector(`#${this.timelineName} .labelon`).innerHTML
   }
 }
 
 function createTextInput(
+  timelineName,
   rootID,
   callback,
   resourcesPath,
@@ -57,6 +79,7 @@ function createTextInput(
   let forwardTimeline = new ForwardTimeline(shadowRoot, resourcesPath);
   let reverseTimeline = new ReverseTimeline(shadowRoot, resourcesPath);
   return new TextInput(
+    timelineName,
     forwardTimeline,
     reverseTimeline,
     timer,
