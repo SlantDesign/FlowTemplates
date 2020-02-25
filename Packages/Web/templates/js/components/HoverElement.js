@@ -88,6 +88,9 @@ function createHoverElement(rootID, callback, resourcesPath, ForwardTimeline, Re
   let shadowDomContainer = document.getElementById(rootID);
   let shadowRoot = shadowDomContainer.shadowRoot;
   let timer = shadowRoot.getElementById("timerID");
+  let container = shadowRoot.getElementById("container");
+  container.setAttribute("onmouseenter", `${rootID}.enter()`)
+  container.setAttribute("onmouseleave", `${rootID}.exit()`)
   let forwardTimeline = new ForwardTimeline(shadowRoot, resourcesPath);
   let reverseTimeline = new ReverseTimeline(shadowRoot, resourcesPath);
   return new HoverElement(
