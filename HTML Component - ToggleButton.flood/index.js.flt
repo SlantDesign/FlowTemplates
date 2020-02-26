@@ -7,7 +7,8 @@
 
             const shadow = this.attachShadow({ mode: "open" });
             const <%= timelineNameLowercased %> = document.createElement("div");
-            <%= timelineNameLowercased %>.id = "container";
+            <%= timelineNameLowercased %>.id = "<%= containerID %>";
+            <%= timelineNameLowercased %>.setAttribute("style", "<% insert("css/container.css.flt", from: Web, indentation: 0) %>");
             <%= timelineNameLowercased %>.innerHTML = `
 
 <head>

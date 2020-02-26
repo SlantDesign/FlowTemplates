@@ -1,0 +1,14 @@
+import Player from "./player";
+
+<% insert("js/components/ToggleButton.js.flt", from: Web, indentation: 0) %>
+
+function setContainerClick(rootID, button) {
+  let shadowDomContainer = document.getElementById(rootID);
+  let shadowRoot = shadowDomContainer.shadowRoot;
+
+  //ID of the shadow dom container, do not change.
+  let container = shadowRoot.getElementById("flowComponentContainerID");
+  container.onclick = () => button.toggle(true)
+}
+
+export {ToggleButton, createToggleButton, setContainerClick};

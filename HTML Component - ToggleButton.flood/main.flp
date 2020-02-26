@@ -23,6 +23,9 @@ for timeline in timelines
     var timelineToggleButtonName = "\(timelineNameLowercased)ToggleButton.js"
     var buttonID = "\(timelineName)-ButtonID"
 
+    //Encapsulated ID of the shadow dom container. Hardcoded on purpose do not change.
+    var containerID = "flowComponentContainerID"
+
     var importImage = false
 
     // Get all assets for this timeline
