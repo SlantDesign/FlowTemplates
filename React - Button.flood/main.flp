@@ -69,7 +69,7 @@ for timeline in timelines
     process("timeline.js.flt", into: "\(timelineOutputPath)/\(jsFolderName)/\(forwardTimelineName).js", indentation: 0)
     copy(from: "../Packages/web/templates/js/web-animations.min.js", to: "\(timelineOutputPath)/\(commonFolderName)/web-animations.min.js") 
     copy(from: "../Packages/web/templates/js/components/flowCommon.js", to: "\(timelineOutputPath)/\(commonFolderName)/flowCommon.js")
-    copy(from: "../Packages/web/templates/js/components/ReactToggleButton.js", to: "\(timelineOutputPath)/\(commonFolderName)/ToggleButton.js")
+    process("js/components/ReactToggleButton.js.flt", from: Web, into: "\(timelineOutputPath)/\(commonFolderName)/ToggleButton.js", indentation: 0)
     process("player.js.flt", into: "\(timelineOutputPath)/\(commonFolderName)/player.js", indentation: 0)
     process("js/components/ReactAnimation.js.flt", from: Web, into: "\(timelineOutputPath)/\(commonFolderName)/Animation.js", indentation: 0)
     process("js/components/ReactTrack.js.flt", from: Web, into: "\(timelineOutputPath)/\(commonFolderName)/Track.js", indentation: 0)
