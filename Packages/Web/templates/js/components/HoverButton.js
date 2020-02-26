@@ -181,7 +181,10 @@ function createHoverButton(rootID, callback, resourcesPath, ForwardTimeline, Rev
   let shadowDomContainer = document.getElementById(rootID);
   let shadowRoot = shadowDomContainer.shadowRoot;
   let timer = shadowRoot.getElementById("timerID");
-  let container = shadowRoot.getElementById("container");
+
+  //ID of the shadow dom container, do not change.
+  let container = shadowRoot.getElementById("flowComponentContainerID");
+
   container.setAttribute("onmouseenter", `${rootID}.enter()`)
   container.setAttribute("onmouseleave", `${rootID}.exit()`)
   container.setAttribute("onclick", `${rootID}.click()`)
