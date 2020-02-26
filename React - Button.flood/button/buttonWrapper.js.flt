@@ -1,6 +1,7 @@
 import React from "react";
 import <%= timelineComponentName %> from "./<%= timelineComponentName %>";
 import {createToggleButton} from "../FlowCommon/ToggleButton";
+import {setContainerClick} from "../FlowCommon/ToggleButton";
 import <%= forwardTimelineName %> from "./<%= forwardTimelineName %>";
 import <%= reverseTimelineName %> from "./<%= reverseTimelineName %>";
 
@@ -17,6 +18,7 @@ export default class <%= timelineName %> extends React.Component {
       <%= forwardTimelineName %>,
       <%= reverseTimelineName %>
     );
+    setContainerClick(this.props.elementID, toggleButton)
     this.setState({ toggleButton });
   }
 
@@ -24,7 +26,6 @@ export default class <%= timelineName %> extends React.Component {
     return (
       <<%= customElementName %>
         id={this.props.elementID}
-        onClick={() => this.state.toggleButton.toggle(true)}
       ></<%= customElementName %>>
     );
   }
