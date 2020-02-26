@@ -102,6 +102,11 @@ function createToggleButton(rootID, callback, resourcesPath, ForwardTimeline, Re
   let shadowDomContainer = document.getElementById(rootID);
   let shadowRoot = shadowDomContainer.shadowRoot;
   let timer = shadowRoot.getElementById("timerID");
+
+  //ID of the shadow dom container, do not change.
+  let container = shadowRoot.getElementById("flowComponentContainerID");
+  container.setAttribute("onclick", `${rootID}.toggle(true)`)
+
   let forwardTimeline = new ForwardTimeline(shadowRoot, resourcesPath);
   let reverseTimeline = new ReverseTimeline(shadowRoot, resourcesPath);
   return new ToggleButton(
