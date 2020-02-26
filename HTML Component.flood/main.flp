@@ -28,6 +28,9 @@ for timeline in timelines
     var fontsInTimeline = document.fonts(forTimeline: timeline)
     var imagesInTimeline = document.images(forTimeline: timeline)
 
+    //Encapsulated ID of the shadow dom container. Hardcoded on purpose do not change.
+    var containerID = "flowComponentContainerID"
+
     // Folder names
     var imageFolderName = "img"
     var fontFolderName = "fonts"
