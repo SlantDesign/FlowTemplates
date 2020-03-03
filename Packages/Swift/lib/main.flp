@@ -269,7 +269,7 @@ func rectCode(rect)
 end
 
 func pathCode(path, size)
-    return "CGPathCreateWithSVGString(\"\(path.svg(size: size))\")!"
+    return "CGPathCreateWithSVGString(\"\(path.svg(width: size.width, height: size.height))\")!"
 end
 
 func fontCode(font)

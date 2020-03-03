@@ -6,7 +6,7 @@ shapeIDs = shapeIDs.appending("\(id)-svg")
     <svg class="flow-layer <%= id %>-svg" preserveAspectRatio="none" viewBox="0 0 <%= layer.size.width %> <%= layer.size.height %>">
         <defs>
             <clipPath id="<%= maskID %>">
-                <path vector-effect="non-scaling-stroke" d="<%= layer.maskPath.svgc(size: layer.size) %>">
+                <path vector-effect="non-scaling-stroke" d="<%= layer.maskPath.svgc(width: layer.size.width, height: layer.size.height) %>">
                 </path>
             </clipPath>
         </defs>

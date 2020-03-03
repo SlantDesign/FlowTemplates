@@ -60,7 +60,7 @@ end -%>
             var id = Web.elementIDFor(layer: layer, symbolTable: symbolTable)
 -%>         
         path = this.rootElement.getElementById("<%= id %>-path")
-        path.d = "<%= layer.path.svgc(size: layer.size) %>"
+        path.d = "<%= layer.path.svgc(width: layer.size.width, height: layer.size.height) %>"
         path.innerHTML = `
 <%- insert("svg/pathAnimation.svg.flt", from: Web, indentation: 2)
 insert("svg/viewBoxAnimation.svg.flt", from: Web, indentation: 2)
@@ -97,7 +97,7 @@ insert("svg/strokeWidthAnimation.svg.flt", from: Web, indentation: 2)
             this.rootElement.querySelector(
                 "#<%= maskID %>"
             ).innerHTML = `
-            <path vector-effect="non-scaling-stroke" d="<%= layer.maskPath.svgc(size: layer.size) %>">
+            <path vector-effect="non-scaling-stroke" d="<%= layer.maskPath.svgc(width: layer.size.width, height: layer.size.height) %>">
 <% 
             insert("svg/pathAnimation.svg.flt", from: Web, indentation: 2)
 -%>
