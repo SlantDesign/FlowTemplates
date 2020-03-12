@@ -1,0 +1,1 @@
+var lottieAnimationData = <% insert("timeline.json.flt", indentation: 0) %>

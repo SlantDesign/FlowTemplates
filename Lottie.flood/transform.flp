@@ -1,0 +1,61 @@
+func transform(layer, timeline, type)
+    return [
+        "o": opacityComponent(layer: layer, timeline: timeline, type: type),
+        "r": rotationComponent(layer: layer, timeline: timeline, type: type),
+        "p": positionComponent(layer: layer, timeline: timeline, type: type),
+        "a": anchorPointComponent(layer: layer, timeline: timeline, type: type),
+        "s": scaleComponent(layer: layer, timeline: timeline, type: type)
+    ]
+end
+
+func opacityComponent(layer, timeline, type)
+    switch type
+    case "composition":
+        return opacityAnimation(layer: layer, timeline: timeline)
+    default:
+        return ["a": 0,"k": 100,"ix": 7]
+    end
+end
+
+func rotationComponent(layer, timeline, type)
+    switch type
+    case "null":
+        return  rotationAnimation(layer: layer, timeline: timeline)
+    default:
+        return  ["a": 0,"k": 0,"ix": 2]
+    end
+end
+
+func scaleComponent(layer, timeline, type)
+    if type == "composition" || type == "maskComposition" || type == "null"
+        return ["a": 0,"k": [100,100],"ix": 6]
+    else
+        return sizeAnimation()
+    end
+end
+
+func anchorPointComponent(layer, timeline, type)
+    switch type
+    case "null":
+        return anchorPointAnimation(layer: layer, timeline: timeline)
+    default:
+        return ["a": 0,"k": [0,0],"ix": 1]
+    end
+end
+
+func positionComponent(layer, timeline, type)
+    switch type
+    case "null":
+        return positionAnimation(layer: layer, timeline: timeline)
+    default:
+        return ["a": 0,"k": [0,0],"ix": 2]
+    end
+end
+
+func positionAnimation(layer, timeline)
+    return [
+        "s": true, // seperate position dimensions into x and y components in order to animate them independently
+        "x": xPositionAnimation(layer: layer, timeline: timeline),
+        "y": yPositionAnimation(layer: layer, timeline: timeline)
+    ]
+end

@@ -1,0 +1,15 @@
+func fonts(timeline)
+    var fonts = []
+    for font in timeline.fonts
+        fonts = fonts.appending(fontDictionary(from: font))
+    end
+    return ["list": fonts]
+end
+
+func fontDictionary(from font)
+    return [
+        "fName": "\(font.name)", // font name
+        "fFamily": "\(font.familyName)", // font family name
+        "fStyle": "\(font.style)" // font style
+    ]
+end

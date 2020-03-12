@@ -1,0 +1,231 @@
+func propertyValue(layer, propertyID)
+    switch propertyID
+    case "opacity":
+        return lottieValue(from: layer.opacity, propertyID: propertyID)
+    case "border.size":
+        var borderWidth = layer.bounds.size.width - layer.borderWidth
+        var borderHeight = layer.bounds.size.height - layer.borderWidth
+        var borderSize = [borderWidth, borderHeight]
+    	return lottieValue(from: borderSize, propertyID: propertyID)
+    case "bounds.size.width":
+    	return lottieValue(from: 1, propertyID: propertyID)
+    case "bounds.size.height":
+    	return lottieValue(from: 1, propertyID: propertyID)
+    case "transform.scale.x":
+        return lottieValue(from: layer.flippedHorizontal, propertyID: propertyID)
+    case "transform.scale.y":
+        return lottieValue(from: layer.flippedVertical, propertyID: propertyID)
+    case "anchorPoint":
+        return lottieValue(from: [layer.anchorPoint, layer.bounds.size], propertyID: propertyID)
+    case "transform.rotation.z":
+        return lottieValue(from: layer.rotation, propertyID: propertyID)
+    case "position.x":
+        return lottieValue(from: layer.position.x, propertyID: propertyID)
+    case "position.y":
+        return lottieValue(from: layer.position.y, propertyID: propertyID)
+    case "center":
+        return lottieValue(from: layer.bounds.size, propertyID: propertyID)
+    case "combinedPath":
+        var renderedPath = layer.path.render(width: layer.bounds.size.width, height: layer.bounds.size.height)
+    	return lottieValue(from: renderedPath, propertyID: propertyID)
+    case "strokeColor":
+    	return lottieValue(from: layer.strokeColor, propertyID: propertyID)
+    case "lineWidth":
+    	return lottieValue(from: layer.strokeWidth, propertyID: propertyID)
+    case "stroke.opacity":
+    	return lottieValue(from: layer.strokeColor.alpha, propertyID: propertyID)
+    case "fillColor":
+    	return lottieValue(from: layer.fillColor, propertyID: propertyID)
+    case "fillColor.opacity":
+    	return lottieValue(from: layer.fillColor.alpha, propertyID: propertyID)
+    case "backgroundColor":
+    	return lottieValue(from: layer.backgroundColor, propertyID: propertyID)
+    case "backgroundColor.opacity":
+    	return lottieValue(from: layer.backgroundColor.alpha, propertyID: propertyID)
+    case "strokeStart":
+        return lottieValue(from: layer.strokeStart, propertyID: propertyID)
+    case "strokeEnd":
+        return lottieValue(from: layer.strokeEnd, propertyID: propertyID)
+    case "lineDashPhase":
+        return lottieValue(from: layer.dashPatternOffset, propertyID: propertyID)
+    case "lineDashPattern":
+        return lottieValue(from: layer.dashPattern, propertyID: propertyID)
+    case "shadowColor":
+        return lottieValue(from: layer.shadowColor, propertyID: propertyID)
+    case "shadowColor.opacity":
+        return lottieValue(from: layer.shadowColor.alpha, propertyID: propertyID)
+    case "shadowRadius":
+        return lottieValue(from: layer.shadowRadius, propertyID: propertyID)
+    case "cornerRadius":
+        return lottieValue(from: layer.cornerRadius, propertyID: propertyID)
+    case "borderColor":
+        return lottieValue(from: layer.borderColor, propertyID: propertyID)
+    case "borderColor.opacity":
+        return lottieValue(from: layer.borderColor.alpha, propertyID: propertyID)
+    case "borderWidth":
+        return lottieValue(from: layer.borderWidth, propertyID: propertyID)
+    case "shadow.distance":
+        return lottieValue(from: [layer.shadowOffset.width, layer.shadowOffset.height], propertyID: propertyID)
+    case "shadow.direction":
+        return lottieValue(from: [layer.shadowOffset.width, layer.shadowOffset.height], propertyID: propertyID)
+    default:
+        return nil
+    end
+end
+
+func lottieValue(from value, propertyID)
+    switch propertyID
+    case "opacity":
+        return opacityValue(from: value)
+    case "border.size":
+        return [value[0], value[1]]
+    case "bounds.size.width":
+        return scaleValue(scale: value)
+    case "bounds.size.height":
+        return scaleValue(scale: value)
+    case "transform.scale.x":
+        return scaleValue(scale: value)
+    case "transform.scale.y":
+        return scaleValue(scale: value)
+    case "anchorPoint":
+        return anchorPointValue(anchorPoint: value[0], size: value[1])
+    case "transform.rotation.z":
+        return rotationValue(from: value)
+    case "position.x":
+        return value
+    case "position.y":
+        return value
+    case "center":
+        return centerValue(from: value)
+    case "combinedPath":
+        return pathValue(from: value)
+    case "strokeColor":
+        return colorValue(from: value)
+    case "lineWidth":
+        return value
+    case "stroke.opacity":
+        return opacityValue(from: value)
+    case "fillColor":
+        return colorValue(from: value)
+    case "fillColor.opacity":
+        return opacityValue(from: value)
+    case "backgroundColor":
+        return colorValue(from: value)
+    case "backgroundColor.opacity":
+        return opacityValue(from: value)
+    case "strokeStart":
+        return strokeTrimValue(from: value)
+    case "strokeEnd":
+        return strokeTrimValue(from: value)
+    case "lineDashPhase":
+        return value
+    case "lineDashPattern":
+        return value
+    case "shadowColor":
+        return colorValue(from: value)
+    case "shadowColor.opacity":
+        return shadowOpacityValue(from: value)
+    case "shadowRadius":
+        return shadowRadius(from: value)
+    case "cornerRadius":
+        return value
+    case "borderColor":
+        return colorValue(from: value)
+    case "borderColor.opacity":
+        return opacityValue(from: value)
+    case "borderWidth":
+        return value
+    case "shadow.distance":
+        return shadowDistance(width: value[0], height: value[1])
+    case "shadow.direction":
+        return shadowDirection(width: value[0], height: value[1])
+    default:
+        return nil
+    end
+end
+
+func strokeTrimValue(from strokeTrim)
+    return strokeTrim * 100
+end
+
+func colorValue(from color)
+	return [
+		color.red,
+		color.green,
+		color.blue
+    ]
+end
+
+func shadowDirection(width, height)
+    return 90 - atan2(-height, width) * 180 / Math.pi
+end
+
+func shadowDistance(width, height)
+    return sqrt((width * width) + (height * height))
+end
+
+func shadowRadius(from radius)
+	return radius * 4 
+end
+
+func opacityValue(from opacity)
+	return opacity * 100
+end
+
+func shadowOpacityValue(from opacity)
+    return opacity * 255
+end
+
+func scaleValue(scale)
+	return scale * 100
+end
+
+func anchorPointValue(anchorPoint, size)
+	return [anchorPoint.x * size.width, anchorPoint.y * size.height, 0]
+end
+
+func rotationValue(from angle)
+	return angle.degrees
+end
+
+func centerValue(from size)
+	return [size.width / 2, size.height / 2]
+end
+
+func pathValue(from renderedPath)
+	// FIX this! Need to take into account all sub pathsß
+	var subPath = renderedPath.paths[0]
+	var vertices = []
+	var trailingBezierCurveHandles = []
+	var leadingBezierCurveHandles = []
+
+	for point in subPath.points
+		vertices = vertices.appending([point.position.x, point.position.y])
+		var trailingBezierCurveHandle = point.curveFrom.subtracting(point: point.position)
+		var leadingBezierCurveHandle = point.curveTo.subtracting(point: point.position)
+		trailingBezierCurveHandles = trailingBezierCurveHandles.appending([trailingBezierCurveHandle.x, trailingBezierCurveHandle.y])
+		leadingBezierCurveHandles = leadingBezierCurveHandles.appending([leadingBezierCurveHandle.x, leadingBezierCurveHandle.y])
+	end
+
+	return [ 
+        "c": subPath.closed,
+        "i": trailingBezierCurveHandles,
+        "o": leadingBezierCurveHandles,
+        "v": vertices
+    ]
+end
+
+func textAlignmentValue(from alignment)
+    switch alignment.name
+    case "natural":
+        return 0
+    case "left":
+        return 0
+    case "right":
+        return 1
+    case "center":
+        return 2
+    case "justified":
+        return 3
+    end
+end

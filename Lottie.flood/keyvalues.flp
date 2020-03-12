@@ -1,0 +1,123 @@
+func kevaluesArray(layer, propertyID, timeline)
+    var tracks = tracksFor(layer: layer, propertyID: propertyID, timeline: timeline)
+    if tracks.isEmpty
+        return []
+    end
+
+    if shouldAnimatePropertyFrameByFrame(propertyID: propertyID)
+        return frameByFrameKevaluesArray(layerID: layer.id, propertyID: propertyID, timeline: timeline)
+    end
+
+    var keyvaluesArray = []
+    for keyvalue in tracks[0].keyvaluesWithSimulatedSteps
+        keyvaluesArray = keyvaluesArray.appending(keyvalueData(from: keyvalue, propertyID: propertyID))
+    end
+
+    return keyvaluesArray
+end
+
+func shouldAnimatePropertyFrameByFrame(propertyID)
+    return propertyID == "shadow.distance" || propertyID == "shadow.direction" || propertyID == "anchorPoint"
+end
+
+func frameByFrameKevaluesArray(layerID, propertyID, timeline)
+    var keyvaluesArray = []
+    for frame in frames(timeline: timeline)
+        var time = time(from: frame)
+        var layer = timeline.rootLayer(at: time).layerBy(uuid: layerID)
+        var value = propertyValue(layer: layer, propertyID: propertyID)
+        // use linear timing functions in frame by frame animations
+        var keyvalue = keyFrame(inX: 1, inY: 1, outX: 0, outY: 0, frame: frame, value: value)
+        keyvaluesArray = keyvaluesArray.appending(keyvalue)
+    end
+    return keyvaluesArray
+end
+
+func keyvalueData(from keyvalue, propertyID)
+    return keyFrame(inX: keyvalue.trailingTimingFunction.controlPoints[1].x, 
+                    inY: keyvalue.trailingTimingFunction.controlPoints[1].y, 
+                    outX: keyvalue.trailingTimingFunction.controlPoints[0].x, 
+                    outY: keyvalue.trailingTimingFunction.controlPoints[0].y, 
+                    frame: frameNumber(from: keyvalue.time), 
+                    value: keyvalueValue(from: keyvalue, propertyID: propertyID))
+end
+
+func keyFrame(inX, inY, outX, outY, frame, value)
+    func array(from value)
+        if value is Array
+            return value
+        else
+            return [value]
+        end
+    end
+
+    return [
+        "o": [
+            "x": [ outX ],
+            "y": [ outY ]
+        ],
+        "i": [
+            "x": [ inX ],
+            "y": [ inY ]
+        ],
+        "t": frame, // frame number
+        "s": array(from: value)
+    ]
+end
+
+func keyvalueValue(from keyvalue, propertyID)
+    var value = extractValue(from: keyvalue, propertyID: propertyID)
+    return lottieValue(from: value, propertyID: propertyID)
+end
+
+func extractValue(from keyvalue, propertyID)
+    switch propertyID
+    case "combinedPath":
+        var path = keyvalue.value
+        var timeline = keyvalue.track.timeline
+        var layer = keyvalue.track.layer
+        var initialSize = timeline.value(property: "size", layer: layer, time: 0) 
+        return path.render(width: initialSize.width, height: initialSize.height)
+
+    case "backgroundColor.opacity":
+        return keyvalue.value.alpha
+
+    case "fillColor.opacity":
+        return keyvalue.value.alpha
+
+    case "strokeColor.opacity":
+        return keyvalue.value.alpha
+
+    case "shadowColor.opacity":
+        return keyvalue.value.alpha
+
+    case "borderColor.opacity":
+        return keyvalue.value.alpha
+
+    case "bounds.size.width":
+        var timeline = keyvalue.track.timeline
+        var initialWidth = timeline.value(
+                                        property: "bounds.size.width", 
+                                        layer: keyvalue.track.layer, 
+                                        time: 0)
+        return keyvalue.value / initialWidth
+
+    case "bounds.size.height": 
+        var timeline = keyvalue.track.timeline
+        var initialHeight = timeline.value(
+                                        property: "bounds.size.height", 
+                                        layer: keyvalue.track.layer, 
+                                        time: 0)
+        return keyvalue.value / initialHeight
+
+    case "border.size":
+        var path = keyvalue.value
+        var timeline = keyvalue.track.timeline
+        var layer = keyvalue.track.layer
+        var size = timeline.value(property: "size", layer: layer, time: keyvalue.time) 
+        return path.render(size: size)
+
+    default:
+        return keyvalue.value
+    end
+end

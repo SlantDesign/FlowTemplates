@@ -1,0 +1,43 @@
+func lottieDictionaryFor(timeline, imageFolderName)
+    var dictionary = [
+        "v": version(),
+        "fr": frameRate(),
+        "ip": 0, // composition start time in frames
+        "op": lastFrame(timeline: timeline), // composition end time in frames
+        "w": compositionWidth(timeline),
+        "h": compositionHeight(timeline),
+        "nm": compositionName(timeline), 
+        "ddd": compositionHas3DLayers(),
+        "assets": assetsArray(timeline: timeline, imageFolderName: imageFolderName),
+        "layers": layersArray(timeline: timeline),
+        "fonts": fonts(timeline: timeline),
+        "markers": markersArray()
+    ]
+    return dictionary
+end
+
+func version()
+    // Version of body moving the lottie player should expect
+    return "5.6.4"
+end
+
+func compositionWidth(_ timeline)
+    return timeline.rootLayer(at: 0).bounds.width
+end
+
+func compositionHeight(_ timeline)
+    return timeline.rootLayer(at: 0).bounds.height
+end
+
+func compositionName(_ timeline)
+    return timeline.name
+end
+
+func compositionHas3DLayers()
+    return 0
+end
+
+func markersArray()
+    return []
+end
+
