@@ -1,0 +1,138 @@
+func assetsArray(timeline, imageFolderName)
+    var assets = []
+    assets = assets.concatenate(imageAssets(timeline: timeline, imageFolderName: imageFolderName))
+    assets = assets.concatenate(layerCompositionAssets(timeline: timeline))
+    return assets
+end
+
+func layerCompositionAssets(timeline)
+    var compositions = []
+    var rootLayer =  timeline.rootLayer(at: 0)
+    for layer in rootLayer.descendants
+        switch layer.type.name 
+        case "path":
+            continue
+        case "group":
+            // make a composition that contains all the sublayers of the group which can be masked by signle layer 
+            // used to implement `masksToBounds`
+            compositions = compositions.appending(maskCompositionAsset(layer: layer, timeline: timeline))
+        end
+
+        compositions = compositions.appending(compositionAsset(layer: layer, timeline: timeline))
+        
+    end
+    return compositions
+end
+
+// Building composition for group
+
+func compositionAsset(layer, timeline)
+    return [
+        "id": compositionID(of: layer),
+        "layers": compositionSublayers(of: layer, timeline: timeline)
+    ]
+end
+
+func compositionID(of layer)
+    return "comp_\(layer.name)_\(layer.id)"
+end
+
+// Returns the Lottie layers needed to represent a single Flow Layer
+// For example a shape layer is represented via 4 layers:
+// - stroke layer
+// - content layer (represents the path in this case)
+// - background layer
+// - border layer
+func compositionSublayers(of layer, timeline)
+    // A null layer is created to control the transform of the layer
+    var lottieLayers = nullLayers(from: layer, timeline: timeline)
+
+    // A seperate border layer is created for the layer because AE does not support adding a border
+    // to a layer directly
+    var borderLayer = lottieLayer(layer: layer, timeline: timeline, type: "border")
+    lottieLayers = lottieLayers.appending(borderLayer)
+
+    // A seperate stroke layer is created for shape Layers to prevent the stroke start/end
+    // property affecting the fill of the shape layer.
+    if layer.type.name == "shape"
+        // only shapes have strokes
+        var strokeLayer = lottieLayer(layer: layer, timeline: timeline, type: "stroke")
+        lottieLayers = lottieLayers.appending(strokeLayer)
+    end
+    
+    if layer.type.name == "group"
+        var sublayers = lottieSubLayers(of: layer, timeline: timeline)
+        lottieLayers = lottieLayers = lottieLayers.concatenate(sublayers)
+    else
+        var contentLayer = lottieLayer(layer: layer, timeline: timeline, type: "content")
+        lottieLayers = lottieLayers.appending(contentLayer)
+    end
+    
+
+    // A seperate background layer is created for the group because AE does not support adding a background color
+    // to a layer directly
+    var backgroundLayer = lottieLayer(layer: layer, timeline: timeline, type: "background")
+    lottieLayers = lottieLayers.appending(backgroundLayer)
+    
+    return lottieLayers
+end
+
+// Building Composition for sublayers of grouped which can be masked when `masksToBounds` is set to `true`
+
+func maskCompositionAsset(layer, timeline)
+    return [
+        "id": maskCompositionID(of: layer),
+        "layers": maskCompositionSublayers(of: layer, timeline: timeline)
+    ]
+end
+
+func maskCompositionID(of layer)
+    return "maskComp_\(layer.name)_\(layer.id)"
+end
+
+func maskCompositionSublayers(of layer, timeline)
+    // A null layer is created to control the transform of the mask
+    var lottieLayers = nullLayers(from: layer, timeline: timeline)
+
+    // A mask layer is created to mask all the layers inside the maskedComposition
+    var maskLayer = lottieLayer(layer: layer, timeline: timeline, type: "mask")
+    lottieLayers = lottieLayers.appending(maskLayer)
+
+    var composition = lottieLayer(layer: layer, timeline: timeline, type: "composition")
+    lottieLayers = lottieLayers.appending(composition)
+    
+    return lottieLayers
+end
+
+func nullLayers(from layer, timeline)
+    var nullLayers = []
+    for ancestor in layer.ancestors.dropFirst().appending(layer)
+        // Null layers are responsible for controlling the transforms of all the layers
+        var nullLayer = lottieLayer(layer: ancestor, timeline: timeline, type: "null")
+        nullLayers = nullLayers.appending(nullLayer)
+    end
+    return nullLayers
+end
+
+func imageAssets(timeline, imageFolderName)
+    var images = []
+    var imagesInTimeline = document.images(forTimeline: timeline)
+    for image in imagesInTimeline
+        var imageData = image.serializeAsPNGData() 
+        if imageData != nil
+            images = images.appending(imageDictionary(from: image, imageFolderName: imageFolderName))
+        end
+    end
+    return images
+end
+
+func imageDictionary(from image, imageFolderName)
+    return [
+        "id":"\(image.name)", 
+        "p":"\(image.name).png", 
+        "u": "\(imageFolderName)/",
+        "w": image.size.width,
+        "h": image.size.height,
+        "e": 0
+    ]
+end

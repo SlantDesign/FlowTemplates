@@ -1,0 +1,18 @@
+func compositionLayerProperties(layer, timeline)
+    var artboardSize = timeline.rootLayer(at: 0).bounds.size
+    return compositionProperties(refId: compositionID(of: layer), timeline: timeline)
+end
+
+func maskCompositionLayerProperties(layer, timeline)
+    return compositionProperties(refId: maskCompositionID(of: layer), timeline: timeline)
+end
+
+func compositionProperties(refId, timeline)
+    var artboardSize = timeline.rootLayer(at: 0).bounds.size
+    return [
+        "refId": refId,
+        "w": artboardSize.width,
+        "h": artboardSize.height
+    ]
+end
+

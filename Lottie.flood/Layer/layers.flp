@@ -1,0 +1,168 @@
+func layersArray(timeline)
+    var rootLayer =  timeline.rootLayer(at: 0)
+    var lottieLayers = lottieSubLayers(of: rootLayer, timeline: timeline)
+
+    // Add background layer to show the scenes background color 
+    var backgroundLayer = lottieLayer(layer: rootLayer, timeline: timeline, type: "background")
+    lottieLayers = lottieLayers.appending(backgroundLayer)
+    return lottieLayers
+end
+
+func lottieSubLayers(of group, timeline)
+    var subLayers = []
+    for layer in group.sublayers.reversed()
+        switch layer.type.name
+        case "path":
+            continue
+        case "group":
+            subLayers = subLayers.appending(lottieLayer(layer: layer, timeline: timeline, type: "maskComposition"))
+        default:
+            subLayers = subLayers.appending(lottieLayer(layer: layer, timeline: timeline, type: "composition"))
+        end
+    end
+
+    return subLayers
+end
+
+// Creates a single lottie layer from the given flow layer.
+// - layer: the flow layer to create of the lottie layer from
+// - timeline: the timeline the flow layer belongs to
+// - type: the type of lottie layer to create from the Flow layer. 
+//      possible values: 
+//          - "composition"
+//          - "stroke"
+//          - "background"
+//          - "border"
+//          - "content"
+//          - "null"
+//          - "mask"
+//          - "maskComposition"
+func lottieLayer(layer, timeline, type)
+    var lottieLayer = [
+        "ty": layerType(layer: layer, type: type), 
+        "ks": transform(layer: layer, timeline: timeline, type: type), 
+        "ao": autoOrient(), 
+        "bm": blendMode(), 
+        "tt": matteMode(layer: layer, type: type), 
+        "ddd": 0, 
+        "hd": hidden(layer: layer), 
+        "ind": layerIndex(of: layer, timeline: timeline, type: type),   
+        "op": lastFrame(timeline: timeline), // end time of layer in frames (out point)
+        "ip": 0, // start time of layer in frames (in point)
+        "st": 0.0, // start time
+        "nm": layerName(layer: layer, type: type), 
+        "hasMask": hasMasks(), 
+        "masksProperties": listOfMasks(), 
+        "ef": effectsArray(layer: layer, timeline: timeline, type: type), 
+        "sr": layerTimeStretching()
+    ]
+
+    for (property, value) in subclassPropertiesFor(layer: layer, timeline: timeline, type: type)
+        lottieLayer = lottieLayer.updatingValue(value, forKey: property)
+    end
+
+    if shouldIncludeParent(layer: layer, type: type)
+        var parentIndex = parentLayerIndex(of: layer, timeline: timeline, type: type)
+        lottieLayer = lottieLayer.updatingValue(parentIndex, forKey: "parent")
+    end 
+
+    return lottieLayer
+end
+
+func subclassPropertiesFor(layer, timeline, type)
+    switch type
+    case "composition":
+        return compositionLayerProperties(layer: layer, timeline: timeline)
+    case "maskComposition":
+        return maskCompositionLayerProperties(layer: layer, timeline: timeline)
+    case "content":
+        switch layer.type.name
+        case "shape":
+            return shapeLayerProperties(layer: layer, timeline: timeline, type: type)
+        case "image":
+            return imageLayerProperties(layer: layer, timeline: timeline)
+        case "text":
+            return textLayerProperties(layer: layer, timeline: timeline)
+        default: 
+            return [:]
+        end
+    case "stroke":
+        return shapeLayerProperties(layer: layer, timeline: timeline, type: type)
+    case "background":
+        return shapeLayerProperties(layer: layer, timeline: timeline, type: type)
+    case "border":
+        return shapeLayerProperties(layer: layer, timeline: timeline, type: type)
+    case "mask":
+        return shapeLayerProperties(layer: layer, timeline: timeline, type: type)
+    default: 
+        return [:]
+    end
+end
+
+func layerType(layer, type)
+    switch type
+    case "null":
+        return 3
+    case "composition":
+        return 0
+    case "maskComposition":
+        return 0
+    case "content":
+        switch layer.type.name
+        case "image": 
+            return 2
+        case "shape":
+            return 4
+        case "text":
+            return 5
+        end
+    case "stroke":
+        return 4 // create shape type lottie layers for stroke
+    case "background":
+        return 4 // create shape type lottie layers for background
+    case "border":
+        return 4 // create shape type lottie layers for border
+    case "mask":
+        return 4 // create shape type lottie layers for mask
+    end
+end
+
+func autoOrient()
+    return 0.0
+end
+
+func blendMode()
+    return 0
+end
+
+func matteMode(layer, type)
+    if layer.type.name == "group" && type == "composition"
+        if layer.masksToBounds
+            return 1
+        else
+            return 0
+        end
+    else
+        return  0
+    end
+end
+
+func hidden(layer)
+    return !layer.visible
+end
+
+func layerName(layer, type)
+    return "\(layer.name)-\(type)"
+end
+
+func hasMasks()
+    return false
+end
+
+func listOfMasks()
+    return []
+end
+
+func layerTimeStretching()
+    return 0
+end

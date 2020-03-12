@@ -1,0 +1,65 @@
+import Web
+import JSON
+
+
+execute("composition.flp")
+execute("assets.flp")
+execute("fonts.flp")
+execute("Layer/layers.flp")
+execute("Layer/groupLayer.flp")
+execute("Layer/shapeLayer.flp")
+execute("Layer/imageLayer.flp")
+execute("Layer/textLayer.flp")
+execute("animation.flp")
+execute("keyvalues.flp")
+execute("transform.flp")
+execute("dashPattern.flp")
+execute("propertyValue.flp")
+execute("time.flp")
+execute("effects.flp")
+execute("hierarchy.flp")
+
+for timeline in timelines
+    // Get the name of the timeline folder
+    var timelineFolder = folderTable.symbolForID(timeline.id, "\(outputFolderPath)/\(documentFolderName)/\(templateFolderName)").name
+
+    // Get the timeline output path
+    var timelineOutputPath = "\(documentFolderName)/\(templateFolderName)/\(timelineFolder)"
+
+    // Set the name for the html & css files to the name of the timeline
+    var timelineName = timelineFolder
+
+    // Folder names
+    var imageFolderName = "img"
+
+     // The absolute paths to use when reference assets in the image, font, js or css folders
+    var imageFolderAbsPath = "\(timelineOutputPath)/\(imageFolderName)"
+
+    // Delete previously exported project
+    rm(timelineOutputPath)
+
+    // Create output directories
+    mkdir("\(timelineOutputPath)/\(imageFolderName)")
+
+
+    // Copy Images over
+    var imagesInTimeline = document.images(forTimeline: timeline)
+    for image in imagesInTimeline
+        var imageData = image.serializeAsPNGData()
+        if imageData != nil 
+            write(data: imageData, to: "\(timelineOutputPath)/\(imageFolderName)/\(image.name).png")
+        end
+    end
+
+    // Create Lottie JSON String 
+    var dictionary = lottieDictionaryFor(timeline: timeline, imageFolderName: imageFolderName)
+    var jsonString = JSON.json(from: dictionary)
+
+    // Create Lottie files
+    process("timeline.js.flt", into: "\(timelineOutputPath)/\(timelineName).js", indentation: 0)
+    process("timeline.json.flt", into: "\(timelineOutputPath)/\(timelineName).json", indentation: 0)
+    process("index.html.flt", into: "\(timelineOutputPath)/index.html", indentation: 0)
+
+    // Clear the symbol table 
+    symbolTable.removeAllSymbols()
+end

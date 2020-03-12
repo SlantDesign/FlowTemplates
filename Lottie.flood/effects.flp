@@ -1,0 +1,117 @@
+func effectsArray(layer, timeline, type)
+    switch type
+    case "null":
+        return [ 
+            effect(layer: layer, propertyID: "transform.scale.x", timeline: timeline),
+            effect(layer: layer, propertyID: "transform.scale.y", timeline: timeline)
+        ]
+    case "composition":
+        // only apply shadows and scaling to composition layers
+        return [
+            effect(layer: layer, propertyID: "shadow", timeline: timeline)
+        ]
+    default:
+        return [
+            effect(layer: layer, propertyID: "bounds.size.width", timeline: timeline),
+            effect(layer: layer, propertyID: "bounds.size.height", timeline: timeline)  
+        ]
+    end
+end
+
+func effect(layer, propertyID, timeline)
+    return [
+        "ty": effectType(propertyID: propertyID), // effect Type
+        "nm": propertyID, // effect name
+        "np": 3,
+        "mn": "ADBE Slider Control",
+        "ix": 1,
+        "en": 1,
+        "ef": effectValuesArray(layer: layer, propertyID: propertyID, timeline: timeline)
+    ]
+end
+
+func effectValuesArray(layer, propertyID, timeline)
+    switch propertyID
+    case "bounds.size.width":
+        return [ effectValue(layer: layer, propertyID: propertyID, timeline: timeline, index: 1) ]
+    case "bounds.size.height":
+        return [ effectValue(layer: layer, propertyID: propertyID, timeline: timeline, index: 1) ]
+    case "transform.scale.x":
+        return [ effectValue(layer: layer, propertyID: propertyID, timeline: timeline, index: 1) ]
+    case "transform.scale.y":
+        return [ effectValue(layer: layer, propertyID: propertyID, timeline: timeline, index: 1) ]
+    case "shadow":
+        return [ 
+            effectValue(layer: layer, propertyID: "shadowColor", timeline: timeline, index: 1),
+            effectValue(layer: layer, propertyID: "shadowColor.opacity", timeline: timeline, index: 2),
+            effectValue(layer: layer, propertyID: "shadow.direction", timeline: timeline, index: 3),
+            effectValue(layer: layer, propertyID: "shadow.distance", timeline: timeline, index: 4),
+            effectValue(layer: layer, propertyID: "shadowRadius", timeline: timeline, index: 5)
+        ] 
+    end
+end
+
+func effectValue(layer, propertyID, timeline, index)
+    return [
+        "ty": effectValueType(propertyID: propertyID), // effect value type
+        "nm": effectValueName(propertyID: propertyID),
+        "mn": "ADBE Slider Control-0001",
+        "ix": index,
+        "v": animation(layer: layer, propertyID: propertyID, timeline: timeline)
+    ]               
+end
+
+func effectType(propertyID)
+    switch propertyID
+    case "bounds.size.width":
+        return 5
+    case "bounds.size.height":
+        return 5
+    case "transform.scale.x":
+        return 5
+    case "transform.scale.y":
+        return 5
+    case "shadow":
+        return 25
+    end
+end
+
+func effectValueName(propertyID)
+    switch propertyID
+    case "bounds.size.width":
+        return "Slider"
+    case "bounds.size.height":
+        return "Slider"
+    case "transform.scale.x":
+        return "Slider"
+    case "transform.scale.y":
+        return "Slider"
+    default:
+        return propertyID
+    end
+end
+
+func effectValueType(propertyID)
+    switch propertyID
+    case "transform.scale.x":
+        return 0
+    case "transform.scale.y":
+        return 0
+    case "bounds.size.width":
+        return 0
+    case "bounds.size.height":
+        return 0
+    case "shadowColor":
+        return 2
+    case "shadowColor.opacity":
+        return 0
+    case "shadowRadius":
+        return 0
+    case "shadow.distance":
+         return 0
+    case "shadow.direction":
+         return 0
+    end 
+end
+
+
