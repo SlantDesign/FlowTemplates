@@ -1,3 +1,4 @@
+// Top level json element in the lottie json animation
 func lottieDictionaryFor(timeline, imageFolderName)
     var dictionary = [
         "v": version(),
