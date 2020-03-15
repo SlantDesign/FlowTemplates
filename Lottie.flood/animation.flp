@@ -31,7 +31,7 @@ func scaleAnimation()
 end
 
 func scaleExpressionAnimation(xPropertyID, yPropertyID) 
-    var scaleExpression = process("Expressions/scaleExpression.flt", into: nil, indentation: 0)
+    var scaleExpression = process("expression/scaleExpression.flt", into: nil, indentation: 0)
     return [
         "a": 0,
         "k": [100,100,100], // dummy scale value, scale animation is handled by the scale expression
