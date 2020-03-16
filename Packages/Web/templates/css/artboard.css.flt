@@ -11,4 +11,5 @@
     margin: 0px auto;
     background-color: <%= layer.backgroundColor.hex %>;
     visibility: visible;
+    pointer-events: none;
 }
