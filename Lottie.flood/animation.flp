@@ -22,10 +22,6 @@ func anchorPointAnimation(layer, timeline)
     return animation(layer: layer, propertyID: "anchorPoint", timeline: timeline)
 end
 
-func sizeAnimation()
-    return scaleExpressionAnimation(xPropertyID: "bounds.size.width", yPropertyID: "bounds.size.height")
-end
-
 func scaleAnimation()
     return scaleExpressionAnimation(xPropertyID: "transform.scale.x", yPropertyID: "transform.scale.y")
 end
