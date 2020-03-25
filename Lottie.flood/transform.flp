@@ -27,11 +27,7 @@ func rotationComponent(layer, timeline, type)
 end
 
 func scaleComponent(layer, timeline, type)
-    if type == "composition" || type == "maskComposition" || type == "null"
-        return ["a": 0,"k": [100,100],"ix": 6]
-    else
-        return sizeAnimation()
-    end
+    return ["a": 0,"k": [100,100],"ix": 6]
 end
 
 func anchorPointComponent(layer, timeline, type)

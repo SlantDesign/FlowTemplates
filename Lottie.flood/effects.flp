@@ -11,10 +11,7 @@ func effectsArray(layer, timeline, type)
             effect(layer: layer, propertyID: "shadow", timeline: timeline)
         ]
     default:
-        return [
-            effect(layer: layer, propertyID: "bounds.size.width", timeline: timeline),
-            effect(layer: layer, propertyID: "bounds.size.height", timeline: timeline)  
-        ]
+        return []
     end
 end
 
@@ -32,10 +29,6 @@ end
 
 func effectValuesArray(layer, propertyID, timeline)
     switch propertyID
-    case "bounds.size.width":
-        return [ effectValue(layer: layer, propertyID: propertyID, timeline: timeline, index: 1) ]
-    case "bounds.size.height":
-        return [ effectValue(layer: layer, propertyID: propertyID, timeline: timeline, index: 1) ]
     case "transform.scale.x":
         return [ effectValue(layer: layer, propertyID: propertyID, timeline: timeline, index: 1) ]
     case "transform.scale.y":
@@ -63,10 +56,6 @@ end
 
 func effectType(propertyID)
     switch propertyID
-    case "bounds.size.width":
-        return 5
-    case "bounds.size.height":
-        return 5
     case "transform.scale.x":
         return 5
     case "transform.scale.y":
@@ -78,10 +67,6 @@ end
 
 func effectValueName(propertyID)
     switch propertyID
-    case "bounds.size.width":
-        return "Slider"
-    case "bounds.size.height":
-        return "Slider"
     case "transform.scale.x":
         return "Slider"
     case "transform.scale.y":
@@ -96,10 +81,6 @@ func effectValueType(propertyID)
     case "transform.scale.x":
         return 0
     case "transform.scale.y":
-        return 0
-    case "bounds.size.width":
-        return 0
-    case "bounds.size.height":
         return 0
     case "shadowColor":
         return 2
