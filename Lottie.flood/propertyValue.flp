@@ -3,14 +3,12 @@ func propertyValue(layer, propertyID)
     case "opacity":
         return lottieValue(from: layer.opacity, propertyID: propertyID)
     case "border.size":
-        var borderWidth = layer.bounds.size.width - layer.borderWidth
-        var borderHeight = layer.bounds.size.height - layer.borderWidth
-        var borderSize = [borderWidth, borderHeight]
+        var width = layer.bounds.size.width - layer.borderWidth
+        var height = layer.bounds.size.height - layer.borderWidth
+        var borderSize = [width, height]
     	return lottieValue(from: borderSize, propertyID: propertyID)
-    case "bounds.size.width":
-    	return lottieValue(from: 1, propertyID: propertyID)
-    case "bounds.size.height":
-    	return lottieValue(from: 1, propertyID: propertyID)
+    case "size":
+    	return lottieValue(from: layer.bounds.size, propertyID: propertyID)
     case "transform.scale.x":
         return lottieValue(from: layer.flippedHorizontal, propertyID: propertyID)
     case "transform.scale.y":
@@ -79,10 +77,8 @@ func lottieValue(from value, propertyID)
         return opacityValue(from: value)
     case "border.size":
         return [value[0], value[1]]
-    case "bounds.size.width":
-        return scaleValue(scale: value)
-    case "bounds.size.height":
-        return scaleValue(scale: value)
+    case "size":
+        return sizeValue(from: value)
     case "transform.scale.x":
         return scaleValue(scale: value)
     case "transform.scale.y":
@@ -190,6 +186,10 @@ end
 
 func centerValue(from size)
 	return [size.width / 2, size.height / 2]
+end
+
+func sizeValue(from size)
+    return [size.width, size.height]
 end
 
 func pathValue(from renderedPath)

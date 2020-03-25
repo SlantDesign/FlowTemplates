@@ -74,11 +74,7 @@ func borderElement(layer, timeline)
         "nm": layerName(layer: layer, type: "border"),
         "mn": "ADBE Vector Shape - Rect",
         "hd": hidden(layer: layer),
-        "s": [
-            "a": 0,
-            "k": propertyValue(layer: layer, propertyID: "border.size"), // initial value of size
-            "ix": 6
-        ]
+        "s": borderSizeAnimation(layer: layer, timeline: timeline)
     ]
 end
 
@@ -91,11 +87,7 @@ func backgroundElement(layer, timeline)
         "nm": layerName(layer: layer, type: "background"),
         "mn": "ADBE Vector Shape - Rect",
         "hd": hidden(layer: layer),
-        "s": [
-            "a": 0,
-            "k": [layer.bounds.width, layer.bounds.height], // initial value of size
-            "ix": 6
-        ]
+        "s": sizeAnimation(layer: layer, timeline: timeline)
     ]
 end
 

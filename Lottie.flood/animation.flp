@@ -22,6 +22,14 @@ func anchorPointAnimation(layer, timeline)
     return animation(layer: layer, propertyID: "anchorPoint", timeline: timeline)
 end
 
+func sizeAnimation(layer, timeline)
+    return animation(layer: layer, propertyID: "size", timeline: timeline)
+end
+
+func borderSizeAnimation(layer, timeline)
+    return animation(layer: layer, propertyID: "border.size", timeline: timeline)
+end
+
 func scaleAnimation()
     return scaleExpressionAnimation(xPropertyID: "transform.scale.x", yPropertyID: "transform.scale.y")
 end
@@ -127,29 +135,14 @@ end
 
 func isAnimated(layer, propertyID, timeline)
     var tracks = tracksFor(layer: layer, propertyID: propertyID, timeline: timeline)
-    switch propertyID 
-    case "shadow.direction":
-        // Shadow direction is animated only if shadow offset x and y both have tracks
-        return tracks.count >= 1
-    case "shadow.distance":
-        return tracks.count >= 1
-    case "anchorPoint":
-        return tracks.count >= 1
-    default:
-        return !tracks.isEmpty
-    end
+    return !tracks.isEmpty
 end
 
 /// Returns the (Flow) tracks related to the Lottie property.
 func tracksFor(layer, propertyID, timeline)
     var tracks = []
-    if propertyID == "shadow.distance" || propertyID == "shadow.direction"
-        var shadowOffsetX = timeline.trackFor(layer: layer, property: "shadowOffset.width")
-        var shadowOffsetY = timeline.trackFor(layer: layer, property: "shadowOffset.height")
-        tracks = [
-            shadowOffsetX, shadowOffsetY
-        ]
-    end
+    var shadowOffsetX = timeline.trackFor(layer: layer, property: "shadowOffset.width")
+    var shadowOffsetY = timeline.trackFor(layer: layer, property: "shadowOffset.height")
 
     switch propertyID
     case "backgroundColor.opacity":
@@ -170,9 +163,15 @@ func tracksFor(layer, propertyID, timeline)
             timeline.trackFor(layer: layer, property: "bounds.size.height")
         ]
     case "shadow.distance":
-        break
+        tracks = [shadowOffsetX, shadowOffsetY]
     case "shadow.direction":
-        break
+        tracks = [shadowOffsetX, shadowOffsetY]
+    case "size":
+        tracks = [timeline.sizeTrack(layer: layer)]
+    case "center":
+        tracks = [timeline.sizeTrack(layer: layer)]
+    case "border.size":
+        tracks = [timeline.sizeTrack(layer: layer)]
     default:
         tracks = [timeline.trackFor(layer: layer, property: propertyID)]
     end

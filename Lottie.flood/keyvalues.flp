@@ -76,8 +76,8 @@ func extractValue(from keyvalue, propertyID)
         var path = keyvalue.value
         var timeline = keyvalue.track.timeline
         var layer = keyvalue.track.layer
-        var initialSize = timeline.value(property: "size", layer: layer, time: keyvalue.time) 
-        return path.render(width: initialSize.width, height: initialSize.height)
+        var size = timeline.value(property: "size", layer: layer, time: keyvalue.time) 
+        return path.render(width: size.width, height: size.height)
 
     case "backgroundColor.opacity":
         return keyvalue.value.alpha
@@ -94,28 +94,13 @@ func extractValue(from keyvalue, propertyID)
     case "borderColor.opacity":
         return keyvalue.value.alpha
 
-    case "bounds.size.width":
-        var timeline = keyvalue.track.timeline
-        var initialWidth = timeline.value(
-                                        property: "bounds.size.width", 
-                                        layer: keyvalue.track.layer, 
-                                        time: 0)
-        return keyvalue.value / initialWidth
-
-    case "bounds.size.height": 
-        var timeline = keyvalue.track.timeline
-        var initialHeight = timeline.value(
-                                        property: "bounds.size.height", 
-                                        layer: keyvalue.track.layer, 
-                                        time: 0)
-        return keyvalue.value / initialHeight
-
     case "border.size":
-        var path = keyvalue.value
         var timeline = keyvalue.track.timeline
         var layer = keyvalue.track.layer
-        var size = timeline.value(property: "size", layer: layer, time: keyvalue.time) 
-        return path.render(size: size)
+        var borderWidth = timeline.value(property: "borderWidth", layer: layer, time: keyvalue.time)
+        var width = keyvalue.value.width - borderWidth
+        var height = keyvalue.value.height - borderWidth
+        return [width, height]
 
     default:
         return keyvalue.value
