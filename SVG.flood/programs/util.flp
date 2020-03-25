@@ -363,7 +363,9 @@ func borderProperties()
   return [
     "borderWidth",
     "borderColor",
-    "cornerRadius"
+    "cornerRadius",
+    "bounds.size.height",
+    "bounds.size.width"
   ]
 end
 
