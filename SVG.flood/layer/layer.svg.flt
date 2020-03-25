@@ -1,0 +1,24 @@
+
+<% var symbol = symbolTable.symbolForID(layer.id, "")
+if symbol == nil
+    symbol = symbolTable.addSymbolWithSuggestedName(layer.name.snakeCased(), type: "id", context: "", id: layer.id)
+end
+var id = symbol.name
+var width = layer.bounds.size.width
+var height = layer.bounds.size.height
+var x = layer.position.x
+var y = layer.position.y
+%>
+<svg x="<%= x %>" y="<%= y %>" width="<%= width %>" height="<%= height %>" style ="overflow:<%= layerMasksToBounds(layer: layer) %>" label="<%= layer.name %>Container" display="<%= layerDisplay(layer: layer) %>">
+    <%= animations(properties: baseProperties(), layer: layer, timeline: timeline, hrefID: nil, attributeType: nil) -%>
+    <g label="flipped" transform="<%= scale(from: layer) %>">
+        <g label="layerRotation">
+            <%= transformAnimation(property: "transform.rotation.z", layer: layer, timeline: timeline) -%>
+            <g label="layerShadow" filter="url(#<%= id %>-shadow)">
+                <%= backgroundTag(layer: layer, timeline: timeline) %>
+                <% insert("layer/\(layer.type.name).svg.flt", indentation: indentation) -%>
+                <%= borderTag(layer: layer, timeline: timeline) %>            
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,132 @@
+func transformAnimation(property, layer, timeline) 
+    var track = timeline.trackFor(layer: layer, property: property)
+    if track != nil 
+        var values = valuesFrom(track: track, layer: layer)
+        var keytimes = keyTimesFrom(track: track)
+        var keysplines = keysplinesFrom(track: track)
+        return animateTransformTag(label: layer.name,  
+                            hrefID: nil, 
+                            attributeName: "transform", 
+                            type: transformType(property: property),
+                            additive: nil,
+                            values: values.joined(separator: ";"), 
+                            dur: timeline.duration,
+                            fill: "freeze",
+                            calcMode: "spline",  
+                            keytimes: keytimes.joined(separator: ";"), 
+                            keysplines: keysplines.joined(separator: ";"), 
+                            repeats: "indefinite", 
+                            attributeType: nil)
+    end
+    return ""
+end
+
+func transformType(property)
+    switch property
+    case "bounds.size.height":
+        return "scale"
+    case "bounds.size.width":
+        return "scale"
+    case "transform.rotation.z":
+        return "rotate"
+    default:
+        return nil
+    end
+end
+
+func setAnimation(property, layer, timeline)
+    var setTags = []
+    var track = timeline.trackFor(layer: layer, property: property)
+    if track != nil
+        var id = generateSymbolID(layer: layer)
+        var count = 0
+        for keyvalue in track.keyvaluesWithSimulatedSteps
+            count = count + 1
+            var setTag = setImageHref(id: "\(id)-\(count)",
+                                    timeline: timeline,
+                                    keyvalue: keyvalue,
+                                    track: track)
+            if setTag != nil
+                setTags = setTags.appending(setTag)
+            end
+        end
+    end
+    return setTags.joined(separator: "")
+end
+
+func shadowAnimations(timeline, layer, id)
+    return animations(properties: shadowProperties(), layer: layer, timeline: timeline, hrefID: "#\(id)-shadow-filter", attributeType: "XML")
+end
+
+func animations(properties, layer, timeline, hrefID, attributeType)
+    var animations = []
+    for property in properties
+        var animation = animation(property: property, 
+                        layer: layer, 
+                        timeline: timeline, 
+                        hrefID: hrefID, attributeType: 
+                        attributeType)
+        if animation != nil
+            animations = animations.appending(animation)
+        end
+    end
+    return animations.joined(separator: "")
+end
+
+func animation(property, layer, timeline, hrefID, attributeType)
+    var track = timeline.trackFor(layer: layer, property: property)
+    if track != nil
+        var values = valuesFrom(track: track, layer: layer)
+        var keytimes = keyTimesFrom(track: track)
+        var keysplines = keysplinesFrom(track: track)
+      
+        return animateTag(
+                hrefID: hrefID, 
+                attributeName: svgAttributeName(of: track.property), 
+                values: values.joined(separator: ";"), 
+                dur: "\(track.timeline.duration)s",
+                fill: "freeze",
+                calcMode: "spline", 
+                keytimes: keytimes.joined(separator: ";"), 
+                keysplines: keysplines.joined(separator: ";"), 
+                repeats: "indefinite", 
+                attributeType: attributeType)
+    end
+end
+
+func valuesFrom(track, layer)
+    var values = []
+    for keyvalue in track.keyvaluesWithSimulatedSteps
+        if track.property.id == "combinedPath" || track.property.id == "maskPath"
+            var size = track.timeline.value(property: "size", layer: track.layer, time: keyvalue.time)
+            values = values.appending(keyvalue.value.svgc(width: size.width, height: size.height))
+        else
+            values = values.appending(svgValue(keyvalue.value, propertyID: track.property.id, layer: layer))
+        end
+    end
+
+    return values
+end
+
+func keyTimesFrom(track)
+    var keytimes = []
+    for keyvalue in track.keyvaluesWithSimulatedSteps
+        keytimes = keytimes.appending(keyvalue.time / track.timeline.duration)
+    end
+    return keytimes
+end
+
+func keysplinesFrom(track)
+    var keysplines = []
+    for animation in track.animationsFromKeyvaluesWithSimulatedSteps
+      var keyspline = keysplinesFromAnimation(animation)
+      keysplines = keysplines.appending(keyspline)
+    end
+    return keysplines
+end
+
+func keysplinesFromAnimation(_ animation)
+    var c1 = animation.timingFunction.controlPoints[0]
+    var c2 = animation.timingFunction.controlPoints[1]
+    return "\(c1.x) \(c1.y) \(c2.x) \(c2.y)"
+end

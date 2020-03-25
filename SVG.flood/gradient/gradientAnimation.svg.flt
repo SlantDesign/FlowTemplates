@@ -1,0 +1,62 @@
+<%- var duration = timeline.duration
+
+var times = [0]
+for animation in gradientAnimations
+    times = times.appending(animation.endTime / timeline.duration)
+end
+var keyTimes = times.joined(separator: ";")
+
+switch gradient.type
+case "linear": 
+
+    var x1 = [gradient.from.x]
+	var y1 = [gradient.from.y]
+	var x2 = [gradient.to.x]
+	var y2 = [gradient.to.y]
+	for animation in gradientAnimations
+	    x1 = x1.appending(animation.to.from.x)
+	    y1 = y1.appending(animation.to.from.y)
+	    x2 = x2.appending(animation.to.to.x)
+	    y2 = y2.appending(animation.to.to.y)
+	end 
+
+	var x1Values = x1.joined(separator: ";")
+	var y1Values = y1.joined(separator: ";") 
+	var x2Values = x2.joined(separator: ";")
+	var y2Values = y2.joined(separator: ";") -%>
+<animate attributeName="x1" values="<%= x1Values %>" keyTimes="<%= keyTimes %>" dur="<%= duration %>s" fill="freeze" <% if repeats -%>repeatCount="indefinite"<% end %>/>
+<animate attributeName="y1" values="<%= y1Values %>" keyTimes="<%= keyTimes %>" dur="<%= duration %>s" fill="freeze" <% if repeats -%>repeatCount="indefinite"<% end %>/>
+<animate attributeName="x2" values="<%= x2Values %>" keyTimes="<%= keyTimes %>" dur="<%= duration %>s" fill="freeze" <% if repeats -%>repeatCount="indefinite"<% end %>/>
+<animate attributeName="y2" values="<%= y2Values %>" keyTimes="<%= keyTimes %>" dur="<%= duration %>s" fill="freeze" <% if repeats -%>repeatCount="indefinite"<% end %>/>
+<%- case "radial":
+
+    func transform(scaleX) 
+		return "translate(0.5, 0.5) scale(\(scaleX), 1) translate(\(-0.5 / scaleX), -0.5)"
+	end
+
+	var scaleX = gradient.ellipseAspectRatio
+	var r = [gradient.radius]
+	var x = [gradient.from.x / scaleX]
+	var y = [gradient.from.y]
+	var transforms = [transform(scaleX: scaleX)]
+
+	for animation in gradientAnimations
+		scaleX = animation.to.ellipseAspectRatio
+	    x = x.appending(animation.to.from.x / scaleX)
+	    y = y.appending(animation.to.from.y)
+	    r = r.appending(animation.to.radius)
+	    transforms = transforms.appending(transform(scaleX: scaleX))
+	end 
+
+	
+	var xValues = x.joined(separator: ";")
+	var yValues = y.joined(separator: ";")
+	var rValues = r.joined(separator: ";")
+	var transformValues = transforms.joined(separator: ";") -%>
+<animate attributeName="cx" values="<%= xValues %>" keyTimes="<%= keyTimes %>" dur="<%= duration %>s" fill="freeze" <% if repeats -%>repeatCount="indefinite"<% end %>/>
+<animate attributeName="cy" values="<%= yValues %>" keyTimes="<%= keyTimes %>" dur="<%= duration %>s" fill="freeze" <% if repeats -%>repeatCount="indefinite"<% end %>/>
+<animate attributeName="fx" values="<%= xValues %>" keyTimes="<%= keyTimes %>" dur="<%= duration %>s" fill="freeze" <% if repeats -%>repeatCount="indefinite"<% end %>/>
+<animate attributeName="fy" values="<%= yValues %>" keyTimes="<%= keyTimes %>" dur="<%= duration %>s" fill="freeze" <% if repeats -%>repeatCount="indefinite"<% end %>/>
+<animate attributeName="r" values="<%= rValues %>" keyTimes="<%= keyTimes %>" dur="<%= duration %>s" fill="freeze" <% if repeats -%>repeatCount="indefinite"<% end %>/>
+<animate attributeName="gradientTransform" values="<%= transformValues %>" keyTimes="<%= keyTimes %>" dur="<%= duration %>s" fill="freeze" <% if repeats -%>repeatCount="indefinite"<% end %>/>
+<%- end -%>

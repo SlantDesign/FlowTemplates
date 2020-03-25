@@ -1,0 +1,48 @@
+
+import Web
+execute("programs/util.flp")
+execute("programs/tags.flp")
+execute("programs/animations.flp")
+
+var importImage = false;
+var imageFolderAbsPath = "./img"
+var relative = false
+
+for timeline in timelines
+  // Get the name of the timeline folder
+  var timelineFolder = folderTable.symbolForID(timeline.id, "\(outputFolderPath)/\(documentFolderName)/\(templateFolderName)").name
+
+  // Get the timeline output path
+  var timelineOutputPath = "\(documentFolderName)/\(templateFolderName)/\(timelineFolder)"
+
+  // Set the name for the html & css files to the name of the timeline
+  var timelineName = timelineFolder
+
+  // Get all assets for this timeline
+  var imagesInTimeline = document.images(forTimeline: timeline)
+
+  // Folder names
+    var imageFolderName = "img"
+    var fontFolderName = "fonts"
+    var svgFolderName = "svg"
+    var cssFolderName = "css"
+    var commonFolderName = "FlowCommon"
+
+    // Create output directories
+    mkdir("\(timelineOutputPath)")
+    mkdir("\(timelineOutputPath)/img")
+    mkdir("\(timelineOutputPath)/css")
+
+
+  var layer = timeline.rootLayer(at: 0)
+  process("index.html.flt", into: "\(timelineOutputPath)/\(timelineName).html", indentation: 0)
+  process("style.css.flt", into: "\(timelineOutputPath)/\(cssFolderName)/\(timelineName).css", indentation: 0)
+  process("svg.svg.flt", into: "\(timelineOutputPath)/\(timelineName).svg", indentation: 0) 
+  // Copy Images
+  for image in imagesInTimeline
+        var imageData = image.serializeAsPNGData()
+        if imageData != nil 
+            write(data: imageData, to: "\(timelineOutputPath)/\(imageFolderName)/\(image.name).png")
+        end
+    end
+end
