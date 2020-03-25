@@ -2,6 +2,7 @@
   "uuid": "6A1544CB-9BDF-42BC-9D3B-50F13E13EF3C",
   "title": "SVG",
   "description": "This template generates an animated SVG for each timeline.",
+  "beta": true,
   "parameters": [
     {
       "label": "Output Folder",
