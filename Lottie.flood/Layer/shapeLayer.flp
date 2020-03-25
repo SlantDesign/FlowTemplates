@@ -45,14 +45,12 @@ func shapeElements(layer, timeline, type)
     case "background":
         return [
             backgroundElement(layer: layer, timeline: timeline),
-            roundedCornersElement(layer: layer, timeline: timeline),
             backgroundColorElement(layer: layer, timeline: timeline),
             transformElement(layer: layer, timeline: timeline)
         ]
     case "border":
         return [
             borderElement(layer: layer, timeline: timeline),
-            roundedCornersElement(layer: layer, timeline: timeline),
             borderStrokeElement(layer: layer, timeline: timeline),
             transformElement(layer: layer, timeline: timeline)
         ]
@@ -70,7 +68,7 @@ func borderElement(layer, timeline)
         "ty": "rc", // 'rect' shape type
         "d": 1, // direction
         "p": centerAnimation(layer: layer, timeline: timeline),
-        "r": [ "a": 0, "k": 0, "ix": 4], // rounded corners (none)
+        "r": borderRadiusAnimation(layer: layer, timeline: timeline),
         "nm": layerName(layer: layer, type: "border"),
         "mn": "ADBE Vector Shape - Rect",
         "hd": hidden(layer: layer),
@@ -83,22 +81,11 @@ func backgroundElement(layer, timeline)
         "ty": "rc", // 'rect' shape type
         "d": 1, // direction
         "p": centerAnimation(layer: layer, timeline: timeline),
-        "r": [ "a": 0, "k": 0, "ix": 4], // rounded corners (none)
+        "r": borderRadiusAnimation(layer: layer, timeline: timeline),
         "nm": layerName(layer: layer, type: "background"),
         "mn": "ADBE Vector Shape - Rect",
         "hd": hidden(layer: layer),
         "s": sizeAnimation(layer: layer, timeline: timeline)
-    ]
-end
-
-func roundedCornersElement(layer, timeline)
-    return [
-        "ty": "rd",
-        "nm": "Round Corners 1",
-        "r": borderRadiusAnimation(layer: layer, timeline: timeline),
-        "ix": 2,
-        "mn": "ADBE Vector Filter - RC",
-        "hd": hidden(layer: layer)
     ]
 end
 
