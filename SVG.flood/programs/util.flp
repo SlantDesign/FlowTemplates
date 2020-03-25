@@ -1,0 +1,403 @@
+/// Returns the SVG attribute name of a property.
+func svgAttributeName(of property)
+  switch property.id
+  case "position.x": return "x"
+  case "position.y": return "y"
+  case "bounds.size.width": return "width"
+  case "bounds.size.height": return "height"
+  case "anchorPoint.x": return "transform"
+  case "anchorPoint.y": return "transform"
+  case "transform.rotation.z": return "rotation"
+  case "opacity": return "opacity"
+  case "backgroundColor": return "fill"
+  case "borderWidth": return "stroke-width"
+  case "borderColor": return "stroke"
+  case "cornerRadius": return "rx"
+  case "shadowColor": return "flood-color"
+  case "shadowRadius": return "stdDeviation"
+  case "shadowOffset.width": return "dx"
+  case "shadowOffset.height": return "dy"
+  case "resizing.margin.top": return "top"
+  case "resizing.margin.left": return "left"
+  case "resizing.margin.bottom": return "bottom"
+  case "resizing.margin.right": return "right"
+  case "transform.scale.x": return "transform"
+  case "transform.scale.y": return "transform"
+
+  // Image
+  case "image": return "href"
+  case "contentsGravity": return "preserveAspectRatio"
+
+  // Path
+
+  // Shape
+  case "combinedPath": return "d"
+  case "fillColor": return "fill"
+  case "strokeColor": return "stroke"
+  case "lineWidth": return "stroke-width"
+  case "strokeStart": return "stroke-dashoffset"
+  case "strokeEnd": return ""
+  case "miterLimit": return "stroke-miterlimit"
+  case "lineCap": return "stroke-linecap"
+  case "lineJoin": return "stroke-linejoin"
+  case "lineDashPattern": return "stroke-dasharray"
+  case "lineDashPhase": return "stroke-dashoffset"
+  case "fillGradient": return "fillGradient"
+  case "fillImage": return "href"
+
+  // Shape Mask
+  case "maskPath": return "d"
+
+  // Text
+  case "font": return "font-family"
+  case "fontSize": return "font-size"
+  case "foregroundColor": return "color"
+  case "truncationMode": return "text-overflow"
+  end
+end
+
+func isTransform(property)
+  switch property.id
+  case "position.x": return true
+  case "position.y": return true
+  case "anchorPoint.x": return true
+  case "anchorPoint.y": return true
+  case "transform.rotation.z": return true
+  case "transform.scale.x": return true
+  case "transform.scale.y": return true
+  default: return false
+  end
+end
+
+func transformPropertyType(of property)
+  switch property.id
+  case "position.x": return "translate"
+  case "position.y": return "translate"
+  case "anchorPoint.x": return "translate"
+  case "anchorPoint.y": return "translate"
+  case "transform.rotation.z": return "rotate"
+  case "transform.scale.x": return "scale"
+  case "transform.scale.y": return "scale"
+  end
+end
+
+/// Returns the SVG value for a property
+func svgValue(_ value, propertyID, layer)
+  switch propertyID
+  case "position.x": return "\(value)"
+  case "position.y": return "\(value)"
+  case "bounds.size.width": return "\(value)"
+  case "bounds.size.height": return "\(value)"
+  // Anchor points not supported in svg export.
+  //case "anchorPoint.x": return "\(value * 100)%, 0"
+  //case "anchorPoint.y": return "0 \(value * 100)%"
+  /// Rotation: (Angle, anchorPointX, anchorPointY)
+  case "transform.rotation.z": return "\(value.degrees)"
+  case "opacity": return "\(value)"
+  case "backgroundColor": return value.hex
+  case "borderWidth": return "\(value)"
+  case "borderColor": return value.hex
+  case "cornerRadius": return "\(value)"
+  case "resizing.margin.top": return "\(value)"
+  case "resizing.margin.left": return "\(value)"
+  case "resizing.margin.bottom": return "\(value)"
+  case "resizing.margin.right": return "\(value)"
+  case "transform.scale.x": return "\(value), 1"
+  case "transform.scale.y": return "1, \(value)"
+  case "shadowColor": return value.hex
+  case "shadowRadius": return value
+  case "shadowOffset.width": return "\(value)"
+  case "shadowOffset.height": return "\(value)"
+
+  // Image
+  //TODO return proper image values
+  case "image": return "\(value)"
+  case "contentsGravity": return "\(svgPreserveAspectRatio(value))"
+
+  // Shape
+  case "fillColor": return value.hex
+  case "strokeColor": return value.hex
+  case "lineWidth": return "\(value)"
+  case "strokeStart": return "\(value)"
+  case "strokeEnd": return ""
+  case "miterLimit": return "\(value)"
+  case "lineCap": return "\(value)"
+  case "lineJoin": return "\(value)"
+  case "fillImage": return ""
+  case "lineDashPattern": return Web.printDashPatternArray(value)
+  case "lineDashPhase": return "\(value)"
+  // Not handled by this function
+  // case "combinedPath": return value.svg
+
+  // Shape Mask
+  // Not handled by this function
+  //case "maskPath": return value.svg
+
+  // Text
+  case "string": return ""
+  case "font": return "\(value)"
+  case "fontSize": return "\(value)"
+  case "foregroundColor": return value.hex
+  case "truncationMode": return "\(value)"
+  end
+end
+
+func svgPreserveAspectRatio(_ value)
+  switch value.name
+    case "center": return "xMidYMid slice"
+    case "top": return "xMidYMin slice"
+    case "bottom": return "xMidYMax slice"
+    case "left": return "xMinYMid slice"
+    case "right": return "xMaxYMid slice"
+    case "topLeft": return "xMinYMin slice"
+    case "topRight": return "xMaxYMin slice"
+    case "bottomLeft": return "xMaxYMin slice"
+    case "bottomRight": return "xMaxYMax slice"
+    case "resize": return "none"
+    case "resizeAspect": return "xMidYMid meet"
+    case "resizeAspectFill": return "xMidYMid slice"
+  end
+end
+
+func svgWidthOrHeightValue(value, property, layer)
+    if layer.type.name == "shape"
+        // Set scaleX to the ration between current width and initial width because scale animation is performed additively.
+        // i.e. scaling is compounded on top of initial scaling value.
+        switch property.id 
+        case "bounds.size.width":
+          var sx = value / layer.size.width
+          return "\(sx) 1"
+        case "bounds.size.height":
+            var sy = value / layer.size.height
+            return "1 \(sy)"
+        default:
+            return nil
+        end
+    else
+      return "\(value)"
+    end
+end
+
+func transform(of layer)
+  var dx = layer.anchorPoint.x * layer.size.width
+  var dy = layer.anchorPoint.y * layer.size.height
+  var transform = "translate(\(-dx) \(-dy))"
+  if layer.rotation.degrees != 0
+    transform = "\(transform) rotate(\(layer.rotation.degrees))"
+  end
+  if layer.flippedHorizontal != 1 || layer.flippedVertical != 1
+    transform = "\(transform) scale(\(layer.flippedHorizontal) \(layer.flippedVertical)"
+  end
+  return transform
+end
+
+func getFillAttribute(id, layer)
+    if layer.fillGradient != nil
+        return "url(#\(id)-fill)"
+    end
+    if layer.fillImage != nil
+        return "url(#\(id)-fillImage)"
+    end
+    return "\(layer.fillColor.hex)"
+end
+
+func getLineCap(layer)
+  if layer.lineCap.name != "butt"
+    return layer.lineCap
+  else
+    return nil
+  end
+end
+
+func getLineJoin(layer)
+  if layer.lineJoin.name != "miter"
+    return layer.lineJoin
+  else
+    return nil
+  end
+end
+
+func layerDisplay(layer)
+  if layer.visible
+    return "inline"
+  else
+    return "none"
+  end
+end
+
+func layerMasksToBounds(layer)
+  if layer.type.name == "group" && layer.masksToBounds
+    return "hidden"
+  else
+    return "visible"
+  end
+end
+
+func getImageAspectRatio(layer)
+  var aspectRatio = "none"
+  if layer.contentMode.name != "topLeft"
+    aspectRatio = svgPreserveAspectRatio(layer.contentMode)
+  end
+  return aspectRatio
+end
+
+func getImageWidth(layer)
+  var width = layer.image.size.width
+  var viewWidth = layer.size.width
+  if layer.contentMode.name == "resize" || 
+      layer.contentMode.name == "resizeAspect" || 
+      layer.contentMode.name == "resizeAspectFill"
+    width = viewWidth
+  end
+  return width
+end
+
+
+func getImageHeight(layer)
+  var height = layer.image.size.height
+  var viewHeight = layer.size.height
+  if layer.contentMode.name == "resize" ||
+      layer.contentMode.name == "resizeAspect" ||
+      layer.contentMode.name == "resizeAspectFill"
+
+    height = viewHeight
+  end
+  return height
+end
+
+func getImageX(layer)
+  var width = layer.image.size.width
+  var viewWidth = layer.size.width
+  var x = 0
+   switch layer.contentMode.name
+    case "topLeft":
+      x = 0
+    case "top":
+      x = width/2 - viewWidth/2
+    case "topRight":
+      x = width - viewWidth
+    case "center":
+      x = width/2 - viewWidth/2
+    case "right":
+      x = width - viewWidth
+    case "bottom":
+      x = width/2 - viewWidth/2
+    case "bottomRight":
+      x = width - viewWidth
+    end
+end
+
+func getImageY(layer)
+  var height = layer.image.size.height
+  var viewHeight = layer.size.height
+  var y = 0
+  switch layer.contentMode.name
+    case "topLeft":
+      y = 0
+    case "left":
+      y = height/2 - viewHeight/2
+    case "center":
+      y = height/2 - viewHeight/2
+    case "right":
+      y = height/2 - viewHeight/2
+    case "bottomLeft":
+      y = height - viewHeight
+    case "bottom":
+      y = height - viewHeight
+    case "bottomRight":
+      y = height - viewHeight
+  end
+end
+
+func baseProperties() 
+  return [
+    "position.x",
+    "position.y",
+    "bounds.size.height",
+    "bounds.size.width",
+    "opacity"
+    // Not implemented yet
+    //"anchorPointX",
+    //"anchorPointY",
+    //"flippedHorizontal",
+    //"flippedVertical"
+  ]
+end
+
+func shapeProperties()
+    return [
+        "combinedPath",
+        "fillColor",
+        "lineCap",
+        "lineDashPhase",
+        "lineDashPattern",
+        "lineJoin",
+        "lineWidth",
+        "miterLimit",
+        "strokeColor"
+        // Not supported by SVG spec
+        //"strokeEnd",
+        //"strokeStart"    
+    ]
+end
+
+func textProperties()
+  return [
+    "string",
+    "font",
+    "fontSize",
+    "foregroundColor",
+    "alignment",
+    "truncationMode"
+  ]
+end
+
+func backgroundProperties()
+  return [
+    "backgroundColor",
+    "cornerRadius"
+  ]
+end
+
+func borderProperties()
+  return [
+    "borderWidth",
+    "borderColor",
+    "cornerRadius",
+    "bounds.size.height",
+    "bounds.size.width"
+  ]
+end
+
+func shadowProperties()
+  return [
+    "shadowColor",
+    "shadowRadius",
+    "shadowOffset.width",
+    "shadowOffset.height"
+  ]
+end
+
+func alphabetically(lhs, rhs)
+  return lhs < rhs
+end
+
+func generateSymbolID(layer)
+  var symbol = symbolTable.symbolForID(layer.id, "")
+  if symbol == nil
+      symbol = symbolTable.addSymbolWithSuggestedName(layer.name.snakeCased(), type: "id", context: "", id: layer.id)
+  end
+  return symbol.name
+end
+
+func hrefFrom(keyvalue) 
+  if keyvalue.property.id == "fillImage"
+    return "#\(keyvalue.value.image.name)"
+  else
+    return "#\(keyvalue.value.name)"
+  end
+end
+
+func scale(from layer)
+  return "scale(\(layer.flippedHorizontal) \(layer.flippedVertical))"
+end

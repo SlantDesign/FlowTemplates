@@ -1,0 +1,7 @@
+<%-
+var i = 0
+for stop in gradient.stops -%>
+<% insert("svg/stop.svg.flt", from: Web, indentation: indentation) %>
+    <%- i = i + 1
+end 
+-%>

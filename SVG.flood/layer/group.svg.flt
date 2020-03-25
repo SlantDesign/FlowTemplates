@@ -1,0 +1,3 @@
+<% for layer in layer.sublayers
+	insert("layer/layer.svg.flt", indentation: indentation + 1)
+end %>

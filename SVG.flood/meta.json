@@ -1,0 +1,29 @@
+{
+  "uuid": "6A1544CB-9BDF-42BC-9D3B-50F13E13EF3C",
+  "title": "SVG",
+  "description": "This template generates an animated SVG for each timeline.",
+  "beta": true,
+  "parameters": [
+    {
+      "label": "Output Folder",
+      "description": "Folder name for export, relative to main export folder",
+      "variable": "folderName",
+      "type": "text",
+      "default": "SVG"
+    },
+    {
+      "label": "Fixed Size",
+      "description": "Specifies whether the svg should fit specifically to the artboard size, or scale.",
+      "variable": "fixedSize",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "label": "Loops",
+      "description": "If selected, the animation will loop forever.",
+      "variable": "repeats",
+      "type": "boolean",
+      "default": true
+    }
+  ]
+}

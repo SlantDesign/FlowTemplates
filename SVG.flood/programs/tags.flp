@@ -1,0 +1,200 @@
+func setImageHref(id, timeline, keyvalue, track)
+  var to = hrefFrom(keyvalue: keyvalue)
+  return setTag(id: id, 
+          attributeName: svgAttributeName(of: track.property), 
+          begin: "\(keyvalue.time)s;\(id).end + \(timeline.duration)",
+          dur: "\(timeline.duration)s", 
+          to: to)
+end
+
+func setTag(id, attributeName, begin, dur, to)
+  var attributes = [
+    "id": id,
+    "attributeName": attributeName,
+    "begin": begin,
+    "dur": dur,
+    "to": to
+  ]
+  return elementTag("set", attributes: attributes, body: nil)
+end
+
+func animateTag(hrefID, attributeName, values, dur, fill, calcMode, keytimes, keysplines, repeats, attributeType)
+  var attributes = [
+      "href": hrefID,
+      "attributeName": attributeName,
+      "values": values,
+      "dur": dur,
+      "fill": fill,
+      "calcMode": calcMode,
+      "keyTimes": keytimes,
+      "keySplines": keysplines,
+      "repeatCount": repeats,
+      "attributeType": attributeType
+      ]
+      return elementTag("animate", attributes: attributes, body: nil)
+end
+
+func animateTransformTag(label, hrefID, attributeName, type, additive, values, dur, fill, calcMode, keytimes, keysplines, repeats, attributeType)
+  var attributes = [
+      "label":label,
+      "href": hrefID,
+      "attributeName": attributeName,
+      "type": type,
+      "additive": additive,
+      "values": values,
+      "dur": dur,
+      "fill": fill,
+      "calcMode": calcMode,
+      "keyTimes": keytimes,
+      "keySplines": keysplines,
+      "repeatCount": repeats,
+      "attributeType": attributeType
+      ]
+      return elementTag("animateTransform", attributes: attributes, body: nil)
+end
+
+func rectTag(id, x, y, width, height, rx, stroke, strokeWidth, fill, preserveAspectRatio, body)
+    var attributes = [
+       "id": id, 
+       "x": x, 
+       "y": y, 
+       "width": width, 
+       "height": height, 
+       "rx": rx, 
+       "stroke": stroke,
+       "stroke-width": strokeWidth, 
+       "fill": fill, 
+       "preserveAspectRatio": preserveAspectRatio 
+    ]
+    return elementTag("rect", attributes: attributes, body: body)
+end
+
+func borderTag(layer, timeline)
+  var body = animations(properties: borderProperties(), layer: layer, timeline: timeline, hrefID: nil, attributeType: nil)
+  var x = layer.borderWidth / 2
+  var y = layer.borderWidth / 2
+  if layer.type.name == "image"
+    x = 0
+    y = 0
+  end
+
+  return rectTag(id: nil, 
+          x: x, 
+          y: y, 
+          width: layer.bounds.size.width, 
+          height: layer.bounds.size.height, 
+          rx: layer.cornerRadius, 
+          stroke: layer.borderColor.hex,
+          strokeWidth: layer.borderWidth, 
+          fill: "none", 
+          preserveAspectRatio: nil, 
+          body: body)
+end
+
+func backgroundTag(layer, timeline)
+  var body = animations(properties: backgroundProperties(), layer: layer, timeline: timeline, hrefID: nil, attributeType: nil)
+  return rectTag(id: nil, 
+          x: 0, 
+          y: 0, 
+          width: "100%", 
+          height: "100%", 
+          rx: layer.cornerRadius, 
+          stroke: nil,
+          strokeWidth: 0,
+          fill: layer.backgroundColor.hex, 
+          preserveAspectRatio: nil, 
+          body: body)
+end
+
+func shapeTag(timeline, layer, id)
+  var body = animations(properties: shapeProperties(), layer: layer, timeline: timeline, hrefID: "#\(id)", attributeType: nil)
+  return pathTag(id: id, 
+          vectorEffect: nil, 
+          strokeMiterlimit: layer.miterLimit,
+          stroke: layer.strokeColor.hex,
+          strokeLinecap: getLineCap(layer: layer),
+          strokeLinejoin: getLineJoin(layer: layer),
+          strokeDasharray: Web.printDashPatternArray(layer.dashPattern),
+          strokeDashOffset: layer.dashPatternOffset,
+          strokeWidth: layer.strokeWidth,
+          d: layer.path.svgc(width: layer.bounds.size.width, height: layer.bounds.size.height),
+          fill: getFillAttribute(id: id, layer: layer),
+          body: body)
+end
+
+func pathTag(id,
+            vectorEffect,
+            strokeMiterlimit,
+            stroke, 
+            strokeLinecap, 
+            strokeLinejoin, 
+            strokeDasharray, 
+            strokeDashOffset,
+            strokeWidth,
+            d,
+            fill,
+            body)
+  var attributes = [
+       "id": id, 
+       "vector-effect": vectorEffect, 
+       "stroke-miterlimit": strokeMiterlimit, 
+       "stroke": stroke, 
+       "stroke-linecap": strokeLinecap, 
+       "stroke-linejoin": strokeLinejoin, 
+       "stroke-dasharray": strokeDasharray,
+       "stroke-dashoffset": strokeDashOffset, 
+       "stroke-width": strokeWidth, 
+       "d": d,
+       "fill": fill 
+    ]
+  return elementTag("path", attributes: attributes, body: body)
+end
+
+func imageTag(image)
+  return imageElementTag(id: image.name,
+                  href: "data:image/png;base64,\(image.base64Encoded())",
+                  body: nil)
+end
+
+func imageElementTag(
+    id,
+    href,
+    body)
+
+  var attributes = [
+    "id": id,
+    "href": href
+  ]
+
+  return elementTag("image", attributes: attributes, body: body)
+end
+
+func patternTag(id, layer, timeline)
+  var body = process("fillImage.svg.flt", into: nil, indentation: 1)
+  return patternElementTag(
+    id: "\(id)-fillImage",
+    x: "0",
+    y: "0",
+    width: "100%",
+    height: "100%",
+    patternUnits: "userSpaceOnUse",
+    body: body
+  )
+end
+
+func patternElementTag(id, x, y, width, height, patternUnits, body)
+  var attributes = [
+    "id": id,
+    "x": x,
+    "y": y,
+    "width": width, 
+    "height": height, 
+    "patternUnits": patternUnits
+  ]
+
+  return elementTag("pattern", attributes: attributes, body: body)
+end
+
+func elementTag(_ elementName, attributes, body)
+    return process("tags/svgElement.svg.flt", into: nil, indentation: 3)
+end
