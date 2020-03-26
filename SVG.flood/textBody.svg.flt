@@ -1,0 +1,20 @@
+<%- if layer.attributedString != nil -%>
+  <%- for run in layer.attributedString.runs -%>
+  <tspan
+    <%- if run.attributes["font"] != nil -%>
+    font-family="<%= run.attributes["font"].name %>"
+    font-size="<%= run.attributes["font"].size %>"
+    <%- end -%>
+    <%- if run.attributes["foregroundColor"] != nil -%>
+    fill="<%= run.attributes["foregroundColor"].hex %>"
+    <%- end -%>
+    <%- if run.attributes["underlineStyle"] != nil && run.attributes["underlineStyle"] != 0 -%>
+    text-decoration="underline"
+    <%- end -%>
+  ><%= run.string %>
+  </tspan>
+  <%- end -%>
+<%- else if layer.string != nil -%>
+  <%= layer.string %>
+<%- end -%>
+<% animations(properties: baseProperties(), layer: layer, timeline: timeline, hrefID: nil, attributeType: nil) -%>

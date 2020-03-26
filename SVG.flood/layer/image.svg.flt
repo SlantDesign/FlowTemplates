@@ -10,8 +10,8 @@ var y = getImageY(layer: layer)
 <g id="<%= id %>-layer-translate" transform="<%= transform(of: layer) %>">
   <svg x="0" y="0" preserveAspectRatio="<%= aspectRatio %>" viewBox="<%= x %> <%= y %> <%= viewWidth %> <%= viewHeight %>" width="<%= width %>" height="<%= height %>">
     <use href="#<%= layer.image.name %>">
-    <% setAnimation(property: "image", layer: layer, timeline: timeline) %>	
-    <% animation(property: "contentMode", layer: layer, timeline: timeline, hrefID: nil, attributeType: nil) %>
+    <%= setAnimation(property: "image", layer: layer, timeline: timeline) %>	
+    <%= animation(property: "contentMode", layer: layer, timeline: timeline, hrefID: nil, attributeType: nil) %>
     </use>
     </svg>
 </g>
