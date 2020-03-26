@@ -17,7 +17,6 @@
 <%- else if layer.string != nil -%>
   <%= keyvalue.value %>
 <%- end -%>
-<% animations(properties: baseProperties(), layer: layer, timeline: timeline, hrefID: nil, attributeType: nil) -%>
 <%= setHref(id: "setVisibilityAnimation\(count)", 
                 beginAt: precedingStringAnimation(count: count, track: track), 
                 timeline: timeline, 
