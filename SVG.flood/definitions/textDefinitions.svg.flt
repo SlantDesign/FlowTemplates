@@ -1,0 +1,24 @@
+<defs>
+<% for layer in layer.descendants
+    var id = generateSymbolID(layer: layer)
+    var count = 0
+    if layer.type.name == "text"
+        var track = timeline.trackFor(layer: layer, property: "string")
+        if track != nil
+            for keyvalue in track.keyvalues
+                count = count + 1
+                var textElementID = "\(id)-\(count)"
+                %>
+                <%= textTag(
+                    id: textElementID, 
+                    layer: layer, 
+                    timeline: timeline, 
+                    keyvalue: keyvalue, 
+                    count: count, 
+                    track: track
+                ) %>
+            <% end 
+        end
+    end 
+end %>
+</defs>
