@@ -1,12 +1,3 @@
-func setImageHref(id, timeline, keyvalue, track)
-  var to = hrefFrom(keyvalue: keyvalue)
-  return setTag(id: id, 
-          attributeName: svgAttributeName(of: track.property), 
-          begin: "\(keyvalue.time)s;\(id).end + \(timeline.duration)",
-          dur: "\(timeline.duration)s", 
-          to: to)
-end
-
 func setTag(id, attributeName, begin, dur, to)
   var attributes = [
     "id": id,
@@ -195,7 +186,7 @@ func patternElementTag(id, x, y, width, height, patternUnits, body)
   return elementTag("pattern", attributes: attributes, body: body)
 end
 
-func textTag(id, layer, timeline)
+func textTag(id, layer, timeline, keyvalue, count, track)
   var body = process("textBody.svg.flt", into: nil, indentation: 1)
 
   return textElementTag(
@@ -209,11 +200,12 @@ func textTag(id, layer, timeline)
     textAnchor: "middle",
     style: "inline-size: \(layer.size.width)",
     fill: layer.foregroundColor.hex,
+    visibility: "hidden",
     body: body
   )
 end
 
-func textElementTag(id, x, y, width, height, fontFamily, fontSize, textAnchor, style, fill, body)
+func textElementTag(id, x, y, width, height, fontFamily, fontSize, textAnchor, style, fill, visibility, body)
   var attributes = [
     "id": id, 
     "x": x, 
@@ -224,8 +216,8 @@ func textElementTag(id, x, y, width, height, fontFamily, fontSize, textAnchor, s
     "fontSize": fontSize, 
     "textAnchor": textAnchor, 
     "style": style, 
-    "fill": fill, 
-    "transform": transform
+    "fill": fill,
+    "visibility": visibility
   ]
 
   return elementTag("text", attributes: attributes, body: body)
@@ -233,4 +225,12 @@ end
 
 func elementTag(_ elementName, attributes, body)
     return process("tags/svgElement.svg.flt", into: nil, indentation: 3)
+end
+
+func setHref(id, beginAt, timeline, keyvalue, track, attributeName, to)
+  return setTag(id: id, 
+          attributeName: attributeName, 
+          begin: "\(keyvalue.time)s;\(beginAt).end",
+          dur: "\(timeline.duration)s", 
+          to: to)
 end
