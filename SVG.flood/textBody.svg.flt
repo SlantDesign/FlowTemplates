@@ -15,6 +15,14 @@
   </tspan>
   <%- end -%>
 <%- else if layer.string != nil -%>
-  <%= layer.string %>
+  <%= keyvalue.value %>
 <%- end -%>
 <% animations(properties: baseProperties(), layer: layer, timeline: timeline, hrefID: nil, attributeType: nil) -%>
+<%= setHref(id: "setVisibilityAnimation\(count)", 
+                beginAt: precedingStringAnimation(count: count, track: track), 
+                timeline: timeline, 
+                keyvalue: keyvalue, 
+                track: track,
+                attributeName: "visibility",
+                to: "visible"
+                ) %>

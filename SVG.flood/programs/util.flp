@@ -398,6 +398,18 @@ func hrefFrom(keyvalue)
   end
 end
 
+func hrefFromText(keyvalue) 
+  return "\(keyvalue.id)"
+end
+
 func scale(from layer)
   return "scale(\(layer.flippedHorizontal) \(layer.flippedVertical))"
+end
+
+func precedingStringAnimation(count, track)
+  if count == 1
+    return "setVisibilityAnimation\(track.keyvalues.count)"
+  else
+    return "setVisibilityAnimation\(count - 1)"
+  end
 end

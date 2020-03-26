@@ -1,1 +1,14 @@
-<%= textTag(id: id, layer: layer, timeline: timeline) %>
+<% if layer.type.name == "text" %>
+    <g label="TextLayers" font-family="<%= layer.font.name %>" font-size="<%= layer.fontSize %>" text-anchor="<%= layer.alignment %>" style="inline-size: 188.74" fill="<%= layer.foregroundColor.hex %>">
+    <% var track = timeline.trackFor(layer: layer, property: "string")
+    var count = 0
+    if track != nil
+        for keyvalue in track.keyvalues
+            count = count + 1
+            var textElementID = "\(id)-\(count)"
+            %>
+            <use href="#<%= textElementID %>" />
+        <% end
+    end %>
+    </g>
+<% end %>

@@ -42,10 +42,16 @@ func setAnimation(property, layer, timeline)
         var count = 0
         for keyvalue in track.keyvaluesWithSimulatedSteps
             count = count + 1
-            var setTag = setImageHref(id: "\(id)-\(count)",
-                                    timeline: timeline,
-                                    keyvalue: keyvalue,
-                                    track: track)
+            var setTag = setHref(
+                id: "\(id)-\(count)",
+                beginAt: id,
+                timeline: timeline,
+                keyvalue: keyvalue,
+                track: track,
+                attributeName: svgAttributeName(of: track.property),
+                to: hrefFrom(keyvalue: keyvalue)
+            )
+
             if setTag != nil
                 setTags = setTags.appending(setTag)
             end
