@@ -123,7 +123,7 @@ func svgValue(_ value, propertyID, layer)
   case "miterLimit": return "\(value)"
   case "lineCap": return "\(value)"
   case "lineJoin": return "\(value)"
-  case "fillImage": return ""
+  case "fillImage": return "#\(value.image.name)"
   case "lineDashPattern": return Web.printDashPatternArray(value)
   case "lineDashPhase": return "\(value)"
   // Not handled by this function

@@ -58,26 +58,6 @@ func shadowAnimations(timeline, layer, id)
     return animations(properties: shadowProperties(), layer: layer, timeline: timeline, hrefID: "#\(id)-shadow-filter", attributeType: "XML")
 end
 
-func fillImageAnimation(layer, timeline)
-    var track = timeline.trackFor(layer: layer, property: "fillImage")
-    var keytimes = keyTimesFrom(track: track)
-    var keysplines = keysplinesFrom(track: track)
-
-    if track != nil
-        return animateTag(
-                    hrefID: nil, 
-                    attributeName: "href", 
-                    values: hrefValuesFrom(track: track, layer: layer).joined(separator: ";"), 
-                    dur: "\(track.timeline.duration)s",
-                    fill: "freeze",
-                    calcMode: "spline", 
-                    keytimes: keytimes.joined(separator: ";"), 
-                    keysplines: keysplines.joined(separator: ";"), 
-                    repeats: "indefinite", 
-                    attributeType: nil)
-    end
-end
-
 func animations(properties, layer, timeline, hrefID, attributeType)
     var animations = []
     for property in properties
@@ -112,14 +92,6 @@ func animation(property, layer, timeline, hrefID, attributeType)
                 repeats: "indefinite", 
                 attributeType: attributeType)
     end
-end
-
-func hrefValuesFrom(track, layer)
-    var values = []
-    for keyvalue in track.keyvaluesWithSimulatedSteps
-        values = values.appending(hrefFrom(keyvalue: keyvalue))
-    end
-    return values
 end
 
 func valuesFrom(track, layer)

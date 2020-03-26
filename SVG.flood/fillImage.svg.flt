@@ -1,5 +1,5 @@
 <% if layer.type.name == "shape" %>
 <use href="#<%= layer.fillImage %>">
-    <%= fillImageAnimation(layer: layer, timeline: timeline) %>	
+    <%= animation(property: "fillImage", layer: layer, timeline: timeline, hrefID: nil, attributeType: nil)%>	
 </use>
 <% end %>

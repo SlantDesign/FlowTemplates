@@ -15,7 +15,7 @@ func setTag(id, attributeName, begin, dur, to)
     "dur": dur,
     "to": to
   ]
-  return elementTag("animate", attributes: attributes, body: nil)
+  return elementTag("set", attributes: attributes, body: nil)
 end
 
 func animateTag(hrefID, attributeName, values, dur, fill, calcMode, keytimes, keysplines, repeats, attributeType)
