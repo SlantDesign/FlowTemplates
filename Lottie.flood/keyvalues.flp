@@ -94,6 +94,9 @@ func extractValue(from keyvalue, propertyID)
     case "borderColor.opacity":
         return keyvalue.value.alpha
 
+    case "foregroundColor.opacity":
+        return keyvalue.value.alpha
+
     case "border.size":
         var timeline = keyvalue.track.timeline
         var layer = keyvalue.track.layer

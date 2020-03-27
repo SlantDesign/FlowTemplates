@@ -66,6 +66,10 @@ func propertyValue(layer, propertyID)
         return lottieValue(from: [layer.shadowOffset.width, layer.shadowOffset.height], propertyID: propertyID)
     case "shadow.direction":
         return lottieValue(from: [layer.shadowOffset.width, layer.shadowOffset.height], propertyID: propertyID)
+    case "foregroundColor":
+        return lottieValue(from: layer.foregroundColor, propertyID: propertyID)
+    case "foregroundColor.opacity":
+        return lottieValue(from: layer.foregroundColor.alpha, propertyID: propertyID)
     default:
         return nil
     end
@@ -135,6 +139,10 @@ func lottieValue(from value, propertyID)
         return shadowDistance(width: value[0], height: value[1])
     case "shadow.direction":
         return shadowDirection(width: value[0], height: value[1])
+    case "foregroundColor":
+        return colorValue(from: value)
+    case "foregroundColor.opacity":
+        return opacityValue(from: value)
     default:
         return nil
     end

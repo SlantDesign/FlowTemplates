@@ -7,7 +7,7 @@ func textProperties(layer, timeline)
                 "d": textData(layer: layer, timeline: timeline),
                 "p": maskedPath(), // masked Path
                 "m": moreTextOptions(),
-                "a": textAnimatorData()
+                "a": textAnimators(layer: layer, timeline: timeline)
             ]
 end
 
@@ -53,6 +53,45 @@ func moreTextOptions()
             ]
 end
 
-func textAnimatorData()
-    return []
+func textAnimators(layer, timeline)
+    return [ textAnimator(layer: layer, timeline: timeline) ]
+end
+
+func textAnimator(layer, timeline)
+    return [
+            "nm": "Animator 1",
+            "s": textSelector(),
+            "a": textAnimatorContainer(layer: layer, timeline: timeline)
+    ]
+end
+
+func textAnimatorContainer(layer, timeline)
+    return [
+            "fc":  animation(layer: layer, propertyID: "foregroundColor", timeline: timeline)
+    ] 
+end
+
+func textSelector()
+    return [
+                "t": 0,
+                "xe": [
+                    "a": 0,
+                    "k": 0,
+                    "ix": 7
+                ],
+                "ne": [
+                    "a": 0,
+                    "k": 0,
+                    "ix": 8
+                ],
+                "a": [
+                    "a": 0,
+                    "k": 100,
+                    "ix": 4
+                ],
+                "b": 1,
+                "rn": 0,
+                "sh": 1,
+                "r": 1
+            ]
 end

@@ -9,10 +9,11 @@ func transform(layer, timeline, type)
 end
 
 func opacityComponent(layer, timeline, type)
-    switch type
-    case "composition":
+    if type == "composition"
         return opacityAnimation(layer: layer, timeline: timeline)
-    default:
+    else if type == "content" && layer.type.name == "text"
+        return animation(layer: layer, propertyID: "foregroundColor.opacity", timeline: timeline)
+    else
         return ["a": 0,"k": 100,"ix": 7]
     end
 end
