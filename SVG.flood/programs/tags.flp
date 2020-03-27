@@ -15,7 +15,7 @@ func setTag(id, attributeName, begin, dur, to)
     "dur": dur,
     "to": to
   ]
-  return elementTag("set", attributes: attributes, body: nil, innerElement: nil)
+  return elementTag("set", attributes: attributes, body: nil)
 end
 
 func animateTag(hrefID, attributeName, values, dur, fill, calcMode, keytimes, keysplines, repeats, attributeType)
@@ -31,7 +31,7 @@ func animateTag(hrefID, attributeName, values, dur, fill, calcMode, keytimes, ke
       "repeatCount": repeats,
       "attributeType": attributeType
       ]
-      return elementTag("animate", attributes: attributes, body: nil, innerElement: nil)
+      return elementTag("animate", attributes: attributes, body: nil)
 end
 
 func animateTransformTag(label, hrefID, attributeName, type, additive, values, dur, fill, calcMode, keytimes, keysplines, repeats, attributeType)
@@ -50,7 +50,7 @@ func animateTransformTag(label, hrefID, attributeName, type, additive, values, d
       "repeatCount": repeats,
       "attributeType": attributeType
       ]
-      return elementTag("animateTransform", attributes: attributes, body: nil, innerElement: nil)
+      return elementTag("animateTransform", attributes: attributes, body: nil)
 end
 
 func rectTag(id, x, y, width, height, rx, stroke, strokeWidth, fill, preserveAspectRatio, body)
@@ -66,7 +66,7 @@ func rectTag(id, x, y, width, height, rx, stroke, strokeWidth, fill, preserveAsp
        "fill": fill, 
        "preserveAspectRatio": preserveAspectRatio 
     ]
-    return elementTag("rect", attributes: attributes, body: body, innerElement: nil)
+    return elementTag("rect", attributes: attributes, body: body)
 end
 
 func borderTag(layer, timeline)
@@ -147,7 +147,7 @@ func pathTag(id,
        "d": d,
        "fill": fill 
     ]
-  return elementTag("path", attributes: attributes, body: body, innerElement: nil)
+  return elementTag("path", attributes: attributes, body: body)
 end
 
 func imageTag(image)
@@ -166,7 +166,7 @@ func imageElementTag(
     "href": href
   ]
 
-  return elementTag("image", attributes: attributes, body: body, innerElement: nil)
+  return elementTag("image", attributes: attributes, body: body)
 end
 
 func patternTag(id, layer, timeline)
@@ -192,11 +192,11 @@ func patternElementTag(id, x, y, width, height, patternUnits, body)
     "patternUnits": patternUnits
   ]
 
-  return elementTag("pattern", attributes: attributes, body: body, innerElement: nil)
+  return elementTag("pattern", attributes: attributes, body: body)
 end
 
 func textTag(id, layer, timeline)
-  var body = animations(properties: textProperties(), layer: layer, timeline: timeline, hrefID: nil, attributeType: nil)
+  var body = process("textBody.svg.flt", into: nil, indentation: 0)
 
   return textElementTag(
     id: id,
@@ -230,9 +230,9 @@ func textElementTag(id, x, y, width, height, fontFamily, fontSize, textAnchor, s
     "visibility": visibility
   ]
 
-  return elementTag("text", attributes: attributes, body: body, innerElement: layer.string)
+  return elementTag("text", attributes: attributes, body: body)
 end
 
-func elementTag(_ elementName, attributes, body, innerElement)
+func elementTag(_ elementName, attributes, body)
     return process("tags/svgElement.svg.flt", into: nil, indentation: 3)
 end

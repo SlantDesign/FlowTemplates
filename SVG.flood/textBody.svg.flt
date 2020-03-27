@@ -1,0 +1,2 @@
+<%= animations(properties: textProperties(), layer: layer, timeline: timeline, hrefID: nil, attributeType: nil) %>
+<%= layer.string %>
