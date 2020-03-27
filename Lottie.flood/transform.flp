@@ -9,10 +9,11 @@ func transform(layer, timeline, type)
 end
 
 func opacityComponent(layer, timeline, type)
-    switch type
-    case "composition":
+    if type == "composition"
         return opacityAnimation(layer: layer, timeline: timeline)
-    default:
+    else if type == "content" && layer.type.name == "text"
+        return animation(layer: layer, propertyID: "foregroundColor.opacity", timeline: timeline)
+    else
         return ["a": 0,"k": 100,"ix": 7]
     end
 end
@@ -40,12 +41,37 @@ func anchorPointComponent(layer, timeline, type)
 end
 
 func positionComponent(layer, timeline, type)
-    switch type
-    case "null":
+    if type == "null"
         return positionAnimation(layer: layer, timeline: timeline)
-    default:
+    else if type == "content" && layer.type.name == "text"
+        return [
+                    "a": 0,
+                    "k": [
+                        xTextPosition(layer: layer),
+                        yTextPosition(layer: layer)
+                    ],
+                    "ix": 2
+                ]
+    else
         return ["a": 0,"k": [0,0],"ix": 2]
     end
+end
+
+func xTextPosition(layer)
+    switch layer.alignment.name
+    case "right":
+        return layer.bounds.width
+    case "left":
+        return 0
+    case "center":
+        return layer.bounds.center.x
+    case "justified":
+        return 0
+    end
+end
+
+func yTextPosition(layer)
+    return layer.fontSize
 end
 
 func positionAnimation(layer, timeline)
