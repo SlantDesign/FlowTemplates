@@ -8,8 +8,47 @@ end
 
 func fontDictionary(from font)
     return [
-        "fName": "\(font.name)", // font name
-        "fFamily": "\(font.familyName)", // font family name
-        "fStyle": "\(font.style)" // font style
+        "fName": "\(font.name)",
+        "fFamily": "\(font.familyName)",
+        "fStyle": lottieFontStyle(from: font.style)
     ]
+end
+
+func lottieFontStyle(from fontStyle)
+    var styleComponents = fontStyle.components(separatedBy: " ").map(lottieStyleComponent)
+    return styleComponents.joined(separator: " ")
+end
+
+func lottieStyleComponent(from styleComponent)
+        switch styleComponent.lowercased()
+            // Styles supported by Lottie
+            case "italic":
+                return "italic"
+            case "bold":
+                return "bold"
+            case "black":
+                return "black"
+            case "medium":
+                return "medium"
+            case "regular":
+                return "regular"
+            case "normal":
+                return "normal"
+            case "light":
+                return "light"
+            case "thin":
+                return "thin"
+
+            // Styles converted to supported Lottie styles
+            case "book":
+                return "light"
+            case "oblique":
+                return "italic"
+            case "heavy":
+                return "bold"
+            case "roman":
+                return "regular"
+            default:
+                return ""
+        end
 end
