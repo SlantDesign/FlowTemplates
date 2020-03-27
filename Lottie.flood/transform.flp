@@ -60,11 +60,11 @@ end
 func xTextPosition(layer)
     switch layer.alignment.name
     case "right":
-        return layer.bounds.width
+        return 0
     case "left":
         return 0
     case "center":
-        return layer.bounds.center.x
+        return 0
     case "justified":
         return 0
     end

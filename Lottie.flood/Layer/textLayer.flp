@@ -24,12 +24,13 @@ end
 
 func startValue(layer, timeline)
     return [
+                "sz": [layer.bounds.width, layer.bounds.height],
                 "s": "\(layer.font.size)",
                 "f": "\(layer.font.name)",
                 "t": "\(layer.string)",
                 "j": textAlignmentValue(from: layer.alignment),
-                "tr": 0,
-                "lh": 52.8, // line height
+                "tr": 0, //tracking
+                "lh": layer.font.size * 1.277, // line height
                 "ls": 0,
                 "fc": colorValue(from: layer.foregroundColor)
             ]
