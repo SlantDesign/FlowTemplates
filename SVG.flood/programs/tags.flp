@@ -206,7 +206,7 @@ func textTag(id, layer, timeline)
     height: layer.size.height,
     fontFamily: layer.font.name,
     fontSize: layer.fontSize,
-    textAnchor: layer.alignment,
+    textAnchor: "start",
     style: "inline-size: \(layer.size.width)",
     fill: layer.foregroundColor.hex,
     visibility: "visible",
