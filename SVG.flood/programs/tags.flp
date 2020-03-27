@@ -195,6 +195,44 @@ func patternElementTag(id, x, y, width, height, patternUnits, body)
   return elementTag("pattern", attributes: attributes, body: body)
 end
 
+func textTag(id, layer, timeline)
+  var body = process("textBody.svg.flt", into: nil, indentation: 0)
+
+  return textElementTag(
+    id: id,
+    x: 0,
+    y: 0,
+    width: layer.size.width,
+    height: layer.size.height,
+    fontFamily: layer.font.name,
+    fontSize: layer.fontSize,
+    textAnchor: "start",
+    style: "inline-size: \(layer.size.width)",
+    fill: layer.foregroundColor.hex,
+    visibility: "visible",
+    body: body,
+    layer: layer
+  )
+end
+
+func textElementTag(id, x, y, width, height, fontFamily, fontSize, textAnchor, style, fill, visibility, body, layer)
+  var attributes = [
+    "id": id, 
+    "x": x, 
+    "y": y, 
+    "width": width, 
+    "height": height, 
+    "font-family": fontFamily, 
+    "font-size": fontSize, 
+    "text-anchor": textAnchor, 
+    "style": style, 
+    "fill": fill,
+    "visibility": visibility
+  ]
+
+  return elementTag("text", attributes: attributes, body: body)
+end
+
 func elementTag(_ elementName, attributes, body)
     return process("tags/svgElement.svg.flt", into: nil, indentation: 3)
 end
