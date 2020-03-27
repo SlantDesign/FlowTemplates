@@ -51,7 +51,7 @@ func svgAttributeName(of property)
   // Text
   case "font": return "font-family"
   case "fontSize": return "font-size"
-  case "foregroundColor": return "color"
+  case "foregroundColor": return "fill"
   case "truncationMode": return "text-overflow"
   end
 end
@@ -135,7 +135,7 @@ func svgValue(_ value, propertyID, layer)
 
   // Text
   case "string": return ""
-  case "font": return "\(value)"
+  case "font": return "\(value.name)"
   case "fontSize": return "\(value)"
   case "foregroundColor": return value.hex
   case "truncationMode": return "\(value)"
@@ -343,11 +343,9 @@ end
 
 func textProperties()
   return [
-    "string",
     "font",
     "fontSize",
     "foregroundColor",
-    "alignment",
     "truncationMode"
   ]
 end

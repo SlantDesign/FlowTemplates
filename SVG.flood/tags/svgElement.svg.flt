@@ -9,5 +9,8 @@ for key in attributes.keys.sorted(by: alphabetically)
 <%- else -%>
 >
     <%= body %>
+    <% if innerElement != nil %>
+        <%= innerElement %>
+    <% end %>
 </<%= elementName%>>
 <%- end -%>
