@@ -197,25 +197,25 @@ end
 
 func textTag(id, layer, timeline)
   var body = process("textBody.svg.flt", into: nil, indentation: 0)
-
   return textElementTag(
     id: id,
-    x: 0,
+    x: alignmentPosition(layer: layer),
     y: 0,
     width: layer.size.width,
     height: layer.size.height,
     fontFamily: layer.font.name,
     fontSize: layer.fontSize,
-    textAnchor: "start",
+    textAnchor: alignment(layer: layer),
     style: "inline-size: \(layer.size.width)",
     fill: layer.foregroundColor.hex,
     visibility: "visible",
     body: body,
-    layer: layer
+    layer: layer,
+    alignmentBaseline: "hanging"
   )
 end
 
-func textElementTag(id, x, y, width, height, fontFamily, fontSize, textAnchor, style, fill, visibility, body, layer)
+func textElementTag(id, x, y, width, height, fontFamily, fontSize, textAnchor, style, fill, visibility, body, layer, alignmentBaseline)
   var attributes = [
     "id": id, 
     "x": x, 
@@ -227,6 +227,7 @@ func textElementTag(id, x, y, width, height, fontFamily, fontSize, textAnchor, s
     "text-anchor": textAnchor, 
     "style": style, 
     "fill": fill,
+    "alignment-baseline": alignmentBaseline,
     "visibility": visibility
   ]
 
