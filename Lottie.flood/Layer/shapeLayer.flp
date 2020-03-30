@@ -104,10 +104,11 @@ end
 
 func maskColorElement(layer, timeline)
     var opacity = 100
-    if layer.masksToBounds == false
+    if layer.masksToBounds == false && layer.type.name == "group"
         // if there is no masking, we want to hide the mask layer, so we set the alpha to 0
         opacity = 0
     end
+
     return [
         "ty": "fl",
         "c": ["a": 0.0,"ix": 4.0,"k": [0.0,0.0,0.0]],

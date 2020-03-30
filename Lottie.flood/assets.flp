@@ -52,12 +52,15 @@ func compositionSublayers(of layer, timeline)
     var borderLayer = lottieLayer(layer: layer, timeline: timeline, type: "border")
     lottieLayers = lottieLayers.appending(borderLayer)
 
-    // A seperate stroke layer is created for shape Layers to prevent the stroke start/end
-    // property affecting the fill of the shape layer.
     if layer.type.name == "shape"
-        // only shapes have strokes
+        // A seperate stroke layer is created for shape Layers to prevent the stroke start/end
+        // property affecting the fill of the shape layer.
         var strokeLayer = lottieLayer(layer: layer, timeline: timeline, type: "stroke")
         lottieLayers = lottieLayers.appending(strokeLayer)
+    else if layer.type.name == "image"
+        // A mask is inserted so that image does not bleed outside of the image layers bounds.
+        var mask = lottieLayer(layer: layer, timeline: timeline, type: "mask")
+        lottieLayers = lottieLayers.appending(mask)
     end
     
     if layer.type.name == "group"
