@@ -6,6 +6,14 @@ func rotationAnimation(layer, timeline)
     return animation(layer: layer, propertyID: "transform.rotation.z", timeline: timeline)
 end
 
+func positionAnimation(layer, timeline)
+    return [
+        "s": true, // seperate position dimensions into x and y components in order to animate them independently
+        "x": xPositionAnimation(layer: layer, timeline: timeline),
+        "y": yPositionAnimation(layer: layer, timeline: timeline)
+    ]
+end
+
 func xPositionAnimation(layer, timeline)
     return animation(layer: layer, propertyID: "position.x", timeline: timeline)
 end
@@ -108,6 +116,10 @@ func borderWidthAnimation(layer, timeline)
     return animation(layer: layer, propertyID: "borderWidth", timeline: timeline)
 end
 
+func imageScaleAnimation(layer, timeline)
+    return animation(layer: layer, propertyID: "image.scale", timeline: timeline)
+end
+
 func animation(layer, propertyID, timeline)
     var animated = isAnimated(layer: layer, propertyID: propertyID, timeline: timeline)
     var animationValue 
@@ -173,6 +185,12 @@ func tracksFor(layer, propertyID, timeline)
     case "center":
         tracks = [timeline.sizeTrack(layer: layer)]
     case "border.size":
+        tracks = [timeline.sizeTrack(layer: layer)]
+    case "image.position.x":
+        tracks = [timeline.sizeTrack(layer: layer)]
+    case "image.position.y":
+        tracks = [timeline.sizeTrack(layer: layer)]
+    case "image.scale":
         tracks = [timeline.sizeTrack(layer: layer)]
     default:
         tracks = [timeline.trackFor(layer: layer, property: propertyID)]
@@ -254,6 +272,12 @@ func propertyIndex(propertyID)
         return 12
     case "foregroundColor.opacity":
         return 10
+    case "image.position.x":
+        return 3
+    case "image.position.y":
+        return 4
+    case "image.scale":
+        return 1
     default:
         return nil
     end

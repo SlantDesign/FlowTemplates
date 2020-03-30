@@ -136,12 +136,10 @@ func blendMode()
 end
 
 func matteMode(layer, type)
-    if layer.type.name == "group" && type == "composition"
-        if layer.masksToBounds
-            return 1
-        else
-            return 0
-        end
+    if layer.type.name == "group" && type == "composition" && layer.masksToBounds
+        return 1        
+    else if layer.type.name == "image" && type == "content"
+        return 1
     else
         return  0
     end

@@ -71,11 +71,12 @@ func keyvalueValue(from keyvalue, propertyID)
 end
 
 func extractValue(from keyvalue, propertyID)
+    var timeline = keyvalue.track.timeline
+    var layer = keyvalue.track.layer
+
     switch propertyID
     case "combinedPath":
         var path = keyvalue.value
-        var timeline = keyvalue.track.timeline
-        var layer = keyvalue.track.layer
         var size = timeline.value(property: "size", layer: layer, time: keyvalue.time) 
         return path.render(width: size.width, height: size.height)
 
@@ -98,13 +99,26 @@ func extractValue(from keyvalue, propertyID)
         return keyvalue.value.alpha
 
     case "border.size":
-        var timeline = keyvalue.track.timeline
-        var layer = keyvalue.track.layer
         var borderWidth = timeline.value(property: "borderWidth", layer: layer, time: keyvalue.time)
         var width = keyvalue.value.width - borderWidth
         var height = keyvalue.value.height - borderWidth
         return [width, height]
 
+    case "image.position.x":
+        var layerSize = timeline.value(property: "size", layer: layer, time: keyvalue.time)
+        var contentMode = timeline.value(property: "contentsGravity", layer: layer, time: keyvalue.time)
+        var image = timeline.value(property: "image", layer: layer, time: keyvalue.time)
+        return xImagePosition(contentMode: contentMode, layerSize: layerSize, imageSize: image.size)
+    case "image.position.y":
+        var layerSize = timeline.value(property: "size", layer: layer, time: keyvalue.time)
+        var contentMode = timeline.value(property: "contentsGravity", layer: layer, time: keyvalue.time)
+        var image = timeline.value(property: "image", layer: layer, time: keyvalue.time)
+        return yImagePosition(contentMode: contentMode, layerSize: layerSize, imageSize: image.size)
+    case "image.scale":
+        var layerSize = timeline.value(property: "size", layer: layer, time: keyvalue.time)
+        var contentMode = timeline.value(property: "contentsGravity", layer: layer, time: keyvalue.time)
+        var image = timeline.value(property: "image", layer: layer, time: keyvalue.time)
+        return imageScale(contentMode: contentMode, layerSize: layerSize, imageSize: image.size)
     default:
         return keyvalue.value
     end

@@ -18,6 +18,7 @@ execute("propertyValue.flp")
 execute("time.flp")
 execute("effects.flp")
 execute("hierarchy.flp")
+execute("contentMode.flp")
 
 for timeline in timelines
     // Get the name of the timeline folder
