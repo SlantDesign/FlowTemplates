@@ -91,27 +91,3 @@ end
 func yTextPosition(layer)
     return layer.fontSize
 end
-
-func positionAnimation(layer, timeline)
-    return [
-        "s": true, // seperate position dimensions into x and y components in order to animate them independently
-        "x": xPositionAnimation(layer: layer, timeline: timeline),
-        "y": yPositionAnimation(layer: layer, timeline: timeline)
-    ]
-end
-
-func min(_ lhs, _ rhs)
-    if lhs < rhs
-        return lhs
-    else
-        return rhs
-    end
-end
-
-func max(_ lhs, _ rhs)
-    if lhs > rhs
-        return lhs
-    else
-        return rhs
-    end
-end

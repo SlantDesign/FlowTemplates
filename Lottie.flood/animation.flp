@@ -6,6 +6,14 @@ func rotationAnimation(layer, timeline)
     return animation(layer: layer, propertyID: "transform.rotation.z", timeline: timeline)
 end
 
+func positionAnimation(layer, timeline)
+    return [
+        "s": true, // seperate position dimensions into x and y components in order to animate them independently
+        "x": xPositionAnimation(layer: layer, timeline: timeline),
+        "y": yPositionAnimation(layer: layer, timeline: timeline)
+    ]
+end
+
 func xPositionAnimation(layer, timeline)
     return animation(layer: layer, propertyID: "position.x", timeline: timeline)
 end
