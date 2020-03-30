@@ -76,6 +76,9 @@ func propertyValue(layer, propertyID)
     case "image.position.y":
         var yPos = yImagePosition(contentMode: layer.contentMode, layerSize: layer.bounds.size, imageSize: layer.image.size)
         return lottieValue(from: yPos, propertyID: propertyID)
+    case "image.scale":
+        var scale = imageScale(contentMode: layer.contentMode, layerSize: layer.bounds.size, imageSize: layer.image.size)
+        return lottieValue(from: scale, propertyID: propertyID)
     default:
         return nil
     end
@@ -152,6 +155,8 @@ func lottieValue(from value, propertyID)
     case "image.position.x":
         return value
     case "image.position.y":
+        return value
+    case "image.scale":
         return value
     default:
         return nil

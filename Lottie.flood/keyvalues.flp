@@ -113,8 +113,12 @@ func extractValue(from keyvalue, propertyID)
         var layerSize = timeline.value(property: "size", layer: layer, time: keyvalue.time)
         var contentMode = timeline.value(property: "contentsGravity", layer: layer, time: keyvalue.time)
         var image = timeline.value(property: "image", layer: layer, time: keyvalue.time)
-        return yImagePosition(contentMode: contentMode, layerSize: layerSize, imageSize: image.size) 
-
+        return yImagePosition(contentMode: contentMode, layerSize: layerSize, imageSize: image.size)
+    case "image.scale":
+        var layerSize = timeline.value(property: "size", layer: layer, time: keyvalue.time)
+        var contentMode = timeline.value(property: "contentsGravity", layer: layer, time: keyvalue.time)
+        var image = timeline.value(property: "image", layer: layer, time: keyvalue.time)
+        return imageScale(contentMode: contentMode, layerSize: layerSize, imageSize: image.size)
     default:
         return keyvalue.value
     end

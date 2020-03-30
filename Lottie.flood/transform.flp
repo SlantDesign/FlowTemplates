@@ -29,14 +29,7 @@ end
 
 func scaleComponent(layer, timeline, type)
     if type == "content" && layer.type.name == "image"
-        return [
-                    "a": 0,
-                    "k": [
-                        xImageScale(contentMode: layer.contentMode, layerSize: layer.bounds.size, imageSize: layer.image.size),
-                        yImageScale(contentMode: layer.contentMode, layerSize: layer.bounds.size, imageSize: layer.image.size)
-                    ],
-                    "ix": 2
-                ]
+        return imageScaleAnimation(layer: layer, timeline: timeline)
     end
 
     return ["a": 0,"k": [100,100],"ix": 6]

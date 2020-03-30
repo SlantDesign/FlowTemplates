@@ -84,6 +84,12 @@ func yImagePosition(contentMode, layerSize, imageSize)
     end
 end
 
+func imageScale(contentMode, layerSize, imageSize)
+    var xScale = xImageScale(contentMode: contentMode, layerSize: layerSize, imageSize: imageSize)
+    var yScale = yImageScale(contentMode: contentMode, layerSize: layerSize, imageSize: imageSize)
+    return [xScale, yScale]
+end
+
 func xImageScale(contentMode, layerSize, imageSize)
     var imageWidth = imageSize.width
     var layerWidth = layerSize.width
@@ -121,5 +127,21 @@ func yImageScale(contentMode, layerSize, imageSize)
         return 100 * max(widthtRatio, heightRatio)
     default: 
         return 100
+    end
+end
+
+func min(_ lhs, _ rhs)
+    if lhs < rhs
+        return lhs
+    else
+        return rhs
+    end
+end
+
+func max(_ lhs, _ rhs)
+    if lhs > rhs
+        return lhs
+    else
+        return rhs
     end
 end
