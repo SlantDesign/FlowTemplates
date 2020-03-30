@@ -399,3 +399,25 @@ end
 func scale(from layer)
   return "scale(\(layer.flippedHorizontal) \(layer.flippedVertical))"
 end
+
+func alignmentPosition(layer)
+    switch layer.alignment.name
+    case "left":
+        return 0
+    case "right":
+        return layer.bounds.size.width
+    case "center":
+        return layer.bounds.size.width / 2
+    end
+end
+
+func alignment(layer)
+    switch layer.alignment.name
+    case "left":
+        return "start"
+    case "right":
+        return "end"
+    case "center":
+        return "middle"
+    end
+end
