@@ -32,8 +32,8 @@ func scaleComponent(layer, timeline, type)
         return [
                     "a": 0,
                     "k": [
-                        xImageScale(layer: layer),
-                        yImageScale(layer: layer)
+                        xImageScale(contentMode: layer.contentMode, layerSize: layer.bounds.size, imageSize: layer.image.size),
+                        yImageScale(contentMode: layer.contentMode, layerSize: layer.bounds.size, imageSize: layer.image.size)
                     ],
                     "ix": 2
                 ]
@@ -68,14 +68,7 @@ func positionComponent(layer, timeline, type)
                     "ix": 2
                 ]
         case "image":
-            return [
-                "a": 0,
-                "k": [
-                    xImagePosition(layer: layer),
-                    yImagePosition(layer: layer)
-                ],
-                "ix": 2
-            ]
+            return imagePositionAnimation(layer: layer, timeline: timeline)
         end
     end
 
@@ -97,112 +90,6 @@ end
 
 func yTextPosition(layer)
     return layer.fontSize
-end
-
-func xImagePosition(layer)
-    var imageWidth = layer.image.size.width
-    var layerWidth = layer.bounds.size.width
-    switch layer.contentMode.name
-    case "center":
-        return (layerWidth / 2) - (imageWidth / 2)
-    case "top":
-        return (layerWidth / 2) - (imageWidth / 2)
-    case "bottom":
-        return (layerWidth / 2) - (imageWidth / 2)
-    case "topLeft":
-        return 0
-    case "left":
-        return 0
-    case "bottomLeft":
-        return 0
-    case "right":
-        return layerWidth - imageWidth
-    case "topRight":
-        return layerWidth - imageWidth
-    case "bottomRight":
-        return layerWidth - imageWidth
-    case "resize":
-        return 0
-    case "resizeAspect":
-        var newImageWidth = imageWidth * xImageScale(layer: layer) / 100
-        return (layerWidth / 2) - (newImageWidth / 2)
-    case "resizeAspectFill":
-        var newImageWidth = imageWidth * xImageScale(layer: layer) / 100
-        return (layerWidth / 2) - (newImageWidth / 2)
-    end
-end
-
-func yImagePosition(layer)
-    var imageHeight = layer.image.size.height
-    var layerHeight = layer.bounds.size.height
-    switch layer.contentMode.name
-    case "top":
-        return 0
-    case "topLeft":
-        return 0
-    case "topRight":
-        return 0
-    case "left":
-        return (layerHeight / 2) - (imageHeight / 2)
-    case "center":
-        return (layerHeight / 2) - (imageHeight / 2)
-    case "right":
-        return (layerHeight / 2) - (imageHeight / 2)
-    case "bottom":
-        return layerHeight - imageHeight
-    case "bottomLeft":
-        return layerHeight - imageHeight
-    case "bottomRight":
-        return layerHeight - imageHeight
-    case "resize":
-        return 0
-    case "resizeAspect":
-        var newImageHeight = imageHeight * yImageScale(layer: layer) / 100
-        return (layerHeight / 2) - (newImageHeight / 2)
-    case "resizeAspectFill":
-        var newImageHeight = imageHeight * yImageScale(layer: layer) / 100
-        return (layerHeight / 2) - (newImageHeight / 2)
-    end
-end
-
-func xImageScale(layer)
-    var imageWidth = layer.image.size.width
-    var layerWidth = layer.bounds.size.width
-    var imageHeight = layer.image.size.height
-    var layerHeight = layer.bounds.size.height
-    var widthtRatio = layerWidth / imageWidth
-    var heightRatio = layerHeight / imageHeight
-    
-    switch layer.contentMode.name
-    case "resize":
-        return 100 * layerWidth / imageWidth
-    case "resizeAspect":
-        return 100 * min(widthtRatio, heightRatio)
-    case "resizeAspectFill":
-        return 100 * max(widthtRatio, heightRatio)
-    default: 
-        return 100
-    end
-end
-
-func yImageScale(layer)
-    var imageWidth = layer.image.size.width
-    var layerWidth = layer.bounds.size.width
-    var imageHeight = layer.image.size.height
-    var layerHeight = layer.bounds.size.height
-    var widthtRatio = layerWidth / imageWidth
-    var heightRatio = layerHeight / imageHeight
-
-    switch layer.contentMode.name
-    case "resize":
-        return 100 * layerHeight / imageHeight
-    case "resizeAspect":
-        return 100 * min(widthtRatio, heightRatio)
-    case "resizeAspectFill":
-        return 100 * max(widthtRatio, heightRatio)
-    default: 
-        return 100
-    end
 end
 
 func positionAnimation(layer, timeline)

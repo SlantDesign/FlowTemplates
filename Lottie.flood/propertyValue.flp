@@ -70,6 +70,12 @@ func propertyValue(layer, propertyID)
         return lottieValue(from: layer.foregroundColor, propertyID: propertyID)
     case "foregroundColor.opacity":
         return lottieValue(from: layer.foregroundColor.alpha, propertyID: propertyID)
+    case "image.position.x":
+        var xPos = xImagePosition(contentMode: layer.contentMode, layerSize: layer.bounds.size, imageSize: layer.image.size)
+        return lottieValue(from: xPos, propertyID: propertyID)
+    case "image.position.y":
+        var yPos = yImagePosition(contentMode: layer.contentMode, layerSize: layer.bounds.size, imageSize: layer.image.size)
+        return lottieValue(from: yPos, propertyID: propertyID)
     default:
         return nil
     end
@@ -143,6 +149,10 @@ func lottieValue(from value, propertyID)
         return colorValue(from: value)
     case "foregroundColor.opacity":
         return opacityValue(from: value)
+    case "image.position.x":
+        return value
+    case "image.position.y":
+        return value
     default:
         return nil
     end
