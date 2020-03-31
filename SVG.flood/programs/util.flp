@@ -421,3 +421,12 @@ func alignment(layer)
         return "middle"
     end
 end
+
+func isShadowVisible(layer, timeline)
+    if timeline.trackFor(layer: layer, property: "shadowColor") == nil && 
+        layer.shadowColor.alpha == 0
+        return false
+    else
+        return true
+    end
+end
