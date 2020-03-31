@@ -121,12 +121,10 @@ func imageScaleAnimation(layer, timeline)
 end
 
 func animation(layer, propertyID, timeline)
-    var animated = isAnimated(layer: layer, propertyID: propertyID, timeline: timeline)
-    var animationValue 
+    var keyvalues = kevaluesArray(layer: layer, propertyID: propertyID, timeline: timeline)
+    var animationValue = keyvalues
     
-    if animated
-        animationValue = kevaluesArray(layer: layer, propertyID: propertyID, timeline: timeline)
-    else
+    if keyvalues.isEmpty
         animationValue = propertyValue(layer: layer, propertyID: propertyID)
     end
 
@@ -170,16 +168,13 @@ func tracksFor(layer, propertyID, timeline)
     case "foregroundColor.opacity":
         tracks = [timeline.trackFor(layer: layer, property: "foregroundColor")]
     case "anchorPoint":
-        tracks = [
-            timeline.trackFor(layer: layer, property: "anchorPoint.x"),
-            timeline.trackFor(layer: layer, property: "anchorPoint.y"),
-            timeline.trackFor(layer: layer, property: "bounds.size.width"),
-            timeline.trackFor(layer: layer, property: "bounds.size.height")
-        ]
+        tracks = [timeline.sizeTrack(layer: layer)]
     case "shadow.distance":
-        tracks = [shadowOffsetX, shadowOffsetY]
+        // don't animate shadow distance 
+        tracks = []
     case "shadow.direction":
-        tracks = [shadowOffsetX, shadowOffsetY]
+        // don't animate shadow direction 
+        tracks = []
     case "size":
         tracks = [timeline.sizeTrack(layer: layer)]
     case "center":

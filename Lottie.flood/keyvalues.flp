@@ -4,32 +4,11 @@ func kevaluesArray(layer, propertyID, timeline)
         return []
     end
 
-    if shouldAnimatePropertyFrameByFrame(propertyID: propertyID)
-        return frameByFrameKevaluesArray(layerID: layer.id, propertyID: propertyID, timeline: timeline)
-    end
-
     var keyvaluesArray = []
     for keyvalue in tracks[0].keyvaluesWithSimulatedSteps
         keyvaluesArray = keyvaluesArray.appending(keyvalueData(from: keyvalue, propertyID: propertyID))
     end
 
-    return keyvaluesArray
-end
-
-func shouldAnimatePropertyFrameByFrame(propertyID)
-    return propertyID == "shadow.distance" || propertyID == "shadow.direction" || propertyID == "anchorPoint"
-end
-
-func frameByFrameKevaluesArray(layerID, propertyID, timeline)
-    var keyvaluesArray = []
-    for frame in frames(timeline: timeline)
-        var time = time(from: frame)
-        var layer = timeline.rootLayer(at: time).layerBy(uuid: layerID)
-        var value = propertyValue(layer: layer, propertyID: propertyID)
-        // use linear timing functions in frame by frame animations
-        var keyvalue = keyFrame(inX: 1, inY: 1, outX: 0, outY: 0, frame: frame, value: value)
-        keyvaluesArray = keyvaluesArray.appending(keyvalue)
-    end
     return keyvaluesArray
 end
 
@@ -119,6 +98,11 @@ func extractValue(from keyvalue, propertyID)
         var contentMode = timeline.value(property: "contentsGravity", layer: layer, time: keyvalue.time)
         var image = timeline.value(property: "image", layer: layer, time: keyvalue.time)
         return imageScale(contentMode: contentMode, layerSize: layerSize, imageSize: image.size)
+    case "anchorPoint":
+        var layerSize = timeline.value(property: "size", layer: layer, time: keyvalue.time)
+        var anchorPointX = timeline.value(property: "anchorPoint.x", layer: layer, time: keyvalue.time)
+        var anchorPointY = timeline.value(property: "anchorPoint.y", layer: layer, time: keyvalue.time)
+        return [anchorPointX, anchorPointY, layerSize]
     default:
         return keyvalue.value
     end
