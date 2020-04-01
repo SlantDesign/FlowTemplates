@@ -1,7 +1,7 @@
 func transformAnimation(property, layer, timeline) 
-    var track = timeline.trackFor(layer: layer, property: property)
-    if track != nil 
-        var values = valuesFrom(track: track, layer: layer)
+    if isAnimated(layer, property: property, timeline: timeline)
+        var track = trackFor(layer: layer, property: property, timeline: timeline)
+        var values = valuesFrom(track: track, layer: layer, property: property)
         var keytimes = keyTimesFrom(track: track)
         var keysplines = keysplinesFrom(track: track)
         return animateTransformTag(label: layer.name,  
@@ -34,26 +34,6 @@ func transformType(property)
     end
 end
 
-func setAnimation(property, layer, timeline)
-    var setTags = []
-    var track = timeline.trackFor(layer: layer, property: property)
-    if track != nil
-        var id = generateSymbolID(layer: layer)
-        var count = 0
-        for keyvalue in track.keyvaluesWithSimulatedSteps
-            count = count + 1
-            var setTag = setImageHref(id: "\(id)-\(count)",
-                                    timeline: timeline,
-                                    keyvalue: keyvalue,
-                                    track: track)
-            if setTag != nil
-                setTags = setTags.appending(setTag)
-            end
-        end
-    end
-    return setTags.joined(separator: "")
-end
-
 func shadowAnimations(timeline, layer, id)
     return animations(properties: shadowProperties(), layer: layer, timeline: timeline, hrefID: "#\(id)-shadow-filter", attributeType: "XML")
 end
@@ -74,15 +54,15 @@ func animations(properties, layer, timeline, hrefID, attributeType)
 end
 
 func animation(property, layer, timeline, hrefID, attributeType)
-    var track = timeline.trackFor(layer: layer, property: property)
-    if track != nil
-        var values = valuesFrom(track: track, layer: layer)
+    if isAnimated(layer, property: property, timeline: timeline)
+        var track = trackFor(layer, property: property, timeline: timeline)
+        var values = valuesFrom(track: track, layer: layer, property: property)
         var keytimes = keyTimesFrom(track: track)
         var keysplines = keysplinesFrom(track: track)
       
         return animateTag(
                 hrefID: hrefID, 
-                attributeName: svgAttributeName(of: track.property), 
+                attributeName: svgAttributeName(of: property), 
                 values: values.joined(separator: ";"), 
                 dur: "\(track.timeline.duration)s",
                 fill: "freeze",
@@ -92,20 +72,59 @@ func animation(property, layer, timeline, hrefID, attributeType)
                 repeats: "indefinite", 
                 attributeType: attributeType)
     end
+    return ""
 end
 
-func valuesFrom(track, layer)
+func isAnimated(_ layer, property, timeline)
+    return trackFor(layer, property: property, timeline: timeline) != nil
+end
+
+func trackFor(_ layer, property, timeline)
+    switch property
+    case "image.width":
+        return timeline.sizeTrack(layer: layer)
+    case "image.height":
+        return timeline.sizeTrack(layer: layer)
+    case "image.position.x":
+        return timeline.sizeTrack(layer: layer)
+    case "image.position.y":
+        return timeline.sizeTrack(layer: layer)
+    default:
+        return timeline.trackFor(layer: layer, property: property)
+    end
+end
+
+func valuesFrom(track, layer, property)
     var values = []
     for keyvalue in track.keyvaluesWithSimulatedSteps
-        if track.property.id == "combinedPath" || track.property.id == "maskPath"
-            var size = track.timeline.value(property: "size", layer: track.layer, time: keyvalue.time)
-            values = values.appending(keyvalue.value.svgc(width: size.width, height: size.height))
-        else
-            values = values.appending(svgValue(keyvalue.value, propertyID: track.property.id, layer: layer))
-        end
+        var value = valueFrom(keyvalue: keyvalue, layer: layer, property: property)
+        values = values.appending(value)
     end
-
     return values
+end
+
+func valueFrom(keyvalue, layer, property)
+    if ["combinedPath", "maskPath"].contains(property)
+        var size = keyvalue.timeline.value(property: "size", layer: keyvalue.track.layer, time: keyvalue.time)
+        return keyvalue.value.svgc(width: size.width, height: size.height)
+    else if ["image.width", "image.height", "image.position.x", "image.position.y"].contains(property)
+        var contentMode = layer.contentMode.name
+        var layerSize = keyvalue.timeline.value(property: "size", layer: keyvalue.track.layer, time: keyvalue.time)
+        var imageSize = keyvalue.timeline.value(property: "image", layer: keyvalue.track.layer, time: keyvalue.time).size
+
+        switch property
+        case "image.width":
+            return imageWidth(contentMode: contentMode, layerSize: layerSize, imageSize: imageSize)
+        case "image.height":
+            return imageHeight(contentMode: contentMode, layerSize: layerSize, imageSize: imageSize)
+        case "image.position.x":
+            return imageX(contentMode: contentMode, layerSize: layerSize, imageSize: imageSize)
+        case "image.position.y":
+            return imageY(contentMode: contentMode, layerSize: layerSize, imageSize: imageSize)
+        end
+    else
+        return svgValue(keyvalue.value, propertyID: property, layer: layer)
+    end
 end
 
 func keyTimesFrom(track)
