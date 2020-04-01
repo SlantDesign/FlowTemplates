@@ -1,6 +1,6 @@
 func transformAnimation(property, layer, timeline) 
     if isAnimated(layer, property: property, timeline: timeline)
-        var track = trackFor(layer: layer, property: property, timeline: timeline)
+        var track = trackFor(layer, property: property, timeline: timeline)
         var values = valuesFrom(track: track, layer: layer, property: property)
         var keytimes = keyTimesFrom(track: track)
         var keysplines = keysplinesFrom(track: track)
