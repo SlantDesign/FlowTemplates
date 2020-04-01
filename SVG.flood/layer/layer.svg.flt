@@ -8,20 +8,30 @@ var width = layer.bounds.size.width
 var height = layer.bounds.size.height
 var x = layer.position.x
 var y = layer.position.y
-%>
-<svg x="<%= x %>" y="<%= y %>" width="<%= width %>" height="<%= height %>" style ="overflow:<%= layerMasksToBounds(layer: layer) %>" label="<%= layer.name %>Container" display="<%= layerDisplay(layer: layer) %>">
-    <%= animations(properties: baseProperties(), layer: layer, timeline: timeline, hrefID: nil, attributeType: nil) -%>
-    <g label="flipped" transform="<%= scale(from: layer) %>">
-        <g label="layerRotation">
-            <%= transformAnimation(property: "transform.rotation.z", layer: layer, timeline: timeline) -%>
-            <g label="layerShadow" filter="<%= shadowFilter(layer: layer, timeline: timeline) %>">
-                <% if isBackgroundVisible(layer: layer, timeline: timeline) %>
-                <%= backgroundTag(layer: layer, timeline: timeline) %>
-                <% end %>
-                <% insert("layer/\(layer.type.name).svg.flt", indentation: indentation) -%>
-                <% if isBorderVisible(layer: layer, timeline: timeline) %>
-                <%= borderTag(layer: layer, timeline: timeline) %>
-                <% end %>         
+var basePropertyAnimations = animations(
+    properties: baseProperties(), 
+    layer: layer, 
+    timeline: timeline, 
+    hrefID: nil, 
+    attributeType: nil
+)
+var transformAnimations = transformAnimation(
+    property: "transform.rotation.z", 
+    layer: layer, 
+    timeline: timeline
+)
+-%>
+    <svg x="<%= x %>" y="<%= y %>" width="<%= width %>" height="<%= height %>" style ="overflow:<%= layerMasksToBounds(layer: layer) %>" label="<%= layer.name %>Container" display="<%= layerDisplay(layer: layer) %>">
+<%- if basePropertyAnimations != "" -%><%= "\(basePropertyAnimations)\n"%><% end -%>
+    <g label="flipped" transform="<%= scale(from: layer) -%>">
+        <g label="layerRotation"><%- if transformAnimations != nil -%><%= "\n\(transformAnimations)" end -%> 
+            <g label="layerShadow" filter="<%= shadowFilter(layer: layer, timeline: timeline) -%>">
+            <%- if isBackgroundVisible(layer: layer, timeline: timeline) -%>
+            <%= backgroundTag(layer: layer, timeline: timeline) -%>
+            <%- end -%>
+                <% insert("layer/\(layer.type.name).svg.flt", indentation: 1) 
+                if isBorderVisible(layer: layer, timeline: timeline) %>
+                <%= borderTag(layer: layer, timeline: timeline) end %>  
             </g>
         </g>
     </g>

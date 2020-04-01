@@ -18,7 +18,7 @@ func transformAnimation(property, layer, timeline)
                             repeats: "indefinite", 
                             attributeType: nil)
     end
-    return ""
+    return nil
 end
 
 func transformType(property)
@@ -50,7 +50,7 @@ func animations(properties, layer, timeline, hrefID, attributeType)
             animations = animations.appending(animation)
         end
     end
-    return animations.joined(separator: "")
+    return animations.joined(separator:"")
 end
 
 func animation(property, layer, timeline, hrefID, attributeType)

@@ -1,0 +1,5 @@
+<defs>
+  <%- for image in imagesInTimeline -%>
+      <%= imageTag(image: image) -%>
+   <%- end -%>
+</defs>

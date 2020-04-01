@@ -1,13 +1,10 @@
-<<%= elementName %> <%- 
+<<%= elementName %><%- 
 for key in attributes.keys.sorted(by: alphabetically)
 	var value = attributes[key]
     if value != nil
         insert("attribute.svg.flt", indentation: 1)
     end
  end -%>
- <%- if body == nil -%>/>
-<%- else -%>
->
-    <%= body %>
-</<%= elementName%>>
-<%- end -%>
+ <%- if body == nil || body == "" -%>/><%- else -%>>
+ <%= body %>
+ </<%= elementName -%>><%- end -%>

@@ -6,5 +6,5 @@
             <%= patternTag(id: id, layer: layer, timeline: timeline) %>
        <% end
     end 
-end %>
+end -%>
 </defs>
