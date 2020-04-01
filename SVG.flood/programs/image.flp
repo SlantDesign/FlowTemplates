@@ -1,0 +1,104 @@
+func imageX(contentMode, layerSize, imageSize)
+    var imageWidth = imageWidth(contentMode: contentMode, layerSize: layerSize, imageSize: imageSize)
+    var layerWidth = layerSize.width
+
+    if ["top", "center", "bottom"].contains(contentMode)
+        return (layerWidth - imageWidth) / 2
+    else if ["topLeft", "left", "bottomLeft"].contains(contentMode)
+        return 0
+    else if ["topRight", "right", "bottomRight"].contains(contentMode)
+        return layerWidth - imageWidth
+    else if contentMode == "resize"
+        return 0
+    else if contentMode == "resizeAspect"
+        return (layerWidth / 2) - (imageWidth / 2)
+    else if contentMode == "resizeAspectFill"
+        return (layerWidth / 2) - (imageWidth / 2)
+    end
+end
+
+func imageY(contentMode, layerSize, imageSize)
+    var imageHeight = imageHeight(contentMode: contentMode, layerSize: layerSize, imageSize: imageSize)
+    var layerHeight = layerSize.height
+
+    if ["left", "center", "right"].contains(contentMode)
+        return (layerHeight - imageHeight) / 2
+    else if ["topLeft", "top", "topRight"].contains(contentMode)
+        return 0
+    else if ["bottomLeft", "bottom", "bottomRight"].contains(contentMode)
+        return layerHeight - imageHeight
+    else if contentMode == "resize"
+        return 0
+     else if contentMode == "resizeAspect"
+        return (layerHeight / 2) - (imageHeight / 2)
+    else if contentMode == "resizeAspectFill"
+        return (layerHeight / 2) - (imageHeight / 2)
+    end
+end
+
+func imageWidth(contentMode, layerSize, imageSize)
+    var xScale = xImageScale(contentMode: contentMode, layerSize: layerSize, imageSize: imageSize)
+    return imageSize.width * xScale
+end
+
+
+func imageHeight(contentMode, layerSize, imageSize)
+    var yScale = yImageScale(contentMode: contentMode, layerSize: layerSize, imageSize: imageSize)
+    return imageSize.height * yScale
+end
+
+func xImageScale(contentMode, layerSize, imageSize)
+    var imageWidth = imageSize.width
+    var layerWidth = layerSize.width
+    var imageHeight = imageSize.height
+    var layerHeight = layerSize.height
+    var widthtRatio = layerWidth / imageWidth
+    var heightRatio = layerHeight / imageHeight
+    
+    switch contentMode
+    case "resize":
+        return layerWidth / imageWidth
+    case "resizeAspect":
+        return min(widthtRatio, heightRatio)
+    case "resizeAspectFill":
+        return max(widthtRatio, heightRatio)
+    default: 
+        return 1
+    end
+end
+
+func yImageScale(contentMode, layerSize, imageSize)
+    var imageWidth = imageSize.width
+    var layerWidth = layerSize.width
+    var imageHeight = imageSize.height
+    var layerHeight = layerSize.height
+    var widthtRatio = layerWidth / imageWidth
+    var heightRatio = layerHeight / imageHeight
+
+    switch contentMode
+    case "resize":
+        return layerHeight / imageHeight
+    case "resizeAspect":
+        return min(widthtRatio, heightRatio)
+    case "resizeAspectFill":
+        return max(widthtRatio, heightRatio)
+    default: 
+        return 1
+    end
+end
+
+func min(_ lhs, _ rhs)
+    if lhs < rhs
+        return lhs
+    else
+        return rhs
+    end
+end
+
+func max(_ lhs, _ rhs)
+    if lhs > rhs
+        return lhs
+    else
+        return rhs
+    end
+end
