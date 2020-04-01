@@ -14,7 +14,7 @@ var y = layer.position.y
     <g label="flipped" transform="<%= scale(from: layer) %>">
         <g label="layerRotation">
             <%= transformAnimation(property: "transform.rotation.z", layer: layer, timeline: timeline) -%>
-            <g label="layerShadow" filter="url(#<%= id %>-shadow)">
+            <g label="layerShadow" filter="<%= shadowFilter(layer: layer, timeline: timeline) %>">
                 <%= backgroundTag(layer: layer, timeline: timeline) %>
                 <% insert("layer/\(layer.type.name).svg.flt", indentation: indentation) -%>
                 <%= borderTag(layer: layer, timeline: timeline) %>            
