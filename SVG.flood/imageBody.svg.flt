@@ -1,0 +1,5 @@
+<%= animation(property: "image", layer: layer, timeline: timeline, hrefID: nil, attributeType: nil) %>
+<%= animation(property: "image.width", layer: layer, timeline: timeline, hrefID: nil, attributeType: nil) %>
+<%= animation(property: "image.height", layer: layer, timeline: timeline, hrefID: nil, attributeType: nil) %>
+<%= animation(property: "image.position.x", layer: layer, timeline: timeline, hrefID: nil, attributeType: nil) %>
+<%= animation(property: "image.position.y", layer: layer, timeline: timeline, hrefID: nil, attributeType: nil) %>

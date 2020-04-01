@@ -8,6 +8,6 @@
     <link rel="stylesheet" href="css/<%= timelineName %>.css">
 </head>
 <body>
-    <div class="flow-artboard" id="<%= timelineName %>"/>
+    <object class="flow-artboard" id="<%= timelineName %>" type="image/svg+xml" data="<%= timelineName %>.svg"/>
 </body>
 </html>
