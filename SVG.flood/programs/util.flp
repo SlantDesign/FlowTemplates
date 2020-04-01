@@ -438,3 +438,21 @@ func isShadowVisible(layer, timeline)
         return true
     end
 end
+
+func isBackgroundVisible(layer, timeline)
+    if timeline.trackFor(layer: layer, property: "backgroundColor") == nil && 
+        layer.backgroundColor.alpha == 0
+        return false
+    else
+        return true
+    end
+end
+
+func isBorderVisible(layer, timeline)
+    if timeline.trackFor(layer: layer, property: "borderWidth") == nil && 
+        layer.borderWidth == 0
+        return false
+    else
+        return true
+    end
+end
