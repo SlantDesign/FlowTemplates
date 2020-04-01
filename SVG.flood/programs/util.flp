@@ -422,6 +422,14 @@ func alignment(layer)
     end
 end
 
+func shadowFilter(layer, timeline)
+    if isShadowVisible(layer: layer, timeline: timeline)
+        return "url(#\(generateSymbolID(layer: layer))-shadow)"
+    else
+        return ""
+    end
+end
+
 func isShadowVisible(layer, timeline)
     if timeline.trackFor(layer: layer, property: "shadowColor") == nil && 
         layer.shadowColor.alpha == 0
