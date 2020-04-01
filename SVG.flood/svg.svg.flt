@@ -13,6 +13,4 @@
     <% insert("definitions/gradientDefinitions.svg.flt", indentation: 1) %>
     <!-- Shadows -->
     <% insert("definitions/shadowDefinitions.svg.flt", indentation: 1) %>
-    <!-- Images -->
-    <%- insert("definitions/imageDefinitions.svg.flt", indentation: 1) %>
 </svg>
