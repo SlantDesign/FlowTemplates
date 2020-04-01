@@ -14,12 +14,8 @@ var y = layer.position.y
     <g label="flipped" transform="<%= scale(from: layer) %>">
         <g label="layerRotation">
             <%= transformAnimation(property: "transform.rotation.z", layer: layer, timeline: timeline) -%>
-<<<<<<< HEAD
             <g label="layerShadow" filter="<%= shadowFilter(layer: layer, timeline: timeline) %>">
-=======
-            <g label="layerShadow" filter="url(#<%= id %>-shadow)">
                 <% if isBackgroundVisible(layer: layer, timeline: timeline) %>
->>>>>>> added conditionally rendering of border and background tags based on their visibilty
                 <%= backgroundTag(layer: layer, timeline: timeline) %>
                 <% end %>
                 <% insert("layer/\(layer.type.name).svg.flt", indentation: indentation) -%>
