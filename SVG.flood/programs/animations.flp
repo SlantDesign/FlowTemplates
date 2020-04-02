@@ -1,4 +1,4 @@
-func transformAnimation(property, layer, timeline) 
+func transformAnimation(property, layer, timeline, indentation) 
     if isAnimated(layer, property: property, timeline: timeline)
         var track = trackFor(layer, property: property, timeline: timeline)
         var values = valuesFrom(track: track, layer: layer, property: property)
@@ -16,7 +16,8 @@ func transformAnimation(property, layer, timeline)
                             keytimes: keytimes.joined(separator: ";"), 
                             keysplines: keysplines.joined(separator: ";"), 
                             repeats: "indefinite", 
-                            attributeType: nil)
+                            attributeType: nil,
+                            indentation: indentation)
     end
     return ""
 end
@@ -34,18 +35,19 @@ func transformType(property)
     end
 end
 
-func shadowAnimations(timeline, layer, id)
-    return animations(properties: shadowProperties(), layer: layer, timeline: timeline, hrefID: "#\(id)-shadow-filter", attributeType: "XML")
+func shadowAnimations(timeline, layer, id, indentation)
+    return animations(properties: shadowProperties(), layer: layer, timeline: timeline, hrefID: "#\(id)-shadow-filter", attributeType: "XML", indentation: indentation)
 end
 
-func animations(properties, layer, timeline, hrefID, attributeType)
+func animations(properties, layer, timeline, hrefID, attributeType, indentation)
     var animations = []
     for property in properties
         var animation = animation(property: property, 
                         layer: layer, 
                         timeline: timeline, 
                         hrefID: hrefID, attributeType: 
-                        attributeType)
+                        attributeType,
+                        indentation: indentation)
         if animation != nil
             animations = animations.appending(animation)
         end
@@ -53,7 +55,7 @@ func animations(properties, layer, timeline, hrefID, attributeType)
     return animations.joined(separator: "")
 end
 
-func animation(property, layer, timeline, hrefID, attributeType)
+func animation(property, layer, timeline, hrefID, attributeType, indentation)
     if isAnimated(layer, property: property, timeline: timeline)
         var track = trackFor(layer, property: property, timeline: timeline)
         var values = valuesFrom(track: track, layer: layer, property: property)
@@ -70,7 +72,8 @@ func animation(property, layer, timeline, hrefID, attributeType)
                 keytimes: keytimes.joined(separator: ";"), 
                 keysplines: keysplines.joined(separator: ";"), 
                 repeats: "indefinite", 
-                attributeType: attributeType)
+                attributeType: attributeType,
+                indentation: indentation)
     end
     return ""
 end

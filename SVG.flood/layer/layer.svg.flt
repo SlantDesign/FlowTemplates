@@ -13,12 +13,14 @@ var basePropertyAnimations = animations(
     layer: layer, 
     timeline: timeline, 
     hrefID: nil, 
-    attributeType: nil
+    attributeType: nil,
+    indentation: indentation
 )
 var transformAnimations = transformAnimation(
     property: "transform.rotation.z", 
     layer: layer, 
-    timeline: timeline
+    timeline: timeline,
+    indentation: indentation
 )
 -%>
 <!-- Layer: <%= layer.name %> -->
@@ -29,11 +31,11 @@ var transformAnimations = transformAnimation(
             <%= "\(transformAnimations)" %> 
             <g label="layerShadow" filter="<%= shadowFilter(layer: layer, timeline: timeline) %>">
                 <%- if isBackgroundVisible(layer: layer, timeline: timeline) -%>
-                <%= backgroundTag(layer: layer, timeline: timeline) %>
+                <%- print(backgroundTag(layer: layer, timeline: timeline, indentation: indentation + 4)) %>
                 <%- end -%>
-                <% insert("layer/\(layer.type.name).svg.flt", indentation: indentation + 4) %>
+                <%- insert("layer/\(layer.type.name).svg.flt", indentation: indentation + 4) %>
                 <%- if isBorderVisible(layer: layer, timeline: timeline) -%>
-                <%= borderTag(layer: layer, timeline: timeline) %>
+                <%- print(borderTag(layer: layer, timeline: timeline, indentation: indentation + 4)) %>
                 <%- end -%>  
             </g>
         </g>

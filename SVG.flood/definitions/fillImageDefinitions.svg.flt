@@ -4,7 +4,7 @@
     var id = generateSymbolID(layer: layer)
     if layer.type.name == "shape"
         if layer.fillImage != nil %>
-            <%= patternTag(id: id, layer: layer, timeline: timeline) %>
+            <%= patternTag(id: id, layer: layer, timeline: timeline, indentation: 0) %>
        <% end
     end 
 end -%>

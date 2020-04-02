@@ -1,1 +1,1 @@
-<%= imageTag(layer: layer, timeline: timeline) %>
+<%= imageTag(layer: layer, timeline: timeline, indentation: 0) %>

@@ -2,7 +2,7 @@
 <defs>
     <clipPath id="<%= maskName %>">
         <path vector-effect="none" d="<%= layer.maskPath.svgc(width: 1, height: 1) %>">
-<% animation(property: "maskPath", layer: layer, timeline: timeline, hrefID: nil, attributeType: nil) -%>
+<% animation(property: "maskPath", layer: layer, timeline: timeline, hrefID: nil, attributeType: nil, indentation: 0) -%>
         </path>
     </clipPath>
 </defs>
@@ -19,5 +19,5 @@
 <% for layer in layer.sublayers
   insert("layer/layer.svg.flt", indentation: indentation + 1)
 end
-animations(properties: baseProperties(), layer: layer, timeline: timeline, hrefID: nil, attributeType: nil) -%>
+animations(properties: baseProperties(), layer: layer, timeline: timeline, hrefID: nil, attributeType: nil, indentation: 0) -%>
 </g>
