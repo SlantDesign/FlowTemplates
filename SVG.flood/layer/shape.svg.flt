@@ -1,1 +1,1 @@
-<%= shapeTag(timeline: timeline, layer: layer, id: id, indentation: 0) %>
+<%= shapeTag(timeline: timeline, layer: layer, id: id, indentation: 0) -%>

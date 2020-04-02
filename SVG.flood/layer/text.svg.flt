@@ -1,1 +1,1 @@
-<%= textTag(id: id, layer: layer, timeline: timeline, indentation: 0) %>
+<%= textTag(id: id, layer: layer, timeline: timeline, indentation: 0) -%>
