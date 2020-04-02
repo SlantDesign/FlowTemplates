@@ -166,7 +166,7 @@ func imageElementTag(id, href, x, y, width, height, preserveAspectRatio, body)
 end
 
 func patternTag(id, layer, timeline)
-  var body = process("fillImage.svg.flt", into: nil, indentation: 1)
+  var body = process("fillImage.svg.flt", into: nil, indentation: 0)
   return patternElementTag(
     id: "\(id)-fillImage",
     x: "0",
@@ -231,5 +231,5 @@ func textElementTag(id, x, y, width, height, fontFamily, fontSize, textAnchor, s
 end
 
 func elementTag(_ elementName, attributes, body)
-    return process("tags/svgElement.svg.flt", into: nil, indentation: 3)
+    return process("tags/svgElement.svg.flt", into: nil, indentation: 0)
 end

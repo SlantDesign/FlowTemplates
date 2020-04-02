@@ -8,5 +8,5 @@ var id = generateSymbolID(layer: layer) %>
         </feDropShadow>
     </filter>
 <% end 
-end %>
+end -%>
 </defs>
