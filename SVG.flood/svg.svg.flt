@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink= "http://www.w3.org/1999/xlink" preserveAspectRatio="none" viewBox="0 0 <%= layer.size.width %> <%= layer.size.height %>" style="background-color:<%= layer.backgroundColor.hex %>">
     <title><%= layer.name %></title>
-    <!-- Artboard -->
-    <%- insert("artboard.svg.flt", indentation: 1) %>
     <!-- Layers -->
     <%- for layer in layer.sublayers -%>
     <%- insert("layer/layer.svg.flt", indentation: 1) %>
     <%- end -%>
-    <!-- FillImages -->
-    <% insert("definitions/fillImageDefinitions.svg.flt", indentation: 1) %>
-    <!-- Gradients -->
-    <% insert("definitions/gradientDefinitions.svg.flt", indentation: 1) %>
-    <!-- Shadows -->
-    <% insert("definitions/shadowDefinitions.svg.flt", indentation: 1) %>
+    <%- insert("definitions/definitions.svg.flt", indentation: 1) %>
 </svg>

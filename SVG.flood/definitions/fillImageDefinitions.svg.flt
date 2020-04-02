@@ -1,3 +1,4 @@
+<!-- FillImages -->
 <defs>
 <% for layer in layer.descendants
     var id = generateSymbolID(layer: layer)
@@ -6,5 +7,5 @@
             <%= patternTag(id: id, layer: layer, timeline: timeline) %>
        <% end
     end 
-end %>
+end -%>
 </defs>

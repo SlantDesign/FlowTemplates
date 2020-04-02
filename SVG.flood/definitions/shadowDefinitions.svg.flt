@@ -1,12 +1,13 @@
+<!-- Shadows -->
 <defs>
-<% for layer in layer.descendants
-if isShadowVisible(layer: layer, timeline: timeline)
-var id = generateSymbolID(layer: layer) %>
+<%- for layer in layer.descendants
+    if isShadowVisible(layer: layer, timeline: timeline)
+    var id = generateSymbolID(layer: layer) -%>
     <filter id="<%= id %>-shadow" x="-50%" y="-50%" height="200%" width="200%" filterUnits="userSpaceOnUse">
         <feDropShadow id="<%= id %>-shadow-filter" dx="<%= layer.shadowOffset.width %>" dy="<%= layer.shadowOffset.height %>" flood-color="<%= layer.shadowColor.hex %>" stdDeviation="<%= layer.shadowRadius %>">
             <%= shadowAnimations(timeline: timeline, layer: layer, id: id) %>
         </feDropShadow>
     </filter>
-<% end 
-end %>
+<%- end 
+end -%>
 </defs>
