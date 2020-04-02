@@ -1,3 +1,4 @@
+<!-- FillImages -->
 <defs>
 <% for layer in layer.descendants
     var id = generateSymbolID(layer: layer)
