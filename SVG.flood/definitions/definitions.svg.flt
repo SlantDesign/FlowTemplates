@@ -1,0 +1,9 @@
+<%- if shouldIncludeFillImageDefinitions(timeline: timeline) -%>
+<% insert("definitions/fillImageDefinitions.svg.flt", indentation: indentation) %>
+<%- end -%>
+<%- if shouldIncludeGradientDefinitions(timeline: timeline) -%>
+<% insert("definitions/gradientDefinitions.svg.flt", indentation: indentation) %>
+<%- end -%>
+<%- if shouldIncludeShadowDefinitions(timeline: timeline) -%>
+<% insert("definitions/shadowDefinitions.svg.flt", indentation: indentation) %>
+<%- end -%>

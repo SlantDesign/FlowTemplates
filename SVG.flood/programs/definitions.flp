@@ -1,0 +1,36 @@
+func shouldIncludeFillImageDefinitions(timeline)
+    var rootLayer = timeline.rootLayer(at: 0)
+    for layer in rootLayer.descendants
+        if layer.type.name == "shape"
+            if layer.fillImage != nil
+                return true
+            end
+        end 
+    end
+    
+    return false
+end
+
+func shouldIncludeGradientDefinitions(timeline)
+    var rootLayer = timeline.rootLayer(at: 0)
+    for layer in rootLayer.descendants
+        if layer.type.name == "shape"
+            if layer.fillGradient != nil 
+                return true
+            end
+        end
+    end
+
+    return false
+end
+
+func shouldIncludeShadowDefinitions(timeline)
+    var rootLayer = timeline.rootLayer(at: 0)
+    for layer in rootLayer.descendants
+        if isShadowVisible(layer: layer, timeline: timeline)
+            return true
+        end 
+    end
+
+    return false
+end
