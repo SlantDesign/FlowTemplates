@@ -21,6 +21,7 @@ var transformAnimations = transformAnimation(
     timeline: timeline
 )
 -%>
+<!-- Layer: <%= layer.name %> -->
 <svg x="<%= x %>" y="<%= y %>" width="<%= width %>" height="<%= height %>" style ="overflow:<%= masksToBounds %>" label="<%= label %>Container" display="<%= display %>">
     <%= "\(basePropertyAnimations)"%>
     <g label="flipped" transform="<%= scale(from: layer) -%>">
