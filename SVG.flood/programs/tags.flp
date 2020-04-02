@@ -140,7 +140,7 @@ func imageTag(layer, timeline)
     var width = imageWidth(contentMode: contentMode, layerSize: layerSize, imageSize: imageSize)
     var height = imageHeight(contentMode: contentMode, layerSize: layerSize, imageSize: imageSize)
     var preserveAspectRatio = "none"
-    var body = process("imageBody.svg.flt", into: nil, indentation: 0)
+    var body = process("layer/body/imageBody.svg.flt", into: nil, indentation: 0)
     return imageElementTag(id: generateSymbolID(layer: layer),
                 href: href,
                 x: x, 
@@ -192,7 +192,7 @@ func patternElementTag(id, x, y, width, height, patternUnits, body)
 end
 
 func textTag(id, layer, timeline)
-  var body = process("textBody.svg.flt", into: nil, indentation: 0)
+  var body = process("layer/body/textBody.svg.flt", into: nil, indentation: 0)
   return textElementTag(
     id: id,
     x: alignmentPosition(layer: layer),

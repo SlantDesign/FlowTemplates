@@ -4,7 +4,7 @@ for key in attributes.keys.sorted(by: alphabetically)
     if value != nil
         insert("attribute.svg.flt", indentation: 1)
     end
- end -%>
- <%- if body == nil || body == "" -%>/><%- else -%>>
+end -%>
+<%- if body == nil || body == "" -%>/><%- else -%>>
     <%= body %>
 </<%= elementName -%>><%- end -%>
