@@ -1,4 +1,4 @@
-func animateTag(hrefID, attributeName, values, dur, fill, calcMode, keytimes, keysplines, repeats, attributeType)
+func animateTag(hrefID, attributeName, values, dur, fill, calcMode, keytimes, keysplines, repeats, attributeType, indentation)
   var attributes = [
       "href": hrefID,
       "attributeName": attributeName,
@@ -11,10 +11,10 @@ func animateTag(hrefID, attributeName, values, dur, fill, calcMode, keytimes, ke
       "repeatCount": repeats,
       "attributeType": attributeType
       ]
-      return elementTag("animate", attributes: attributes, body: nil)
+      return elementTag("animate", attributes: attributes, body: nil, indentation: indentation)
 end
 
-func animateTransformTag(label, hrefID, attributeName, type, additive, values, dur, fill, calcMode, keytimes, keysplines, repeats, attributeType)
+func animateTransformTag(label, hrefID, attributeName, type, additive, values, dur, fill, calcMode, keytimes, keysplines, repeats, attributeType, indentation)
   var attributes = [
       "label":label,
       "href": hrefID,
@@ -30,10 +30,10 @@ func animateTransformTag(label, hrefID, attributeName, type, additive, values, d
       "repeatCount": repeats,
       "attributeType": attributeType
       ]
-      return elementTag("animateTransform", attributes: attributes, body: nil)
+      return elementTag("animateTransform", attributes: attributes, body: nil, indentation: indentation)
 end
 
-func rectTag(id, x, y, width, height, rx, stroke, strokeWidth, fill, preserveAspectRatio, body)
+func rectTag(id, x, y, width, height, rx, stroke, strokeWidth, fill, preserveAspectRatio, body, indentation)
     var attributes = [
        "id": id, 
        "x": x, 
@@ -46,11 +46,11 @@ func rectTag(id, x, y, width, height, rx, stroke, strokeWidth, fill, preserveAsp
        "fill": fill, 
        "preserveAspectRatio": preserveAspectRatio 
     ]
-    return elementTag("rect", attributes: attributes, body: body)
+    return elementTag("rect", attributes: attributes, body: body, indentation: indentation)
 end
 
-func borderTag(layer, timeline)
-  var body = animations(properties: borderProperties(), layer: layer, timeline: timeline, hrefID: nil, attributeType: nil)
+func borderTag(layer, timeline, indentation)
+  var body = animations(properties: borderProperties(), layer: layer, timeline: timeline, hrefID: nil, attributeType: nil, indentation: 1)
   var x = layer.borderWidth / 2
   var y = layer.borderWidth / 2
   if layer.type.name == "image"
@@ -68,11 +68,12 @@ func borderTag(layer, timeline)
           strokeWidth: layer.borderWidth, 
           fill: "none", 
           preserveAspectRatio: nil, 
-          body: body)
+          body: body, 
+          indentation: indentation)
 end
 
-func backgroundTag(layer, timeline)
-  var body = animations(properties: backgroundProperties(), layer: layer, timeline: timeline, hrefID: nil, attributeType: nil)
+func backgroundTag(layer, timeline, indentation)
+  var body = animations(properties: backgroundProperties(), layer: layer, timeline: timeline, hrefID: nil, attributeType: nil, indentation: 1)
   return rectTag(id: nil, 
           x: 0, 
           y: 0, 
@@ -83,11 +84,12 @@ func backgroundTag(layer, timeline)
           strokeWidth: 0,
           fill: layer.backgroundColor.hex, 
           preserveAspectRatio: nil, 
-          body: body)
+          body: body,
+          indentation: indentation)
 end
 
-func shapeTag(timeline, layer, id)
-  var body = animations(properties: shapeProperties(), layer: layer, timeline: timeline, hrefID: "#\(id)", attributeType: nil)
+func shapeTag(timeline, layer, id, indentation)
+  var body = animations(properties: shapeProperties(), layer: layer, timeline: timeline, hrefID: "#\(id)", attributeType: nil, indentation: 1)
   return pathTag(id: id, 
           vectorEffect: nil, 
           strokeMiterlimit: layer.miterLimit,
@@ -99,7 +101,8 @@ func shapeTag(timeline, layer, id)
           strokeWidth: layer.strokeWidth,
           d: layer.path.svgc(width: layer.bounds.size.width, height: layer.bounds.size.height),
           fill: getFillAttribute(id: id, layer: layer),
-          body: body)
+          body: body,
+          indentation: indentation)
 end
 
 func pathTag(id,
@@ -113,7 +116,8 @@ func pathTag(id,
             strokeWidth,
             d,
             fill,
-            body)
+            body,
+            indentation)
   var attributes = [
        "id": id, 
        "vector-effect": vectorEffect, 
@@ -127,10 +131,10 @@ func pathTag(id,
        "d": d,
        "fill": fill 
     ]
-    return elementTag("path", attributes: attributes, body: body)
+    return elementTag("path", attributes: attributes, body: body, indentation: indentation)
 end
 
-func imageTag(layer, timeline)
+func imageTag(layer, timeline, indentation)
     var href = imageHref(image: layer.image)
     var contentMode = layer.contentMode.name
     var layerSize = layer.bounds.size
@@ -140,7 +144,7 @@ func imageTag(layer, timeline)
     var width = imageWidth(contentMode: contentMode, layerSize: layerSize, imageSize: imageSize)
     var height = imageHeight(contentMode: contentMode, layerSize: layerSize, imageSize: imageSize)
     var preserveAspectRatio = "none"
-    var body = process("layer/body/imageBody.svg.flt", into: nil, indentation: 0)
+    var body = process("layer/body/imageBody.svg.flt", into: nil, indentation: 1)
     return imageElementTag(id: generateSymbolID(layer: layer),
                 href: href,
                 x: x, 
@@ -148,10 +152,11 @@ func imageTag(layer, timeline)
                 width: width, 
                 height: height, 
                 preserveAspectRatio: preserveAspectRatio,
-                body: body)
+                body: body,
+                indentation: indentation)
 end
 
-func imageElementTag(id, href, x, y, width, height, preserveAspectRatio, body)
+func imageElementTag(id, href, x, y, width, height, preserveAspectRatio, body, indentation)
   var attributes = [
     "id": id, 
     "href": href, 
@@ -162,11 +167,11 @@ func imageElementTag(id, href, x, y, width, height, preserveAspectRatio, body)
     "preserveAspectRatio": preserveAspectRatio
   ]
 
-  return elementTag("image", attributes: attributes, body: body)
+  return elementTag("image", attributes: attributes, body: body, indentation: indentation)
 end
 
-func patternTag(id, layer, timeline)
-  var body = process("fillImage.svg.flt", into: nil, indentation: 0)
+func patternTag(id, layer, timeline, indentation)
+  var body = process("fillImage.svg.flt", into: nil, indentation: 1)
   return patternElementTag(
     id: "\(id)-fillImage",
     x: "0",
@@ -174,11 +179,12 @@ func patternTag(id, layer, timeline)
     width: "100%",
     height: "100%",
     patternUnits: "userSpaceOnUse",
-    body: body
+    body: body,
+    indentation: indentation
   )
 end
 
-func patternElementTag(id, x, y, width, height, patternUnits, body)
+func patternElementTag(id, x, y, width, height, patternUnits, body, indentation)
   var attributes = [
     "id": id,
     "x": x,
@@ -188,11 +194,11 @@ func patternElementTag(id, x, y, width, height, patternUnits, body)
     "patternUnits": patternUnits
   ]
 
-  return elementTag("pattern", attributes: attributes, body: body)
+  return elementTag("pattern", attributes: attributes, body: body, indentation: indentation)
 end
 
-func textTag(id, layer, timeline)
-  var body = process("layer/body/textBody.svg.flt", into: nil, indentation: 0)
+func textTag(id, layer, timeline, indentation)
+  var body = process("layer/body/textBody.svg.flt", into: nil, indentation: 1)
   return textElementTag(
     id: id,
     x: alignmentPosition(layer: layer),
@@ -207,11 +213,12 @@ func textTag(id, layer, timeline)
     visibility: "visible",
     body: body,
     layer: layer,
-    alignmentBaseline: "hanging"
+    alignmentBaseline: "hanging",
+    indentation: indentation
   )
 end
 
-func textElementTag(id, x, y, width, height, fontFamily, fontSize, textAnchor, style, fill, visibility, body, layer, alignmentBaseline)
+func textElementTag(id, x, y, width, height, fontFamily, fontSize, textAnchor, style, fill, visibility, body, layer, alignmentBaseline, indentation)
   var attributes = [
     "id": id, 
     "x": x, 
@@ -227,9 +234,9 @@ func textElementTag(id, x, y, width, height, fontFamily, fontSize, textAnchor, s
     "visibility": visibility
   ]
 
-  return elementTag("text", attributes: attributes, body: body)
+  return elementTag("text", attributes: attributes, body: body, indentation: indentation)
 end
 
-func elementTag(_ elementName, attributes, body)
-    return process("tags/svgElement.svg.flt", into: nil, indentation: 0)
+func elementTag(_ elementName, attributes, body, indentation)
+    return process("tags/svgElement.svg.flt", into: nil, indentation: indentation)
 end

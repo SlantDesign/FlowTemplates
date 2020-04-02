@@ -8,32 +8,33 @@ var y = layer.position.y
 var masksToBounds = layerMasksToBounds(layer: layer)
 var label = layer.name
 var display = layerDisplay(layer: layer)
-var basePropertyAnimations = animations(
-    properties: baseProperties(), 
+var basePropertyAnimations = animations(properties: baseProperties(), 
     layer: layer, 
     timeline: timeline, 
     hrefID: nil, 
-    attributeType: nil
+    attributeType: nil,
+    indentation: indentation + 1
 )
 var transformAnimations = transformAnimation(
     property: "transform.rotation.z", 
     layer: layer, 
-    timeline: timeline
+    timeline: timeline,
+    indentation: indentation + 2
 )
 -%>
 <!-- Layer: <%= layer.name %> -->
 <svg x="<%= x %>" y="<%= y %>" width="<%= width %>" height="<%= height %>" style ="overflow:<%= masksToBounds %>" label="<%= label %>Container" display="<%= display %>">
-    <%= "\(basePropertyAnimations)"%>
+    <%- print(basePropertyAnimations) -%>
     <g label="flipped" transform="<%= scale(from: layer) -%>">
         <g label="layerRotation">
-            <%= "\(transformAnimations)" %> 
+            <%- print(transformAnimations) -%> 
             <g label="layerShadow" filter="<%= shadowFilter(layer: layer, timeline: timeline) %>">
                 <%- if isBackgroundVisible(layer: layer, timeline: timeline) -%>
-                <%= backgroundTag(layer: layer, timeline: timeline) %>
+                <%- print(backgroundTag(layer: layer, timeline: timeline, indentation: indentation + 4)) -%>
                 <%- end -%>
-                <% insert("layer/\(layer.type.name).svg.flt", indentation: indentation + 4) %>
+                <%- insert("layer/\(layer.type.name).svg.flt", indentation: indentation + 4) -%>
                 <%- if isBorderVisible(layer: layer, timeline: timeline) -%>
-                <%= borderTag(layer: layer, timeline: timeline) %>
+                <%- print(borderTag(layer: layer, timeline: timeline, indentation: indentation + 4)) -%>
                 <%- end -%>  
             </g>
         </g>

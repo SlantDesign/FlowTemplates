@@ -2,22 +2,13 @@
 <defs>
     <clipPath id="<%= maskName %>">
         <path vector-effect="none" d="<%= layer.maskPath.svgc(width: 1, height: 1) %>">
-<% animation(property: "maskPath", layer: layer, timeline: timeline, hrefID: nil, attributeType: nil) -%>
+            <%- print(animation(property: "maskPath", layer: layer, timeline: timeline, hrefID: nil, attributeType: nil, indentation: indentation + 3)) -%>
         </path>
     </clipPath>
 </defs>
-<g
-  id="<%= id %>"
-<% if !layer.visible -%>
-  opacity="0"
-<% else if layer.opacity != 1 -%>
-  opacity="<%= layer.opacity %>"
-<% end -%>
-  transform="<%= transform(of: layer) %>"
-  clip-path="url(#<%= maskName %>)"
->
-<% for layer in layer.sublayers
-  insert("layer/layer.svg.flt", indentation: indentation + 1)
-end
-animations(properties: baseProperties(), layer: layer, timeline: timeline, hrefID: nil, attributeType: nil) -%>
+<g id="<%= id %>" <% if !layer.visible -%> opacity="0" <% else if layer.opacity != 1 -%> opacity="<%= layer.opacity %>" <% end -%> transform="<%= transform(of: layer) %>" clip-path="url(#<%= maskName %>)">
+<%-  for layer in layer.sublayers -%>
+    <%- insert("layer/layer.svg.flt", indentation: indentation + 1) %>
+<%- end -%>
+    <%- print(animations(properties: baseProperties(), layer: layer, timeline: timeline, hrefID: nil, attributeType: nil, indentation: indentation + 1)) -%>
 </g>
