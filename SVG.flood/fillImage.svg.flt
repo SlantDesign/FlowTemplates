@@ -1,5 +1,5 @@
 <% if layer.type.name == "shape" %>
-<image xlink:href="<%= imageHref(image: layer.fillImage.image) %>" x="0" y="0">
+<image href="<%= imageHref(image: layer.fillImage.image) %>" x="0" y="0">
     <%= animation(property: "fillImage", layer: layer, timeline: timeline, hrefID: nil, attributeType: nil, indentation: 0)%>	
 </image>
 <% end %>
