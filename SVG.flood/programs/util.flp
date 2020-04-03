@@ -168,7 +168,9 @@ func layerDisplay(layer)
 end
 
 func layerMasksToBounds(layer)
-  if (layer.type.name == "group" && layer.masksToBounds) || layer.type.name == "image"
+  if (layer.type.name == "group" && layer.masksToBounds) || 
+        layer.type.name == "image" || 
+        layer.type.name == "text"
     return "hidden"
   else
     return "visible"
