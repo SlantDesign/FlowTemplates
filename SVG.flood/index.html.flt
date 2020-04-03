@@ -8,6 +8,16 @@
     <link rel="stylesheet" href="css/<%= timelineName %>.css">
 </head>
 <body>
-    <object class="flow-artboard" id="<%= timelineName %>" type="image/svg+xml" data="<%= timelineName %>.svg"/>
+  <object class="flow-artboard" id="<%= timelineName %>" type="image/svg+xml" data="<%= timelineName %>.svg"></object>
+  <div id="details">
+    <p class="section">Title</p>
+    <p><%= timelineName %></p>
+    <p class="section">Duration</p>
+    <p>2s</p>
+    <p class="section">SVG File</p>
+    <p><%= timelineName %>.svg</p>
+    <p class="links"><a href="./<%= timelineName %>.svg">VIEW IT</a></p>
+    <p class="note">NOTE: The shadow on the artboard is not part of the SVG itself. We just think it looks prettier.</p>
+  </div>
 </body>
 </html>
