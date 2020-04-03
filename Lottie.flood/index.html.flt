@@ -7,11 +7,11 @@ integrity="sha256-lZIvAx83WLHALrd5UIfVRAkDgVmAIxUt8JqPhNZIs4Q="
 crossorigin="anonymous"></script>
     <h1><%= timelineName %> Lottie File</h1>
     <% var containerSize = timeline.rootLayer(at: 0).bounds.size %>
-    <div id="lottie_container" style="width: <%= containerSize.width %>px; height:<%= containerSize.height %>px;"></div> 
+    <div id="<%= timelineName %>_lottie_container" style="width: <%= containerSize.width %>px; height:<%= containerSize.height %>px;"></div> 
 </body>
 <script src="<%= timelineName %>.js"></script>
 <script>
-let element = document.getElementById("lottie_container");
+let element = document.getElementById("<%= timelineName %>_lottie_container");
 lottie.loadAnimation({
   container: element, // the dom element that will contain the animation
   renderer: 'svg',
