@@ -17,7 +17,7 @@ lottie.loadAnimation({
   renderer: 'svg',
   loop: true,
   autoplay: true,
-  animationData: lottieAnimationData // the path to the animation json
+  animationData: <%= timelineName %>AnimationData // the path to the animation json
 });
 </script> 
 </html> 
