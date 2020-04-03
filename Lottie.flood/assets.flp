@@ -59,6 +59,9 @@ func compositionSublayers(of layer, timeline)
         // A seperate stroke layer is created for shape Layers to prevent the stroke start/end
         // property affecting the fill of the shape layer.
         if strokeIsVisible(layer: layer, timeline: timeline)
+            // A size layer is added to prevent horizontal and vertical lines from being cropped
+            var sizeLayer = lottieLayer(layer: layer, timeline: timeline, type: "size")
+            lottieLayers = lottieLayers.appending(sizeLayer)
             var strokeLayer = lottieLayer(layer: layer, timeline: timeline, type: "stroke")
             lottieLayers = lottieLayers.appending(strokeLayer)
         end

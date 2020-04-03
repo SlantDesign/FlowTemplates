@@ -60,6 +60,12 @@ func shapeElements(layer, timeline, type)
             maskColorElement(layer: layer, timeline: timeline),
             transformElement(layer: layer, timeline: timeline)
         ]
+    case "size":
+        return [
+            sizeElement(timeline: timeline),
+            sizeColorElement(),
+            transformElement(layer: layer, timeline: timeline)
+        ]
     end
 end
 
@@ -179,6 +185,37 @@ func strokeElement(layer, timeline)
         "mn": "ADBE Vector Graphic - Stroke",
         "hd": hidden(layer: layer),
         "d": dash(from: layer, timeline: timeline)
+    ]
+end
+
+// Used to prevent vertical and horizontal lines from being cropped
+func sizeElement(timeline)
+    var layer = timeline.rootLayer(at: 0)
+    var center = layer.bounds.center
+    var size = layer.bounds.size
+    return [
+            "ty": "rc", // 'rect' shape type
+            "d": 1, // direction
+            "p": ["a": 0.0, "ix": 2.0, "k": [center.x, center.y]],
+            "r": ["a": 0.0, "ix": 2.0, "k": 0.0],
+            "nm": "sizeElement",
+            "mn": "ADBE Vector Shape - Rect",
+            "hd": false,
+            "s": ["a": 0.0, "ix": 6.0, "k": [size.width, size.height]]
+        ]
+end
+
+// Color element that is always clear used for size element
+func sizeColorElement()
+    return [
+        "ty": "fl",
+        "c": ["a": 0.0, "ix": 4.0, "k": [0, 0, 0]],
+        "o": ["a": 0.0, "ix": 5.0, "k": 0],
+        "r": 1,
+        "bm": 0,
+        "nm": "Fill 1",
+        "mn": "ADBE Vector Graphic - Fill",
+        "hd": false
     ]
 end
 

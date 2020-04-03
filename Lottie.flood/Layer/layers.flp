@@ -37,6 +37,7 @@ end
 //          - "null"
 //          - "mask"
 //          - "maskComposition"
+//          - "size"
 func lottieLayer(layer, timeline, type)
     var lottieLayer = [
         "ty": layerType(layer: layer, type: type), 
@@ -94,6 +95,8 @@ func subclassPropertiesFor(layer, timeline, type)
         return shapeLayerProperties(layer: layer, timeline: timeline, type: type)
     case "mask":
         return shapeLayerProperties(layer: layer, timeline: timeline, type: type)
+    case "size":
+        return shapeLayerProperties(layer: layer, timeline: timeline, type: type)
     default: 
         return [:]
     end
@@ -124,6 +127,8 @@ func layerType(layer, type)
         return 4 // create shape type lottie layers for border
     case "mask":
         return 4 // create shape type lottie layers for mask
+    case "size":
+        return 4
     end
 end
 
