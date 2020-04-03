@@ -54,52 +54,52 @@ func extractValue(from keyvalue, propertyID)
     var layer = keyvalue.track.layer
 
     switch propertyID
-    case "combinedPath":
+    case combinedPathProperty:
         var path = keyvalue.value
-        var size = timeline.value(property: "size", layer: layer, time: keyvalue.time) 
+        var size = timeline.value(property: sizeProperty, layer: layer, time: keyvalue.time) 
         return path.render(width: size.width, height: size.height)
 
-    case "backgroundColor.opacity":
+    case backgroundColorOpacityProperty:
         return keyvalue.value.alpha
 
-    case "fillColor.opacity":
+    case fillColorOpacityProperty:
         return keyvalue.value.alpha
 
-    case "strokeColor.opacity":
+    case strokeOpacityProperty:
         return keyvalue.value.alpha
 
-    case "shadowColor.opacity":
+    case shadowColorOpacityProperty:
         return keyvalue.value.alpha
 
-    case "borderColor.opacity":
+    case borderColorOpacityProperty:
         return keyvalue.value.alpha
 
-    case "foregroundColor.opacity":
+    case foregroundColorOpacityProperty:
         return keyvalue.value.alpha
 
-    case "border.size":
-        var borderWidth = timeline.value(property: "borderWidth", layer: layer, time: keyvalue.time)
+    case borderSizeProperty:
+        var borderWidth = timeline.value(property: borderWidthProperty, layer: layer, time: keyvalue.time)
         var width = keyvalue.value.width - borderWidth
         var height = keyvalue.value.height - borderWidth
         return [width, height]
 
-    case "image.position.x":
-        var layerSize = timeline.value(property: "size", layer: layer, time: keyvalue.time)
+    case imagePositionXProperty:
+        var layerSize = timeline.value(property: sizeProperty, layer: layer, time: keyvalue.time)
         var contentMode = timeline.value(property: "contentsGravity", layer: layer, time: keyvalue.time)
         var image = timeline.value(property: "image", layer: layer, time: keyvalue.time)
         return xImagePosition(contentMode: contentMode, layerSize: layerSize, imageSize: image.size)
-    case "image.position.y":
-        var layerSize = timeline.value(property: "size", layer: layer, time: keyvalue.time)
+    case imagePositionYProperty:
+        var layerSize = timeline.value(property: sizeProperty, layer: layer, time: keyvalue.time)
         var contentMode = timeline.value(property: "contentsGravity", layer: layer, time: keyvalue.time)
         var image = timeline.value(property: "image", layer: layer, time: keyvalue.time)
         return yImagePosition(contentMode: contentMode, layerSize: layerSize, imageSize: image.size)
-    case "image.scale":
-        var layerSize = timeline.value(property: "size", layer: layer, time: keyvalue.time)
+    case imageScaleProperty:
+        var layerSize = timeline.value(property: sizeProperty, layer: layer, time: keyvalue.time)
         var contentMode = timeline.value(property: "contentsGravity", layer: layer, time: keyvalue.time)
         var image = timeline.value(property: "image", layer: layer, time: keyvalue.time)
         return imageScale(contentMode: contentMode, layerSize: layerSize, imageSize: image.size)
-    case "anchorPoint":
-        var layerSize = timeline.value(property: "size", layer: layer, time: keyvalue.time)
+    case anchorPointProperty:
+        var layerSize = timeline.value(property: sizeProperty, layer: layer, time: keyvalue.time)
         var anchorPointX = timeline.value(property: "anchorPoint.x", layer: layer, time: keyvalue.time)
         var anchorPointY = timeline.value(property: "anchorPoint.y", layer: layer, time: keyvalue.time)
         return [anchorPointX, anchorPointY, layerSize]

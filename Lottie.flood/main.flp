@@ -1,7 +1,6 @@
 import Web
 import JSON
 
-
 execute("composition.flp")
 execute("assets.flp")
 execute("fonts.flp")
@@ -19,6 +18,7 @@ execute("time.flp")
 execute("effects.flp")
 execute("hierarchy.flp")
 execute("contentMode.flp")
+execute("properties.flp")
 
 for timeline in timelines
     // Get the name of the timeline folder

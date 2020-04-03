@@ -1,9 +1,9 @@
 func opacityAnimation(layer, timeline)
-    return animation(layer: layer, propertyID: "opacity", timeline: timeline)
+    return animation(layer: layer, propertyID: opacityProperty, timeline: timeline)
 end
 
 func rotationAnimation(layer, timeline)
-    return animation(layer: layer, propertyID: "transform.rotation.z", timeline: timeline)
+    return animation(layer: layer, propertyID: transformRotationZProperty, timeline: timeline)
 end
 
 func positionAnimation(layer, timeline)
@@ -15,31 +15,31 @@ func positionAnimation(layer, timeline)
 end
 
 func xPositionAnimation(layer, timeline)
-    return animation(layer: layer, propertyID: "position.x", timeline: timeline)
+    return animation(layer: layer, propertyID: positionXProperty, timeline: timeline)
 end
 
 func yPositionAnimation(layer, timeline)
-    return animation(layer: layer, propertyID: "position.y", timeline: timeline)
+    return animation(layer: layer, propertyID: positionYProperty, timeline: timeline)
 end
 
 func centerAnimation(layer, timeline)
-	return animation(layer: layer, propertyID: "center", timeline: timeline)
+	return animation(layer: layer, propertyID: centerProperty, timeline: timeline)
 end
 
 func anchorPointAnimation(layer, timeline)
-    return animation(layer: layer, propertyID: "anchorPoint", timeline: timeline)
+    return animation(layer: layer, propertyID: anchorPointProperty, timeline: timeline)
 end
 
 func sizeAnimation(layer, timeline)
-    return animation(layer: layer, propertyID: "size", timeline: timeline)
+    return animation(layer: layer, propertyID: sizeProperty, timeline: timeline)
 end
 
 func borderSizeAnimation(layer, timeline)
-    return animation(layer: layer, propertyID: "border.size", timeline: timeline)
+    return animation(layer: layer, propertyID: borderSizeProperty, timeline: timeline)
 end
 
 func scaleAnimation()
-    return scaleExpressionAnimation(xPropertyID: "transform.scale.x", yPropertyID: "transform.scale.y")
+    return scaleExpressionAnimation(xPropertyID: transformScaleXProperty, yPropertyID: transformScaleYProperty)
 end
 
 func scaleExpressionAnimation(xPropertyID, yPropertyID) 
@@ -53,71 +53,71 @@ func scaleExpressionAnimation(xPropertyID, yPropertyID)
 end
 
 func pathAnimation(layer, timeline)
-	return animation(layer: layer, propertyID: "combinedPath", timeline: timeline) 
+	return animation(layer: layer, propertyID: combinedPathProperty, timeline: timeline) 
 end
 
 func strokeColorAnimation(layer, timeline)
-	return animation(layer: layer, propertyID: "strokeColor", timeline: timeline)
+	return animation(layer: layer, propertyID: strokeColorProperty, timeline: timeline)
 end
 
 func strokeOpacityAnimation(layer, timeline)
-	return animation(layer: layer, propertyID: "stroke.opacity", timeline: timeline)
+	return animation(layer: layer, propertyID: strokeOpacityProperty, timeline: timeline)
 end
 
 func strokeWidthAnimation(layer, timeline)
-	return animation(layer: layer, propertyID: "lineWidth", timeline: timeline)
+	return animation(layer: layer, propertyID: lineWidthProperty, timeline: timeline)
 end
 
 func fillColorAnimation(layer, timeline)
-	return animation(layer: layer, propertyID: "fillColor", timeline: timeline)
+	return animation(layer: layer, propertyID: fillColorProperty, timeline: timeline)
 end
 
 func fillColorOpacityAnimation(layer, timeline)
-	return animation(layer: layer, propertyID: "fillColor.opacity", timeline: timeline)
+	return animation(layer: layer, propertyID: fillColorOpacityProperty, timeline: timeline)
 end
 
 func backgroundColorAnimation(layer, timeline)
-	return animation(layer: layer, propertyID: "backgroundColor", timeline: timeline)
+	return animation(layer: layer, propertyID: backgroundColorProperty, timeline: timeline)
 end
 
 func backgroundColorOpacityAnimation(layer, timeline)
-	return animation(layer: layer, propertyID: "backgroundColor.opacity", timeline: timeline)
+	return animation(layer: layer, propertyID: backgroundColorOpacityProperty, timeline: timeline)
 end
 
 func strokeStartAnimation(layer, timeline)
-    return animation(layer: layer, propertyID: "strokeStart", timeline: timeline)    
+    return animation(layer: layer, propertyID: strokeStartProperty, timeline: timeline)    
 end
 
 func strokeEndAnimation(layer, timeline)
-    return animation(layer: layer, propertyID: "strokeEnd", timeline: timeline)    
+    return animation(layer: layer, propertyID: strokeEndProperty, timeline: timeline)    
 end
 
 func dashPatternOffsetAnimation(layer, timeline)
-    return animation(layer: layer, propertyID: "lineDashPhase", timeline: timeline)    
+    return animation(layer: layer, propertyID: lineDashPhaseProperty, timeline: timeline)    
 end
 
 func dashPatternAnimation(layer, timeline)
-    return animation(layer: layer, propertyID: "lineDashPattern", timeline: timeline)
+    return animation(layer: layer, propertyID: lineDashPatternProperty, timeline: timeline)
 end
 
 func borderRadiusAnimation(layer, timeline)
-    return animation(layer: layer, propertyID: "cornerRadius", timeline: timeline)
+    return animation(layer: layer, propertyID: cornerRadiusProperty, timeline: timeline)
 end
 
 func borderColorAnimation(layer, timeline)
-    return animation(layer: layer, propertyID: "borderColor", timeline: timeline)
+    return animation(layer: layer, propertyID: borderColorProperty, timeline: timeline)
 end
 
 func borderOpacityAnimation(layer, timeline)
-    return animation(layer: layer, propertyID: "borderColor.opacity", timeline: timeline)
+    return animation(layer: layer, propertyID: borderColorOpacityProperty, timeline: timeline)
 end
 
 func borderWidthAnimation(layer, timeline)
-    return animation(layer: layer, propertyID: "borderWidth", timeline: timeline)
+    return animation(layer: layer, propertyID: borderWidthProperty, timeline: timeline)
 end
 
 func imageScaleAnimation(layer, timeline)
-    return animation(layer: layer, propertyID: "image.scale", timeline: timeline)
+    return animation(layer: layer, propertyID: imageScaleProperty, timeline: timeline)
 end
 
 func animation(layer, propertyID, timeline)
@@ -151,41 +151,39 @@ end
 /// Returns the (Flow) tracks related to the Lottie property.
 func tracksFor(layer, propertyID, timeline)
     var tracks = []
-    var shadowOffsetX = timeline.trackFor(layer: layer, property: "shadowOffset.width")
-    var shadowOffsetY = timeline.trackFor(layer: layer, property: "shadowOffset.height")
 
     switch propertyID
-    case "backgroundColor.opacity":
-        tracks = [timeline.trackFor(layer: layer, property: "backgroundColor")]
-    case "fillColor.opacity":
-        tracks = [timeline.trackFor(layer: layer, property: "fillColor")]
-    case "strokeColor.opacity":
-        tracks = [timeline.trackFor(layer: layer, property: "strokeColor")]
-    case "borderColor.opacity":
-        tracks = [timeline.trackFor(layer: layer, property: "borderColor")]
-    case "shadowColor.opacity":
-        tracks = [timeline.trackFor(layer: layer, property: "shadowColor")]
-    case "foregroundColor.opacity":
-        tracks = [timeline.trackFor(layer: layer, property: "foregroundColor")]
-    case "anchorPoint":
+    case backgroundColorOpacityProperty:
+        tracks = [timeline.trackFor(layer: layer, property: backgroundColorProperty)]
+    case fillColorOpacityProperty:
+        tracks = [timeline.trackFor(layer: layer, property: fillColorProperty)]
+    case strokeOpacityProperty:
+        tracks = [timeline.trackFor(layer: layer, property: strokeColorProperty)]
+    case borderColorOpacityProperty:
+        tracks = [timeline.trackFor(layer: layer, property: borderColorProperty)]
+    case shadowColorOpacityProperty:
+        tracks = [timeline.trackFor(layer: layer, property: shadowColorProperty)]
+    case foregroundColorOpacityProperty:
+        tracks = [timeline.trackFor(layer: layer, property: foregroundColorProperty)]
+    case anchorPointProperty:
         tracks = [timeline.sizeTrack(layer: layer)]
-    case "shadow.distance":
+    case shadowDistanceProperty:
         // don't animate shadow distance 
         tracks = []
-    case "shadow.direction":
+    case shadowDirectionProperty:
         // don't animate shadow direction 
         tracks = []
-    case "size":
+    case sizeProperty:
         tracks = [timeline.sizeTrack(layer: layer)]
-    case "center":
+    case centerProperty:
         tracks = [timeline.sizeTrack(layer: layer)]
-    case "border.size":
+    case borderSizeProperty:
         tracks = [timeline.sizeTrack(layer: layer)]
-    case "image.position.x":
+    case imagePositionXProperty:
         tracks = [timeline.sizeTrack(layer: layer)]
-    case "image.position.y":
+    case imagePositionYProperty:
         tracks = [timeline.sizeTrack(layer: layer)]
-    case "image.scale":
+    case imageScaleProperty:
         tracks = [timeline.sizeTrack(layer: layer)]
     default:
         tracks = [timeline.trackFor(layer: layer, property: propertyID)]
@@ -197,81 +195,77 @@ end
 
 func propertyIndex(propertyID)
     switch propertyID
-    case "opacity":
-        return 11
-    case "bounds.size.width":
+    case opacityProperty:
+        return 11 
+    case transformScaleXProperty:
         return 1
-    case "bounds.size.height":
-        return 1 
-    case "transform.scale.x":
+    case transformScaleYProperty:
         return 1
-    case "transform.scale.y":
-        return 1
-    case "size":
+    case sizeProperty:
     	return 2
-    case "border.size":
+    case borderSizeProperty:
     	return 2
-    case "anchorPoint":
+    case anchorPointProperty:
         return 1
-    case "transform.rotation.z":
+    case transformRotationZProperty:
         return 10
-    case "position.x":
+    case positionXProperty:
         return 3
-    case "position.y":
+    case positionYProperty:
         return 4
-    case "center":
+    case centerProperty:
         return 3
-    case "combinedPath":
+    case combinedPathProperty:
     	return 2
-    case "strokeColor":
+    case strokeColorProperty:
     	return 3
-    case "lineWidth":
+    case lineWidthProperty:
     	return 5
-    case "stroke.opacity":
+    case strokeOpacityProperty:
     	return 4
-    case "fillColor":
+    case fillColorProperty:
     	return 4
-    case "fillColor.opacity":
+    case fillColorOpacityProperty:
     	return 5
-    case "backgroundColor":
+    case backgroundColorProperty:
     	return 4
-    case "backgroundColor.opacity":
+    case backgroundColorOpacityProperty:
     	return 5
-    case "strokeStart":
+    case strokeStartProperty:
         return 1
-    case "strokeEnd":
+    case strokeEndProperty:
         return 2
-    case "lineDashPhase":
+    case lineDashPhaseProperty:
         return 7
-    case "lineDashPattern":
+    case lineDashPatternProperty:
         return 1
-    case "shadowColor":
+    case shadowColorProperty:
         return 1
-    case "shadowColor.opacity":
+    case shadowColorOpacityProperty:
         return 2
-    case "shadowRadius":
+    case shadowRadiusProperty:
         return 5
-    case "cornerRadius":
+    case cornerRadiusProperty:
         return 1
-    case "borderColor":
+    case borderColorProperty:
         return 1
-    case "borderColor.opacity":
+    case borderColorOpacityProperty:
         return 1
-    case "borderWidth":
+    case borderWidthProperty:
         return 1
-    case "shadow.direction":
+    case shadowDirectionProperty:
         return 3
-    case "shadow.distance":
+    case shadowDistanceProperty:
         return 3
-    case "foregroundColor":
+    case foregroundColorProperty:
         return 12
-    case "foregroundColor.opacity":
+    case foregroundColorOpacityProperty:
         return 10
-    case "image.position.x":
+    case imagePositionXProperty:
         return 3
-    case "image.position.y":
+    case imagePositionYProperty:
         return 4
-    case "image.scale":
+    case imageScaleProperty:
         return 1
     default:
         return nil

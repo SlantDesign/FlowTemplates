@@ -1,82 +1,82 @@
 func propertyValue(layer, propertyID)
     switch propertyID
-    case "opacity":
+    case opacityProperty:
         return lottieValue(from: layer.opacity, propertyID: propertyID)
-    case "border.size":
+    case borderSizeProperty:
         var width = layer.bounds.size.width - layer.borderWidth
         var height = layer.bounds.size.height - layer.borderWidth
         var borderSize = [width, height]
     	return lottieValue(from: borderSize, propertyID: propertyID)
-    case "size":
+    case sizeProperty:
     	return lottieValue(from: layer.bounds.size, propertyID: propertyID)
-    case "transform.scale.x":
+    case transformScaleXProperty:
         return lottieValue(from: layer.flippedHorizontal, propertyID: propertyID)
-    case "transform.scale.y":
+    case transformScaleYProperty:
         return lottieValue(from: layer.flippedVertical, propertyID: propertyID)
-    case "anchorPoint":
+    case anchorPointProperty:
         return lottieValue(from: [layer.anchorPoint.x, layer.anchorPoint.y, layer.bounds.size], propertyID: propertyID)
-    case "transform.rotation.z":
+    case transformRotationZProperty:
         return lottieValue(from: layer.rotation, propertyID: propertyID)
-    case "position.x":
+    case positionXProperty:
         return lottieValue(from: layer.position.x, propertyID: propertyID)
-    case "position.y":
+    case positionYProperty:
         return lottieValue(from: layer.position.y, propertyID: propertyID)
-    case "center":
+    case centerProperty:
         return lottieValue(from: layer.bounds.size, propertyID: propertyID)
-    case "combinedPath":
+    case combinedPathProperty:
         var renderedPath = layer.path.render(width: layer.bounds.size.width, height: layer.bounds.size.height)
     	return lottieValue(from: renderedPath, propertyID: propertyID)
-    case "strokeColor":
+    case strokeColorProperty:
     	return lottieValue(from: layer.strokeColor, propertyID: propertyID)
-    case "lineWidth":
+    case lineWidthProperty:
     	return lottieValue(from: layer.strokeWidth, propertyID: propertyID)
-    case "stroke.opacity":
+    case strokeOpacityProperty:
     	return lottieValue(from: layer.strokeColor.alpha, propertyID: propertyID)
-    case "fillColor":
+    case fillColorProperty:
     	return lottieValue(from: layer.fillColor, propertyID: propertyID)
-    case "fillColor.opacity":
+    case fillColorOpacityProperty:
     	return lottieValue(from: layer.fillColor.alpha, propertyID: propertyID)
-    case "backgroundColor":
+    case backgroundColorProperty:
     	return lottieValue(from: layer.backgroundColor, propertyID: propertyID)
-    case "backgroundColor.opacity":
+    case backgroundColorOpacityProperty:
     	return lottieValue(from: layer.backgroundColor.alpha, propertyID: propertyID)
-    case "strokeStart":
+    case strokeStartProperty:
         return lottieValue(from: layer.strokeStart, propertyID: propertyID)
-    case "strokeEnd":
+    case strokeEndProperty:
         return lottieValue(from: layer.strokeEnd, propertyID: propertyID)
-    case "lineDashPhase":
+    case lineDashPhaseProperty:
         return lottieValue(from: layer.dashPatternOffset, propertyID: propertyID)
-    case "lineDashPattern":
+    case lineDashPatternProperty:
         return lottieValue(from: layer.dashPattern, propertyID: propertyID)
-    case "shadowColor":
+    case shadowColorProperty:
         return lottieValue(from: layer.shadowColor, propertyID: propertyID)
-    case "shadowColor.opacity":
+    case shadowColorOpacityProperty:
         return lottieValue(from: layer.shadowColor.alpha, propertyID: propertyID)
-    case "shadowRadius":
+    case shadowRadiusProperty:
         return lottieValue(from: layer.shadowRadius, propertyID: propertyID)
-    case "cornerRadius":
+    case cornerRadiusProperty:
         return lottieValue(from: layer.cornerRadius, propertyID: propertyID)
-    case "borderColor":
+    case borderColorProperty:
         return lottieValue(from: layer.borderColor, propertyID: propertyID)
-    case "borderColor.opacity":
+    case borderColorOpacityProperty:
         return lottieValue(from: layer.borderColor.alpha, propertyID: propertyID)
-    case "borderWidth":
+    case borderWidthProperty:
         return lottieValue(from: layer.borderWidth, propertyID: propertyID)
-    case "shadow.distance":
+    case shadowDistanceProperty:
         return lottieValue(from: [layer.shadowOffset.width, layer.shadowOffset.height], propertyID: propertyID)
-    case "shadow.direction":
+    case shadowDirectionProperty:
         return lottieValue(from: [layer.shadowOffset.width, layer.shadowOffset.height], propertyID: propertyID)
-    case "foregroundColor":
+    case foregroundColorProperty:
         return lottieValue(from: layer.foregroundColor, propertyID: propertyID)
-    case "foregroundColor.opacity":
+    case foregroundColorOpacityProperty:
         return lottieValue(from: layer.foregroundColor.alpha, propertyID: propertyID)
-    case "image.position.x":
+    case imagePositionXProperty:
         var xPos = xImagePosition(contentMode: layer.contentMode, layerSize: layer.bounds.size, imageSize: layer.image.size)
         return lottieValue(from: xPos, propertyID: propertyID)
-    case "image.position.y":
+    case imagePositionYProperty:
         var yPos = yImagePosition(contentMode: layer.contentMode, layerSize: layer.bounds.size, imageSize: layer.image.size)
         return lottieValue(from: yPos, propertyID: propertyID)
-    case "image.scale":
+    case imageScaleProperty:
         var scale = imageScale(contentMode: layer.contentMode, layerSize: layer.bounds.size, imageSize: layer.image.size)
         return lottieValue(from: scale, propertyID: propertyID)
     default:
@@ -86,77 +86,77 @@ end
 
 func lottieValue(from value, propertyID)
     switch propertyID
-    case "opacity":
+    case opacityProperty:
         return opacityValue(from: value)
-    case "border.size":
+    case borderSizeProperty:
         return [value[0], value[1]]
-    case "size":
+    case sizeProperty:
         return sizeValue(from: value)
-    case "transform.scale.x":
+    case transformScaleXProperty:
         return scaleValue(scale: value)
-    case "transform.scale.y":
+    case transformScaleYProperty:
         return scaleValue(scale: value)
-    case "anchorPoint":
+    case anchorPointProperty:
         return anchorPointValue(anchorPointX: value[0], anchorPointY: value[1], size: value[2])
-    case "transform.rotation.z":
+    case transformRotationZProperty:
         return rotationValue(from: value)
-    case "position.x":
+    case positionXProperty:
         return value
-    case "position.y":
+    case positionYProperty:
         return value
-    case "center":
+    case centerProperty:
         return centerValue(from: value)
-    case "combinedPath":
+    case combinedPathProperty:
         return pathValue(from: value)
-    case "strokeColor":
+    case strokeColorProperty:
         return colorValue(from: value)
-    case "lineWidth":
+    case lineWidthProperty:
         return value
-    case "stroke.opacity":
+    case strokeOpacityProperty:
         return opacityValue(from: value)
-    case "fillColor":
+    case fillColorProperty:
         return colorValue(from: value)
-    case "fillColor.opacity":
+    case fillColorOpacityProperty:
         return opacityValue(from: value)
-    case "backgroundColor":
+    case backgroundColorProperty:
         return colorValue(from: value)
-    case "backgroundColor.opacity":
+    case backgroundColorOpacityProperty:
         return opacityValue(from: value)
-    case "strokeStart":
+    case strokeStartProperty:
         return strokeTrimValue(from: value)
-    case "strokeEnd":
+    case strokeEndProperty:
         return strokeTrimValue(from: value)
-    case "lineDashPhase":
+    case lineDashPhaseProperty:
         return value
-    case "lineDashPattern":
+    case lineDashPatternProperty:
         return value
-    case "shadowColor":
+    case shadowColorProperty:
         return colorValue(from: value)
-    case "shadowColor.opacity":
+    case shadowColorOpacityProperty:
         return shadowOpacityValue(from: value)
-    case "shadowRadius":
+    case shadowRadiusProperty:
         return shadowRadius(from: value)
-    case "cornerRadius":
+    case cornerRadiusProperty:
         return value
-    case "borderColor":
+    case borderColorProperty:
         return colorValue(from: value)
-    case "borderColor.opacity":
+    case borderColorOpacityProperty:
         return opacityValue(from: value)
-    case "borderWidth":
+    case borderWidthProperty:
         return value
-    case "shadow.distance":
+    case shadowDistanceProperty:
         return shadowDistance(width: value[0], height: value[1])
-    case "shadow.direction":
+    case shadowDirectionProperty:
         return shadowDirection(width: value[0], height: value[1])
-    case "foregroundColor":
+    case foregroundColorProperty:
         return colorValue(from: value)
-    case "foregroundColor.opacity":
+    case foregroundColorOpacityProperty:
         return opacityValue(from: value)
-    case "image.position.x":
+    case imagePositionXProperty:
         return value
-    case "image.position.y":
+    case imagePositionYProperty:
         return value
-    case "image.scale":
+    case imageScaleProperty:
         return value
     default:
         return nil
