@@ -68,7 +68,7 @@ end
 
 func textAnimatorContainer(layer, timeline)
     return [
-            "fc":  animation(layer: layer, propertyID: "foregroundColor", timeline: timeline)
+            "fc":  animation(layer: layer, propertyID: foregroundColorProperty, timeline: timeline)
     ] 
 end
 

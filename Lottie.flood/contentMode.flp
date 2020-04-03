@@ -7,11 +7,11 @@ func imagePositionAnimation(layer, timeline)
 end
 
 func xImagePositionAnimation(layer, timeline)
-    return animation(layer: layer, propertyID: "image.position.x", timeline: timeline)
+    return animation(layer: layer, propertyID: imagePositionXProperty, timeline: timeline)
 end
 
 func yImagePositionAnimation(layer, timeline)
-    return animation(layer: layer, propertyID: "image.position.y", timeline: timeline)
+    return animation(layer: layer, propertyID: imagePositionYProperty, timeline: timeline)
 end
 
 func xImagePosition(contentMode, layerSize, imageSize)

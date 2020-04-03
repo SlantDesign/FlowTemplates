@@ -2,8 +2,8 @@ func effectsArray(layer, timeline, type)
     switch type
     case "null":
         return [ 
-            effect(layer: layer, propertyID: "transform.scale.x", timeline: timeline),
-            effect(layer: layer, propertyID: "transform.scale.y", timeline: timeline)
+            effect(layer: layer, propertyID: transformScaleXProperty, timeline: timeline),
+            effect(layer: layer, propertyID: transformScaleYProperty, timeline: timeline)
         ]
     case "composition":
         // only apply shadows and scaling to composition layers
@@ -29,17 +29,17 @@ end
 
 func effectValuesArray(layer, propertyID, timeline)
     switch propertyID
-    case "transform.scale.x":
+    case transformScaleXProperty:
         return [ effectValue(layer: layer, propertyID: propertyID, timeline: timeline, index: 1) ]
-    case "transform.scale.y":
+    case transformScaleYProperty:
         return [ effectValue(layer: layer, propertyID: propertyID, timeline: timeline, index: 1) ]
     case "shadow":
         return [ 
-            effectValue(layer: layer, propertyID: "shadowColor", timeline: timeline, index: 1),
-            effectValue(layer: layer, propertyID: "shadowColor.opacity", timeline: timeline, index: 2),
-            effectValue(layer: layer, propertyID: "shadow.direction", timeline: timeline, index: 3),
-            effectValue(layer: layer, propertyID: "shadow.distance", timeline: timeline, index: 4),
-            effectValue(layer: layer, propertyID: "shadowRadius", timeline: timeline, index: 5)
+            effectValue(layer: layer, propertyID: shadowColorProperty, timeline: timeline, index: 1),
+            effectValue(layer: layer, propertyID: shadowColorOpacityProperty, timeline: timeline, index: 2),
+            effectValue(layer: layer, propertyID: shadowDirectionProperty, timeline: timeline, index: 3),
+            effectValue(layer: layer, propertyID: shadowDistanceProperty, timeline: timeline, index: 4),
+            effectValue(layer: layer, propertyID: shadowRadiusProperty, timeline: timeline, index: 5)
         ] 
     end
 end
@@ -56,9 +56,9 @@ end
 
 func effectType(propertyID)
     switch propertyID
-    case "transform.scale.x":
+    case transformScaleXProperty:
         return 5
-    case "transform.scale.y":
+    case transformScaleYProperty:
         return 5
     case "shadow":
         return 25
@@ -67,9 +67,9 @@ end
 
 func effectValueName(propertyID)
     switch propertyID
-    case "transform.scale.x":
+    case transformScaleXProperty:
         return "Slider"
-    case "transform.scale.y":
+    case transformScaleYProperty:
         return "Slider"
     default:
         return propertyID
@@ -78,19 +78,19 @@ end
 
 func effectValueType(propertyID)
     switch propertyID
-    case "transform.scale.x":
+    case transformScaleXProperty:
         return 0
-    case "transform.scale.y":
+    case transformScaleYProperty:
         return 0
-    case "shadowColor":
+    case shadowColorProperty:
         return 2
-    case "shadowColor.opacity":
+    case shadowColorOpacityProperty:
         return 0
-    case "shadowRadius":
+    case shadowRadiusProperty:
         return 0
-    case "shadow.distance":
+    case shadowDistanceProperty:
          return 0
-    case "shadow.direction":
+    case shadowDirectionProperty:
          return 0
     end 
 end
