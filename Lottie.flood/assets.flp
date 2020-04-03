@@ -49,14 +49,22 @@ func compositionSublayers(of layer, timeline)
 
     // A seperate border layer is created for the layer because AE does not support adding a border
     // to a layer directly
-    var borderLayer = lottieLayer(layer: layer, timeline: timeline, type: "border")
-    lottieLayers = lottieLayers.appending(borderLayer)
+    // always include borders for shapes, otherwise vertical and horizontal lines may be cropped.
+    if borderIsVisible(layer: layer, timeline: timeline)
+        var borderLayer = lottieLayer(layer: layer, timeline: timeline, type: "border")
+        lottieLayers = lottieLayers.appending(borderLayer)
+    end
 
     if layer.type.name == "shape"
         // A seperate stroke layer is created for shape Layers to prevent the stroke start/end
         // property affecting the fill of the shape layer.
-        var strokeLayer = lottieLayer(layer: layer, timeline: timeline, type: "stroke")
-        lottieLayers = lottieLayers.appending(strokeLayer)
+        if strokeIsVisible(layer: layer, timeline: timeline)
+            // A size layer is added to prevent horizontal and vertical lines from being cropped
+            var sizeLayer = lottieLayer(layer: layer, timeline: timeline, type: "size")
+            lottieLayers = lottieLayers.appending(sizeLayer)
+            var strokeLayer = lottieLayer(layer: layer, timeline: timeline, type: "stroke")
+            lottieLayers = lottieLayers.appending(strokeLayer)
+        end
     else if layer.type.name == "image"
         // A mask is inserted so that image does not bleed outside of the image layers bounds.
         var mask = lottieLayer(layer: layer, timeline: timeline, type: "mask")
@@ -74,8 +82,10 @@ func compositionSublayers(of layer, timeline)
 
     // A seperate background layer is created for the group because AE does not support adding a background color
     // to a layer directly
-    var backgroundLayer = lottieLayer(layer: layer, timeline: timeline, type: "background")
-    lottieLayers = lottieLayers.appending(backgroundLayer)
+    if backgroundIsVisible(layer: layer, timeline: timeline)
+        var backgroundLayer = lottieLayer(layer: layer, timeline: timeline, type: "background")
+        lottieLayers = lottieLayers.appending(backgroundLayer)
+    end
     
     return lottieLayers
 end
