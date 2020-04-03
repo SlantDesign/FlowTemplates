@@ -51,18 +51,12 @@ end
 
 func borderTag(layer, timeline, indentation)
   var body = animations(properties: borderProperties(), layer: layer, timeline: timeline, hrefID: nil, attributeType: nil, indentation: 1)
-  var x = layer.borderWidth / 2
-  var y = layer.borderWidth / 2
-  if layer.type.name == "image"
-    x = 0
-    y = 0
-  end
 
   return rectTag(id: nil, 
-          x: x, 
-          y: y, 
-          width: layer.bounds.size.width, 
-          height: layer.bounds.size.height, 
+          x: 0, 
+          y: 0, 
+          width: "100%", 
+          height: "100%", 
           rx: layer.cornerRadius, 
           stroke: layer.borderColor.hex,
           strokeWidth: layer.borderWidth, 
