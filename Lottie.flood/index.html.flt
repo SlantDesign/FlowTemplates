@@ -75,8 +75,8 @@
     <p class="section">Duration</p>
     <p><%= timeline.duration %>s</p>
     <p class="section">Lottie File</p>
-    <p>Timeline.json</p>
-    <p class="links"><a href="./Timeline.json">VIEW IT</a></p>
+    <p><%= timelineName %>.json</p>
+    <p class="links"><a href="./<%= timelineName %>.json">VIEW IT</a></p>
     <p class="note">NOTE: The shadow on the artboard is not part of the Lottie export. We just think it looks prettier.</p>
   </div>
 </body>
