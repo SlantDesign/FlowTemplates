@@ -1,0 +1,6 @@
+<style type="text/css">
+    @font-face {
+        font-family: '<%= fontFamily %>';
+        src: url('<%= src %>'); 
+}
+</style>

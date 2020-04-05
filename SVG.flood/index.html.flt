@@ -13,7 +13,7 @@
     <p class="section">Title</p>
     <p><%= timelineName %></p>
     <p class="section">Duration</p>
-    <p>2s</p>
+    <p><%= timeline.duration %>s</p>
     <p class="section">SVG File</p>
     <p><%= timelineName %>.svg</p>
     <p class="links"><a href="./<%= timelineName %>.svg">VIEW IT</a></p>

@@ -34,3 +34,14 @@ func shouldIncludeShadowDefinitions(timeline)
 
     return false
 end
+
+func shouldIncludeFontDefinitions(timeline)
+    var rootLayer = timeline.rootLayer(at: 0)
+    for layer in rootLayer.descendants
+        if isFontVisible(layer: layer, timeline: timeline)
+            return true
+        end 
+    end
+
+    return false
+end

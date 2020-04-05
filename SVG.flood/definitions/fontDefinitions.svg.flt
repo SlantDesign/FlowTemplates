@@ -1,0 +1,9 @@
+<!-- Fonts -->
+<defs>
+<% for layer in layer.descendants
+    var id = generateSymbolID(layer: layer)
+    if layer.type.name == "text" %>
+        <%= fontTag(layer: layer, timeline: timeline, indentation: 0) %>
+    <% end 
+end -%>
+</defs>

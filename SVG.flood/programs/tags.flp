@@ -128,6 +128,13 @@ func pathTag(id,
     return elementTag("path", attributes: attributes, body: body, indentation: indentation)
 end
 
+func fontTag(layer, timeline, indentation)
+    var fontFamily = layer.font.name
+    var src = "./fonts/\(layer.font.name).\(layer.font.extension)"
+
+    return process("fontTag.svg.flt", into: nil, indentation: 1)
+end
+
 func imageTag(layer, timeline, indentation)
     var href = imageHref(image: layer.image)
     var contentMode = layer.contentMode.name
