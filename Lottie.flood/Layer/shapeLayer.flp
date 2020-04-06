@@ -30,18 +30,20 @@ end
 func shapeElements(layer, timeline, type)
     switch type
     case "content":
-        return [
-            pathElement(layer: layer, timeline: timeline),
-            fillElement(layer: layer, timeline: timeline),
-            transformElement(layer: layer, timeline: timeline)
-        ]
+        return pathElements(layer: layer, timeline: timeline).concatenate(
+            [
+                fillElement(layer: layer, timeline: timeline), 
+                transformElement(layer: layer, timeline: timeline)
+            ]
+        ) 
     case "stroke":
-        return [
-            pathElement(layer: layer, timeline: timeline),
-            strokeElement(layer: layer, timeline: timeline),
-            trimElement(layer: layer, timeline: timeline),
-            transformElement(layer: layer, timeline: timeline)
-        ]
+        return pathElements(layer: layer, timeline: timeline).concatenate(
+            [
+                strokeElement(layer: layer, timeline: timeline),
+                trimElement(layer: layer, timeline: timeline),
+                transformElement(layer: layer, timeline: timeline)
+            ]
+        )
     case "background":
         return [
             backgroundElement(layer: layer, timeline: timeline),
@@ -143,12 +145,21 @@ end
 
 // Shape Layer Elements
 
-func pathElement(layer, timeline)
+func pathElements(layer, timeline)
+    var pathElements = []
+    for index in 0..<layer.path.paths.count
+        var pathElement = pathElement(layer: layer, timeline: timeline, subPath: index)
+        pathElements = pathElements.appending(pathElement)
+    end
+    return pathElements
+end
+
+func pathElement(layer, timeline, subPath index)
     return [ 
         "ind": 0,
         "ty": "sh", // 'shape' shape type
         "ix": 1,
-        "ks": pathAnimation(layer: layer, timeline: timeline),
+        "ks": pathAnimation(layer: layer, timeline: timeline, subPath: index),
         "nm": layerName(layer: layer, type: "path"),
         "mn": "ADBE Vector Shape - Group",
         "hd": hidden(layer: layer)

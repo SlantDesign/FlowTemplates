@@ -6,19 +6,20 @@ func kevaluesArray(layer, propertyID, timeline)
 
     var keyvaluesArray = []
     for keyvalue in tracks[0].keyvaluesWithSimulatedSteps
-        keyvaluesArray = keyvaluesArray.appending(keyvalueData(from: keyvalue, propertyID: propertyID))
+        var value = keyvalueValue(from: keyvalue, propertyID: propertyID)
+        keyvaluesArray = keyvaluesArray.appending(keyvalueData(from: keyvalue, value: value))
     end
 
     return keyvaluesArray
 end
 
-func keyvalueData(from keyvalue, propertyID)
+func keyvalueData(from keyvalue, value)
     return keyFrame(inX: keyvalue.trailingTimingFunction.controlPoints[1].x, 
                     inY: keyvalue.trailingTimingFunction.controlPoints[1].y, 
                     outX: keyvalue.trailingTimingFunction.controlPoints[0].x, 
                     outY: keyvalue.trailingTimingFunction.controlPoints[0].y, 
                     frame: frameNumber(from: keyvalue.time), 
-                    value: keyvalueValue(from: keyvalue, propertyID: propertyID))
+                    value: value)
 end
 
 func keyFrame(inX, inY, outX, outY, frame, value)
@@ -55,9 +56,8 @@ func extractValue(from keyvalue, propertyID)
 
     switch propertyID
     case combinedPathProperty:
-        var path = keyvalue.value
-        var size = timeline.value(property: sizeProperty, layer: layer, time: keyvalue.time) 
-        return path.render(width: size.width, height: size.height)
+        // Handled in pathAnimation.flp
+        return nil
 
     case backgroundColorOpacityProperty:
         return keyvalue.value.alpha
