@@ -24,8 +24,8 @@ func propertyValue(layer, propertyID)
     case centerProperty:
         return lottieValue(from: layer.bounds.size, propertyID: propertyID)
     case combinedPathProperty:
-        var renderedPath = layer.path.render(width: layer.bounds.size.width, height: layer.bounds.size.height)
-    	return lottieValue(from: renderedPath, propertyID: propertyID)
+        // handled in pathAnimation.flp
+        return nil
     case strokeColorProperty:
     	return lottieValue(from: layer.strokeColor, propertyID: propertyID)
     case lineWidthProperty:
@@ -107,7 +107,8 @@ func lottieValue(from value, propertyID)
     case centerProperty:
         return centerValue(from: value)
     case combinedPathProperty:
-        return pathValue(from: value)
+        // Handled in pathAnimation.flp
+        return nil
     case strokeColorProperty:
         return colorValue(from: value)
     case lineWidthProperty:
@@ -213,29 +214,6 @@ end
 
 func sizeValue(from size)
     return [size.width, size.height]
-end
-
-func pathValue(from renderedPath)
-	// FIX this! Need to take into account all sub pathsß
-	var subPath = renderedPath.paths[0]
-	var vertices = []
-	var trailingBezierCurveHandles = []
-	var leadingBezierCurveHandles = []
-
-	for point in subPath.points
-		vertices = vertices.appending([point.position.x, point.position.y])
-		var trailingBezierCurveHandle = point.curveFrom.subtracting(point: point.position)
-		var leadingBezierCurveHandle = point.curveTo.subtracting(point: point.position)
-		trailingBezierCurveHandles = trailingBezierCurveHandles.appending([trailingBezierCurveHandle.x, trailingBezierCurveHandle.y])
-		leadingBezierCurveHandles = leadingBezierCurveHandles.appending([leadingBezierCurveHandle.x, leadingBezierCurveHandle.y])
-	end
-
-	return [ 
-        "c": subPath.closed,
-        "i": trailingBezierCurveHandles,
-        "o": leadingBezierCurveHandles,
-        "v": vertices
-    ]
 end
 
 func textAlignmentValue(from alignment)

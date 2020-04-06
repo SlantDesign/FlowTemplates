@@ -52,10 +52,6 @@ func scaleExpressionAnimation(xPropertyID, yPropertyID)
     ]
 end
 
-func pathAnimation(layer, timeline)
-	return animation(layer: layer, propertyID: combinedPathProperty, timeline: timeline) 
-end
-
 func strokeColorAnimation(layer, timeline)
 	return animation(layer: layer, propertyID: strokeColorProperty, timeline: timeline)
 end
