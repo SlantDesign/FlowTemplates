@@ -1,0 +1,6 @@
+<!-- Fonts -->
+<defs>
+<%- for font in fontsInTimeline -%>
+    <%= fontTag(font: font, timeline: timeline, indentation: 0) %>
+<%- end -%>
+</defs>

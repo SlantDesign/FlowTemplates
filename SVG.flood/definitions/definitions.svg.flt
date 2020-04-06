@@ -7,3 +7,6 @@
 <%- if shouldIncludeShadowDefinitions(timeline: timeline) -%>
 <% insert("definitions/shadowDefinitions.svg.flt", indentation: indentation) %>
 <%- end -%>
+<%- if shouldIncludeFontDefinitions(timeline: timeline) -%>
+<% insert("definitions/fontDefinitions.svg.flt", indentation: indentation) %>
+<%- end -%>

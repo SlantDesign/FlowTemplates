@@ -304,6 +304,19 @@ func isShadowVisible(layer, timeline)
     end
 end
 
+func isFontVisible(layer, timeline)
+    if layer.type.name != "text"
+        return false
+    end
+
+    if timeline.trackFor(layer: layer, property: "foregroundColor") == nil && 
+    layer.foregroundColor.hex == 0
+        return false
+    else
+        return true
+    end
+end
+
 func isBackgroundVisible(layer, timeline)
     if timeline.trackFor(layer: layer, property: "backgroundColor") == nil && 
         layer.backgroundColor.alpha == 0

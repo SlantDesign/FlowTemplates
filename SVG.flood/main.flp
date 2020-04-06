@@ -23,6 +23,9 @@ for timeline in timelines
   // Get all assets for this timeline
   var imagesInTimeline = document.images(forTimeline: timeline)
 
+  //Get all fonts fot this timeline
+  var fontsInTimeline = document.fonts(forTimeline: timeline)
+
   // Folder names
     var imageFolderName = "img"
     var fontFolderName = "fonts"
@@ -45,6 +48,13 @@ for timeline in timelines
         var imageData = image.serializeAsPNGData()
         if imageData != nil 
             write(data: imageData, to: "\(timelineOutputPath)/\(imageFolderName)/\(image.name).png")
+        end
+    end
+
+  // Copy Fonts
+    for font in fontsInTimeline
+        if !Web.webFonts.contains(font.name) && font.path != nil
+            copy(from: font.path, to: "\(timelineOutputPath)/\(fontFolderName)/\(font.name).\(font.extension)")
         end
     end
 end
