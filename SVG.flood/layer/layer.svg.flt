@@ -8,6 +8,7 @@ var y = layer.position.y
 var masksToBounds = layerMasksToBounds(layer: layer)
 var label = layer.name
 var display = layerDisplay(layer: layer)
+var opacity = layer.opacity
 var basePropertyAnimations = animations(properties: baseProperties(), 
     layer: layer, 
     timeline: timeline, 
@@ -23,7 +24,7 @@ var transformAnimations = transformAnimation(
 )
 -%>
 <!-- Layer: <%= layer.name %> -->
-<svg x="<%= x %>" y="<%= y %>" width="<%= width %>" height="<%= height %>" style ="overflow:<%= masksToBounds %>" label="<%= label %>Container" display="<%= display %>">
+<svg x="<%= x %>" y="<%= y %>" width="<%= width %>" height="<%= height %>" style ="overflow:<%= masksToBounds %>" opacity="<%= opacity %>" label="<%= label %>Container" display="<%= display %>">
     <%- print(basePropertyAnimations) -%>
     <g label="flipped" transform="<%= scale(from: layer) -%>">
         <g label="layerRotation">
