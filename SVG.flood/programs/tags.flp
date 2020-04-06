@@ -214,12 +214,12 @@ func textTag(id, layer, timeline, indentation)
     visibility: "visible",
     body: body,
     layer: layer,
-    alignmentBaseline: "hanging",
+    dominantBaseline: "hanging",
     indentation: indentation
   )
 end
 
-func textElementTag(id, x, y, width, height, fontFamily, fontSize, textAnchor, style, fill, visibility, body, layer, alignmentBaseline, indentation)
+func textElementTag(id, x, y, width, height, fontFamily, fontSize, textAnchor, style, fill, visibility, body, layer, dominantBaseline, indentation)
   var attributes = [
     "id": id, 
     "x": x, 
@@ -231,7 +231,7 @@ func textElementTag(id, x, y, width, height, fontFamily, fontSize, textAnchor, s
     "text-anchor": textAnchor, 
     "style": style, 
     "fill": fill,
-    "alignment-baseline": alignmentBaseline,
+    "dominant-baseline": dominantBaseline,
     "visibility": visibility
   ]
 
