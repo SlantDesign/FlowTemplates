@@ -1,0 +1,73 @@
+func charsArray(timeline)
+    var lottieCharacters = []
+    for (font, characters) in document.glyphs(forTimeline: timeline)
+        for character in characters
+            var lottieCharacter = lottieCharacter(font: font, character: character) 
+            lottieCharacters = lottieCharacters.appending(lottieCharacter)
+        end
+    end 
+    return lottieCharacters
+end
+
+func lottieCharacter(font, character) 
+    return [
+            "ch": character,
+            "size": font.size,
+            "style": font.style,
+            "w": font.widthFor(string: character),
+            "data": characterShapeData(character: character, font: font),
+            "fFamily": font.familyName
+    ]
+end
+
+func characterShapeData(character, font)
+    return [
+        "shapes": 
+        [
+            [
+                "ty": "gr",
+                "it": characterShapes(character: character, font: font),
+                "nm": character,
+                "np": 3,
+                "cix": 2,
+                "bm": 0,
+                "ix": 1,
+                "mn": "ADBE Vector Group",
+                "hd": false
+            ]
+        ]
+    ]
+end
+
+func characterShapes(character, font)
+    var compositePath = font.pathFor(character: character)
+    var characterShapes = []
+    
+    for index in 0..<compositePath.paths.count
+        var characterShape = characterShape(character: character, characterPath: compositePath, index: index)
+        characterShapes = characterShapes.appending(characterShape)
+    end
+
+    return characterShapes
+end
+
+func characterShape(character, characterPath, index)
+    return [
+        "ind": index,
+        "ty": "sh",
+        "ix": 1,
+        "ks": characterShapeValue(characterPath: characterPath, subPath: index),
+        "nm": char,
+        "mn": "ADBE Vector Shape - Group",
+        "hd": false
+    ]
+end
+
+func characterShapeValue(characterPath, subPath index) 
+    return [
+        "a": 0,
+        "k": pathValue(from: characterPath, subPath: index),
+        "ix": 2
+    ]
+end
+

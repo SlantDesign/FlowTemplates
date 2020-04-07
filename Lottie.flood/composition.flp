@@ -12,7 +12,8 @@ func lottieDictionaryFor(timeline, imageFolderName)
         "assets": assetsArray(timeline: timeline, imageFolderName: imageFolderName),
         "layers": layersArray(timeline: timeline),
         "fonts": fonts(timeline: timeline),
-        "markers": markersArray()
+        "markers": markersArray(),
+        "chars": charsArray(timeline: timeline)
     ]
     return dictionary
 end

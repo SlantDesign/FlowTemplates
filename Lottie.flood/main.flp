@@ -21,6 +21,7 @@ execute("contentMode.flp")
 execute("properties.flp")
 execute("visibility.flp")
 execute("pathAnimation.flp")
+execute("characters.flp")
 
 for timeline in timelines
     // Get the name of the timeline folder
