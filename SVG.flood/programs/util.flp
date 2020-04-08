@@ -313,3 +313,7 @@ func isBorderVisible(layer, timeline)
         return true
     end
 end
+
+func shouldExport(layer)
+    return layer.visible && layer.type.name != "shapeMask"
+end
