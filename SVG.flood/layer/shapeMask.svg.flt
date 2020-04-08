@@ -10,5 +10,4 @@
 <%-  for layer in layer.sublayers -%>
     <%- insert("layer/layer.svg.flt", indentation: indentation + 1) %>
 <%- end -%>
-    <%- print(animations(properties: baseProperties(), layer: layer, timeline: timeline, hrefID: nil, attributeType: nil, indentation: indentation + 1)) -%>
 </g>

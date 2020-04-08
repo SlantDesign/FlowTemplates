@@ -92,6 +92,10 @@ func trackFor(_ layer, property, timeline)
         return timeline.sizeTrack(layer: layer)
     case "image.position.y":
         return timeline.sizeTrack(layer: layer)
+    case "position.offset.x":
+        return timeline.trackFor(layer: layer, property: "bounds.size.width")
+    case "position.offset.y":
+        return timeline.trackFor(layer: layer, property: "bounds.size.height")
     default:
         return timeline.trackFor(layer: layer, property: property)
     end
@@ -110,11 +114,11 @@ func valueFrom(keyvalue, layer, property)
     if ["combinedPath", "maskPath"].contains(property)
         var size = keyvalue.timeline.value(property: "size", layer: keyvalue.track.layer, time: keyvalue.time)
         return keyvalue.value.svgc(width: size.width, height: size.height)
-    else if ["image.width", "image.height", "image.position.x", "image.position.y"].contains(property)
+    end
+    if ["image.width", "image.height", "image.position.x", "image.position.y"].contains(property)
         var contentMode = layer.contentMode.name
         var layerSize = keyvalue.timeline.value(property: "size", layer: keyvalue.track.layer, time: keyvalue.time)
         var imageSize = keyvalue.timeline.value(property: "image", layer: keyvalue.track.layer, time: keyvalue.time).size
-
         switch property
         case "image.width":
             return imageWidth(contentMode: contentMode, layerSize: layerSize, imageSize: imageSize)
@@ -125,9 +129,16 @@ func valueFrom(keyvalue, layer, property)
         case "image.position.y":
             return imageY(contentMode: contentMode, layerSize: layerSize, imageSize: imageSize)
         end
-    else
-        return svgValue(keyvalue.value, propertyID: property, layer: layer)
     end
+    if ["position.offset.x", "position.offset.y"].contains(property)
+        switch property
+        case "position.offset.x":
+            return "\(-layer.anchorPoint.x * keyvalue.value)"
+        case "position.offset.y":
+            return "\(-layer.anchorPoint.y * keyvalue.value)"
+        end
+    end
+    return svgValue(keyvalue.value, propertyID: property, layer: layer)
 end
 
 func keyTimesFrom(track)
