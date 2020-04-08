@@ -1,4 +1,3 @@
-
 <%
 var id = generateSymbolID(layer: layer)
 var width = layer.bounds.size.width
