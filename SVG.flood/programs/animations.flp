@@ -1,3 +1,30 @@
+func offSetAnimation(layer, property, attributeToOffset, timeline, anchorPoint)
+    if isAnimated(layer, property: property, timeline: timeline)
+        var track = trackFor(layer, property: property, timeline: timeline)
+        var values = []
+        for keyvalue in track.keyvaluesWithSimulatedSteps
+            var offSetKeyValue = -anchorPoint * keyvalue.value
+            var value = svgValue(offSetKeyValue, propertyID: property, layer: layer)
+            values = values.appending(value)
+        end
+        var keytimes = keyTimesFrom(track: track)
+        var keysplines = keysplinesFrom(track: track)
+        return animateTag(
+                hrefID: nil, 
+                attributeName: attributeToOffset, 
+                values: values.joined(separator: ";"), 
+                dur: "\(track.timeline.duration)s",
+                fill: "freeze",
+                calcMode: "spline", 
+                keytimes: keytimes.joined(separator: ";"), 
+                keysplines: keysplines.joined(separator: ";"), 
+                repeats: "indefinite", 
+                attributeType: nil,
+                indentation: nil)
+    end
+    return ""
+end
+
 func transformAnimation(property, layer, timeline, indentation) 
     if isAnimated(layer, property: property, timeline: timeline)
         var track = trackFor(layer, property: property, timeline: timeline)
