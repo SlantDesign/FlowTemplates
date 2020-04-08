@@ -3,6 +3,8 @@ func svgAttributeName(of property)
     switch property
     case "position.x": return "x"
     case "position.y": return "y"
+    case "position.offset.x": return "x"
+    case "position.offset.y": return "y"
     case "bounds.size.width": return "width"
     case "bounds.size.height": return "height"
     case "anchorPoint.x": return "transform"
@@ -175,21 +177,6 @@ func layerMasksToBounds(layer)
   else
     return "visible"
   end
-end
-
-func baseProperties() 
-  return [
-    "position.x",
-    "position.y",
-    "bounds.size.height",
-    "bounds.size.width",
-    "opacity"
-    // Not implemented yet
-    //"anchorPointX",
-    //"anchorPointY",
-    //"flippedHorizontal",
-    //"flippedVertical"
-  ]
 end
 
 func shapeProperties()

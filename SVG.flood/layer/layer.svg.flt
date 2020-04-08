@@ -12,44 +12,83 @@ var opacity = layer.opacity
 var rotation = layer.rotation.degrees
 var anchorPoint = layer.anchorPoint
 
-var basePropertyAnimations = animations(properties: baseProperties(), 
+var xAnimation = animation(
+    property: "position.x", 
     layer: layer, 
     timeline: timeline, 
     hrefID: nil, 
-    attributeType: nil,
-    indentation: indentation + 1
+    attributeType: nil, 
+    indentation: indentation + 5
+)
+var yAnimation = animation(
+    property: "position.y", 
+    layer: layer, 
+    timeline: timeline, 
+    hrefID: nil, 
+    attributeType: nil, 
+    indentation: indentation + 5
+)
+var widthAnimation = animation(
+    property: "bounds.size.width", 
+    layer: layer, 
+    timeline: timeline, 
+    hrefID: nil, 
+    attributeType: nil, 
+    indentation: indentation + 5
+)
+var heightAnimation = animation(
+    property: "bounds.size.height", 
+    layer: layer, 
+    timeline: timeline, 
+    hrefID: nil, 
+    attributeType: nil, 
+    indentation: indentation + 5
+)
+var opacityAnimation = animation(
+    property: "opacity", 
+    layer: layer, 
+    timeline: timeline, 
+    hrefID: nil, 
+    attributeType: nil, 
+    indentation: indentation + 5
 )
 var transformAnimations = transformAnimation(
     property: "transform.rotation.z", 
     layer: layer, 
     timeline: timeline,
-    indentation: indentation + 2
+    indentation: indentation + 4
 )
-var offsetAnimationX = offSetAnimation(
+var offsetAnimationX = animation(
+    property: "position.offset.x", 
     layer: layer, 
-    property: "bounds.size.width", 
-    attributeToOffset: "x",
     timeline: timeline, 
-    anchorPoint: anchorPoint.x
+    hrefID: nil, 
+    attributeType: nil, 
+    indentation: indentation + 5
 )
-var offsetAnimationY = offSetAnimation(
+var offsetAnimationY = animation(
+    property: "position.offset.y", 
     layer: layer, 
-    property: "bounds.size.height",
-    attributeToOffset: "y", 
     timeline: timeline, 
-    anchorPoint: anchorPoint.y
+    hrefID: nil, 
+    attributeType: nil, 
+    indentation: indentation + 5
 )
+
 -%>
-    <!-- Layer: AnchorPoint -->
+    <!-- Layer: <%= layer.name %> -->
     <svg x="<%= x %>" y="<%= y %>" width="0.01" height="0.01" style ="overflow:visible" opacity="1" label="anchorPointContainer" display="inline">
+        <%- print(xAnimation) -%>
+        <%- print(yAnimation) -%>
         <g label="flipped" transform="<%= scale(from: layer) -%>">
             <g label="layerRotation" transform="rotate(<%= rotation %>)">
-                <%- print(transformAnimations) -%> 
-                <!-- Layer: <%= layer.name %> -->
+                <%- print(transformAnimations) -%>
                 <svg x="<%= -anchorPoint.x * width %>" y="<%= -anchorPoint.y * height %>" width="<%= width %>" height="<%= height %>" style ="overflow:<%= masksToBounds %>" opacity="<%= opacity %>" label="<%= label %>Container" display="<%= display %>">
                     <%- print(offsetAnimationX) -%>
                     <%- print(offsetAnimationY) -%>
-                    <%- print(basePropertyAnimations) -%>
+                    <%- print(widthAnimation) -%>
+                    <%- print(heightAnimation) -%>
+                    <%- print(opacityAnimation) -%>
                     <g label="layerShadow" filter="<%= shadowFilter(layer: layer, timeline: timeline) %>">
                         <%- if isBackgroundVisible(layer: layer, timeline: timeline) -%>
                         <%- print(backgroundTag(layer: layer, timeline: timeline, indentation: indentation + 4)) -%>
