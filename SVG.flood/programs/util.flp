@@ -161,14 +161,6 @@ func getLineJoin(layer)
   end
 end
 
-func layerDisplay(layer)
-  if layer.visible
-    return "inline"
-  else
-    return "none"
-  end
-end
-
 func layerMasksToBounds(layer)
   if (layer.type.name == "group" && layer.masksToBounds) || 
         layer.type.name == "image" || 
