@@ -18,7 +18,7 @@ var xAnimation = animation(
     timeline: timeline, 
     hrefID: nil, 
     attributeType: nil, 
-    indentation: indentation + 5
+    indentation: indentation + 4
 )
 var yAnimation = animation(
     property: "position.y", 
@@ -26,7 +26,7 @@ var yAnimation = animation(
     timeline: timeline, 
     hrefID: nil, 
     attributeType: nil, 
-    indentation: indentation + 5
+    indentation: indentation + 4
 )
 var widthAnimation = animation(
     property: "bounds.size.width", 
@@ -34,7 +34,7 @@ var widthAnimation = animation(
     timeline: timeline, 
     hrefID: nil, 
     attributeType: nil, 
-    indentation: indentation + 5
+    indentation: indentation + 4
 )
 var heightAnimation = animation(
     property: "bounds.size.height", 
@@ -42,7 +42,7 @@ var heightAnimation = animation(
     timeline: timeline, 
     hrefID: nil, 
     attributeType: nil, 
-    indentation: indentation + 5
+    indentation: indentation + 4
 )
 var opacityAnimation = animation(
     property: "opacity", 
@@ -50,13 +50,13 @@ var opacityAnimation = animation(
     timeline: timeline, 
     hrefID: nil, 
     attributeType: nil, 
-    indentation: indentation + 5
+    indentation: indentation + 4
 )
 var transformAnimations = transformAnimation(
     property: "transform.rotation.z", 
     layer: layer, 
     timeline: timeline,
-    indentation: indentation + 4
+    indentation: indentation + 3
 )
 var offsetAnimationX = animation(
     property: "position.offset.x", 
@@ -64,7 +64,7 @@ var offsetAnimationX = animation(
     timeline: timeline, 
     hrefID: nil, 
     attributeType: nil, 
-    indentation: indentation + 5
+    indentation: indentation + 4
 )
 var offsetAnimationY = animation(
     property: "position.offset.y", 
@@ -72,7 +72,7 @@ var offsetAnimationY = animation(
     timeline: timeline, 
     hrefID: nil, 
     attributeType: nil, 
-    indentation: indentation + 5
+    indentation: indentation + 4
 )
 
 -%>
