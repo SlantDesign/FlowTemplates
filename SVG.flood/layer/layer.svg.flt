@@ -72,9 +72,8 @@ var offsetAnimationY = animation(
     attributeType: nil, 
     indentation: indentation + 4
 )
-
 -%>
-<% if layer.visible %>
+<% if layer.visible && layer.type.name != "shapeMask" %>
 <!-- Layer: <%= layer.name %> -->
 <svg x="<%= x %>" y="<%= y %>" width="0.01" height="0.01" style ="overflow:visible" opacity="1" label="anchorPointContainer">
     <%- print(xAnimation) -%>
