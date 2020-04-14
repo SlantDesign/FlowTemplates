@@ -1,4 +1,3 @@
-
 <%
 var id = generateSymbolID(layer: layer)
 var width = layer.bounds.size.width
@@ -7,7 +6,6 @@ var x = layer.position.x
 var y = layer.position.y
 var masksToBounds = layerMasksToBounds(layer: layer)
 var label = layer.name
-var display = layerDisplay(layer: layer)
 var opacity = layer.opacity
 var rotation = layer.rotation.degrees
 var anchorPoint = layer.anchorPoint
@@ -74,16 +72,16 @@ var offsetAnimationY = animation(
     attributeType: nil, 
     indentation: indentation + 4
 )
-
 -%>
+<%- if shouldExport(layer: layer) -%>
 <!-- Layer: <%= layer.name %> -->
-<svg x="<%= x %>" y="<%= y %>" width="0.01" height="0.01" style ="overflow:visible" opacity="1" label="anchorPointContainer" display="inline">
+<svg x="<%= x %>" y="<%= y %>" width="0.01" height="0.01" style ="overflow:visible" opacity="1" label="anchorPointContainer">
     <%- print(xAnimation) -%>
     <%- print(yAnimation) -%>
     <g label="flipped" transform="<%= scale(from: layer) -%>">
         <g label="layerRotation" transform="rotate(<%= rotation %>)">
             <%- print(transformAnimations) -%>
-            <svg x="<%= -anchorPoint.x * width %>" y="<%= -anchorPoint.y * height %>" width="<%= width %>" height="<%= height %>" style ="overflow:<%= masksToBounds %>" opacity="<%= opacity %>" label="<%= label %>Container" display="<%= display %>">
+            <svg x="<%= -anchorPoint.x * width %>" y="<%= -anchorPoint.y * height %>" width="<%= width %>" height="<%= height %>" style ="overflow:<%= masksToBounds %>" opacity="<%= opacity %>" label="<%= label %>Container">
                 <%- print(offsetAnimationX) -%>
                 <%- print(offsetAnimationY) -%>
                 <%- print(widthAnimation) -%>
@@ -102,3 +100,4 @@ var offsetAnimationY = animation(
         </g>
     </g>
 </svg>
+<%- end -%>

@@ -161,14 +161,6 @@ func getLineJoin(layer)
   end
 end
 
-func layerDisplay(layer)
-  if layer.visible
-    return "inline"
-  else
-    return "none"
-  end
-end
-
 func layerMasksToBounds(layer)
   if (layer.type.name == "group" && layer.masksToBounds) || 
         layer.type.name == "image" || 
@@ -320,4 +312,8 @@ func isBorderVisible(layer, timeline)
     else
         return true
     end
+end
+
+func shouldExport(layer)
+    return layer.visible && layer.type.name != "shapeMask"
 end
