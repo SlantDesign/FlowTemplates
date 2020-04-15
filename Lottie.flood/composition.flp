@@ -2,6 +2,7 @@
 func lottieDictionaryFor(timeline, imageFolderName)
     var dictionary = [
         "v": version(),
+        "meta": meta(timeline: timeline),
         "fr": frameRate(),
         "ip": 0, // composition start time in frames
         "op": lastFrame(timeline: timeline), // composition end time in frames
@@ -20,6 +21,16 @@ end
 func version()
     // Version of body moving the lottie player should expect
     return "5.6.4"
+end
+
+func meta(timeline)
+    return [
+        "g":"Flow \(flowVersion)",
+        "a":"",
+        "k":"",
+        "d":"\(timeline.name)",
+        "tc":""
+    ]
 end
 
 func compositionWidth(_ timeline)
