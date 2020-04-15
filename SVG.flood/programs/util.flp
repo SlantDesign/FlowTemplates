@@ -171,6 +171,15 @@ func layerMasksToBounds(layer)
   end
 end
 
+func clipPathURL(layer)
+	if layer.type.name == "shapeMask"
+		var id = generateSymbolID(layer: layer)
+		return "url(#\(id)-clipPath)"
+	else
+		return "" 
+	end
+end
+
 func shapeProperties()
     return [
         "combinedPath",
@@ -315,5 +324,5 @@ func isBorderVisible(layer, timeline)
 end
 
 func shouldExport(layer)
-    return layer.visible && layer.type.name != "shapeMask"
+    return layer.visible
 end
