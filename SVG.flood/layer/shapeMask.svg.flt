@@ -1,1 +1,1 @@
- <%- insert("layer/group.svg.flt", indentation: indentation) -%>
+<%- insert("layer/group.svg.flt", indentation: indentation) -%>
