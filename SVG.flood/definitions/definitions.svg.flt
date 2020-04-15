@@ -10,3 +10,6 @@
 <%- if shouldIncludeFontDefinitions(timeline: timeline) -%>
 <% insert("definitions/fontDefinitions.svg.flt", indentation: indentation) %>
 <%- end -%>
+<%- if shouldIncludeClipPathDefinitions(timeline: timeline) -%>
+<% insert("definitions/shapeMaskDefinitions.svg.flt", indentation: indentation) %>
+<%- end -%>

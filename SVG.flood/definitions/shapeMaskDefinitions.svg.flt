@@ -1,0 +1,13 @@
+<!-- ShapeMasks -->
+<defs>
+<%- for layer in layer.descendants
+        var id = generateSymbolID(layer: layer)
+        if layer.type.name == "shapeMask" -%>
+    <clipPath id="<%= id %>-clipPath">
+        <path vector-effect="none" d="<%= layer.maskPath.svgc(width: layer.bounds.size.width, height: layer.bounds.size.height) %>">
+            <%- print(animation(property: "maskPath", layer: layer, timeline: timeline, hrefID: nil, attributeType: nil, indentation: indentation + 3)) -%>
+        </path>
+    </clipPath>
+       <%- end
+    end -%>
+</defs>
