@@ -200,10 +200,11 @@ end
 
 func textTag(id, layer, timeline, indentation)
   var body = process("layer/body/textBody.svg.flt", into: nil, indentation: 1)
+  var y = - layer.font.descender - layer.font.leading
   return textElementTag(
     id: id,
     x: alignmentPosition(layer: layer),
-    y: 0,
+    y: y,
     width: layer.size.width,
     height: layer.size.height,
     fontFamily: layer.font.name,
