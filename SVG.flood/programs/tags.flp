@@ -200,7 +200,7 @@ end
 
 func textTag(id, layer, timeline, indentation)
   var body = process("layer/body/textBody.svg.flt", into: nil, indentation: 1)
-  var y = - layer.font.descender - layer.font.leading
+  var y = layer.font.ascender
   return textElementTag(
     id: id,
     x: alignmentPosition(layer: layer),
@@ -215,7 +215,7 @@ func textTag(id, layer, timeline, indentation)
     visibility: "visible",
     body: body,
     layer: layer,
-    dominantBaseline: "hanging",
+    dominantBaseline: "baseline",
     indentation: indentation
   )
 end
