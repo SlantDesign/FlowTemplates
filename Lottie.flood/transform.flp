@@ -32,6 +32,12 @@ func scaleComponent(layer, timeline, type)
         return imageScaleAnimation(layer: layer, timeline: timeline)
     end
 
+    if type == "null"
+        var scaleX = layer.flippedHorizontal * 100
+        var scaleY = layer.flippedVertical * 100
+        return ["a": 0,"k": [scaleX,scaleY],"ix": 6]
+    end
+
     return ["a": 0,"k": [100,100],"ix": 6]
 end
 

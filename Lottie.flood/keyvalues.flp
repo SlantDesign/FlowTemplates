@@ -59,6 +59,12 @@ func extractValue(from keyvalue, propertyID)
         // Handled in pathAnimation.flp
         return nil
 
+    case transformRotationZProperty:
+        var scaleX = timeline.value(property: flippedHorizontalProperty, layer: layer, time: 0)
+        var scaleY = timeline.value(property: flippedVerticalProperty, layer: layer, time: 0)
+        var rotationDirection = scaleX * scaleY
+        return rotationDirection * rotationValue(from: keyvalue.value)
+
     case backgroundColorOpacityProperty:
         return keyvalue.value.alpha
 
