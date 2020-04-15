@@ -16,7 +16,11 @@ func propertyValue(layer, propertyID)
     case anchorPointProperty:
         return lottieValue(from: [layer.anchorPoint.x, layer.anchorPoint.y, layer.bounds.size], propertyID: propertyID)
     case transformRotationZProperty:
-        return lottieValue(from: layer.rotation, propertyID: propertyID)
+        var scaleX = layer.flippedHorizontal
+        var scaleY = layer.flippedVertical
+        var rotationDirection = scaleX * scaleY
+        var rotation = rotationDirection * rotationValue(from: layer.rotation)
+        return lottieValue(from: rotation, propertyID: propertyID)
     case positionXProperty:
         return lottieValue(from: layer.position.x, propertyID: propertyID)
     case positionYProperty:
@@ -99,7 +103,7 @@ func lottieValue(from value, propertyID)
     case anchorPointProperty:
         return anchorPointValue(anchorPointX: value[0], anchorPointY: value[1], size: value[2])
     case transformRotationZProperty:
-        return rotationValue(from: value)
+        return value
     case positionXProperty:
         return value
     case positionYProperty:
