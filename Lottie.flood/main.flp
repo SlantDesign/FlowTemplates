@@ -56,7 +56,7 @@ for timeline in timelines
     end
 
     // Create Lottie JSON String 
-    var dictionary = lottieDictionaryFor(timeline: timeline, imageFolderName: imageFolderName)
+    var dictionary = lottieDictionaryFor(timeline: timeline)
     var jsonString = JSON.json(from: dictionary)
 
     // Create Lottie files

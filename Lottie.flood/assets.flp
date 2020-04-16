@@ -1,6 +1,6 @@
-func assetsArray(timeline, imageFolderName)
+func assetsArray(timeline)
     var assets = []
-    assets = assets.concatenate(imageAssets(timeline: timeline, imageFolderName: imageFolderName))
+    assets = assets.concatenate(imageAssets(timeline: timeline))
     assets = assets.concatenate(layerCompositionAssets(timeline: timeline))
     return assets
 end
@@ -127,25 +127,24 @@ func nullLayers(from layer, timeline)
     return nullLayers
 end
 
-func imageAssets(timeline, imageFolderName)
+func imageAssets(timeline)
     var images = []
     var imagesInTimeline = document.images(forTimeline: timeline)
     for image in imagesInTimeline
         var imageData = image.serializeAsPNGData() 
         if imageData != nil
-            images = images.appending(imageDictionary(from: image, imageFolderName: imageFolderName))
+            images = images.appending(imageDictionary(from: image))
         end
     end
     return images
 end
 
-func imageDictionary(from image, imageFolderName)
+func imageDictionary(from image)
     return [
         "id":"\(image.name)", 
-        "p":"\(image.name).png", 
-        "u": "\(imageFolderName)/",
+        "p": "data:image/png;base64,\(image.base64Encoded())", 
         "w": image.size.width,
         "h": image.size.height,
-        "e": 0
+        "e": 1
     ]
 end
