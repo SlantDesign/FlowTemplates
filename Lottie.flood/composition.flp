@@ -1,5 +1,5 @@
 // Top level json element in the lottie json animation
-func lottieDictionaryFor(timeline, imageFolderName)
+func lottieDictionaryFor(timeline)
     var dictionary = [
         "v": version(),
         "meta": meta(timeline: timeline),
@@ -10,7 +10,7 @@ func lottieDictionaryFor(timeline, imageFolderName)
         "h": compositionHeight(timeline),
         "nm": compositionName(timeline), 
         "ddd": compositionHas3DLayers(),
-        "assets": assetsArray(timeline: timeline, imageFolderName: imageFolderName),
+        "assets": assetsArray(timeline: timeline),
         "layers": layersArray(timeline: timeline),
         "fonts": fonts(timeline: timeline),
         "markers": markersArray()
