@@ -90,5 +90,5 @@ func xTextPosition(layer)
 end
 
 func yTextPosition(layer)
-    return layer.fontSize
+    return layer.font.ascender
 end
