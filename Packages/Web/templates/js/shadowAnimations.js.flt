@@ -52,7 +52,7 @@ if !keyvalues.isEmpty
   var animationName = "\(id)ShadowAnimation"
   animationNames = animationNames.appending(animationName) -%>
  <%= animationName %>() {
-    return this.rootElement.querySelector('#<%= timelineName %> .<%= id %>').animate([
+    return this.rootElement.querySelector(`${this.elementID} .<%= id %>`).animate([
 <%for i in 0..<shadows.count -%>
         { filter: <%= shadows[i] %>, offset: <%= offsets[i] %><% if i < easings.count %>, easing: <%= easings[i] %><% end %> },
 <%end -%>
