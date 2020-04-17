@@ -29,8 +29,8 @@
     <script type="text/javascript">
     let timer = document.getElementById('<%= timerID %>')
     let <%= resourcesPath %> = "."
-    let <%= forwardTimelineNameLowerCased %> = new <%= forwardTimelineName %>(document, <%= resourcesPath %>)
-    let <%= reverseTimelineName.lowerCamelCased() %> = new <%= reverseTimelineName %>(document, <%= resourcesPath %>)
+    let <%= forwardTimelineNameLowerCased %> = new <%= forwardTimelineName %>(document, "#<%= timelineName %>", <%= resourcesPath %>)
+    let <%= reverseTimelineName.lowerCamelCased() %> = new <%= reverseTimelineName %>(document, "#<%= timelineName %>", <%= resourcesPath %>)
     <%= buttonName %> = new ToggleButton(<%= forwardTimelineNameLowerCased %>, <%= reverseTimelineName.lowerCamelCased() %>, timer, false, null)
     </script>
  

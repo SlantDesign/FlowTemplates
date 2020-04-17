@@ -14,6 +14,7 @@ export default class <%= timelineName %> extends React.Component {
     let toggleButton = createToggleButton(
       this.props.elementID,
       this.props.callback,
+      "#<%= timelineName %>",
       ".",
       <%= forwardTimelineName %>,
       <%= reverseTimelineName %>

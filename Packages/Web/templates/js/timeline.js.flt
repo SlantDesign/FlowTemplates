@@ -14,8 +14,9 @@ class <%= timelineClassName %> {
     * @param {String} resourcesPath
     *   The path pointing to the root of the Timeline folder.
     */
-    constructor(rootElement, resourcesPath) {
+    constructor(rootElement, elementID, resourcesPath) {
         this.rootElement = rootElement;
+        this.elementID = elementID;
         this.resourcesPath = resourcesPath;
         this.imagesFolderPath = resourcesPath + "/img";
         this.loadFillImages();
@@ -122,14 +123,14 @@ insert("svg/strokeWidthAnimation.svg.flt", from: Web, indentation: 2)
     get allShapes() {
         return [
     <%  for shapeID in shapeIDs -%>
-        this.rootElement.querySelector("#<%= timelineName %> .<%= shapeID %>"),
+        this.rootElement.querySelector(`${this.elementID} .<%= shapeID %>`),
     <%  end -%>
     ]
     }
 
     artboardAnimation() {
         // Workaround for Safari bug
-        return this.rootElement.querySelector('#<%= timelineName %>.flow-artboard').animate({
+        return this.rootElement.querySelector(`${this.elementID}.flow-artboard`).animate({
         backgroundPosition: ['0px', '1px'],
         }, {
             delay: 0,
