@@ -43,7 +43,7 @@
     <script type="text/javascript">
     let <%= timelineNameLowerCamelCased %>Timer = document.getElementById('<%= timerID %>')
     let <%= resourcesPath %> = "."
-    let <%= timelineNameLowerCamelCased %> = new <%= forwardTimelineName %>(document, <%= resourcesPath %>)
+    let <%= timelineNameLowerCamelCased %> = new <%= forwardTimelineName %>(document, "#<%= timelineName %>", <%= resourcesPath %>)
         document.<%= driverName %> = new Driver(<%= timelineNameLowerCamelCased %>, '<%= loopButtonID %>', '<%= playPauseButtonID %>', '<%= sliderID %>', '<%= timeLabelID %>', <%= timelineNameLowerCamelCased %>Timer)
         document.<%= driverName %>.pause()
         document.<%= driverName %>.currentTime = 0
