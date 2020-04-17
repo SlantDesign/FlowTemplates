@@ -98,7 +98,7 @@ class ToggleButton {
  *  A callback function which is executed when the toggle button is clicked.
  */
 
-function createToggleButton(rootID, callback, resourcesPath, ForwardTimeline, ReverseTimeline) {
+function createToggleButton(rootID, callback, elementID, resourcesPath, ForwardTimeline, ReverseTimeline) {
   let shadowDomContainer = document.getElementById(rootID);
   let shadowRoot = shadowDomContainer.shadowRoot;
   let timer = shadowRoot.getElementById("timerID");
@@ -107,8 +107,8 @@ function createToggleButton(rootID, callback, resourcesPath, ForwardTimeline, Re
   let container = shadowRoot.getElementById("flowComponentContainerID");
   container.setAttribute("onclick", `${rootID}.toggle(true)`)
 
-  let forwardTimeline = new ForwardTimeline(shadowRoot, resourcesPath);
-  let reverseTimeline = new ReverseTimeline(shadowRoot, resourcesPath);
+  let forwardTimeline = new ForwardTimeline(shadowRoot, elementID, resourcesPath);
+  let reverseTimeline = new ReverseTimeline(shadowRoot, elementID, resourcesPath);
   return new ToggleButton(
     forwardTimeline,
     reverseTimeline,
