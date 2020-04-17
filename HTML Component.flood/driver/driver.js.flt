@@ -183,7 +183,7 @@ function createDriver(
     let driverShadowRoot = driverShadowDomContainer.shadowRoot;
     let shadowRoot = shadowDomContainer.shadowRoot;
     let timer = driverShadowRoot.getElementById("driverTimerID");
-    let forwardTimeline = new ForwardTimeline(shadowRoot, timelineResourcesPath);
+    let forwardTimeline = new ForwardTimeline(shadowRoot, "#<%= timelineName %>", timelineResourcesPath);
     let <%= timelineNameLowercased %> = forwardTimeline;
     shadowRoot.driver<%= timelineName %> = new Driver(
     <%= timelineNameLowercased %>,
