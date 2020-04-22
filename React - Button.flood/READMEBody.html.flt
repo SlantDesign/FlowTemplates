@@ -55,7 +55,16 @@
                     <h2 id="integrating-a-single-instance">Integrating the Animation</h2>
                     <p>This section explains how to integrate your component into your React project.</p>
                     <ol>
-                        <li>The first step is to move the entire <code class="highlighter-rouge"><%= timelineFolder %></code> folder to a location of your choice inside your React Project.
+                        <li>The first step is to install <code class="highlighter-rouge">flowcommon-react</code> into your React Project.
+                        <div class="highlighter-rouge">
+                                <div class="highlight">
+                                    <pre class="highlight">
+                                        <code>npm install flowcommon-react</code>
+                                    </pre>
+                                </div>
+                            </div>
+                        </li>
+                        <li>The second step is to move the entire <code class="highlighter-rouge"><%= timelineFolder %></code> folder to a location of your choice inside your React Project.
                         <blockquote><p>Inside your components folder would be a lovely place if you happened to have one.</p></blockquote>
                         </li>
                         <li>Import your new button like any other React Component. Use the following code:
