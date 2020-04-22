@@ -43,7 +43,6 @@
                         <li><%= timelineFolder %> (Folder)
                             <ul>
                                 <li>css (Folder)</li>
-                                <li>FlowCommon (Folder)</li>
                                 <li>fonts (Folder)</li>
                                 <li>img (Folder)</li>
                                 <li>index.js</li>
@@ -98,8 +97,8 @@
                     <p>You imported a React component by using a <strong>single line of code</strong>: <br/><code>import <%=timelineName%> from "./components/<%=timelineName%>";</code></p>
                     <p>You inserted your component using <strong>a single tag</strong>:<br/><code><%= Web.escapeOpenClosingTags(input: process("button/timelineToggleButton.html.flt", into: nil, indentation: 0)) -%></code></p>
                     <p>You learned that the <b>elementID</b> property needs to be unique and that the <b>callback</b> property takes in a function that will execute at the end of the Animation.</p>
-                    <h2 id="flowcommon">FlowCommon</h2>
-                    <p>These are a set of files you’ll need to run your component on the web. One is a polyfill for the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API">Web Animations</a> api, the others are a player and a button class.</p>
+                    <h2 id="flowcommon">FlowCommon-React</h2>
+                    <p>FlowCommon-React is a node package containing the set of files you’ll need to run your component on the web. One is a polyfill for the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API">Web Animations</a> api, the others are a player and a button class.</p>
 
                     <p>The files are:</p>
 
@@ -111,6 +110,18 @@
 
                     <h3>ToggleButton.js</h3>
                     <p>This file is the button class that contains your component and handles user clicks. It also contains a player that drives your animation.</p>
+
+                    <h3>Animation.js</h3>
+                    <p>
+                    This file contains a class representing an Animation. The Animation class contains all the logic necessary
+                    to create and control instances of animations. 
+                    </p>
+
+                    <h3>Track.js</h3>
+                    <p>
+                    This file contains a class representing the Track of animations for a specific property of an element. A Track contains
+                    a list of animations that will used manipulate a specific property of an HTML Element.  
+                    </p>
 
                     <h2 id="connect-with-us">Connect With Us</h2>
                     <p>If you have questions about this, please reach out either:</p>
