@@ -84,15 +84,16 @@
                                 </div>
                             </div>
                         </li>
-                        <li>To use multiple <code><%= timelineName %></code> components you simply only need to repeat step 3. (Make sure you change the elementID to something <b>unique</b>.)</li>
+                        <li>To use multiple <code><%= timelineName %></code> components you simply only need to repeat step 4. (Make sure you change the elementID to something <b>unique</b>.)</li>
                         <li>If you would like to use a different animation, feel free to repeat this process as many times as you wish with as many animations as you like</li>
                     </ol>
-                    <h3>Notes for Step 3</h3>
+                    <h3>Notes for Step 4</h3>
                     <p>The component takes in two properties. <strong>elementID</strong> and <strong>callback</strong>.</p>
                     <p>The <strong>elementID</strong> is used as the ID of the element in the DOM, so make sure it's <strong>unique</strong> for every component you use.</p>
                     <p>The callback prop allows you to pass the component a function that will run every time the animation finishes. (Forward or reverse).</p>
                     <p>The callback property can also be <code>{null}</code> if you don't want to use it.</p>
                     <h3 id="details-for-what-you-just-did">Details For What You Just Did</h3>
+                    <p>You installed the <code>flowcommon-react</code> node package into your project.</p>
                     <p>You moved the entire <code><%= timelineName %></code> folder from your exported animation into your React project <strong>(without editing anything)</strong>.</p>
                     <p>You imported a React component by using a <strong>single line of code</strong>: <br/><code>import <%=timelineName%> from "./components/<%=timelineName%>";</code></p>
                     <p>You inserted your component using <strong>a single tag</strong>:<br/><code><%= Web.escapeOpenClosingTags(input: process("button/timelineToggleButton.html.flt", into: nil, indentation: 0)) -%></code></p>
