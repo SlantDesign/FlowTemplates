@@ -25,7 +25,7 @@ end
 func startValue(layer, timeline)
     return [
                 "sz": [layer.bounds.width, layer.bounds.height],
-                "s": "\(layer.font.size)",
+                "s": layer.font.size,
                 "f": "\(layer.font.name)",
                 "t": "\(layer.string)",
                 "j": textAlignmentValue(from: layer.alignment),
