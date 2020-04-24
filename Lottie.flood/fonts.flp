@@ -10,8 +10,13 @@ func fontDictionary(from font)
     return [
         "fName": "\(font.name)",
         "fFamily": "\(font.familyName)",
-        "fStyle": lottieFontStyle(from: font.style)
+        "fStyle": lottieFontStyle(from: font.style),
+        "ascent": ascent(from: font)
     ]
+end
+
+func ascent(from font)
+    return font.ascender
 end
 
 func lottieFontStyle(from fontStyle)
