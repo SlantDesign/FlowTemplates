@@ -162,5 +162,5 @@ func hasMasks()
 end
 
 func layerTimeStretching()
-    return 0
+    return 1
 end
