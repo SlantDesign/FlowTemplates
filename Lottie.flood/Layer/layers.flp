@@ -53,7 +53,6 @@ func lottieLayer(layer, timeline, type)
         "st": 0.0, // start time
         "nm": layerName(layer: layer, type: type), 
         "hasMask": hasMasks(), 
-        "masksProperties": listOfMasks(), 
         "ef": effectsArray(layer: layer, timeline: timeline, type: type), 
         "sr": layerTimeStretching()
     ]
@@ -160,10 +159,6 @@ end
 
 func hasMasks()
     return false
-end
-
-func listOfMasks()
-    return []
 end
 
 func layerTimeStretching()
