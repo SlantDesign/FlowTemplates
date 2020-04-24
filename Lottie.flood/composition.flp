@@ -34,11 +34,11 @@ func meta(timeline)
 end
 
 func compositionWidth(_ timeline)
-    return timeline.rootLayer(at: 0).bounds.width
+    return timeline.rootLayer(at: 0).bounds.width.rounded()
 end
 
 func compositionHeight(_ timeline)
-    return timeline.rootLayer(at: 0).bounds.height
+    return timeline.rootLayer(at: 0).bounds.height.rounded()
 end
 
 func compositionName(_ timeline)
