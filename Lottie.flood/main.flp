@@ -59,9 +59,13 @@ for timeline in timelines
     var dictionary = lottieDictionaryFor(timeline: timeline, imageFolderName: imageFolderName)
     var jsonString = JSON.json(from: dictionary)
 
+    // make name of json file snake cased 
+    // because asset files in android studio can only have lowercase a-z, 0-9, or underscore
+    var jsonFileName = timelineName.snakeCased()
+
     // Create Lottie files
     process("timeline.js.flt", into: "\(timelineOutputPath)/\(timelineName).js", indentation: 0)
-    process("timeline.json.flt", into: "\(timelineOutputPath)/\(timelineName).json", indentation: 0)
+    process("timeline.json.flt", into: "\(timelineOutputPath)/\(jsonFileName).json", indentation: 0)
     process("index.html.flt", into: "\(timelineOutputPath)/index.html", indentation: 0)
 
     // Clear the symbol table 
