@@ -1,4 +1,4 @@
-    <div class="container content integrating an react button tutorials">
+    <div class="container content integrating ios animation tutorials">
         <div class="row">
             <div class="col-md-3 d-none d-md-block float-left">
                 <br><br>
@@ -15,17 +15,16 @@
                     <div class="col-auto">
                         <p class="post-tags">
                             <small class="blue">
-                                WebComponent,
-                                React,
-                                Button
+                                iOS,
+                                Animaiton
                             </small>
                         </p>
                     </div>
                 </div>
                 <hr class="underliner">
                 <div class="docs-content">
-                    <h1>Integrating a React Button</h1>
-                    <p class="intro">This document covers all the details you need to know to integrate Flow's custom React Toggle Button Components into your site. The steps below pertain to the <u>React Toggle Button Component</u> export.</p>
+                    <h1>Integrating an iOS Animation</h1>
+                    <p class="intro">This document covers all the details you need to know to integrate Flow's custom iOS Animation into your site.</p>
                     <p class="intro">When working through this doc, remember:</p>
                     <ul class="readme">
                       <li>The code below contains variables from your Flow file.</li>
@@ -42,91 +41,75 @@
                     <ul>
                         <li><%= timelineFolder %> (Folder)
                             <ul>
-                                <li>css (Folder)</li>
-                                <li>fonts (Folder)</li>
-                                <li>img (Folder)</li>
-                                <li>index.js</li>
-                                <li>js (Folder)</li>
+                                <li>Resources (Folder containing all assets used in your animation)</li>
+                                <li>Sources (Folder containing all the code for your animation)</li>
+                                <ul>FlowCommon (A library containing common code used in iOS animations)</ul>
+                                <ul>Launch Animation (The launch animation played when you run <code><%= projectName %>.xcodeproj</code>)</ul>
+                                <ul><%= timelineName %> (Folder containing the code for your custom animation)</ul>
                                 <li>README.html</li>
                             </ul>
                         </li>
                     </ul>
                     <h2 id="integrating-a-single-instance">Integrating the Animation</h2>
-                    <p>This section explains how to integrate your component into your React project.</p>
+                    <p>This section explains how to integrate your animation into your iOS project.</p>
                     <ol>
-                        <li>The first step is to install <code class="highlighter-rouge">flowcommon-react</code> into your React Project.
+                        <li>The first step is to install <code class="highlighter-rouge">FlowCommoniOS</code> into your project via <code>CocoaPods</code>.
+                            To do this add the following to your projects Podfile.
+
                         <div class="highlighter-rouge">
                                 <div class="highlight">
                                     <pre class="highlight">
-                                        <code>npm install flowcommon-react</code>
+                                        <code>pod 'FlowCommoniOS'</code>
                                     </pre>
                                 </div>
                             </div>
+
+                        Then run <code>pod install</code>. If you've never used <code>CocoaPods</code>
+                        before refer to <a href="https://guides.cocoapods.org/using/getting-started.html">CocoaPods Getting Started</a>.
                         </li>
-                        <li>The second step is to move the entire <code class="highlighter-rouge"><%= timelineFolder %></code> folder to a location of your choice inside your React Project.
-                        <blockquote><p>Inside your components folder would be a lovely place if you happened to have one.</p></blockquote>
+                        <li>The second step is to move <code><%= timelineName %>.swift</code> and <code>SceneView.swift</code> to a location of your choice inside your iOS Project.
                         </li>
-                        <li>Import your new button like any other React Component. Use the following code:
+                        <li>Step three is to add the following three variables to the your ViewController:
                             <div class="highlighter-rouge">
                                 <div class="highlight">
                                     <pre class="highlight">
-                                        <code>import <%=timelineName%> from "./components/<%=timelineName%>";</code>
+                                        <code>//The scene containing the animation.</code>
+                                        <code>let scene = SceneView(frame: CGRect(origin: CGPoint.zero, size: SceneView.Defaults.size))</code>
+                                        <code>//A reference to the timeline that will be used for the animation.</code>
+                                        <code>var currentTimeline: Timeline?</code>
                                     </pre>
                                 </div>
                             </div>
                         </li>
-                        <li> Now you can copy and paste the following code to use the component.
+                        <li> Step four In the <code>viewDidLoad</code> method add the following code.
                             <div class="highlighter-rouge">
                                 <div class="highlight">
                                     <pre class="highlight">
-                                        <code><%= Web.escapeOpenClosingTags(input: process("button/timelineToggleButton.html.flt", into: nil, indentation: 0)) -%></code>
+                                        <code>//add the scene to the app's main view</code>
+                                        <code>view.addSubview(scene)</code>
+                                        <code>//center the scene to the app's main view</code>
+                                        <code>scene.center = view.center</code>
                                     </pre>
                                 </div>
                             </div>
                         </li>
-                        <li>To use multiple <code><%= timelineName %></code> components you simply only need to repeat step 4. (Make sure you change the elementID to something <b>unique</b>.)</li>
-                        <li>If you would like to use a different animation, feel free to repeat this process as many times as you wish with as many animations as you like</li>
+                        <li>To use multiple <code><%= timelineName %></code> animations you simply only need to repeat steps 3 and 4. (Make sure you change the SceneView variable name to something <b>unique</b>.)</li>
+                        <li>If you would like to use a different animation, feel free to repeat this process as many times as you wish with as many animations as you like.</li>
                     </ol>
-                    <h3>Notes for Step 4</h3>
-                    <p>The component takes in two properties. <strong>elementID</strong> and <strong>callback</strong>.</p>
-                    <p>The <strong>elementID</strong> is used as the ID of the element in the DOM, so make sure it's <strong>unique</strong> for every component you use.</p>
-                    <p>The callback prop allows you to pass the component a function that will run every time the animation finishes. (Forward or reverse).</p>
-                    <p>The callback property can also be <code>{null}</code> if you don't want to use it.</p>
+
                     <h3 id="details-for-what-you-just-did">Details For What You Just Did</h3>
-                    <p>You installed the <code>flowcommon-react</code> node package into your project.</p>
-                    <p>You moved the entire <code><%= timelineName %></code> folder from your exported animation into your React project <strong>(without editing anything)</strong>.</p>
-                    <p>You imported a React component by using a <strong>single line of code</strong>: <br/><code>import <%=timelineName%> from "./components/<%=timelineName%>";</code></p>
-                    <p>You inserted your component using <strong>a single tag</strong>:<br/><code><%= Web.escapeOpenClosingTags(input: process("button/timelineToggleButton.html.flt", into: nil, indentation: 0)) -%></code></p>
-                    <p>You learned that the <b>elementID</b> property needs to be unique and that the <b>callback</b> property takes in a function that will execute at the end of the Animation.</p>
-                    <h2 id="flowcommon">FlowCommon-React</h2>
-                    <p>FlowCommon-React is a node package containing the set of files you’ll need to run your component on the web. One is a polyfill for the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API">Web Animations</a> api, the others are a player and a button class.</p>
+                    <p>You installed the <code>FlowCommoniOS</code> CocoaPod library into your project.</p>
+                    <p>You moved <code><%= timelineName %>.swift</code> and <code>SceneView.swift</code> from your exported animation into your iOS project <strong>(without editing anything)</strong>.</p>
+                    <p>You added a new <code>SceneView</code> and <code>Timeline</code> to your <code>ViewController</code>.</p>
+                    
+                    <h2 id="flowcommon">FlowCommoniOS</h2>
+                    <p>FlowCommoniOS is a CocoaPod library containing the set of files you’ll need to run your iOS Animation in a iOS application.</p>
 
-                    <p>The files are:</p>
-
-                    <h3>web-animations.min.js</h3>
-                    <p>The polyfill for the Web Animations api. This file comes from [W3C's Github Page](https://github.com/web-animations/web-animations-js), and is maintanied by W3C.</p>
-
-                    <h3>player.js</h3>
-                    <p>This file is the thing that actually controls your animations. If you want to learn some more about it, have a look at our <a href="https://createwithflow.com/docs/driverPlayer/?utm_source=readme&utm_medium=HTML%20Toggle%20Button%20Web%20Component#playerjs">player documentation</a>.</p>
-
-                    <h3>ToggleButton.js</h3>
-                    <p>This file is the button class that contains your component and handles user clicks. It also contains a player that drives your animation.</p>
-
-                    <h3>Animation.js</h3>
-                    <p>
-                    This file contains a class representing an Animation. The Animation class contains all the logic necessary
-                    to create and control instances of animations. 
-                    </p>
-
-                    <h3>Track.js</h3>
-                    <p>
-                    This file contains a class representing the Track of animations for a specific property of an element. A Track contains
-                    a list of animations that will used manipulate a specific property of an HTML Element.  
-                    </p>
+                    <p>To read about these files please visit:</p>
+                    <li><a href="https://createwithflow.com/api/flowcommon/">iOS FlowCommon Files</a></li>
 
                     <h2 id="connect-with-us">Connect With Us</h2>
                     <p>If you have questions about this, please reach out either:</p>
-
                     <ul>
                       <li>by <a href="mailto:info@createwithflow.com?subject=I Need Help Working With Components">email</a></li>
                       <li>on our <a href="http://join-createwithflow.herokuapp.com">Slack Group</a></li>
