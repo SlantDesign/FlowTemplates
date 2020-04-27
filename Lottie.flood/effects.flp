@@ -1,17 +1,18 @@
 func effectsArray(layer, timeline, type)
-    switch type
-    case "null":
-        return [ 
-            effect(layer: layer, propertyID: transformScaleXProperty, timeline: timeline),
-            effect(layer: layer, propertyID: transformScaleYProperty, timeline: timeline)
-        ]
-    case "composition":
-        // only apply shadows and scaling to composition layers
-        return [
-            effect(layer: layer, propertyID: "shadow", timeline: timeline)
-        ]
-    default:
-        return []
+    // only apply shadows to composition layers
+    if type == "composition" && shadowIsVisible(layer: layer, timeline: timeline)
+        return [effect(layer: layer, propertyID: "shadow", timeline: timeline)]
+    end
+    
+    return []
+end
+
+func shadowIsVisible(layer, timeline)
+    if timeline.trackFor(layer: layer, property: "shadowColor") == nil && 
+        layer.shadowColor.alpha == 0
+        return false
+    else
+        return true
     end
 end
 
@@ -29,10 +30,6 @@ end
 
 func effectValuesArray(layer, propertyID, timeline)
     switch propertyID
-    case transformScaleXProperty:
-        return [ effectValue(layer: layer, propertyID: propertyID, timeline: timeline, index: 1) ]
-    case transformScaleYProperty:
-        return [ effectValue(layer: layer, propertyID: propertyID, timeline: timeline, index: 1) ]
     case "shadow":
         return [ 
             effectValue(layer: layer, propertyID: shadowColorProperty, timeline: timeline, index: 1),
@@ -56,10 +53,6 @@ end
 
 func effectType(propertyID)
     switch propertyID
-    case transformScaleXProperty:
-        return 5
-    case transformScaleYProperty:
-        return 5
     case "shadow":
         return 25
     end
@@ -67,10 +60,6 @@ end
 
 func effectValueName(propertyID)
     switch propertyID
-    case transformScaleXProperty:
-        return "Slider"
-    case transformScaleYProperty:
-        return "Slider"
     default:
         return propertyID
     end
@@ -78,10 +67,6 @@ end
 
 func effectValueType(propertyID)
     switch propertyID
-    case transformScaleXProperty:
-        return 0
-    case transformScaleYProperty:
-        return 0
     case shadowColorProperty:
         return 2
     case shadowColorOpacityProperty:
