@@ -1,12 +1,18 @@
 func effectsArray(layer, timeline, type)
-    switch type
-    case "composition":
-        // only apply shadows and scaling to composition layers
-        return [
-            effect(layer: layer, propertyID: "shadow", timeline: timeline)
-        ]
-    default:
-        return []
+    // only apply shadows to composition layers
+    if type == "composition" && shadowIsVisible(layer: layer, timeline: timeline)
+        return [effect(layer: layer, propertyID: "shadow", timeline: timeline)]
+    end
+    
+    return []
+end
+
+func shadowIsVisible(layer, timeline)
+    if timeline.trackFor(layer: layer, property: "shadowColor") == nil && 
+        layer.shadowColor.alpha == 0
+        return false
+    else
+        return true
     end
 end
 
