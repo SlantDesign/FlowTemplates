@@ -8,6 +8,7 @@ for timeline in timelines
     var initialRootSnapshot = timeline.rootLayer(at: 0)
 
     // Set the name for the UIView sublcass
+    var sceneName = timeline.scene.rootLayer.name.lowerCamelCased()
     var viewName = timeline.scene.rootLayer.name.upperCamelCased()
     if !viewName.hasSuffix("View")
         viewName = "\(viewName)View"
