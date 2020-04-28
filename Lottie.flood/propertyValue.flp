@@ -176,7 +176,8 @@ func colorValue(from color)
 	return [
 		color.red,
 		color.green,
-		color.blue
+		color.blue,
+        1 //add alpha value of 1 otherwise android player fails to parse file
     ]
 end
 

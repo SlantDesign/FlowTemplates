@@ -108,7 +108,7 @@ func maskColorElement(layer, timeline)
 
     return [
         "ty": "fl",
-        "c": ["a": 0.0,"k": [0.0,0.0,0.0]],
+        "c": ["a": 0.0,"k": [0, 0, 0, 1]],
         "o": ["a": 0.0,"k": opacity],
         "r": 1,
         "nm": "Fill 1"
@@ -195,7 +195,7 @@ end
 func sizeColorElement()
     return [
         "ty": "fl",
-        "c": ["a": 0.0, "k": [0, 0, 0]],
+        "c": ["a": 0.0, "k": [0, 0, 0, 0]],
         "o": ["a": 0.0, "k": 0],
         "r": 1,
         "nm": "Fill 1"
