@@ -17,8 +17,7 @@ func shape(layer, timeline, type)
         "np": numberOfProperties(),
         "cix": 2,
         "bm": 0,
-        "ix": 1,
-        "mn": "ADBE Vector Group"
+        "ix": 1
     ]
 end
 
@@ -77,7 +76,6 @@ func borderElement(layer, timeline)
         "p": centerAnimation(layer: layer, timeline: timeline),
         "r": borderRadiusAnimation(layer: layer, timeline: timeline),
         "nm": layerName(layer: layer, type: "border"),
-        "mn": "ADBE Vector Shape - Rect",
         "s": borderSizeAnimation(layer: layer, timeline: timeline)
     ]
 end
@@ -89,7 +87,6 @@ func backgroundElement(layer, timeline)
         "p": centerAnimation(layer: layer, timeline: timeline),
         "r": borderRadiusAnimation(layer: layer, timeline: timeline),
         "nm": layerName(layer: layer, type: "background"),
-        "mn": "ADBE Vector Shape - Rect",
         "s": sizeAnimation(layer: layer, timeline: timeline)
     ]
 end
@@ -101,8 +98,7 @@ func backgroundColorElement(layer, timeline)
         "o": backgroundColorOpacityAnimation(layer: layer, timeline: timeline),
         "r": 1,
         "bm": 0,
-        "nm": "Fill 1",
-        "mn": "ADBE Vector Graphic - Fill"
+        "nm": "Fill 1"
     ]
 end
 
@@ -119,8 +115,7 @@ func maskColorElement(layer, timeline)
         "o": ["a": 0.0,"ix": 5.0,"k": opacity],
         "r": 1,
         "bm": 0,
-        "nm": "Fill 1",
-        "mn": "ADBE Vector Graphic - Fill"
+        "nm": "Fill 1"
     ]
 end
 
@@ -155,8 +150,7 @@ func pathElement(layer, timeline, subPath index)
         "ty": "sh", // 'shape' shape type
         "ix": 1,
         "ks": pathAnimation(layer: layer, timeline: timeline, subPath: index),
-        "nm": layerName(layer: layer, type: "path"),
-        "mn": "ADBE Vector Shape - Group"
+        "nm": layerName(layer: layer, type: "path")
     ]
 end
 
@@ -170,8 +164,7 @@ func borderStrokeElement(layer, timeline)
         "lj": 1, // linejoin
         "ml": 4, // miter limit
         "bm": 0,
-        "nm": "Stroke 1",
-        "mn": "ADBE Vector Graphic - Stroke"
+        "nm": "Stroke 1"
     ]
 end
 
@@ -185,8 +178,7 @@ func strokeElement(layer, timeline)
         "lj": lineJoin(from: layer), // linejoin
         "ml": layer.miterLimit, // miter limit
         "bm": 0,
-        "nm": "Stroke 1",
-        "mn": "ADBE Vector Graphic - Stroke",
+        "nm": "Stroke 1"
         "d": dash(from: layer, timeline: timeline)
     ]
 end
@@ -202,7 +194,6 @@ func sizeElement(timeline)
             "p": ["a": 0.0, "ix": 2.0, "k": [center.x, center.y]],
             "r": ["a": 0.0, "ix": 2.0, "k": 0.0],
             "nm": "sizeElement",
-            "mn": "ADBE Vector Shape - Rect",
             "s": ["a": 0.0, "ix": 6.0, "k": [size.width, size.height]]
         ]
 end
@@ -215,8 +206,7 @@ func sizeColorElement()
         "o": ["a": 0.0, "ix": 5.0, "k": 0],
         "r": 1,
         "bm": 0,
-        "nm": "Fill 1",
-        "mn": "ADBE Vector Graphic - Fill"
+        "nm": "Fill 1"
     ]
 end
 
@@ -250,8 +240,7 @@ func fillElement(layer, timeline)
         "o": fillColorOpacityAnimation(layer: layer, timeline: timeline),
         "r": 1,
         "bm": 0,
-        "nm": "Fill 1",
-        "mn": "ADBE Vector Graphic - Fill"
+        "nm": "Fill 1"
     ]
 end
 
@@ -267,7 +256,6 @@ func trimElement(layer, timeline)
         ],
         "m": 2, // trim Type, 1 = simultaneously, 2 = individually
         "ix": 3,
-        "nm": "Trim Paths 1",
-        "mn": "ADBE Vector Filter - Trim"
+        "nm": "Trim Paths 1"
     ]
 end
