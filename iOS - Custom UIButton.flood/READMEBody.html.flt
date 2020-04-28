@@ -42,18 +42,18 @@
                     <ul>
                         <li><%= timelineFolder %> (Folder)
                             <ul class="alphabetic">
-                                <li>Resources (Folder containing all assets used in your animation)</li>
-                                <li>Sources (Folder containing all the code for your animation)</li>
+                                <li>Resources (Folder containing all assets used in your button)</li>
+                                <li>Sources (Folder containing all the code for your button)</li>
                                 <ul>FlowCommon (A library containing the code used to play the iOS animations)</ul>
                                 <ul>Launch Animation (The launch animation played when you run <code><%= projectName %>.xcodeproj</code>)</ul>
-                                <ul><%= timelineName %> (Folder containing the code for your custom animation)</ul>
+                                <ul><%= timelineName %> (Folder containing the code for your custom button)</ul>
                                 <li>README.html</li>
                             </ul>
                         </li>
                     </ul>
 
-                    <h2 id="integrating-a-single-instance">Integrating the Animation</h2>
-                    <p>This section explains how to integrate your animation into your iOS XCode project.</p>
+                    <h2 id="integrating-a-single-instance">Integrating the Custom Button</h2>
+                    <p>This section explains how to integrate your custom button into your iOS XCode project.</p>
                     <ol>
                         <li>Install <code class="highlighter-rouge">FlowCommoniOS</code> into your project via <code>CocoaPods</code>.
                             To do this add the following to your project's Podfile.
@@ -76,8 +76,8 @@
                             Add a button to your <code>ViewController</code> in a stoyboard. Change the buttons class name to <code><%= buttonClassName %></code> in the
                             <code>Identity Inspector</code>.
                         </li>
-                        <li>To use multiple <code><%= timelineName %></code> animations you simply only need to repeat steps 3</li>
-                        <li>If you would like to use a different animation, feel free to repeat this process as many times as you wish with as many animations as you like.</li>
+                        <li>To use multiple <code><%= timelineName %></code> buttons you simply only need to repeat steps 3</li>
+                        <li>If you would like to use a different button, feel free to repeat this process as many times as you wish with as many buttons as you like.</li>
                     </ol>
 
                     <h2 id="integrating-a-single-instance">Controlling the Animation</h2>
@@ -87,12 +87,12 @@
                     <p>You can also see it here. <a href="https://github.com/SlantDesign/FlowCommoniOS/blob/master/FlowCommon/FlowCommonFiles/Timeline.swift">Timeline.swift</a>
 
                     <p>Check out the <code>handlePan</code> and <code>handleTap</code> methods in <code><%=viewName%>Controller.swift</code> 
-                    for examples on how to connect the animation to a <code>pan</code> or <code>tap gesture</code> respectively.</p>
+                    for examples on how to connect the button to a <code>pan</code> or <code>tap gesture</code> respectively.</p>
 
                     <h3 id="details-for-what-you-just-did">Details For What You Just Did</h3>
                     <p>You installed the <code>FlowCommoniOS</code> CocoaPod library into your project.</p>
-                    <p>You moved <code><%= timelineName %>.swift</code> and <code><%= viewName %>.swift</code> from your exported animation into your iOS project <strong>(without editing anything)</strong>.</p>
-                    <p>You added a new <code><%= viewName %></code> and <code>Timeline</code> to your <code>ViewController</code>.</p>
+                    <p>You moved <code><%= timelineName %>.swift</code>, <code><%= viewName %>.swift</code>, <code><%= buttonClassName %>.swift</code>, and <code>ToggleButton.swift</code>  from your exported animation into your iOS project <strong>(without editing anything)</strong>.</p>
+                    <p>You added a new <code><%= buttonClassName %></code> to your stoyboard.</p>
                     
                     <h2 id="flowcommon">FlowCommoniOS</h2>
                     <p>FlowCommoniOS is a CocoaPod library containing the set of files you’ll need to run your iOS Animation in a iOS application.</p>
