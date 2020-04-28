@@ -30,7 +30,6 @@ func characterShapeData(character, font)
                 "nm": character,
                 "np": 3,
                 "cix": 2,
-                "bm": 0,
                 "ix": 1
             ]
         ]

@@ -48,7 +48,6 @@ func lottieLayer(layer, timeline, type)
         "ty": layerType(layer: layer, type: type), 
         "ks": transform(layer: layer, timeline: timeline, type: type), 
         "ao": autoOrient(), 
-        "bm": blendMode(), 
         "tt": matteMode(layer: layer, type: type), 
         "ddd": 0, 
         "ind": layerIndex(of: layer, timeline: timeline, type: type),   
