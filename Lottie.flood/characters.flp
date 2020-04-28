@@ -29,8 +29,7 @@ func characterShapeData(character, font)
                 "it": characterShapes(character: character, font: font),
                 "nm": character,
                 "np": 3,
-                "cix": 2,
-                "ix": 1
+                "cix": 2
             ]
         ]
     ]
@@ -52,7 +51,6 @@ func characterShape(character, characterPath, index)
     return [
         "ind": index,
         "ty": "sh",
-        "ix": 1,
         "ks": characterShapeValue(characterPath: characterPath, subPath: index),
         "nm": character
     ]
@@ -61,8 +59,7 @@ end
 func characterShapeValue(characterPath, subPath index) 
     return [
         "a": 0,
-        "k": pathValue(from: characterPath, subPath: index),
-        "ix": 2
+        "k": pathValue(from: characterPath, subPath: index)
     ]
 end
 

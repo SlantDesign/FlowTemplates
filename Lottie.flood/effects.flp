@@ -21,7 +21,6 @@ func effect(layer, propertyID, timeline)
         "ty": effectType(propertyID: propertyID), // effect Type
         "nm": propertyID, // effect name
         "np": 3,
-        "ix": 1,
         "en": 1,
         "ef": effectValuesArray(layer: layer, propertyID: propertyID, timeline: timeline)
     ]
@@ -44,7 +43,6 @@ func effectValue(layer, propertyID, timeline, index)
     return [
         "ty": effectValueType(propertyID: propertyID), // effect value type
         "nm": effectValueName(propertyID: propertyID),
-        "ix": index,
         "v": animation(layer: layer, propertyID: propertyID, timeline: timeline)
     ]               
 end

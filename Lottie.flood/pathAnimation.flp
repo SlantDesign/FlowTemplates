@@ -8,8 +8,7 @@ func pathAnimation(layer, timeline, subPath index)
 
     return [
         "a": animatedValue(layer: layer, propertyID: combinedPathProperty, timeline: timeline),
-        "k": animationValue,
-        "ix": propertyIndex(propertyID: combinedPathProperty)
+        "k": animationValue
     ]
 end
 
