@@ -55,7 +55,7 @@
                     <p>This section explains how to integrate your animation into your iOS XCode project.</p>
                     <ol>
                         <li>Install <code class="highlighter-rouge">FlowCommoniOS</code> into your project via <code>CocoaPods</code>.
-                            To do this add the following to your projects Podfile.
+                            To do this add the following to your project's Podfile.
 
                         <div class="highlighter-rouge">
                                 <div class="highlight">
@@ -68,7 +68,8 @@
                         Then run <code>pod install</code>. If you've never used <code>CocoaPods</code>
                         before refer to <a href="https://guides.cocoapods.org/using/getting-started.html">CocoaPods Getting Started</a>.
                         </li>
-                        <li>Add a <code><%= timelineName %></code> into your project. (there are several was of doing this)
+                        <li>Move <code><%= timelineName %>.swift</code> and <code><%= viewName %>.swift</code> to a location of your choice inside your iOS Project.</li>
+                        <li>Add a <code><%= viewName %></code> into your project:
                             <ol>
                                 <li> 
                                 Add an outlet to your ViewController to reference your <%= viewName %>:
@@ -102,51 +103,33 @@
                                 </li>
                             </ol>
                         </li>
-                        <li>Add the following three variables to the your ViewController:
-                            <div class="highlighter-rouge">
-                                <div class="highlight">
-                                    <pre class="highlight">
-                                        <code>//The scene containing the animation.</code>
-                                        <code>let scene = SceneView(frame: CGRect(origin: CGPoint.zero, size: SceneView.Defaults.size))</code>
-                                        <code>//A reference to the timeline that will be used for the animation.</code>
-                                        <code>var currentTimeline: Timeline?</code>
-                                    </pre>
-                                </div>
-                            </div>
-                        </li>
                         <li>Add a <code><%= viewName %></code> to the story board corresponding to your ViewController and connect it to the outlet in your ViewController.
-                            <div class="highlighter-rouge">
-                                <div class="highlight">
-                                    <pre class="highlight">
-                                        <code>//add the scene to the app's main view</code>
-                                        <code>view.addSubview(scene)</code>
-                                        <code>//center the scene to the app's main view</code>
-                                        <code>scene.center = view.center</code>
-                                    </pre>
-                                </div>
-                            </div>
                         </li>
-                        <li>To use multiple <code><%= timelineName %></code> animations you simply only need to repeat steps 3 and 4. (Make sure you change the SceneView variable name to something <b>unique</b>.)</li>
+                        <li>To use multiple <code><%= timelineName %></code> animations you simply only need to repeat steps 3 and 4. (Make sure you change the <code><%= viewName %></code> variable name to something <b>unique</b>.)</li>
                         <li>If you would like to use a different animation, feel free to repeat this process as many times as you wish with as many animations as you like.</li>
                     </ol>
 
-                    <h2 id="integrating-a-single-instance">Connecting Animation and User Interaction</h2>
+                    <h2 id="integrating-a-single-instance">Controlling the Animation</h2>
                     <p>To control the animation you can use the <code>Timeline</code> methods which can be found in the 
-                    <code>Timline.swift</code> in the <code>FlowCommoniOS</code> pod.</p>
+                    <code>Timeline.swift</code> in the <code>FlowCommoniOS</code> pod.</p>
+
+                    <p>You can also see it here. <a href="https://github.com/SlantDesign/FlowCommoniOS/blob/master/FlowCommon/FlowCommonFiles/Timeline.swift">Timeline.swift</a>
 
                     <p>Check out the <code>handlePan</code> and <code>handleTap</code> methods in <code><%=viewName%>Controller.swift</code> 
                     for examples on how to connect the animation to a <code>pan</code> or <code>tap gesture</code> respectively.</p>
 
                     <h3 id="details-for-what-you-just-did">Details For What You Just Did</h3>
                     <p>You installed the <code>FlowCommoniOS</code> CocoaPod library into your project.</p>
-                    <p>You moved <code><%= timelineName %>.swift</code> and <code>SceneView.swift</code> from your exported animation into your iOS project <strong>(without editing anything)</strong>.</p>
-                    <p>You added a new <code>SceneView</code> and <code>Timeline</code> to your <code>ViewController</code>.</p>
+                    <p>You moved <code><%= timelineName %>.swift</code> and <code><%= viewName %>.swift</code> from your exported animation into your iOS project <strong>(without editing anything)</strong>.</p>
+                    <p>You added a new <code><%= viewName %></code> and <code>Timeline</code> to your <code>ViewController</code>.</p>
                     
                     <h2 id="flowcommon">FlowCommoniOS</h2>
                     <p>FlowCommoniOS is a CocoaPod library containing the set of files you’ll need to run your iOS Animation in a iOS application.</p>
 
                     <p>To read about these files please visit:</p>
                     <li><a href="https://createwithflow.com/api/flowcommon/">iOS FlowCommon Files</a></li>
+                    <li><a href="https://github.com/SlantDesign/FlowCommoniOS">FlowCommoniOS Github</a></li>
+                    <li><a href="https://cocoapods.org/pods/FlowCommoniOS">FlowCommoniOS CocoaPod</a></li>
 
                     <h2 id="connect-with-us">Connect With Us</h2>
                     <p>If you have questions about this, please reach out either:</p>
