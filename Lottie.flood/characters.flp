@@ -32,8 +32,7 @@ func characterShapeData(character, font)
                 "cix": 2,
                 "bm": 0,
                 "ix": 1,
-                "mn": "ADBE Vector Group",
-                "hd": false
+                "mn": "ADBE Vector Group"
             ]
         ]
     ]
@@ -58,8 +57,7 @@ func characterShape(character, characterPath, index)
         "ix": 1,
         "ks": characterShapeValue(characterPath: characterPath, subPath: index),
         "nm": character,
-        "mn": "ADBE Vector Shape - Group",
-        "hd": false
+        "mn": "ADBE Vector Shape - Group"
     ]
 end
 

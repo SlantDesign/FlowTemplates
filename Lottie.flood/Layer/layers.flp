@@ -11,6 +11,11 @@ end
 func lottieSubLayers(of group, timeline)
     var subLayers = []
     for layer in group.sublayers.reversed()
+        if hidden(layer: layer)
+            // don't export hidden layers
+            continue
+        end
+
         switch layer.type.name
         case "path":
             continue
@@ -46,7 +51,6 @@ func lottieLayer(layer, timeline, type)
         "bm": blendMode(), 
         "tt": matteMode(layer: layer, type: type), 
         "ddd": 0, 
-        "hd": hidden(layer: layer), 
         "ind": layerIndex(of: layer, timeline: timeline, type: type),   
         "op": lastFrame(timeline: timeline), // end time of layer in frames (out point)
         "ip": 0, // start time of layer in frames (in point)
