@@ -1,4 +1,5 @@
 import Swift
+import Web
 
 // Create a Timeline .swift file for each timeline in the document in "Source" directory.
 // Create a View and ViewController .swift file for the root layer of each timeline in "Source" directory.
@@ -7,6 +8,7 @@ for timeline in timelines
     var initialRootSnapshot = timeline.rootLayer(at: 0)
 
     // Set the name for the UIView sublcass
+    var sceneName = timeline.scene.rootLayer.name.lowerCamelCased()
     var viewName = timeline.scene.rootLayer.name.upperCamelCased()
     if !viewName.hasSuffix("View")
         viewName = "\(viewName)View"
@@ -120,6 +122,11 @@ for timeline in timelines
     process("LaunchAnimation/LaunchAnimationTimeline.swift.flt", from: Swift, into: "\(projectPath)/Sources/LaunchAnimation/LaunchAnimationTimeline.swift", indentation: 0)
     process("LaunchAnimation/LaunchAnimationView.swift.flt", from: Swift, into: "\(projectPath)/Sources/LaunchAnimation/LaunchAnimationView.swift", indentation: 0)
     process("LaunchAnimation/LaunchAnimationViewController.swift.flt", from: Swift, into: "\(projectPath)/Sources/LaunchAnimation/LaunchAnimationViewController.swift", indentation: 0)
+
+    // Generate README
+    var escape = true
+    process("README.html.flt", into: "\(projectPath)/README.html", indentation: 0)
+    escape = false
 
     // Clear the symbol table
     symbolTable.removeAllSymbols()
