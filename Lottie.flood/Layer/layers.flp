@@ -55,9 +55,14 @@ func lottieLayer(layer, timeline, type)
         "ip": 0, // start time of layer in frames (in point)
         "st": 0.0, // start time
         "nm": layerName(layer: layer, type: type), 
-        "ef": effectsArray(layer: layer, timeline: timeline, type: type), 
         "sr": layerTimeStretching()
     ]
+
+    var effects = effectsArray(layer: layer, timeline: timeline, type: type)
+    if !effects.isEmpty
+        // add the effects array if it is not empty.
+        lottieLayer = lottieLayer.updatingValue(effects, forKey: "ef")
+    end
 
     for (property, value) in subclassPropertiesFor(layer: layer, timeline: timeline, type: type)
         lottieLayer = lottieLayer.updatingValue(value, forKey: property)
