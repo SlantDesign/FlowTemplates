@@ -12,8 +12,7 @@ func lottieDictionaryFor(timeline, imageFolderName)
         "ddd": compositionHas3DLayers(),
         "assets": assetsArray(timeline: timeline, imageFolderName: imageFolderName),
         "layers": layersArray(timeline: timeline),
-        "fonts": fonts(timeline: timeline),
-        "markers": markersArray()
+        "fonts": fonts(timeline: timeline)
     ]
     return dictionary
 end
@@ -47,9 +46,5 @@ end
 
 func compositionHas3DLayers()
     return 0
-end
-
-func markersArray()
-    return []
 end
 
