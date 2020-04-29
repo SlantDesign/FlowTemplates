@@ -46,7 +46,7 @@
                                 <li>Sources (Folder containing all the code for your button)</li>
                                 <ul>FlowCommon (A library containing the code used to play the iOS animations)</ul>
                                 <ul>Launch Animation (The launch animation played when you run <code><%= projectName %>.xcodeproj</code>)</ul>
-                                <ul><%= timelineName %> (Folder containing the code for your custom button)</ul>
+                                <ul><%= timelineName %> (Folder containing the code for the animation of your custom button)</ul>
                                 <li>README.html</li>
                             </ul>
                         </li>
@@ -76,18 +76,9 @@
                             Add a button to your <code>ViewController</code> in a stoyboard. Change the buttons class name to <code><%= buttonClassName %></code> in the
                             <code>Identity Inspector</code>.
                         </li>
-                        <li>To use multiple <code><%= timelineName %></code> buttons you simply only need to repeat steps 3</li>
+                        <li>To use multiple <code><%= buttonClassName %></code> buttons you simply only need to repeat steps 3</li>.
                         <li>If you would like to use a different button, feel free to repeat this process as many times as you wish with as many buttons as you like.</li>
                     </ol>
-
-                    <h2 id="integrating-a-single-instance">Controlling the Animation</h2>
-                    <p>To control the animation you can use the <code>Timeline</code> methods which can be found in the 
-                    <code>Timeline.swift</code> in the <code>FlowCommoniOS</code> pod.</p>
-
-                    <p>You can also see it here. <a href="https://github.com/SlantDesign/FlowCommoniOS/blob/master/FlowCommon/FlowCommonFiles/Timeline.swift">Timeline.swift</a>
-
-                    <p>Check out the <code>handlePan</code> and <code>handleTap</code> methods in <code><%=viewName%>Controller.swift</code> 
-                    for examples on how to connect the button to a <code>pan</code> or <code>tap gesture</code> respectively.</p>
 
                     <h3 id="details-for-what-you-just-did">Details For What You Just Did</h3>
                     <p>You installed the <code>FlowCommoniOS</code> CocoaPod library into your project.</p>
