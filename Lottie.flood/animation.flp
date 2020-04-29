@@ -47,7 +47,6 @@ func scaleExpressionAnimation(xPropertyID, yPropertyID)
     return [
         "a": 0,
         "k": [100,100,100], // dummy scale value, scale animation is handled by the scale expression
-        "ix": 6,
         "x": scaleExpression
     ]
 end
@@ -126,8 +125,7 @@ func animation(layer, propertyID, timeline)
 
     return [
         "a": animatedValue(layer: layer, propertyID: propertyID, timeline: timeline),
-        "k": animationValue,
-        "ix": propertyIndex(propertyID: propertyID)
+        "k": animationValue
     ]
 end
 
@@ -187,83 +185,4 @@ func tracksFor(layer, propertyID, timeline)
 
     func notNil(element) return element != nil end
     return tracks.filter(notNil)
-end
-
-func propertyIndex(propertyID)
-    switch propertyID
-    case opacityProperty:
-        return 11 
-    case transformScaleXProperty:
-        return 1
-    case transformScaleYProperty:
-        return 1
-    case sizeProperty:
-    	return 2
-    case borderSizeProperty:
-    	return 2
-    case anchorPointProperty:
-        return 1
-    case transformRotationZProperty:
-        return 10
-    case positionXProperty:
-        return 3
-    case positionYProperty:
-        return 4
-    case centerProperty:
-        return 3
-    case combinedPathProperty:
-    	return 2
-    case strokeColorProperty:
-    	return 3
-    case lineWidthProperty:
-    	return 5
-    case strokeOpacityProperty:
-    	return 4
-    case fillColorProperty:
-    	return 4
-    case fillColorOpacityProperty:
-    	return 5
-    case backgroundColorProperty:
-    	return 4
-    case backgroundColorOpacityProperty:
-    	return 5
-    case strokeStartProperty:
-        return 1
-    case strokeEndProperty:
-        return 2
-    case lineDashPhaseProperty:
-        return 7
-    case lineDashPatternProperty:
-        return 1
-    case shadowColorProperty:
-        return 1
-    case shadowColorOpacityProperty:
-        return 2
-    case shadowRadiusProperty:
-        return 5
-    case cornerRadiusProperty:
-        return 1
-    case borderColorProperty:
-        return 1
-    case borderColorOpacityProperty:
-        return 1
-    case borderWidthProperty:
-        return 1
-    case shadowDirectionProperty:
-        return 3
-    case shadowDistanceProperty:
-        return 3
-    case foregroundColorProperty:
-        return 12
-    case foregroundColorOpacityProperty:
-        return 10
-    case imagePositionXProperty:
-        return 3
-    case imagePositionYProperty:
-        return 4
-    case imageScaleProperty:
-        return 1
-    default:
-        return nil
-    end
 end

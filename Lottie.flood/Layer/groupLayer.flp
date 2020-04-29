@@ -13,8 +13,8 @@ end
 func compositionProperties(refId, size)
     return [
         "refId": refId,
-        "w": size.width,
-        "h": size.height
+        "w": size.width.rounded(),
+        "h": size.height.rounded()
     ]
 end
 

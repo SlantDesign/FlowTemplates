@@ -9,6 +9,11 @@ func layerCompositionAssets(timeline)
     var compositions = []
     var rootLayer =  timeline.rootLayer(at: 0)
     for layer in rootLayer.descendants
+        if hidden(layer: layer)
+            // don't export hidden layers
+            continue
+        end
+
         switch layer.type.name 
         case "path":
             continue

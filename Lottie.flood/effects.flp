@@ -21,8 +21,6 @@ func effect(layer, propertyID, timeline)
         "ty": effectType(propertyID: propertyID), // effect Type
         "nm": propertyID, // effect name
         "np": 3,
-        "mn": "ADBE Slider Control",
-        "ix": 1,
         "en": 1,
         "ef": effectValuesArray(layer: layer, propertyID: propertyID, timeline: timeline)
     ]
@@ -45,8 +43,6 @@ func effectValue(layer, propertyID, timeline, index)
     return [
         "ty": effectValueType(propertyID: propertyID), // effect value type
         "nm": effectValueName(propertyID: propertyID),
-        "mn": "ADBE Slider Control-0001",
-        "ix": index,
         "v": animation(layer: layer, propertyID: propertyID, timeline: timeline)
     ]               
 end

@@ -23,8 +23,7 @@ func dashPatternComponent(from layer, timeline, component)
             "nm": "dash\(component / 2)",
             "v": [
                 "a": 0,
-                "k": layer.dashPattern[component],
-                "ix": component
+                "k": layer.dashPattern[component]
             ]
         ]
     else
@@ -33,8 +32,7 @@ func dashPatternComponent(from layer, timeline, component)
             "nm": "gap\((component - 1) / 2)",
             "v": [
                 "a": 0,
-                "k": layer.dashPattern[component],
-                "ix": component
+                "k": layer.dashPattern[component]
             ]
         ]
     end 

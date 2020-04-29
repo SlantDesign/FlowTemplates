@@ -14,7 +14,7 @@ func opacityComponent(layer, timeline, type)
     else if type == "content" && layer.type.name == "text"
         return animation(layer: layer, propertyID: foregroundColorOpacityProperty, timeline: timeline)
     else
-        return ["a": 0,"k": 100,"ix": 7]
+        return ["a": 0,"k": 100]
     end
 end
 
@@ -23,7 +23,7 @@ func rotationComponent(layer, timeline, type)
     case "null":
         return  rotationAnimation(layer: layer, timeline: timeline)
     default:
-        return  ["a": 0,"k": 0,"ix": 2]
+        return  ["a": 0,"k": 0]
     end
 end
 
@@ -35,10 +35,10 @@ func scaleComponent(layer, timeline, type)
     if type == "null"
         var scaleX = layer.flippedHorizontal * 100
         var scaleY = layer.flippedVertical * 100
-        return ["a": 0,"k": [scaleX,scaleY],"ix": 6]
+        return ["a": 0,"k": [scaleX,scaleY]]
     end
 
-    return ["a": 0,"k": [100,100],"ix": 6]
+    return ["a": 0,"k": [100,100]]
 end
 
 func anchorPointComponent(layer, timeline, type)
@@ -46,7 +46,7 @@ func anchorPointComponent(layer, timeline, type)
     case "null":
         return anchorPointAnimation(layer: layer, timeline: timeline)
     default:
-        return ["a": 0,"k": [0,0],"ix": 1]
+        return ["a": 0,"k": [0,0]]
     end
 end
 
@@ -63,15 +63,14 @@ func positionComponent(layer, timeline, type)
                     "k": [
                         xTextPosition(layer: layer),
                         yTextPosition(layer: layer)
-                    ],
-                    "ix": 2
+                    ]
                 ]
         case "image":
             return imagePositionAnimation(layer: layer, timeline: timeline)
         end
     end
 
-    return ["a": 0,"k": [0,0],"ix": 2]
+    return ["a": 0,"k": [0,0]]
 end
 
 func xTextPosition(layer)
