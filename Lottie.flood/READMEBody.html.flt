@@ -5,8 +5,9 @@
                 <div id="toc" class="d-none d-md-block toc sticky">
                     <ul class="toc-ul-root nav">
                         <li><a class="nav-link toc-link-1" href="#folder-breakdown"><span>1.</span>Folder Breakdown</a></li>
-                        <li><a class="nav-link toc-link-1" href="#integrating-a-single-instance"><span>2.</span>Integrating </a></li>
-                        <li><a class="nav-link toc-link-1" href="#Notes"><span>3.</span>Special Notes for Android</a></li>
+                        <li><a class="nav-link toc-link-1" href="#integrating-a-single-instance"><span>2.</span>Integrating</a></li>
+                        <li><a class="nav-link toc-link-1" href="#Compatibility"><span>3.</span>Compatibility</a></li>
+                        <li><a class="nav-link toc-link-1" href="#Notes"><span>4.</span>Notes</a></li>
                     </ul>
                 </div>
             </div>
@@ -23,6 +24,7 @@
                 </div>
                 <hr class="underliner">
                 <div class="docs-content">
+                    
                     <h1>Integrating a Lottie Animation</h1>
                     <h2 id="folder-breakdown">Folder Breakdown</h2>
                     <p>When you export a project you’ll see the following structure:</p>
@@ -38,7 +40,6 @@
                             </ul>
                         </li>
                     </ul>
-
                     <h2 id="integrating-a-single-instance">Integrating the Animation</h2>
                     <p>For instructions on how to integrate Lottie animations into your website/app please see Lottie's documentation:</p>
                     <ul>
@@ -48,9 +49,14 @@
                         <li><a href="https://airbnb.io/lottie/#/react-native">React Native</a> </li>
                         <li><a href="https://airbnb.io/lottie/#/windows">Windows</a> </li>
                     </ul>
-
-                    <h2 id="Notes">Special Notes for Android</h2>
+                    <h2 id="Compatibility">Compatibility</h2>
+                    <p>For a detailed overview of what Flow properties are supported in the Lottie export please visit our <a href="https://createwithflow.com/docs/lottie-compatibility/">Lottie Compatibility</a> document.</p>
+                    <h2 id="Notes">Notes</h2>
+                    <h3 id="Android Notes">Android</h3>
                     <p>When integrating lottie animations (exported from Flow) which contain text layers you must include the fonts in your android studio project. The font files must be included in the <code>src/main/assets/fonts</code> directory.</p>
+                    <h3 id="Protopie Notes">Protopie</h3>
+                    <p>If you are attempting to import your Lottie animation into protopie please note that the lottie file will not work if any of the layers contain any <code>effects</code>. 
+                    Since drop shadows are implemented in Lottie using <code>effects</code>, your file will not work in protopie if any of the layers have drop shadows. If you want to import your lottie file into protopie, make sure the shadow color of all the layers in the file have an opacity value of 0 throughout the timeline.</p>
                 </div>
             </div>
         </div>
