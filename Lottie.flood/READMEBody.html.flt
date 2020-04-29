@@ -1,0 +1,57 @@
+    <div class="container content using lottie animation tutorial">
+        <div class="row">
+            <div class="col-md-3 d-none d-md-block float-left">
+                <br><br>
+                <div id="toc" class="d-none d-md-block toc sticky">
+                    <ul class="toc-ul-root nav">
+                        <li><a class="nav-link toc-link-1" href="#folder-breakdown"><span>1.</span>Folder Breakdown</a></li>
+                        <li><a class="nav-link toc-link-1" href="#integrating-a-single-instance"><span>2.</span>Integrating </a></li>
+                        <li><a class="nav-link toc-link-1" href="#Notes"><span>3.</span>Special Notes for Android</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-9 col-lg-9 tutorial relative">
+                <div class="row justify-content-left">
+                    <div class="col-auto">
+                        <p class="post-tags">
+                            <small class="blue">
+                                Lottie,
+                                Animaiton
+                            </small>
+                        </p>
+                    </div>
+                </div>
+                <hr class="underliner">
+                <div class="docs-content">
+                    <h1>Integrating a Lottie Animation</h1>
+                    <h2 id="folder-breakdown">Folder Breakdown</h2>
+                    <p>When you export a project you’ll see the following structure:</p>
+                    <ul>
+                        <li><%= timelineFolder %> (Folder)
+                            <ul class="alphabetic">
+                                <li>fonts (Folder containing all the fonts used in the lottie animation)</li>
+                                <li>img (Folder containing all the images used in the lottie animation)</li>
+                                <li>index.html (An html file you can double click to quickly preview the Lottie animation in a browser)</li>
+                                <li>README.html (The file you are currently reading)</li>
+                                <li><%= timelineName %>.js (A js file used by <code>index.html</code>)</li>
+                                <li><%= timelineName %>.json (The actual Lottie JSON file)</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <h2 id="integrating-a-single-instance">Integrating the Animation</h2>
+                    <p>For instructions on how to integrate Lottie animations into your website/app please see Lottie's documentation:</p>
+                    <ul>
+                        <li><a href="https://airbnb.io/lottie/#/web">Web</a> </li>
+                        <li><a href="https://airbnb.io/lottie/#/android">android</a> </li>
+                        <li><a href="https://airbnb.io/lottie/#/ios">iOS</a> </li>
+                        <li><a href="https://airbnb.io/lottie/#/react-native">React Native</a> </li>
+                        <li><a href="https://airbnb.io/lottie/#/windows">Windows</a> </li>
+                    </ul>
+
+                    <h2 id="Notes">Special Notes for Android</h2>
+                    <p>When integrating lottie animations (exported from Flow) which contain text layers you must include the fonts in your android studio project. The font files must be included in the <code>src/main/assets/fonts</code> directory.</p>
+                </div>
+            </div>
+        </div>
+    </div>

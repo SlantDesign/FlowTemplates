@@ -1,0 +1,10 @@
+<% 
+// Set escape to true to print < and > as &lt and &gt
+escape = true
+var title = "Flow-Integrating a Lottie Animation."
+var content = "This is how you integrate a Lottie animation in your app/website."
+var bodyClass = "integrating a Lottie animation"
+var body = process("READMEBody.html.flt", into: nil, indentation: 1)
+insert("html/README.html.flt", from: Web, indentation: 0) 
+escape = false
+%>
