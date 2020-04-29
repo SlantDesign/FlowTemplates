@@ -35,15 +35,18 @@ for timeline in timelines
 
     // Folder names
     var imageFolderName = "img"
+    var fontFolderName = "fonts"
 
-     // The absolute paths to use when reference assets in the image, font, js or css folders
-    var imageFolderAbsPath = "\(timelineOutputPath)/\(imageFolderName)"
+    // The paths to use when referencing image and font assets
+    var imageFolderPath = "\(timelineOutputPath)/\(imageFolderName)"
+    var fontFolderPath = "\(timelineOutputPath)/\(fontFolderName)"
 
     // Delete previously exported project
     rm(timelineOutputPath)
 
     // Create output directories
-    mkdir("\(timelineOutputPath)/\(imageFolderName)")
+    mkdir("\(imageFolderPath)")
+    mkdir("\(fontFolderPath)")
 
 
     // Copy Images over
@@ -51,7 +54,14 @@ for timeline in timelines
     for image in imagesInTimeline
         var imageData = image.serializeAsPNGData()
         if imageData != nil 
-            write(data: imageData, to: "\(timelineOutputPath)/\(imageFolderName)/\(image.name).png")
+            write(data: imageData, to: "\(imageFolderPath)/\(image.name).png")
+        end
+    end
+
+    // Copy Fonts
+    for font in document.fonts(forTimeline: timeline)
+        if !Web.webFonts.contains(font.name) && font.path != nil
+            copy(from: font.path, to: "\(fontFolderPath)/\(font.familyName).\(font.extension)")
         end
     end
 
