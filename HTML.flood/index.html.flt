@@ -12,9 +12,15 @@
 </head>
 <body>
     <% insert("html/artboard.html.flt", from: Web, indentation: 0) %>
+    <!-- Uncomment the following if you would like to use the FlowCommonWeb CDN --> 
+    <!-- <script src="<%= flowCommonWebURL %>"></script> -->
+
+    <!-- If you want to use the FlowCommonWeb CDN delete the following script tags -->
     <script src="<%= Web.pathPrefix(relativePath: "./FlowCommon", absolutePath: commonFolderAbsPath, relative: relative) %>/web-animations.min.js"></script>
     <script src="<%= Web.pathPrefix(relativePath: "./FlowCommon", absolutePath: commonFolderAbsPath, relative: relative) %>/Animation.js"></script>
     <script src="<%= Web.pathPrefix(relativePath: "./FlowCommon", absolutePath: commonFolderAbsPath, relative: relative) %>/Track.js"></script>
+    <!-- End of script tags you need to delete -->
+
     <script src="<%= Web.pathPrefix(relativePath: "./js", absolutePath: jsFolderAbsPath, relative: relative) %>/<%= forwardTimelineName %>.js"></script>
 <% if generateUI -%>
     <!-- Animation driver panel, remove if desired -->
