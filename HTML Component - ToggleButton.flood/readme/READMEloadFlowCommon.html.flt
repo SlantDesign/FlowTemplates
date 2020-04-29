@@ -1,0 +1,14 @@
+<script>
+    function loadScripts(sources) {
+        sources.forEach(src => {
+            let script = document.createElement("script");
+            script.src = src;
+            script.async = false;
+            document.head.appendChild(script);
+        });
+    }
+    
+    let commonFolderPath = "./FlowCommon"
+    let flowCommonScript = [`${commonFolderPath}/flowCommon.js`];
+    loadScripts(flowCommonScript)
+</script>

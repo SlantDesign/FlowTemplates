@@ -1,0 +1,10 @@
+<script>
+    function loadScripts(sources) {
+        sources.forEach(src => {
+            let script = document.createElement("script");
+            script.src = src;
+            script.async = false;
+            document.head.appendChild(script);
+        });
+    }
+</script>
