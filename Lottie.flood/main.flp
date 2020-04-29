@@ -57,7 +57,7 @@ for timeline in timelines
 
     // Create Lottie JSON String 
     var dictionary = lottieDictionaryFor(timeline: timeline, imageFolderName: imageFolderName)
-    var jsonString = JSON.json(from: dictionary)
+    var jsonString = JSON.json(from: dictionary, prioritizedEntries: ["ty"])
 
     // make name of json file snake cased 
     // because asset files in android studio can only have lowercase a-z, 0-9, or underscore
