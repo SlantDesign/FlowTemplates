@@ -18,7 +18,11 @@ func layerCompositionAssets(timeline)
         case "path":
             continue
         case "group":
-            // make a composition that contains all the sublayers of the group which can be masked by signle layer 
+            // make a composition that contains all the sublayers of the group which can be masked by single layer 
+            // used to implement `masksToBounds`
+            compositions = compositions.appending(maskCompositionAsset(layer: layer, timeline: timeline))
+        case "shapeMask":
+            // make a composition that contains all the sublayers of the group which can be masked by single layer 
             // used to implement `masksToBounds`
             compositions = compositions.appending(maskCompositionAsset(layer: layer, timeline: timeline))
         end
@@ -76,7 +80,7 @@ func compositionSublayers(of layer, timeline)
         lottieLayers = lottieLayers.appending(mask)
     end
     
-    if layer.type.name == "group"
+    if ["group", "shapeMask"].contains(layer.type.name)
         var sublayers = lottieSubLayers(of: layer, timeline: timeline)
         lottieLayers = lottieLayers = lottieLayers.concatenate(sublayers)
     else
