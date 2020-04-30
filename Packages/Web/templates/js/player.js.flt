@@ -1,5 +1,5 @@
 /**
- * Class used for driving animations.
+ * Class used for controlling the playback of a Timeline.
  */
 class Player {
   /**
