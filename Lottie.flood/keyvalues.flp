@@ -55,6 +55,9 @@ func extractValue(from keyvalue, propertyID)
     var layer = keyvalue.track.layer
 
     switch propertyID
+    case maskPathProperty:
+        // handled in pathAnimation.flp
+        return nil
     case combinedPathProperty:
         // Handled in pathAnimation.flp
         return nil

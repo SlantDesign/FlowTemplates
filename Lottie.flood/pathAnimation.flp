@@ -7,18 +7,18 @@ func pathAnimation(layer, timeline, subPath index)
     end
 
     return [
-        "a": animatedValue(layer: layer, propertyID: combinedPathProperty, timeline: timeline),
+        "a": animatedValue(layer: layer, propertyID: pathProperty(layer: layer), timeline: timeline),
         "k": animationValue
     ]
 end
 
 func initialPathValue(layer, subPath index)
-    var renderedPath = layer.path.render(width: layer.bounds.size.width, height: layer.bounds.size.height)
+    var renderedPath = pathFor(layer: layer).render(width: layer.bounds.size.width, height: layer.bounds.size.height)
     return pathValue(from: renderedPath, subPath: index)
 end
 
 func pathKeyvalues(layer, timeline, subPath index)
-    var tracks = tracksFor(layer: layer, propertyID: combinedPathProperty, timeline: timeline)
+    var tracks = tracksFor(layer: layer, propertyID: pathProperty(layer: layer), timeline: timeline)
     if tracks.isEmpty
         return []
     end
@@ -35,6 +35,17 @@ func pathKeyvalues(layer, timeline, subPath index)
     end
 
     return keyvaluesArray
+end
+
+func pathProperty(layer)
+    switch layer.type.name
+    case "shape":
+        return combinedPathProperty
+    case "shapeMask":
+        return maskPathProperty
+    default:
+        return nil
+    end
 end
 
 func pathValue(from renderedPath, subPath index)
