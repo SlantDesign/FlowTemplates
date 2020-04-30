@@ -30,6 +30,9 @@ func propertyValue(layer, propertyID)
     case combinedPathProperty:
         // handled in pathAnimation.flp
         return nil
+    case maskPathProperty:
+        // handled in pathAnimation.flp
+        return nil
     case strokeColorProperty:
     	return lottieValue(from: layer.strokeColor, propertyID: propertyID)
     case lineWidthProperty:
@@ -112,6 +115,9 @@ func lottieValue(from value, propertyID)
         return centerValue(from: value)
     case combinedPathProperty:
         // Handled in pathAnimation.flp
+        return nil
+    case maskPathProperty:
+        // handled in pathAnimation.flp
         return nil
     case strokeColorProperty:
         return colorValue(from: value)

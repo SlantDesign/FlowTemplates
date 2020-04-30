@@ -53,11 +53,22 @@ func shapeElements(layer, timeline, type)
             transformElement(layer: layer, timeline: timeline)
         ]
     case "mask":
-        return [
-            backgroundElement(layer: layer, timeline: timeline),
-            maskColorElement(layer: layer, timeline: timeline),
-            transformElement(layer: layer, timeline: timeline)
-        ]
+        if layer.type.name == "shapeMask"
+            // Return a custom mask with the maskPath of the shapeMask Layer
+            return pathElements(layer: layer, timeline: timeline).concatenate(
+                [
+                    maskColorElement(layer: layer, timeline: timeline),
+                    transformElement(layer: layer, timeline: timeline)
+                ]
+            )
+        else
+            // Return a normal rectangular mask
+            return [
+                backgroundElement(layer: layer, timeline: timeline),
+                maskColorElement(layer: layer, timeline: timeline),
+                transformElement(layer: layer, timeline: timeline)
+            ]
+        end
     case "size":
         return [
             sizeElement(timeline: timeline),
@@ -133,11 +144,22 @@ end
 
 func pathElements(layer, timeline)
     var pathElements = []
-    for index in 0..<layer.path.paths.count
+    for index in 0..<pathFor(layer: layer).paths.count
         var pathElement = pathElement(layer: layer, timeline: timeline, subPath: index)
         pathElements = pathElements.appending(pathElement)
     end
     return pathElements
+end
+
+func pathFor(layer)
+    switch layer.type.name
+    case "shape":
+        return layer.path
+    case "shapeMask":
+        return layer.maskPath
+    default:
+        return nil
+    end
 end
 
 func pathElement(layer, timeline, subPath index)
