@@ -1,8 +1,5 @@
-func copyOverCommonFile(from pathToCommonFiles, to flowCommonFolderPath)
-    copy(from: "\(pathToCommonFiles)/web-animations.min.js", to: "\(flowCommonFolderPath)/web-animations.min.js")
-    copy(from: "\(pathToCommonFiles)/components/Track.js", to: "\(flowCommonFolderPath)/Track.js")
-    copy(from: "\(pathToCommonFiles)/components/Animation.js", to: "\(flowCommonFolderPath)/Animation.js")
-    copy(from: "\(pathToCommonFiles)/components/HoverButton.js", to: "\(flowCommonFolderPath)/HoverButton.js")
-    copy(from: "\(pathToCommonFiles)/components/HoverElement.js", to: "\(flowCommonFolderPath)/HoverElement.js")
-    copy(from: "\(pathToCommonFiles)/components/flowCommon.js", to: "\(flowCommonFolderPath)/flowCommon.js")
+func copyOverCommonFile(to flowCommonFolderPath, _ flowCommonWebFileNames, _ flowCommonWebSourcesPath)
+    for fileName in flowCommonWebFileNames
+        copy(from: "\(flowCommonWebSourcesPath)/\(fileName)", to: "\(flowCommonFolderPath)/\(fileName)")
+    end
 end

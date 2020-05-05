@@ -60,7 +60,8 @@ for timeline in timelines
     var timelineClassName =  forwardTimelineName
     process("js/timeline.js.flt", from: Web, into: "\(timelineOutputPath)/\(jsFolderName)/\(forwardTimelineName).js", indentation: 0)
 
-    Web.copyOverCommonFile(from: "../Packages/web/templates/js", to: "\(timelineOutputPath)/\(commonFolderName)")
+    Web.copyOverCommonFile(to: "\(timelineOutputPath)/\(commonFolderName)", flowCommonWebFileNames, flowCommonWebSourcesPath)
+
     process("js/components/ToggleButton.js.flt", from: Web, into: "\(timelineOutputPath)/\(commonFolderName)/ToggleButton.js", indentation: 0)
     process("js/player.js.flt", from: Web, into: "\(timelineOutputPath)/\(commonFolderName)/player.js", indentation: 0)
 
@@ -85,6 +86,6 @@ for timeline in timelines
     layer = timeline.rootLayer(at: 0)
     process("js/timeline.js.flt", from: Web, into: "\(timelineOutputPath)/\(jsFolderName)/\(reverseTimelineName).js", indentation: 0)
 
-    // Clear the symbol table
+    // Clear the symbol table 
     symbolTable.removeAllSymbols()
 end
