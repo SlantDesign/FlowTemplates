@@ -33,8 +33,8 @@ for timeline in timelines
     var cssFolderName = "css"
     var commonFolderName = "FlowCommon"
 
-    //Relative path to the common folder    
-    var commonFolderRelPath = "\(timelineOutputPath)/\(commonFolderName)"
+    // Relative path to the common folder    
+    var flowCommonFolderPath = "\(timelineOutputPath)/\(commonFolderName)"
 
     // The absolute paths to use when reference assets in the image, font, js or css folders
     var imageFolderAbsPath = "\(baseUrl)/\(imageFolderName)"
@@ -63,10 +63,7 @@ for timeline in timelines
     var timelineClassName =  forwardTimelineName
     process("js/timeline.js.flt", from: Web, into: "\(timelineOutputPath)/\(jsFolderName)/\(forwardTimelineName).js", indentation: 0)
 
-    Web.copyOverCommonFile(to: commonFolderRelPath, flowCommonWebFileNames, flowCommonWebSourcesPath)
-
-    process("js/components/ToggleButton.js.flt", from: Web, into: "\(timelineOutputPath)/\(commonFolderName)/ToggleButton.js", indentation: 0)
-    process("js/player.js.flt", from: Web, into: "\(timelineOutputPath)/\(commonFolderName)/player.js", indentation: 0)
+    Web.copyOverCommonFiles(to: flowCommonFolderPath, flowCommonWebFileNames, flowCommonWebSourcesPath)
 
     // Copy Images
     for image in imagesInTimeline
