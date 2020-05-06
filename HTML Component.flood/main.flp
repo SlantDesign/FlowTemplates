@@ -45,6 +45,9 @@ for timeline in timelines
     var cssFolderAbsPath = "\(baseUrl)/\(cssFolderName)"
     var commonFolderAbsPath = "\(baseUrl)/\(commonFolderName)"
 
+    // Relative path to the common folder 
+    var flowCommonFolderPath = "\(timelineOutputPath)/\(commonFolderName)"
+
     // Delete previously exported project
     rm(timelineOutputPath)
 
@@ -68,13 +71,11 @@ for timeline in timelines
 
     var timelineClassName = forwardTimelineName
     process("js/timeline.js.flt", from: Web, into: "\(timelineOutputPath)/\(jsFolderName)/\(forwardTimelineName).js", indentation: 0)
-    
-    process("js/player.js.flt", from: Web, into: "\(timelineOutputPath)/\(commonFolderName)/player.js", indentation: 0)
     process("instances.js.flt", into: "\(timelineOutputPath)/\(jsFolderName)/instances.js", indentation: 0)
     process("timelineScripts.js.flt", into: "\(timelineOutputPath)/\(jsFolderName)/\(timelineNameLowerCamelCased).js", indentation: 0)
 
-    Web.copyOverCommonFile(from: "../Packages/web/templates/js", to: "\(timelineOutputPath)/\(commonFolderName)")
-    process("js/components/ToggleButton.js.flt", from: Web, into: "\(timelineOutputPath)/\(commonFolderName)/ToggleButton.js", indentation: 0)
+    Web.copyOverCommonFiles(to: flowCommonFolderPath, flowCommonWebFileNames, flowCommonWebSourcesPath)
+    copy(from: "../Packages/web/templates/js/components/flowCommon.js", to: "\(timelineOutputPath)/\(commonFolderName)/flowCommon.js")
 
     // Driver Code
     var driverFolderName = "driver"

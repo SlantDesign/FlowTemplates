@@ -39,6 +39,9 @@ for timeline in timelines
     var cssFolderAbsPath = "\(baseUrl)/\(cssFolderName)"
     var commonFolderAbsPath = "\(baseUrl)/\(commonFolderName)"
 
+    // Relative path to the common folder 
+    var flowCommonFolderPath = "\(timelineOutputPath)/\(commonFolderName)"
+
     // Delete previously exported project
     rm(timelineOutputPath)
 
@@ -60,9 +63,8 @@ for timeline in timelines
     process("index.html.flt", into: "\(timelineOutputPath)/\(timelineName).html", indentation: 0)
     process("css/style.css.flt", from: Web, into: "\(timelineOutputPath)/\(cssFolderName)/\(timelineName).css", indentation: 0)
     process("js/timeline.js.flt", from: Web, into: "\(timelineOutputPath)/\(jsFolderName)/\(forwardTimelineName).js", indentation: 0)
-    process("js/player.js.flt", from: Web, into: "\(timelineOutputPath)/\(commonFolderName)/player.js", indentation: 0)
 
-    Web.copyOverCommonFile(from: "../Packages/web/templates/js", to: "\(timelineOutputPath)/\(commonFolderName)")
+    Web.copyOverCommonFiles(to: flowCommonFolderPath, flowCommonWebFileNames, flowCommonWebSourcesPath)
 
     // Copy driver panel assets
     if generateUI

@@ -33,6 +33,9 @@ for timeline in timelines
     var cssFolderName = "css"
     var commonFolderName = "FlowCommon"
 
+    // Relative path to the common folder    
+    var flowCommonFolderPath = "\(timelineOutputPath)/\(commonFolderName)"
+
     // The absolute paths to use when reference assets in the image, font, js or css folders
     var imageFolderAbsPath = "\(baseUrl)/\(imageFolderName)"
     var fontFolderAbsPath = "\(baseUrl)/\(fontFolderName)"
@@ -60,9 +63,7 @@ for timeline in timelines
     var timelineClassName =  forwardTimelineName
     process("js/timeline.js.flt", from: Web, into: "\(timelineOutputPath)/\(jsFolderName)/\(forwardTimelineName).js", indentation: 0)
 
-    Web.copyOverCommonFile(from: "../Packages/web/templates/js", to: "\(timelineOutputPath)/\(commonFolderName)")
-    process("js/components/ToggleButton.js.flt", from: Web, into: "\(timelineOutputPath)/\(commonFolderName)/ToggleButton.js", indentation: 0)
-    process("js/player.js.flt", from: Web, into: "\(timelineOutputPath)/\(commonFolderName)/player.js", indentation: 0)
+    Web.copyOverCommonFiles(to: flowCommonFolderPath, flowCommonWebFileNames, flowCommonWebSourcesPath)
 
     // Copy Images
     for image in imagesInTimeline
@@ -85,6 +86,6 @@ for timeline in timelines
     layer = timeline.rootLayer(at: 0)
     process("js/timeline.js.flt", from: Web, into: "\(timelineOutputPath)/\(jsFolderName)/\(reverseTimelineName).js", indentation: 0)
 
-    // Clear the symbol table
+    // Clear the symbol table 
     symbolTable.removeAllSymbols()
 end
