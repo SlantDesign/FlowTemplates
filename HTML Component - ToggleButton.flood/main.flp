@@ -90,7 +90,7 @@ for timeline in timelines
 
     // Generate README
     escape = true
-    process("README.html.flt", into: "\(timelineOutputPath)/README.html", indentation: 0)
+    process("readme/README.html.flt", into: "\(timelineOutputPath)/README.html", indentation: 0)
     escape = false
 
     // Generate Reverse Timeline

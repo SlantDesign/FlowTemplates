@@ -3,6 +3,9 @@
 <head>
 <title><%= timelineName %></title>
     <meta charset="utf-8">
+    <!-- Uncomment the following if you would like to use the FlowCommonWeb CDN --> 
+    <!-- <script src="<%= flowCommonWebURL %>"></script> -->
+    
     <%- insert("js/components/loadFlowCommonScripts.js.flt", from: Web, indentation: 2) %>
     <%- insert("driver/loadDriverScripts.js.flt", indentation: 2) %>
     <%- insert("loadTimelineScripts.js.flt", indentation: 2) %>

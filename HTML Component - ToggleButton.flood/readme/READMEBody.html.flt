@@ -63,10 +63,20 @@
                 <ol>
                     <li>The first step is to move the entire <code class="highlighter-rouge"><%= timelineFolder %></code> folder to a location of your choice inside your site’s file structure.</li>
                     <li>Add the following code to the <code class="highlighter-rouge">&lt;head&gt;</code> or <code class="highlighter-rouge">&lt;footer&gt;</code> of your page.
+                        <h3>If you want to use the <code>FlowCommonWeb CDN</code> use the following code. Then you can delete the <code>FlowCommon</code> folder from your project.</h3>
                         <div class="highlighter-rouge">
                             <div class="highlight">
                                 <pre class="highlight">
-                                    <code><%= Web.escapeOpenClosingTags(input: process("js/components/loadFlowCommonScripts.js.flt", from: Web, into: nil, indentation: 0)) %></code>
+                                    <code><%= Web.escapeOpenClosingTags(input: process("readme/READMEloadFlowCommonCDN.html.flt", into: nil, indentation: 0)) %></code>
+                                </pre>
+                            </div>
+                        </div>
+                        
+                        <h3>If you want to use the local <code>FlowCommon</code> library in your project, use the following code.</h3>
+                        <div class="highlighter-rouge">
+                            <div class="highlight">
+                                <pre class="highlight">
+                                    <code><%= Web.escapeOpenClosingTags(input: process("readme/READMEloadFlowCommon.html.flt", into: nil, indentation: 0)) %></code>
                                 </pre>
                             </div>
                         </div>
@@ -138,7 +148,7 @@ function callback() {
                 <p>If you want a different toggle button (with different timelines) on your page do the following:</p>
                 <ol>
                     <li>Export another timeline</li>
-                    <li>Delete the <code class="highlighter-rouge">FlowCommon</code> folder from the exported code</li>
+                    <li>Delete the <code class="highlighter-rouge">FlowCommon</code> folder from the exported code.</li>
                     <li>Add the folder to your project, right next to your first <%= timelineFolder %> folder.</li>
                     <li>Hook everything up, by following the steps in the <a href="#integrating-a-single-instance">first section</a>.</li>
                     <li>Refresh your browser.</li>
@@ -161,6 +171,18 @@ function callback() {
 
                 <h3>ToggleButton.js</h3>
                 <p>This file is the button class that contains your component and handles user clicks. It also contains a player that drives your animation.</p>
+
+                <h3>Animation.js</h3>
+                <p>
+                This file contains a class representing an Animation. The Animation class contains all the logic necessary
+                to create and control instances of animations. 
+                </p>
+
+                <h3>Track.js</h3>
+                <p>
+                This file contains a class representing the Track of animations for a specific property of an element. A Track contains
+                a list of animations that will used manipulate a specific property of an HTML Element.  
+                </p>
 
                 <h2 id="connect-with-us">Connect With Us</h2>
                 <p>If you have questions about this, please reach out either:</p>

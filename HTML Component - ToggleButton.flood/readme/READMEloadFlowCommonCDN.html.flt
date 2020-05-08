@@ -7,10 +7,4 @@
             document.head.appendChild(script);
         });
     }
-
-    // If you want to use the FlowCommonWeb CDN delete the following
-    let commonFolderPath = "./FlowCommon"
-    let flowCommonScript = [`${commonFolderPath}/flowCommon.js`];
-    loadScripts(flowCommonScript)
-    //End of deleting
 </script>
