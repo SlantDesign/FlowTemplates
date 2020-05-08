@@ -1,0 +1,6 @@
+// Copies over all the files from the FlowCommonWeb submodule.
+func copyOverCommonFiles(to flowCommonFolderPath, _ flowCommonWebFileNames, _ flowCommonWebSourcesPath)
+    for fileName in flowCommonWebFileNames
+        copy(from: "\(flowCommonWebSourcesPath)/\(fileName)", to: "\(flowCommonFolderPath)/\(fileName)")
+    end
+end

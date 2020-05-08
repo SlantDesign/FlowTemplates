@@ -1,4 +1,5 @@
 import Web
+import React
 
 var escape = false
 
@@ -61,7 +62,7 @@ for timeline in timelines
     process("css/style.css.flt", from: Web, into: "\(timelineOutputPath)/\(cssFolderName)/\(timelineName).css", indentation: 0)
     process("button/buttonWrapper.js.flt", into: "\(timelineOutputPath)/js/\(timelineName).js", indentation: 0)
     process("button/index.js.flt", into: "\(timelineOutputPath)/index.js", indentation: 0)
-    
+
     // Generate Forward Timeline
     var timelineClassName =  forwardTimelineName
     process("timeline.js.flt", into: "\(timelineOutputPath)/\(jsFolderName)/\(forwardTimelineName).js", indentation: 0)
