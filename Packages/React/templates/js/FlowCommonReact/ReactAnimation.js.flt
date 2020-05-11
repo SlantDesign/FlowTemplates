@@ -1,2 +1,0 @@
-<%= read(contentsOf: "../Packages/web/templates/js/components/Animation.js") %>
-export default Animation;
