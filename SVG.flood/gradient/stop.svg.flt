@@ -1,0 +1,3 @@
+<stop class="stop<%= i %>" offset="<%= stop.position * 100 %>%" stop-color="<%= stop.color.hex %>" >
+    <%= fillGradientColorAnimation(timeline, layer, stopCount: i, indentation: 0) %>
+</stop>

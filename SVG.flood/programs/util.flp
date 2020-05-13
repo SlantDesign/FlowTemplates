@@ -106,6 +106,7 @@ func svgValue(_ value, propertyID, layer)
     case "fillImage": return imageHref(image: value.image)
     case "lineDashPattern": return Web.printDashPatternArray(value)
     case "lineDashPhase": return "\(value)"
+    case "fillGradient": return value.stops
     // Not handled by this function
     // case "combinedPath": return value.svg
 
