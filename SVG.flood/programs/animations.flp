@@ -175,8 +175,12 @@ func fillGradientColorAnimation(_ timeline, _ layer, stopCount, indentation)
     for gradientStop in gradientStops
         stopColors = stopColors.appending(gradientStop[stopCount].color.hex)
     end
-    var stopColorString = stopColors.joined(separator: ";")
 
+    if arrayContainsEqualValues(stopColors)
+        return ""
+    end
+
+    var stopColorString = stopColors.joined(separator: ";")
     return animateTag(
                 hrefID: nil, 
                 attributeName: "stop-color", 

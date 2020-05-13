@@ -327,3 +327,13 @@ end
 func shouldExport(layer)
     return layer.visible
 end
+
+func arrayContainsEqualValues(_ array)
+    var comparator = array[0]
+    for value in array
+        if value != comparator
+            return false
+        end
+    end
+    return true
+end
