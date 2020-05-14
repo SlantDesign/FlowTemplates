@@ -1,3 +1,0 @@
-import Animation from "./Animation"
-<%= read(contentsOf: "../Packages/web/templates/js/components/Track.js") %>
-export default Track

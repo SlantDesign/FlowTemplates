@@ -1,1 +1,0 @@
-<% insert("js/components/ReactToggleButton.js", from: Web, indentation: 0) %>
