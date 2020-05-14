@@ -14,6 +14,7 @@
             <div class="col-md-9 col-lg-9 tutorial relative">
                 <div class="row justify-content-left">
                     <div class="col-auto">
+                    <p>Flow Version <%= flowVersion %></p>
                         <p class="post-tags">
                             <small class="blue">
                                 Lottie,
