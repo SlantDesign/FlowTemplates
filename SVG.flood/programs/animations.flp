@@ -164,8 +164,8 @@ func keysplinesFromAnimation(_ animation)
     return "\(c1.x) \(c1.y) \(c2.x) \(c2.y)"
 end
 
-func fillGradientColorAnimation(_ timeline, _ layer, stopCount, indentation)
-    var stopColors = []
+func fillGradientStopAnimation(_ timeline, _ layer, stopCount, fillGradientProperty, indentation)
+    var stopValues = []
     var property = "fillGradient"
     var track = timeline.trackFor(layer: layer, property: property)
     var keytimes = keyTimesFrom(track: track)
@@ -173,18 +173,18 @@ func fillGradientColorAnimation(_ timeline, _ layer, stopCount, indentation)
     var gradientStops = valuesFrom(track: track, layer: layer, property: property)
 
     for gradientStop in gradientStops
-        stopColors = stopColors.appending(gradientStop[stopCount].color.hex)
+        stopValues = stopValues.appending(fillGradientSVGValue(fillGradientProperty, gradientStop, stopCount))
     end
 
-    if arrayContainsEqualValues(stopColors)
+    if arrayContainsEqualValues(stopValues)
         return ""
     end
 
-    var stopColorString = stopColors.joined(separator: ";")
+    var stopValuesString = stopValues.joined(separator: ";")
     return animateTag(
                 hrefID: nil, 
-                attributeName: "stop-color", 
-                values: "\(stopColorString)", 
+                attributeName: fillGradientProperty, 
+                values: "\(stopValuesString)", 
                 dur: "\(track.timeline.duration)s",
                 fill: "freeze",
                 calcMode: "spline", 
@@ -193,4 +193,13 @@ func fillGradientColorAnimation(_ timeline, _ layer, stopCount, indentation)
                 repeats: "indefinite", 
                 attributeType: nil,
                 indentation: indentation)
+end
+
+func fillGradientSVGValue(_ fillGradientProperty, _ gradientStop, _ stopCount)
+    switch fillGradientProperty
+    case "stop-color":
+        return gradientStop[stopCount].color.hex
+    case "offset":
+        return gradientStop[stopCount].position
+    end
 end
