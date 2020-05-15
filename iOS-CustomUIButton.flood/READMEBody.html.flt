@@ -13,6 +13,7 @@
             <div class="col-md-9 col-lg-9 tutorial relative">
                 <div class="row justify-content-left">
                     <div class="col-auto">
+                    <p>Flow Version <%= flowVersion %></p>
                         <p class="post-tags">
                             <small class="blue">
                                 iOS,
@@ -61,7 +62,7 @@
                         <div class="highlighter-rouge">
                                 <div class="highlight">
                                     <pre class="highlight">
-                                        <code>pod 'FlowCommoniOS'</code>
+                                        <code>pod 'FlowCommoniOS', '~> <%= flowVersion %>'</code>
                                     </pre>
                                 </div>
                             </div>
