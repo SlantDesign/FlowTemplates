@@ -61,7 +61,7 @@
                         <div class="highlighter-rouge">
                                 <div class="highlight">
                                     <pre class="highlight">
-                                        <code>pod 'FlowCommoniOS'</code>
+                                        <code>pod 'FlowCommoniOS', '~> <%= flowVersion %>'</code>
                                     </pre>
                                 </div>
                             </div>

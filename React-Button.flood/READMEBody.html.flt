@@ -59,7 +59,7 @@
                         <div class="highlighter-rouge">
                                 <div class="highlight">
                                     <pre class="highlight">
-                                        <code>npm install flowcommon-react</code>
+                                        <code>npm install flowcommon-react@<%= flowVersion %></code>
                                     </pre>
                                 </div>
                             </div>
