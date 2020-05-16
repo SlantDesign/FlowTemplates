@@ -7,5 +7,5 @@
                 insert("gradient/gradient.svg.flt", indentation: 1)
             end
         end
-    end -%>
+    end %>
 </defs>

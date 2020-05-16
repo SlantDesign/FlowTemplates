@@ -163,3 +163,33 @@ func keysplinesFromAnimation(_ animation)
     var c2 = animation.timingFunction.controlPoints[1]
     return "\(c1.x) \(c1.y) \(c2.x) \(c2.y)"
 end
+
+func gradientStopAnimation(timeline, layer, stopIndex, property, indentation)
+    var track = timeline.trackFor(layer: layer, property: "fillGradient")
+    var keytimes = keyTimesFrom(track: track)
+    var keysplines = keysplinesFrom(track: track)
+    var gradients = valuesFrom(track: track, layer: layer, property: "fillGradient")
+
+    var values = []
+    for gradient in gradients
+        var stop = gradient.stops[stopIndex]
+        values = values.appending(svgValue(stop, propertyID: property, layer: layer))
+    end
+
+    if values.areIdentical()
+        return ""
+    end
+
+    return animateTag(
+                hrefID: nil, 
+                attributeName: svgAttributeName(of: property), 
+                values: values.joined(separator: ";"), 
+                dur: "\(track.timeline.duration)s",
+                fill: "freeze",
+                calcMode: "spline", 
+                keytimes: keytimes.joined(separator: ";"), 
+                keysplines: keysplines.joined(separator: ";"), 
+                repeats: "indefinite", 
+                attributeType: nil,
+                indentation: indentation)
+end

@@ -50,6 +50,8 @@ func svgAttributeName(of property)
     case "lineDashPattern": return "stroke-dasharray"
     case "lineDashPhase": return "stroke-dashoffset"
     case "fillGradient": return "fillGradient"
+    case "fillGradient.stop.position": return "offset"
+    case "fillGradient.stop.color": return "stop-color"
     case "fillImage": return "href"
 
     // Shape Mask
@@ -106,6 +108,9 @@ func svgValue(_ value, propertyID, layer)
     case "fillImage": return imageHref(image: value.image)
     case "lineDashPattern": return Web.printDashPatternArray(value)
     case "lineDashPhase": return "\(value)"
+    case "fillGradient": return value
+    case "fillGradient.stop.position": return value.position
+    case "fillGradient.stop.color": return value.color.hex
     // Not handled by this function
     // case "combinedPath": return value.svg
 
