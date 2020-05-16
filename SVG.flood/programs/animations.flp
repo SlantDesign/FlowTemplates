@@ -164,27 +164,26 @@ func keysplinesFromAnimation(_ animation)
     return "\(c1.x) \(c1.y) \(c2.x) \(c2.y)"
 end
 
-func fillGradientStopAnimation(_ timeline, _ layer, stopCount, fillGradientProperty, indentation)
-    var stopValues = []
-    var property = "fillGradient"
-    var track = timeline.trackFor(layer: layer, property: property)
+func gradientStopAnimation(timeline, layer, stopIndex, property, indentation)
+    var track = timeline.trackFor(layer: layer, property: "fillGradient")
     var keytimes = keyTimesFrom(track: track)
     var keysplines = keysplinesFrom(track: track)
-    var gradientStops = valuesFrom(track: track, layer: layer, property: property)
+    var gradients = valuesFrom(track: track, layer: layer, property: "fillGradient")
 
-    for gradientStop in gradientStops
-        stopValues = stopValues.appending(fillGradientSVGValue(fillGradientProperty, gradientStop, stopCount))
+    var values = []
+    for gradient in gradients
+        var stop = gradient.stops[stopIndex]
+        values = values.appending(svgValue(stop, propertyID: property, layer: layer))
     end
 
-    if arrayContainsEqualValues(stopValues)
+    if values.areIdentical()
         return ""
     end
 
-    var stopValuesString = stopValues.joined(separator: ";")
     return animateTag(
                 hrefID: nil, 
-                attributeName: fillGradientProperty, 
-                values: "\(stopValuesString)", 
+                attributeName: svgAttributeName(of: property), 
+                values: values.joined(separator: ";"), 
                 dur: "\(track.timeline.duration)s",
                 fill: "freeze",
                 calcMode: "spline", 
@@ -193,13 +192,4 @@ func fillGradientStopAnimation(_ timeline, _ layer, stopCount, fillGradientPrope
                 repeats: "indefinite", 
                 attributeType: nil,
                 indentation: indentation)
-end
-
-func fillGradientSVGValue(_ fillGradientProperty, _ gradientStop, _ stopCount)
-    switch fillGradientProperty
-    case "stop-color":
-        return gradientStop[stopCount].color.hex
-    case "offset":
-        return gradientStop[stopCount].position
-    end
 end
