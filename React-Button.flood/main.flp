@@ -1,7 +1,6 @@
 import Web
 import React
 
-var nodeModuleName = "flowcommonreact"
 var escape = false
 
 for timeline in timelines
