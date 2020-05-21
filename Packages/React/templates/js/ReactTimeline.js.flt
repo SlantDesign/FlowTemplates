@@ -1,2 +1,2 @@
-import { Track } from "flowcommonreact"
+import { Track } from "<%= nodeModuleName %>"
 <% insert("js/timeline.js.flt", from: Web, indentation: 0) %>
