@@ -77,11 +77,11 @@ insert("svg/strokeWidthAnimation.svg.flt", from: Web, indentation: 2)
     for layer in layer.descendants
         if layer.type.name == "shape"
             var id = Web.elementIDFor(layer: layer, symbolTable: symbolTable)
-            var gradientTrack = timeline.trackFor(layer: layer, property: "fillGradient") 
-            if gradientTrack != nil
+            if layer.fillGradient != nil
 -%>         
         defs = this.rootElement.getElementById("<%= id %>-defs")
-        defs.innerHTML = `<% insert("svg/gradient.svg.flt", from: Web, indentation: 0) %>`
+        defs.innerHTML = 
+        `<%- insert("svg/gradient.svg.flt", from: Web, indentation: 0) -%>`
             <%- end 
         end 
     end -%>

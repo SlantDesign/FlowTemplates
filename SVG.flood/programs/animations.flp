@@ -166,6 +166,11 @@ end
 
 func gradientStopAnimation(timeline, layer, stopIndex, property, indentation)
     var track = timeline.trackFor(layer: layer, property: "fillGradient")
+
+    if track == nil 
+        return ""
+    end
+
     var keytimes = keyTimesFrom(track: track)
     var keysplines = keysplinesFrom(track: track)
     var gradients = valuesFrom(track: track, layer: layer, property: "fillGradient")
