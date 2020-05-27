@@ -414,7 +414,7 @@ end
 func svgAnimationValue(attributeName, from keyvalue)
   switch attributeName
   case "d":
-    var size = keyvalue.timeline.value(property: "size", layer: keyvalue.track.layer, time: 0)
+    var size = keyvalue.timeline.value(property: "size", layer: keyvalue.track.layer, time: keyvalue.time)
     return keyvalue.value.svgc(width: size.width, height: size.height)
 
   case "viewBox":

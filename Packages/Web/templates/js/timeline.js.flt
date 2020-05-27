@@ -64,7 +64,6 @@ end -%>
         path.d = "<%= layer.path.svgc(width: layer.size.width, height: layer.size.height) %>"
         path.innerHTML = `
 <%- insert("svg/pathAnimation.svg.flt", from: Web, indentation: 2)
-insert("svg/viewBoxAnimation.svg.flt", from: Web, indentation: 2)
 insert("svg/fillColorAnimation.svg.flt", from: Web, indentation: 2)
 insert("svg/strokeWidthAnimation.svg.flt", from: Web, indentation: 2)
  -%>
@@ -103,9 +102,6 @@ insert("svg/strokeWidthAnimation.svg.flt", from: Web, indentation: 2)
             insert("svg/pathAnimation.svg.flt", from: Web, indentation: 2)
 -%>
             </path>
-<% 
-            insert("svg/viewBoxAnimation.svg.flt", from: Web, indentation: 2)
--%>
         </path>
         `
 <% 
