@@ -4,7 +4,7 @@ stroke: <%= layer.strokeColor.hex %>;
 <% if layer.fillGradient != nil -%>
 fill: url(#<%= id %>-fill);
 <% else if layer.fillImage !=nil -%>
-fill: url("#<%= timeline.name %>-<%= id %>-fillImage");
+fill: url("#<%= timelineNameLowercased %>-<%= id %>-fillImage");
 <% else -%>
 fill: <%= layer.fillColor.hex %>;
 <% end -%>
