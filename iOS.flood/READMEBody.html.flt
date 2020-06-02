@@ -94,7 +94,7 @@
                              <div class="highlighter-rouge">
                                 <div class="highlight">
                                     <pre class="highlight">
-                                        <code><%= projectName.lowerCamelCased() %> = <%= timelineName %>(view: <%= sceneName %>, duration: 1)</code>
+                                        <code><%= projectName.lowerCamelCased() %> = <%= timelineName %>(view: <%= sceneName %>, duration: <%= timeline.duration %>)</code>
                                     </pre>
                                 </div>
                             </div>
