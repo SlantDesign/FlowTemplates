@@ -59,29 +59,15 @@ end -%>
     for layer in layer.descendants
         if layer.type.name == "shape"
             var id = Web.elementIDFor(layer: layer, symbolTable: symbolTable)
--%>         
+            if timeline.trackFor(layer: layer, property: "combinedPath") != nil
+%>
         path = this.rootElement.getElementById("<%= id %>-path")
         path.d = "<%= layer.path.svgc(width: layer.size.width, height: layer.size.height) %>"
         path.innerHTML = `
 <%- insert("svg/pathAnimation.svg.flt", from: Web, indentation: 2)
-insert("svg/fillColorAnimation.svg.flt", from: Web, indentation: 2)
-insert("svg/strokeWidthAnimation.svg.flt", from: Web, indentation: 2)
  -%>
  `
-<%      end 
-    end -%>
-
-        // Gradient Animations
-        let defs;<%-
-    for layer in layer.descendants
-        if layer.type.name == "shape"
-            var id = Web.elementIDFor(layer: layer, symbolTable: symbolTable)
-            if layer.fillGradient != nil
--%>         
-        defs = this.rootElement.getElementById("<%= id %>-defs")
-        defs.innerHTML = 
-        `<%- insert("svg/gradient.svg.flt", from: Web, indentation: 0) -%>`
-            <%- end 
+<%          end  
         end 
     end -%>
     } 

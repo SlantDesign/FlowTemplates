@@ -3,12 +3,13 @@
   <svg class="<%= id %>-svg">
     <title><%= layer.name %></title>
     <desc>Made with Flow.</desc>
-    <defs id="<%= id %>-defs">
-    </defs>
 <%- if layer.fillImage != nil -%>
   <%- insert("svg/pattern.svg.flt", from: Web, indentation: indentation + 1) -%>
 <% end -%>
-  <path id="<%= id %>-path" vector-effect="non-scaling-stroke" d="<%= layer.path.svgc(width: layer.size.width, height: layer.size.height) %>">
+<%- if layer.fillGradient != nil
+  insert("html/fillGradient.html.flt", from: Web, indentation: indentation + 1)
+  end %>
+    <path id="<%= id %>-path" vector-effect="non-scaling-stroke" d="<%= layer.path.svgc(width: layer.size.width, height: layer.size.height) %>">
     </path>
   </svg>
   <div class="flow-border <%= id %>-border"></div>
