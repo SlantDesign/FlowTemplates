@@ -53,6 +53,7 @@
 
                     <h2 id="integrating-a-single-instance">Integrating Your Animation</h2>
                     <p>This section explains how to integrate your animation into your iOS XCode project.</p>
+                    <p>For a full run-through, check out our doc: <a href="https://createwithflow.com/docs/integrate-ios/">Integrate an Animation into iOS</a>
                     <ol>
                         <li>Install <code class="highlighter-rouge">FlowCommoniOS</code> into your project via <code>CocoaPods</code>.
                             To do this add the following to your project's Podfile.
