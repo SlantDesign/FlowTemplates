@@ -196,12 +196,14 @@ end
 
 
 // Returns timing functions for the keyvalues
-func timingFunctions(keyvalues)
+func timingFunctions(keyvalues, _ duration)
   var timingFunctions = []
   for keyvalue in keyvalues
     var timingFunction = cssTimingFunction(of: keyvalue.trailingTimingFunction).inQuotes()
     timingFunctions = timingFunctions.appending(timingFunction)
   end
+
+    timingFunctions = simulateTimingFunctions(keyvalues, duration, arr: timingFunctions, appendingValue: "linear".inQuotes())
 
   return timingFunctions
 end
@@ -462,8 +464,63 @@ end
 
 func trackOffsets(_ times, _ duration)
     var offsets = []
+    if times[0] != 0
+        offsets = [0]
+    end
     for time in times
         offsets = offsets.appending(time / duration)
     end
+    if offsets[offsets.count - 1] != 1
+        offsets = offsets.appending(1)
+    end
     return offsets
+end
+
+func trackValues(property, _ keyvalues, layer, imageFolderPath, importImage, _ duration)
+    var values = []
+    for keyvalue in keyvalues
+        var value = cssValue(property: property, value: keyvalue.value, layer: layer, imageFolderPath: imageFolderPath, importImage: importImage)
+        values = values.appending(value)
+    end
+
+    values = simulateValues(keyvalues, duration, arr: values, appendingValue: values[values.count - 1])
+
+    return values
+end
+
+func addTrailingKeyvalue(_ keyvalues, _ duration, _ arr, _ appendingValue)
+     if keyvalues[keyvalues.count - 1].time * 1000 < duration
+        arr = arr.appending(appendingValue)
+        return arr
+    end
+    return arr 
+end
+
+func addInitialValue(_ keyvalues, _ duration, _ arr, _ appendingValue)
+    if keyvalues[0].time > 0
+        arr = [appendingValue].concatenate(arr)
+        return arr
+    end
+    return arr 
+end
+
+func addInitialTimingFunction(_ keyvalues, _ duration, _ arr, _ appendingValue)
+    if keyvalues[0].time > 0
+        arr = arr.dropFirst()
+        arr = [appendingValue].concatenate(arr)
+        return arr
+    end
+    return arr 
+end
+
+func simulateValues(_ keyvalues, _ duration, arr, appendingValue)
+    arr = addTrailingKeyvalue(keyvalues, duration, arr, appendingValue)
+    arr = addInitialValue(keyvalues, duration, arr, appendingValue)
+    return arr
+end
+
+func simulateTimingFunctions(_ keyvalues, _ duration, arr, appendingValue)
+    arr = addTrailingKeyvalue(keyvalues, duration, arr, appendingValue)
+    arr = addInitialTimingFunction(keyvalues, duration, arr, appendingValue)
+    return arr
 end

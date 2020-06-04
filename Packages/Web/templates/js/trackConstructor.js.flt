@@ -2,11 +2,9 @@
 <%-
 // Add the track name to the list of track names to create
 trackNames = trackNames.appending(trackName)
-var duration = timeline.duration * 1000
 -%>
 <%= trackName %>() {
     const element = this.rootElement.querySelector(<%= querrySelector %>);
-
     return element.animate({
         <%= propertyName -%>: <%= values %>,
         easing: <%= timingFunctions %>,
