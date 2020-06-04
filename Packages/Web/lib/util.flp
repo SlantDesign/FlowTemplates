@@ -459,3 +459,11 @@ end
 func trackName(propertyName, id)
   return "\(id)_\(propertyName.snakeCased())Track"
 end
+
+func trackOffsets(_ times, _ duration)
+    var offsets = []
+    for time in times
+        offsets = offsets.appending(time / duration)
+    end
+    return offsets
+end
