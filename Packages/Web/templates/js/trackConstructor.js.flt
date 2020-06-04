@@ -10,6 +10,10 @@ trackNames = trackNames.appending(trackName)
         easing: <%= timingFunctions %>,
         offset: <%= Web.trackOffsets(times, duration) %>,
       },
-      this.duration
+      {
+        duration: this.duration,
+        composite: 'add',
+        fill: 'forwards'
+      }
     )
 }
