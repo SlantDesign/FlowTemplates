@@ -197,15 +197,15 @@ end
 
 // Returns timing functions for the keyvalues
 func timingFunctions(keyvalues, _ duration)
-  var timingFunctions = []
-  for keyvalue in keyvalues
-    var timingFunction = cssTimingFunction(of: keyvalue.trailingTimingFunction).inQuotes()
-    timingFunctions = timingFunctions.appending(timingFunction)
-  end
+    var timingFunctions = []
+    for keyvalue in keyvalues.dropLast()
+        var timingFunction = cssTimingFunction(of: keyvalue.trailingTimingFunction).inQuotes()
+        timingFunctions = timingFunctions.appending(timingFunction)
+    end
 
-    timingFunctions = simulateTimingFunctions(keyvalues, duration, arr: timingFunctions, appendingValue: "linear".inQuotes())
-
-  return timingFunctions
+    timingFunctions = simulateLinearTimingFunction(keyvalues, duration, arr: timingFunctions, appendingValue: "linear".inQuotes())
+    
+    return timingFunctions
 end
 
 
@@ -483,7 +483,8 @@ func trackValues(property, _ keyvalues, layer, imageFolderPath, importImage, _ d
         values = values.appending(value)
     end
 
-    values = simulateValues(keyvalues, duration, arr: values, appendingValue: values[values.count - 1])
+    values = addTrailingKeyvalue(keyvalues, duration, values, values[values.count - 1])
+    values = addInitialValue(keyvalues, duration, values, values[0])
 
     return values
 end
@@ -510,16 +511,10 @@ func addInitialTimingFunction(_ keyvalues, _ duration, _ arr, _ appendingValue)
         arr = [appendingValue].concatenate(arr)
         return arr
     end
-    return arr 
-end
-
-func simulateValues(_ keyvalues, _ duration, arr, appendingValue)
-    arr = addTrailingKeyvalue(keyvalues, duration, arr, appendingValue)
-    arr = addInitialValue(keyvalues, duration, arr, appendingValue)
     return arr
 end
 
-func simulateTimingFunctions(_ keyvalues, _ duration, arr, appendingValue)
+func simulateLinearTimingFunction(_ keyvalues, _ duration, arr, appendingValue)
     arr = addTrailingKeyvalue(keyvalues, duration, arr, appendingValue)
     arr = addInitialTimingFunction(keyvalues, duration, arr, appendingValue)
     return arr
