@@ -2,22 +2,13 @@
     * Creates and returns all animations for this timeline.
     */
     createAllAnimations() {
-        // Animations      
-    <%- for animationName in animationNames -%>
-        let <%= animationName -%> = this.<%= animationName -%>();
-    <%- end -%>
-    
-        // Tracks
-    <%- for trackName in trackNames -%>
-        let <%= trackName -%>Animations = this.<%= trackName -%>().animations;
-    <%- end -%>
         return [
             this.artboardAnimation(),
     <%- for animationName in animationNames -%>
-            <%= animationName -%>,
+            this.<%= animationName -%>(),
     <%- end -%>
     <%- for trackName in trackNames -%>
-            <%= trackName -%>Animations,
+            this.<%= trackName -%>(),
     <%- end -%>
         ].flat()
     }
