@@ -3,7 +3,7 @@
 propertyName = "backgroundSize"
 trackName = Web.trackName(propertyName: propertyName, id: id)
 var sizes = []
-for keyvalue in track.keyvalues
+for keyvalue in track.keyvaluesWithSimulatedSteps
   sizes = sizes.appending("'\(Web.cssBackgroundSize(keyvalue.value))'")
 end
 values = sizes
@@ -13,7 +13,7 @@ insert("js/trackConstructor.js.flt", from: Web, indentation: indentation)
 propertyName = "backgroundPosition"
 trackName = Web.trackName(propertyName: propertyName, id: id)
 var positions = []
-for keyvalue in track.keyvalues
+for keyvalue in track.keyvaluesWithSimulatedSteps
   positions = positions.appending("'\(Web.cssBackgroundPosition(keyvalue.value))'")
 end
 values = positions
