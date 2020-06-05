@@ -1,6 +1,6 @@
 <%-
 var imageFolderPath = Web.pathPrefix(relativePath: "./img", absolutePath: imageFolderAbsPath, relative: relative)
-var keyvalues = track.keyvalues
+var keyvalues = track.keyvaluesWithSimulatedSteps
 var duration = timeline.duration * 1000
 
 // Get all the keyvalue times
