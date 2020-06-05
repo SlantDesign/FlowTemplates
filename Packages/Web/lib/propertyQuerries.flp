@@ -40,6 +40,10 @@ func propertyIsForShadow(_ property)
     property.id == "shadowRadius"
 end
 
+func propertyIsForFillImage(_ property)
+  return property.id == "fillImage"
+end
+
 // Querry Selector
 
 func querrySelectorFor(property, timelineName, id)
