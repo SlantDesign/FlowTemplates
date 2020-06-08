@@ -11,7 +11,7 @@ var times = Web.animationTimes(of: keyvalues)
 var values = Web.trackValues(property: property, keyvalues, layer: layer, imageFolderPath: imageFolderPath, importImage: importImage, duration)
 
 // Get all the keyvalue timing functions
-var timingFunctions = Web.timingFunctions(keyvalues: keyvalues, duration)
+var timingFunctions = Web.timingFunctions(keyvalues: keyvalues.dropLast(), duration)
 
 var querrySelector = Web.querrySelectorFor(property: property, timelineName: timelineName, id: id).inQuotes()
 var propertyName = Web.jsPropertyName(property: property)
