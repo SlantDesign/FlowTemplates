@@ -202,9 +202,7 @@ func timingFunctions(keyvalues, _ duration)
         var timingFunction = cssTimingFunction(of: keyvalue.trailingTimingFunction).inQuotes()
         timingFunctions = timingFunctions.appending(timingFunction)
     end
-
-    timingFunctions = simulateLinearTimingFunction(keyvalues, duration, arr: timingFunctions, appendingValue: "linear".inQuotes())
-    
+        
     return timingFunctions
 end
 
@@ -503,19 +501,4 @@ func addInitialValue(_ keyvalues, _ duration, _ arr, _ appendingValue)
         return arr
     end
     return arr 
-end
-
-func addInitialTimingFunction(_ keyvalues, _ duration, _ arr, _ appendingValue)
-    if keyvalues[0].time > 0
-        arr = arr.dropFirst()
-        arr = [appendingValue].concatenate(arr)
-        return arr
-    end
-    return arr
-end
-
-func simulateLinearTimingFunction(_ keyvalues, _ duration, arr, appendingValue)
-    arr = addTrailingKeyvalue(keyvalues, duration, arr, appendingValue)
-    arr = addInitialTimingFunction(keyvalues, duration, arr, appendingValue)
-    return arr
 end
