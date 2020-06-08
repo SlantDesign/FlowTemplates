@@ -1,2 +1,1 @@
-import { Track } from "<%= React.nodeModuleName %>"
 <% insert("js/timeline.js.flt", from: Web, indentation: 0) %>
