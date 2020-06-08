@@ -173,18 +173,6 @@ function callback() {
                 <h3>ToggleButton.js</h3>
                 <p>This file is the button class that contains your component and handles user clicks. It also contains a player that drives your animation.</p>
 
-                <h3>Animation.js</h3>
-                <p>
-                This file contains a class representing an Animation. The Animation class contains all the logic necessary
-                to create and control instances of animations. 
-                </p>
-
-                <h3>Track.js</h3>
-                <p>
-                This file contains a class representing the Track of animations for a specific property of an element. A Track contains
-                a list of animations that will used manipulate a specific property of an HTML Element.  
-                </p>
-
                 <h2 id="connect-with-us">Connect With Us</h2>
                 <p>If you have questions about this, please reach out either:</p>
 
