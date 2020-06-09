@@ -1,3 +1,2 @@
 <defs id="<%= id %>-defs">
-<%- insert("svg/gradient.svg.flt", from: Web, indentation: indentation + 1) %>
 </defs>
