@@ -51,7 +51,7 @@ func jsPropertyName(property)
   case "maskPath": return ""
 
   // Text
-  case "string": return ""
+  case "string": return "string"
   case "alignmentMode": return "textAlign"
   case "font": return "fontFamily"
   case "fontSize": return "fontSize"
@@ -196,14 +196,14 @@ end
 
 
 // Returns timing functions for the keyvalues
-func timingFunctions(keyvalues)
-  var timingFunctions = []
-  for keyvalue in keyvalues
-    var timingFunction = cssTimingFunction(of: keyvalue.trailingTimingFunction).inQuotes()
-    timingFunctions = timingFunctions.appending(timingFunction)
-  end
-
-  return timingFunctions
+func timingFunctions(keyvalues, _ duration)
+    var timingFunctions = []
+    for keyvalue in keyvalues
+        var timingFunction = cssTimingFunction(of: keyvalue.trailingTimingFunction).inQuotes()
+        timingFunctions = timingFunctions.appending(timingFunction)
+    end
+        
+    return timingFunctions
 end
 
 
@@ -458,4 +458,22 @@ end
 
 func trackName(propertyName, id)
   return "\(id)_\(propertyName.snakeCased())Track"
+end
+
+func trackOffsets(_ times, _ duration)
+    var offsets = []
+    for time in times
+        offsets = offsets.appending(time / duration)
+    end
+    return offsets
+end
+
+func trackValues(property, _ keyvalues, layer, imageFolderPath, importImage, _ duration)
+    var values = []
+    for keyvalue in keyvalues
+        var value = cssValue(property: property, value: keyvalue.value, layer: layer, imageFolderPath: imageFolderPath, importImage: importImage)
+        values = values.appending(value)
+    end
+
+    return values
 end
