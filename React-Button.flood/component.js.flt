@@ -1,3 +1,4 @@
+import "../css/<%= timelineName %>.css"
 <% for image in imagesInTimeline -%>
 import <%= image.name %> from "<%= "../img/\(image.name).png" -%>";
 <% end -%>
