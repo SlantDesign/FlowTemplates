@@ -136,11 +136,9 @@ input[type=range]::-moz-range-track {}
 
 /* All the same stuff for Firefox */
 input[type=range]::-moz-range-thumb {
-    height: 12px;
-    width: 6px;
-    border-radius: 2px;
+    border-radius: 10px;
     background-color: #FFF;
-    border-width: 1px;
+    border-width: 2px;
     border-style: solid;
-    border-color: #0000FF88;
+    border-color: #2974FF;
 }
