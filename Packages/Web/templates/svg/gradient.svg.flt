@@ -1,11 +1,8 @@
 <%-
   var gradient = layer.fillGradient
-  var gradientID = "\(id)-fill" 
-  var tag = Web.gradientTag(gradient) -%>
-<<%= tag %> id="<%= gradientID %>" <%= Web.gradientAttributes(gradient) %>>
+  -%>
   <%- insert("svg/stops.svg.flt", from: Web, indentation: indentation + 1) -%>
   <%- var gradientAnimations = timeline.animationsFor(layer: layer, property: "fillGradient")
   if !gradientAnimations.isEmpty
     insert("svg/gradientAnimation.svg.flt", from: Web, indentation: indentation + 1)
   end -%>
-</<%= tag %>>
