@@ -5,6 +5,8 @@
         constructor() {
             super();
 
+            <%- insert("js/font-face.js.flt", from: Web, indentation: 1) %>
+
             const shadow = this.attachShadow({ mode: "open" });
             const <%= timelineNameLowercased %> = document.createElement("div");
             <%= timelineNameLowercased %>.id = "<%= containerID %>";

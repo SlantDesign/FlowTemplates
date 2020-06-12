@@ -1,0 +1,22 @@
+// Work around for FireFox fonts. Creating the @font-face styles via JS instead of CSS
+// For some reason that fixes fonts in FireFox for component based exports.
+<%-
+var fontFaceStyleName = "fontFaceStyle"
+-%>
+let <%= fontFaceStyleName %> = document.createElement("style");
+<%-
+  for font in fontsInTimeline
+    if !Web.webFonts.contains(font.name) && font.path != nil -%>
+    <%= fontFaceStyleName %>.appendChild(
+        document.createTextNode(
+            "\
+            @font-face {\
+                font-family: <%= font.name %>;\
+                src: url('<%= Web.pathPrefix(relativePath: "./fonts", absolutePath: fontFolderAbsPath, relative: relative) %>/<%= font.name %>.<%= font.extension %>');\
+            }\
+            "
+        )
+    );
+    <%- end -%>
+<%- end -%>
+document.head.appendChild(<%= fontFaceStyleName %>);
