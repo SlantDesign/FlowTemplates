@@ -488,7 +488,7 @@ func gradientStopAnimation(timeline, layer, stopIndex, property, indentation)
     var track = timeline.trackFor(layer: layer, property: "fillGradient")
 
     if track == nil 
-        return ""
+        return nil
     end
 
     var keytimes = svgAnimationKeytimes(track: track, duration: timeline.duration)
@@ -506,10 +506,4 @@ func gradientStopAnimation(timeline, layer, stopIndex, property, indentation)
     end
 
     return ["values": values, "keytimes": keytimes, "keysplines": keysplines]
-end
-
-func isStopAnimated(_ stopAnimation)
-    return stopAnimation["values"] != nil && 
-    stopAnimation["keytimes"] != nil && 
-    stopAnimation["keysplines"] != nil
 end
