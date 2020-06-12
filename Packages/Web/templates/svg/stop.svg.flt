@@ -1,1 +1,14 @@
-<stop class="stop<%= i %>" offset="<%= stop.position * 100 %>%" stop-color="<%= stop.color.hex %>" ></stop>
+<stop class="stop<%= i %>" offset="<%= stop.position * 100 %>%" stop-color="<%= stop.color.hex %>" >
+    <%-
+    if stopAnimations
+        var stopAnimation = Web.gradientStopAnimation(timeline: timeline, layer: layer, stopIndex: i, property: "fillgradient.stop.position", indentation: 3)
+        if stopAnimation != nil
+            var values = stopAnimation["values"]
+            var keytimes = stopAnimation["keytimes"]
+            var keysplines = stopAnimation["keysplines"]
+            var attributeName = "offset"
+            insert("svg/animate.svg.flt", from: Web, indentation: 4)
+        end
+    end
+    -%>
+</stop>

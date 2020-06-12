@@ -1,5 +1,6 @@
 <%-
   var gradient = layer.fillGradient
+  var stopAnimations = true
   -%>
   <%- insert("svg/stops.svg.flt", from: Web, indentation: indentation + 1) -%>
   <%- var gradientAnimations = timeline.animationsFor(layer: layer, property: "fillGradient")

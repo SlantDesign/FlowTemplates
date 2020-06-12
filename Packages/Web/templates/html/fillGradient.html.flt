@@ -1,7 +1,8 @@
 <%-
   var gradient = layer.fillGradient
   var gradientID = "\(id)-fill" 
-  var tag = Web.gradientTag(gradient) -%>
+  var tag = Web.gradientTag(gradient)
+  var stopAnimations = false -%>
 <defs id="<%= id %>-defs">
     <<%= tag %> id="<%= gradientID %>" <%= Web.gradientAttributes(gradient) %>>
     <%- insert("svg/stops.svg.flt", from: Web, indentation: indentation + 2) -%>

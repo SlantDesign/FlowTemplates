@@ -427,6 +427,12 @@ func svgAnimationValue(attributeName, from keyvalue)
   case "stroke-width":
     return keyvalue.value
 
+  case "fillGradient.stop.position":
+    return keyvalue.value
+
+  case "stop":
+    return keyvalue.position
+
   default:
     return nil
   end
@@ -476,4 +482,34 @@ func trackValues(property, _ keyvalues, layer, imageFolderPath, importImage, _ d
     end
 
     return values
+end
+
+func gradientStopAnimation(timeline, layer, stopIndex, property, indentation)
+    var track = timeline.trackFor(layer: layer, property: "fillGradient")
+
+    if track == nil 
+        return ""
+    end
+
+    var keytimes = svgAnimationKeytimes(track: track, duration: timeline.duration)
+    var keysplines = svgAnimationKeysplines(track: track)
+    var gradients = svgAnimationValues(attributeName: "fillGradient.stop.position", from: track)
+
+    var values = []
+    for gradient in gradients
+        var stop = gradient.stops[stopIndex]
+        values = values.appending(svgAnimationValue(attributeName: "stop", from: stop))
+    end
+
+    if values.areIdentical()
+        return nil
+    end
+
+    return ["values": values, "keytimes": keytimes, "keysplines": keysplines]
+end
+
+func isStopAnimated(_ stopAnimation)
+    return stopAnimation["values"] != nil && 
+    stopAnimation["keytimes"] != nil && 
+    stopAnimation["keysplines"] != nil
 end
