@@ -4,5 +4,4 @@ text-anchor: middle;
 inline-size: <%= layer.size.width %>;
 text-align: <%= Web.cssAlign(layer.alignment) %>;
 color: <%= layer.foregroundColor.hex %>;
-overflow: hidden;
 line-height: normal;
