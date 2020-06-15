@@ -430,9 +430,6 @@ func svgAnimationValue(attributeName, from keyvalue)
   case "fillGradients":
     return keyvalue.value
 
-  case "stop":
-    return keyvalue.position
-
   default:
     return nil
   end
@@ -498,7 +495,7 @@ func gradientStopAnimation(timeline, layer, stopIndex, property, indentation)
     var values = []
     for gradient in gradients
         var stop = gradient.stops[stopIndex]
-        values = values.appending(svgAnimationValue(attributeName: "stop", from: stop))
+        values = values.appending(stop.position)
     end
 
     if values.areIdentical()
