@@ -1,11 +1,15 @@
+<%-
+var track = timeline.trackFor(layer: layer, property: "fillGradient")
+-%>
+
 <stop class="stop<%= i %>" offset="<%= stop.position * 100 %>%" stop-color="<%= stop.color.hex %>" >
     <%-
     if stopAnimations
-        var stopAnimation = Web.gradientStopAnimation(timeline: timeline, layer: layer, stopIndex: i, property: "fillgradient.stop.position", indentation: 3)
-        if stopAnimation != nil
-            var values = stopAnimation["values"]
-            var keytimes = stopAnimation["keytimes"]
-            var keysplines = stopAnimation["keysplines"]
+        var stopValues = Web.gradientStopValues(timeline: timeline, track: track, layer: layer, stopIndex: i, property: "fillgradient.stop.position", indentation: 3)
+        if stopValues != nil
+            var values = stopValues
+            var keytimes = Web.svgAnimationKeytimes(track: track, duration: timeline.duration)
+            var keysplines = Web.svgAnimationKeysplines(track: track)
             var attributeName = "offset"
             insert("svg/animate.svg.flt", from: Web, indentation: 4)
         end

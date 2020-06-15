@@ -481,15 +481,12 @@ func trackValues(property, _ keyvalues, layer, imageFolderPath, importImage, _ d
     return values
 end
 
-func gradientStopAnimation(timeline, layer, stopIndex, property, indentation)
-    var track = timeline.trackFor(layer: layer, property: "fillGradient")
+func gradientStopValues(timeline, track, layer, stopIndex, property, indentation)
 
     if track == nil 
         return nil
     end
 
-    var keytimes = svgAnimationKeytimes(track: track, duration: timeline.duration)
-    var keysplines = svgAnimationKeysplines(track: track)
     var gradients = svgAnimationValues(attributeName: "fillGradients", from: track)
 
     var values = []
@@ -502,5 +499,5 @@ func gradientStopAnimation(timeline, layer, stopIndex, property, indentation)
         return nil
     end
 
-    return ["values": values, "keytimes": keytimes, "keysplines": keysplines]
+    return values
 end
