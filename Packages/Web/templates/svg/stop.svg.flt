@@ -1,10 +1,7 @@
-<%-
-var track = timeline.trackFor(layer: layer, property: "fillGradient")
--%>
-
 <stop class="stop<%= i %>" offset="<%= stop.position * 100 %>%" stop-color="<%= stop.color.hex %>" >
     <%-
     if stopAnimations
+        var track = timeline.trackFor(layer: layer, property: "fillGradient")
         var stopValues = Web.gradientStopValues(timeline: timeline, track: track, layer: layer, stopIndex: i, property: "fillgradient.stop.position", indentation: 3)
         if stopValues != nil
             var values = stopValues
