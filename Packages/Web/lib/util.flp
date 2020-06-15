@@ -427,7 +427,7 @@ func svgAnimationValue(attributeName, from keyvalue)
   case "stroke-width":
     return keyvalue.value
 
-  case "fillGradient.stop.position":
+  case "fillGradients":
     return keyvalue.value
 
   case "stop":
@@ -493,7 +493,7 @@ func gradientStopAnimation(timeline, layer, stopIndex, property, indentation)
 
     var keytimes = svgAnimationKeytimes(track: track, duration: timeline.duration)
     var keysplines = svgAnimationKeysplines(track: track)
-    var gradients = svgAnimationValues(attributeName: "fillGradient.stop.position", from: track)
+    var gradients = svgAnimationValues(attributeName: "fillGradients", from: track)
 
     var values = []
     for gradient in gradients
