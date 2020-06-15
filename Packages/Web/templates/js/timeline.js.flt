@@ -70,6 +70,21 @@ end -%>
 <%          end  
         end 
     end -%>
+
+        // Gradient Animations
+        let defs;<%-
+    for layer in layer.descendants
+        if layer.type.name == "shape"
+            var id = Web.elementIDFor(layer: layer, symbolTable: symbolTable)
+            var gradientID = "\(id)-fill"
+            if layer.fillGradient != nil
+-%>         
+        defs = this.rootElement.getElementById("<%= gradientID %>")
+        defs.innerHTML = `
+        <%- insert("svg/gradient.svg.flt", from: Web, indentation: indentation + 2) -%>
+        `<%- end
+            end 
+        end %>
     } 
 
     loadSVGShapeMaskAnimations() {<%-

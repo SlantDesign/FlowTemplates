@@ -427,6 +427,9 @@ func svgAnimationValue(attributeName, from keyvalue)
   case "stroke-width":
     return keyvalue.value
 
+  case "fillGradients":
+    return keyvalue.value
+
   default:
     return nil
   end
@@ -473,6 +476,27 @@ func trackValues(property, _ keyvalues, layer, imageFolderPath, importImage, _ d
     for keyvalue in keyvalues
         var value = cssValue(property: property, value: keyvalue.value, layer: layer, imageFolderPath: imageFolderPath, importImage: importImage)
         values = values.appending(value)
+    end
+
+    return values
+end
+
+func gradientStopValues(timeline, track, layer, stopIndex, property, indentation)
+
+    if track == nil 
+        return nil
+    end
+
+    var gradients = svgAnimationValues(attributeName: "fillGradients", from: track)
+
+    var values = []
+    for gradient in gradients
+        var stop = gradient.stops[stopIndex]
+        values = values.appending(stop.position)
+    end
+
+    if values.areIdentical()
+        return nil
     end
 
     return values
