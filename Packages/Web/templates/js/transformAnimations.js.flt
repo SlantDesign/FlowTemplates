@@ -17,9 +17,7 @@ var properties = ["transform.scale.x", "transform.scale.y", "transform.rotation.
 for property in properties
   var track = timeline.trackFor(layer: layer, property: property)
   if track != nil
-    for keyvalue in track.keyvalues
-        keyvalues = keyvalues.appending(keyvalue)
-    end
+    keyvalues = track.keyvaluesWithSimulatedSteps
   end
 end
 
@@ -29,7 +27,6 @@ keyvalues = keyvalues.sorted(by: timeLess)
 
 if !keyvalues.isEmpty
   var transforms = [transform(at: 0)]
-  var offsets = [0]
   var easings = []
   var previous = keyvalues[0]
   var time = 0
@@ -38,31 +35,19 @@ if !keyvalues.isEmpty
     time = keyvalue.time
 
     transforms = transforms.appending(transform(at: time))
-    offsets = offsets.appending(keyvalue.time / timeline.duration)
     if previous != nil
       easings = easings.appending(Web.timing(keyvalue: previous))
     end
     previous = keyvalue
   end
 
-if offsets.count > 0 && offsets[offsets.count-1] != 1.0
-    transforms = transforms.appending(transforms[transforms.count-1])
-    offsets = offsets.appending(1)
-  end
-
-  var animationName = "\(id)TransformAnimation"
-  animationNames = animationNames.appending(animationName) -%>
- <%= animationName %>() {
-    return this.rootElement.querySelector(`${this.elementID} .<%= id %>`).animate([
-<%for i in 0..<transforms.count -%>
-        { transform: <%= transforms[i] %>, offset: <%= offsets[i] %><% if i < easings.count %>, easing: <%= easings[i] %><% end %> },
-<%end -%>
-    ], {
-        duration: this.duration,
-        composite: 'add',
-        fill: 'forwards'
-    });
-}
-<%
+    var trackName = "\(id)TransformAnimation"
+    var querrySelector = "`${this.elementID} .\(id)`"
+    var propertyName = "transform"
+    var values = transforms
+    var timingFunctions = easings
+    var times = Web.animationTimes(of: keyvalues)
+    var duration = timeline.duration * 1000
+    insert("js/trackConstructor.js.flt", from: Web, indentation: indentation)
 end
 -%>
