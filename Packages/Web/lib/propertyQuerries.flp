@@ -48,13 +48,13 @@ end
 
 func querrySelectorFor(property, timelineName, id)
   if property.id == "fillGradient"
-    return "#\(timelineName) .\(id)-svg .stop"
+    return "`${this.elementID} .\(id)-svg .stop"
   else if propertyIsForShape(property)
-    return "#\(timelineName) .\(id)-svg"
+    return "`${this.elementID} .\(id)-svg`"
   else if propertyIsForBorder(property)
-      return "#\(timelineName) .flow-border.\(id)-border"
+      return "`${this.elementID} .flow-border.\(id)-border`"
   else if propertyIsForRoot(property)
-    return "#\(timelineName) .\(id)"
+    return "`${this.elementID} .\(id)`"
   end
 end
 
