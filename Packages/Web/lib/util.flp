@@ -194,6 +194,21 @@ func animationTimes(of keyvalues)
   return times
 end
 
+// Returns the a list of the keyvalues times for offsets in milli seconds
+func offsetTimes(of keyvalues)
+    var times = [0]
+    for keyvalue in keyvalues
+        var nextTime = keyvalue.time * 1000
+        if keyvalue.time != 1 && keyvalue.time != 0
+            if times[times.count - 1] != nextTime
+                times = times.appending(nextTime)
+            end
+        end
+    end
+    times = times.appending(1000)
+    return times
+end
+
 
 // Returns timing functions for the keyvalues
 func timingFunctions(keyvalues, _ duration)

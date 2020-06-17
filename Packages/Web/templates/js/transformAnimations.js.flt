@@ -17,7 +17,9 @@ var properties = ["transform.scale.x", "transform.scale.y", "transform.rotation.
 for property in properties
   var track = timeline.trackFor(layer: layer, property: property)
   if track != nil
-    keyvalues = track.keyvaluesWithSimulatedSteps
+    for keyvalue in track.keyvalues
+        keyvalues = keyvalues.appending(keyvalue)
+    end
   end
 end
 
@@ -46,7 +48,7 @@ if !keyvalues.isEmpty
     var propertyName = "transform"
     var values = transforms
     var timingFunctions = easings
-    var times = Web.animationTimes(of: keyvalues)
+    var times = Web.offsetTimes(of: keyvalues)
     var duration = timeline.duration * 1000
     insert("js/trackConstructor.js.flt", from: Web, indentation: indentation)
 end
