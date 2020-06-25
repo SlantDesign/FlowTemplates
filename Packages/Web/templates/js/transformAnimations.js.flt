@@ -1,6 +1,9 @@
 <% // Transform animations
 
 // Returns the css transform value at the given time.
+
+var durationInSeconds = timeline.duration * 1000
+
 func transform(at time)
     var scaleX = timeline.value(property: "transform.scale.x", layer: layer.layer, time: 0)
     var scaleY = timeline.value(property: "transform.scale.y", layer: layer.layer, time: 0)
@@ -41,13 +44,19 @@ if !keyvalues.isEmpty
     previous = keyvalue
   end
 
+    var times = Web.animationTimes(of: keyvalues)
+    if transforms.areIdentical()
+        transforms = [transforms[0], transforms[0]]
+        easings = ["linear".inQuotes()]
+        times = [0, durationInSeconds]
+    end
+
     var trackName = "\(id)TransformAnimation"
     var querrySelector = "`${this.elementID} .\(id)`"
     var propertyName = "transform"
     var values = transforms
     var timingFunctions = easings
-    var times = Web.animationTimes(of: keyvalues)
-    var duration = timeline.duration * 1000
+    var duration = durationInSeconds
     insert("js/trackConstructor.js.flt", from: Web, indentation: indentation)
 end
 -%>
