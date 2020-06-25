@@ -9,6 +9,9 @@ trackNames = trackNames.appending(trackName)
         <%= propertyName -%>: <%= values %>,
         easing: <%= timingFunctions %>,
         offset: <%= Web.trackOffsets(times, duration) %>,
+        <%- if transformOrigins != nil -%>
+        transformOrigin: <%= transformOrigins %>
+        <%- end -%>
       },
       {
         duration: this.duration,

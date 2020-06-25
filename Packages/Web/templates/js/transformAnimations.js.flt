@@ -10,6 +10,12 @@ func transform(at time)
     return "'\(Web.cssTransformFormValues(anchorX: anchorX, anchorY: anchorY, scaleX: scaleX, scaleY: scaleY, rotation: rotation))'"
 end
 
+func transformOrigin(at time)
+    var anchorX = timeline.value(property: "anchorPoint.x", layer: layer.layer, time: time)
+    var anchorY = timeline.value(property: "anchorPoint.y", layer: layer.layer, time: time)
+    return "\(anchorX * 100)% \(anchorY * 100)%".inQuotes()
+end
+
 // All transform properties need to change at the same times, otherwise animation blocks will interfere with each
 // other. We gather all relevant keyvalues and use their times to generate animation keyframes.
 var keyvalues = []
@@ -27,6 +33,7 @@ keyvalues = keyvalues.sorted(by: timeLess)
 
 if !keyvalues.isEmpty
   var transforms = [transform(at: 0)]
+  var anchorPoints = [transformOrigin(at: 0)]
   var easings = []
   var previous = keyvalues[0]
   var time = 0
@@ -35,6 +42,7 @@ if !keyvalues.isEmpty
     time = keyvalue.time
 
     transforms = transforms.appending(transform(at: time))
+    anchorPoints = anchorPoints.appending(transformOrigin(at: time))
     if previous != nil
       easings = easings.appending(Web.timing(keyvalue: previous))
     end
@@ -48,6 +56,7 @@ if !keyvalues.isEmpty
     var timingFunctions = easings
     var times = Web.animationTimes(of: keyvalues)
     var duration = timeline.duration * 1000
+    var transformOrigins = anchorPoints
     insert("js/trackConstructor.js.flt", from: Web, indentation: indentation)
 end
 -%>

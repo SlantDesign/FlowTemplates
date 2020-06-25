@@ -16,6 +16,7 @@ var timingFunctions = Web.timingFunctions(keyvalues: keyvalues.dropLast(), durat
 var querrySelector = Web.querrySelectorFor(property: property, timelineName: timelineName, id: id)
 var propertyName = Web.jsPropertyName(property: property)
 var trackName = Web.trackName(propertyName: propertyName, id: id)
+var transformOrigins = nil
 
 switch property.id
   case "contentsGravity":
