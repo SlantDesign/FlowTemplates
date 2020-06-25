@@ -5,20 +5,6 @@ func transformOrigin(at time)
     return "\(anchorX * 100)% \(anchorY * 100)%".inQuotes()
 end
 
-func translateOrigin(at time)
-    var anchorX = timeline.value(property: "anchorPoint.x", layer: layer.layer, time: time)
-    var anchorY = timeline.value(property: "anchorPoint.y", layer: layer.layer, time: time)
-    return "translate(-\(anchorX * 100)%, -\(anchorY * 100)%)".inQuotes()
-end
-
-func anchorPointPropertyName(_ property)
-    switch property
-        case "anchorPoint.x": return "left"
-        case "anchorPoint.y": return "top"
-    end
-end
-
-
 var keyvalues = []
 var properties = ["anchorPoint.x", "anchorPoint.y"]
 
@@ -33,7 +19,6 @@ func timeLess(lhs, rhs) return lhs.time < rhs.time end
 keyvalues = keyvalues.sorted(by: timeLess)
 
 if !keyvalues.isEmpty
-    var translates = [translateOrigin(at: 0)]
     var anchorPoints = [transformOrigin(at: 0)]
     var easings = []
     var previous = keyvalues[0]
@@ -46,7 +31,6 @@ if !keyvalues.isEmpty
         time = keyvalue.time
 
         anchorPoints = anchorPoints.appending(transformOrigin(at: time))
-        translates = translates.appending(translateOrigin(at: time))
         if previous != nil
             easings = easings.appending(Web.timing(keyvalue: previous))
         end
@@ -55,12 +39,12 @@ if !keyvalues.isEmpty
 
     var trackName = "\(id)AnchorPointAnimation"
     var querrySelector = "`${this.elementID} .\(id)`"
-    var propertyName = "transform"
-    var values = translates
+    var propertyName = "transformOrigins"
+    var values = anchorPoints
     var timingFunctions = easings
     var times = Web.animationTimes(of: keyvalues)
     var duration = timeline.duration * 1000
-    var transformOrigins = anchorPoints
+    var transformOrigins = nil
     insert("js/trackConstructor.js.flt", from: Web, indentation: indentation)
 end
 %>
