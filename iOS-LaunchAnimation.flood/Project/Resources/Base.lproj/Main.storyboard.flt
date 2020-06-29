@@ -62,7 +62,8 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="<%= viewID %>" customClass="<%= viewName %>" customModule="<%= document.name %>" customModuleProvider="target">
                                 <rect key="frame" x="<%= (375 - timeline.scene.size.width) / 2 %>" y="<%= (667 - timeline.scene.size.height) / 2 %>" width="<%= timeline.scene.size.width %>" height="<%= timeline.scene.size.height %>"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <%- var backgroundColor = timeline.rootLayer(at: 0).backgroundColor %>
+                                <color key="backgroundColor" red="<%= backgroundColor.red %>" green="<%= backgroundColor.green %>" blue="<%= backgroundColor.blue %>" alpha="<%= backgroundColor.alpha %>" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="<%= timeline.scene.size.height %>" id="F34-UY-EOV"/>
                                     <constraint firstAttribute="width" constant="<%= timeline.scene.size.width %>" id="lnu-tW-77y"/>
