@@ -11,7 +11,6 @@ public class <%= viewControllerClassName %>: UIViewController {
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        <%= timeline.scene.name.lowerCamelCased() %>.clipsToBounds = true
         timeline = <%= timelineName %>(view: <%= timeline.scene.name.lowerCamelCased() %>, duration: <%= timeline.duration %>)
 
         timeline.play()

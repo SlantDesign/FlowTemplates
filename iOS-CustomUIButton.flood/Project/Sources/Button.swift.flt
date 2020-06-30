@@ -11,6 +11,10 @@ class <%= buttonClassName %>: ToggleButton {
     private lazy var <%= viewVariableName %>: <%= viewName %> = {
         let startView = <%= viewName %>(frame: .zero)
         startView.scale(to: frame.size)
+        //Since we use scaling, the startView must not clip to bounds 
+        startView.clipsToBounds = false
+        //Let the button do the clipping
+        clipsToBounds = <%= initialRootSnapshot.masksToBounds %>
         return startView
     }()
 
