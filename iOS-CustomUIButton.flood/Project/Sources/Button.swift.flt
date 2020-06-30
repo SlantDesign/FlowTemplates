@@ -14,7 +14,7 @@ class <%= buttonClassName %>: ToggleButton {
         //Since we use scaling, the startView must not clip to bounds 
         startView.clipsToBounds = false
         //Let the button do the clipping
-        clipsToBounds = <%- if initialRootSnapshot.masksToBounds %> true<%- else -%> false<%- end %>
+        clipsToBounds = <%= initialRootSnapshot.masksToBounds %>
         return startView
     }()
 
