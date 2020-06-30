@@ -70,10 +70,6 @@ func animationIsNotForShapeProperty(_ animation)
   return propertyIsNotForShape(animation.property)
 end
 
-func animationIsForTransform(_ animation)
-  return propertyIsNotAnimated(animation.property)
-end
-
 func animationIsForBorder(_ animation)
   return propertyIsForBorder(animation.property)
 end
