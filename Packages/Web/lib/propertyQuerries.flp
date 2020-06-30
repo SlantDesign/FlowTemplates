@@ -20,7 +20,6 @@ func propertyIsForTransform(_ property)
   return
     property.id == "transform.scale.x" ||
     property.id == "transform.scale.y" ||
-    property.id == "transform.rotation.z" ||
     property.id == "anchorPoint.x" ||
     property.id == "anchorPoint.y"
 end

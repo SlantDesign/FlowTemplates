@@ -8,7 +8,7 @@ var times = Web.animationTimes(of: keyvalues)
 
 // Get all the keyvalue values
 
-var values = Web.trackValues(property: property, keyvalues, layer: layer, imageFolderPath: imageFolderPath, importImage: importImage, duration)
+var values = Web.trackValues(property: property, keyvalues, timeline: timeline, layer: layer, imageFolderPath: imageFolderPath, importImage: importImage, duration)
 
 // Get all the keyvalue timing functions
 var timingFunctions = Web.timingFunctions(keyvalues: keyvalues.dropLast(), duration)
