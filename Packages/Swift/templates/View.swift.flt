@@ -40,7 +40,7 @@ public class <%= viewName %>: UIView {
 
     private func setup() {
         backgroundColor = Defaults.backgroundColor
-        clipsToBounds = <%- if initialRootSnapshot.masksToBounds %> true<%- else -%> false<%- end %>
+        clipsToBounds = <%= initialRootSnapshot.masksToBounds %>
         createViews()
         addSubviews()
         //scale(to: frame.size)
