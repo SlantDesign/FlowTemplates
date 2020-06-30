@@ -8,7 +8,7 @@ insert("js/shadowAnimations.js.flt", from: Web, indentation: indentation)
 func dontCreateTrackFor(_ property)
   // dont create tracks for transform and shadow properties because they are dealt with by flt files above
   // dont create tracks for the combinedPath property because path animations are injected via svg animations
-  return Web.propertyIsForTransform(property) || 
+  return Web.propertyIsNotAnimated(property) || 
         Web.propertyIsForShadow(property) || 
         property.id == "combinedPath" || 
         Web.propertyIsForFillImage(property)

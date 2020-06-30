@@ -61,15 +61,15 @@ func jsPropertyName(property)
 end
 
 /// Formats a property value as CSS.
-func cssValue(property, value, layer, imageFolderPath, importImage)
+func cssValue(property, value, timeline, layer, imageFolderPath, importImage)
   switch property.id
   case "position.x": return "'\(value)px'"
   case "position.y": return "'\(value)px'"
   case "bounds.size.width": return "'\(value)px'"
   case "bounds.size.height": return "'\(value)px'"
-  case "anchorPoint.x": return "'\(cssTransform(of: layer)) translate(-\(value * 100)%, 0)'"
-  case "anchorPoint.y": return "'\(cssTransform(of: layer)) translate(0, \(100 * value)%)'"
-  case "transform.rotation.z": return "'\(cssTransform(of: layer)) rotate(\(value.degrees)deg)'"
+  case "anchorPoint.x": return ""
+  case "anchorPoint.y": return ""
+  case "transform.rotation.z": return "\(transform(at: value, from: timeline, with: layer))"
   case "opacity": return "\(value)"
   case "backgroundColor": return "'\(value.hex)'"
   case "borderWidth": return "'\(value)px'"
@@ -83,8 +83,8 @@ func cssValue(property, value, layer, imageFolderPath, importImage)
   case "resizing.margin.left": return "'\(value)px'"
   case "resizing.margin.bottom": return "'\(value)px'"
   case "resizing.margin.right": return "'\(value)px'"
-  case "transform.scale.x": return "'\(cssTransform(of: layer)) scale(\(value), 1)'"
-  case "transform.scale.y": return "'\(cssTransform(of: layer)) scale(1, \(value))'"
+  case "transform.scale.x": return ""
+  case "transform.scale.y": return ""
 
   // Image
   case "image":
@@ -473,12 +473,12 @@ end
 
 func trackValues(property, _ keyvalues, timeline, layer, imageFolderPath, importImage, _ duration)
     var values = []
-    if property.id == "transform.rotation.z"
-        return transformValues(keyvalues, timeline, layer)
-    end
-
     for keyvalue in keyvalues
-        var value = cssValue(property: property, value: keyvalue.value, layer: layer, imageFolderPath: imageFolderPath, importImage: importImage)
+        var propertyValue = keyvalue.value
+        if property.id == "transform.rotation.z"
+            propertyValue = keyvalue.time
+        end
+        var value = cssValue(property: property, value: propertyValue, timeline: timeline, layer: layer, imageFolderPath: imageFolderPath, importImage: importImage)
         values = values.appending(value)
     end
 
@@ -515,12 +515,4 @@ func transform(at time, from timeline, with layer)
     var anchorX = timeline.value(property: "anchorPoint.x", layer: layer.layer, time: 0)
     var anchorY = timeline.value(property: "anchorPoint.y", layer: layer.layer, time: 0)
     return "'\(cssTransformFormValues(anchorX: anchorX, anchorY: anchorY, scaleX: scaleX, scaleY: scaleY, rotation: rotation))'"
-end
-
-func transformValues(_ keyvalues, _ timeline, _ layer)
-    var values = []
-    for keyvalue in keyvalues
-        values = values.appending(transform(at: keyvalue.time, from: timeline, with: layer))
-    end
-    return values
 end
