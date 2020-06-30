@@ -15,7 +15,6 @@ public class <%= viewControllerClassName %>: UIViewController, UIScrollViewDeleg
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        <%= timeline.scene.name.lowerCamelCased() %>.clipsToBounds = true
         timeline = <%= timelineName %>(view: <%= timeline.scene.name.lowerCamelCased() %>, duration: <%= timeline.duration %>)
         setupScrollView()
     }
