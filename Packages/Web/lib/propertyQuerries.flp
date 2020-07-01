@@ -4,7 +4,7 @@ func propertyIsForRoot(_ property)
     property.id != "borderWidth" &&
     property.id != "borderColor" &&
     property.layerType != "shape" &&
-    !propertyIsForTransform(property) &&
+    !propertyIsNotAnimated(property) &&
     !propertyIsForShadow(property)
 end
 
@@ -16,11 +16,13 @@ func propertyIsNotForShape(_ property)
   return property.layerType != "shape"
 end
 
-func propertyIsForTransform(_ property)
+// Choosing not to animate these properties
+// because we can not control them independently
+// which will result in inconsistent behaviour.
+func propertyIsNotAnimated(_ property)
   return
     property.id == "transform.scale.x" ||
     property.id == "transform.scale.y" ||
-    property.id == "transform.rotation.z" ||
     property.id == "anchorPoint.x" ||
     property.id == "anchorPoint.y"
 end
@@ -66,10 +68,6 @@ end
 
 func animationIsNotForShapeProperty(_ animation)
   return propertyIsNotForShape(animation.property)
-end
-
-func animationIsForTransform(_ animation)
-  return propertyIsForTransform(animation.property)
 end
 
 func animationIsForBorder(_ animation)

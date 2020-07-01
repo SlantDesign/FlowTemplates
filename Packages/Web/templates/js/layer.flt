@@ -2,14 +2,13 @@
 var id = Web.elementIDFor(layer: layer, symbolTable: symbolTable)
 var groups = []
 
-insert("js/transformAnimations.js.flt", from: Web, indentation: indentation)
 insert("js/shadowAnimations.js.flt", from: Web, indentation: indentation)
 
 // Returns true if a track should not be created for the property
 func dontCreateTrackFor(_ property)
   // dont create tracks for transform and shadow properties because they are dealt with by flt files above
   // dont create tracks for the combinedPath property because path animations are injected via svg animations
-  return Web.propertyIsForTransform(property) || 
+  return Web.propertyIsNotAnimated(property) || 
         Web.propertyIsForShadow(property) || 
         property.id == "combinedPath" || 
         Web.propertyIsForFillImage(property)
