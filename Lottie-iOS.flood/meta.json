@@ -1,0 +1,14 @@
+{
+  "uuid": "A68459C6-1BF0-4BFE-A78A-C7EE0D489ACC",
+  "title": "Lottie-iOS",
+  "description": "An iOS project containing a driveable Lottie animation.",
+  "parameters": [
+    {
+      "label": "Output Folder",
+      "description": "Folder name for export, relative to main export folder",
+      "variable": "folderName",
+      "type": "text",
+      "default": "Lottie-iOS"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+func borderIsVisible(layer, timeline)
+    var borderAlwaysClear = timeline.trackFor(layer: layer, property: "borderColor") == nil && layer.borderColor.alpha == 0
+    var borderWidthAlwaysZero = timeline.trackFor(layer: layer, property: "borderWidth") == nil && layer.borderWidth == 0
+    return !(borderWidthAlwaysZero || borderAlwaysClear)
+end
+
+func strokeIsVisible(layer, timeline)
+    var strokeWidthAlwaysZero = timeline.trackFor(layer: layer, property: "lineWidth") == nil && layer.strokeWidth == 0
+    var strokeAlwaysClear = timeline.trackFor(layer: layer, property: "strokeColor") == nil && layer.strokeColor.alpha == 0
+    return !(strokeAlwaysClear || strokeWidthAlwaysZero)
+end
+
+func backgroundIsVisible(layer, timeline)
+    var backgroundAlwaysClear = timeline.trackFor(layer: layer, property: "backgroundColor") == nil && layer.backgroundColor.alpha == 0
+    return !backgroundAlwaysClear
+end

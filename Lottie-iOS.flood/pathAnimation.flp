@@ -1,0 +1,71 @@
+func pathAnimation(layer, timeline, subPath index)
+    var keyvalues = pathKeyvalues(layer: layer, timeline: timeline, subPath: index)
+    var animationValue = keyvalues
+    
+    if keyvalues.isEmpty
+        animationValue = initialPathValue(layer: layer, subPath: index)
+    end
+
+    return [
+        "a": animatedValue(layer: layer, propertyID: pathProperty(layer: layer), timeline: timeline),
+        "k": animationValue
+    ]
+end
+
+func initialPathValue(layer, subPath index)
+    var renderedPath = pathFor(layer: layer).render(width: layer.bounds.size.width, height: layer.bounds.size.height)
+    return pathValue(from: renderedPath, subPath: index)
+end
+
+func pathKeyvalues(layer, timeline, subPath index)
+    var tracks = tracksFor(layer: layer, propertyID: pathProperty(layer: layer), timeline: timeline)
+    if tracks.isEmpty
+        return []
+    end
+
+    var keyvaluesArray = []
+    for keyvalue in tracks[0].keyvaluesWithSimulatedSteps
+        // Get the path value from the keyvalue
+        var path = keyvalue.value
+        var size = timeline.value(property: sizeProperty, layer: keyvalue.track.layer, time: keyvalue.time) 
+        var renderedPath = path.render(width: size.width, height: size.height)
+        var value = pathValue(from: renderedPath, subPath: index)
+        
+        keyvaluesArray = keyvaluesArray.appending(keyvalueData(from: keyvalue, value: value))
+    end
+
+    return keyvaluesArray
+end
+
+func pathProperty(layer)
+    switch layer.type.name
+    case "shape":
+        return combinedPathProperty
+    case "shapeMask":
+        return maskPathProperty
+    default:
+        return nil
+    end
+end
+
+func pathValue(from renderedPath, subPath index)
+	var subPath = renderedPath.paths[index]
+	var vertices = []
+	var trailingBezierCurveHandles = []
+	var leadingBezierCurveHandles = []
+
+	for point in subPath.points
+		vertices = vertices.appending([point.position.x, point.position.y])
+		var trailingBezierCurveHandle = point.curveFrom.subtracting(point: point.position)
+		var leadingBezierCurveHandle = point.curveTo.subtracting(point: point.position)
+		trailingBezierCurveHandles = trailingBezierCurveHandles.appending([trailingBezierCurveHandle.x, trailingBezierCurveHandle.y])
+		leadingBezierCurveHandles = leadingBezierCurveHandles.appending([leadingBezierCurveHandle.x, leadingBezierCurveHandle.y])
+	end
+
+	return [ 
+        "c": subPath.closed,
+        "i": trailingBezierCurveHandles,
+        "o": leadingBezierCurveHandles,
+        "v": vertices
+    ]
+end

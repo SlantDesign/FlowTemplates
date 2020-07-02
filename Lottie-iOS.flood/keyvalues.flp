@@ -1,0 +1,118 @@
+func kevaluesArray(layer, propertyID, timeline)
+    var tracks = tracksFor(layer: layer, propertyID: propertyID, timeline: timeline)
+    if tracks.isEmpty
+        return []
+    end
+
+    var keyvaluesArray = []
+    for keyvalue in tracks[0].keyvaluesWithSimulatedSteps
+        var value = keyvalueValue(from: keyvalue, propertyID: propertyID)
+        keyvaluesArray = keyvaluesArray.appending(keyvalueData(from: keyvalue, value: value))
+    end
+
+    return keyvaluesArray
+end
+
+func keyvalueData(from keyvalue, value)
+    return keyFrame(inX: keyvalue.trailingTimingFunction.controlPoints[1].x, 
+                    inY: keyvalue.trailingTimingFunction.controlPoints[1].y, 
+                    outX: keyvalue.trailingTimingFunction.controlPoints[0].x, 
+                    outY: keyvalue.trailingTimingFunction.controlPoints[0].y, 
+                    frame: frameNumber(from: keyvalue.time), 
+                    value: value)
+end
+
+func keyFrame(inX, inY, outX, outY, frame, value)
+    func array(from value)
+        if value is Array
+            return value
+        else
+            return [value]
+        end
+    end
+
+    return [
+        "o": [
+            "x": [ outX ],
+            "y": [ outY ]
+        ],
+        "i": [
+            "x": [ inX ],
+            "y": [ inY ]
+        ],
+        "t": frame, // frame number
+        "s": array(from: value)
+    ]
+end
+
+func keyvalueValue(from keyvalue, propertyID)
+    var value = extractValue(from: keyvalue, propertyID: propertyID)
+    return lottieValue(from: value, propertyID: propertyID)
+end
+
+func extractValue(from keyvalue, propertyID)
+    var timeline = keyvalue.track.timeline
+    var layer = keyvalue.track.layer
+
+    switch propertyID
+    case maskPathProperty:
+        // handled in pathAnimation.flp
+        return nil
+    case combinedPathProperty:
+        // Handled in pathAnimation.flp
+        return nil
+
+    case transformRotationZProperty:
+        var scaleX = timeline.value(property: flippedHorizontalProperty, layer: layer, time: 0)
+        var scaleY = timeline.value(property: flippedVerticalProperty, layer: layer, time: 0)
+        var rotationDirection = scaleX * scaleY
+        return rotationDirection * rotationValue(from: keyvalue.value)
+
+    case backgroundColorOpacityProperty:
+        return keyvalue.value.alpha
+
+    case fillColorOpacityProperty:
+        return keyvalue.value.alpha
+
+    case strokeOpacityProperty:
+        return keyvalue.value.alpha
+
+    case shadowColorOpacityProperty:
+        return keyvalue.value.alpha
+
+    case borderColorOpacityProperty:
+        return keyvalue.value.alpha
+
+    case foregroundColorOpacityProperty:
+        return keyvalue.value.alpha
+
+    case borderSizeProperty:
+        var borderWidth = timeline.value(property: borderWidthProperty, layer: layer, time: keyvalue.time)
+        var width = keyvalue.value.width - borderWidth
+        var height = keyvalue.value.height - borderWidth
+        return [width, height]
+
+    case imagePositionXProperty:
+        var layerSize = timeline.value(property: sizeProperty, layer: layer, time: keyvalue.time)
+        var contentMode = timeline.value(property: "contentsGravity", layer: layer, time: keyvalue.time)
+        var image = timeline.value(property: "image", layer: layer, time: keyvalue.time)
+        return xImagePosition(contentMode: contentMode, layerSize: layerSize, imageSize: image.size)
+    case imagePositionYProperty:
+        var layerSize = timeline.value(property: sizeProperty, layer: layer, time: keyvalue.time)
+        var contentMode = timeline.value(property: "contentsGravity", layer: layer, time: keyvalue.time)
+        var image = timeline.value(property: "image", layer: layer, time: keyvalue.time)
+        return yImagePosition(contentMode: contentMode, layerSize: layerSize, imageSize: image.size)
+    case imageScaleProperty:
+        var layerSize = timeline.value(property: sizeProperty, layer: layer, time: keyvalue.time)
+        var contentMode = timeline.value(property: "contentsGravity", layer: layer, time: keyvalue.time)
+        var image = timeline.value(property: "image", layer: layer, time: keyvalue.time)
+        return imageScale(contentMode: contentMode, layerSize: layerSize, imageSize: image.size)
+    case anchorPointProperty:
+        var layerSize = timeline.value(property: sizeProperty, layer: layer, time: keyvalue.time)
+        var anchorPointX = timeline.value(property: "anchorPoint.x", layer: layer, time: keyvalue.time)
+        var anchorPointY = timeline.value(property: "anchorPoint.y", layer: layer, time: keyvalue.time)
+        return [anchorPointX, anchorPointY, layerSize]
+    default:
+        return keyvalue.value
+    end
+end

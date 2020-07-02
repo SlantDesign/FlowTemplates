@@ -1,0 +1,121 @@
+    <div class="container content using lottie animation tutorial">
+        <div class="row">
+            <div class="col-md-3 d-none d-md-block float-left">
+                <br><br>
+                <div id="toc" class="d-none d-md-block toc sticky">
+                    <ul class="toc-ul-root nav">
+                        <li><a class="nav-link toc-link-1" href="#folder-breakdown"><span>1.</span>Folder Breakdown</a></li>
+                        <li><a class="nav-link toc-link-1" href="#integrating-a-single-instance"><span>2.</span>Integrating</a></li>
+                        <li><a class="nav-link toc-link-1" href="#Compatibility"><span>3.</span>Compatibility</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-9 col-lg-9 tutorial relative">
+                <div class="docs-content">
+                    <h1>Integrating a Lottie Animation</h1>
+                <div class="row justify-content-left">
+                    <div class="col-auto">
+                      <p>Flow Version <%= flowVersion %></p>
+                    </div>
+                </div>
+                <hr class="underliner">
+                    <p class="intro">This document covers all the details you need to know to integrate Flow's custom iOS Animation into your app.</p>
+                    <p class="intro">When working through this doc, remember:</p>
+                    <ul class="readme">
+                      <li>The code below contains variables from your Flow file.</li>
+                      <li>That means you can copy and paste it verbatim into your project.</li>
+                      <li>We used our code export engine to produce it, so you can be sure that it is <b>exact</b></li>
+                    </ul>
+                    <h2 id="custom-code">Custom Code</h2>
+                    <p>Every time you export a timeline to code it varies depending on the animations, layer names, etc.
+                        To ensure these instructions are crystal clear they are tailored to the code you have just exported.
+                        For example, the name of the timeline you just exported is <code class="highlighter-rouge"><%= timelineName.lowercased() %></code>.</p>
+                    <p>Let’s get to it.</p>
+                    <h2 id="folder-breakdown">Folder Breakdown</h2>
+                    <p>When you export a project you’ll see the following structure:</p>
+                    <ul class="readme">
+                        <li><%= timelineFolder %> <small>- Folder containing everything for your animation and web-demo of using Lottie.
+                            <ul class="readme">
+                                <li><%= timelineName %>.js <small>- A js file used by <code>index.html</code></small></li>
+                                <li><%= timelineName.lowercased() %>.json <small>- The actual Lottie JSON file</small></li>
+                                <li><%= timelineName.lowercased() %>.min.json <small>- The actual Lottie JSON file, gloriously minified</small></li>
+                                <li>fonts <small>- Folder containing all the fonts used in the lottie animation</small></li>
+                                <li>img <small>- Folder containing all the images used in the lottie animation</small></li>
+                                <li>index.html <small>- An html file you can double click to quickly preview the Lottie animation in a browser</small></li>
+                                <li>README.html <small>- The file you are currently reading</small></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <h2 id="integrating-a-single-instance">Integrating the Animation</h2>
+                    <p>Here, we provide some simple steps for integrating your Lottie exports from Flow into an iOS app.</p>
+                    <p>For a full run-through, check out our doc: <a href="https://createwithflow.com/docs/integrate-lottie/">Integrate an Animation using Lottie on iOS</a>
+<ol>
+                        <li>Install <code class="highlighter-rouge">lottie-ios</code> into your project via <code>CocoaPods</code>.
+                            For example, add the following to your project's Podfile.
+
+                        <div class="highlighter-rouge">
+                                <div class="highlight">
+                                    <pre class="highlight">
+                                        <code>pod 'lottie-ios', '~> 3.1'</code>
+                                    </pre>
+                                </div>
+                            </div>
+
+                        Then run <code>pod install</code>.
+                        <br />If you've never usedCocoaPods before refer to <a href="https://guides.cocoapods.org/using/getting-started.html">CocoaPods Getting Started</a>.
+                        </li>
+                        <li>Move <code><%= timelineName.lowercased() %>.min.json</code> into your Xcode Project.</li>
+                        <li>Add a <code>UIView</code> to the story board corresponding to your ViewController. Postion, size and constrain it.
+                        <li>Change the view's type to <code>AnimationView</code>, and its <b>module</b> to <code>Lottie</code>.
+                        </li>
+                        <li>Add an outlet to your ViewController to reference your view controller:
+                            <div class="highlighter-rouge">
+                                <div class="highlight">
+                                    <pre class="highlight">
+                                        <code>@IBOutlet public weak var animationView: AnimationView!</code>
+                                    </pre>
+                                </div>
+                            </div>
+                        </li>
+                        <li>Instantiate your animation:
+                            <div class="highlighter-rouge">
+                                <div class="highlight">
+                                    <pre class="highlight">
+                                        <code>animationView.animation = Animation.named("<%= timelineName.lowercased() %>.min")</code>
+                                    </pre>
+                                </div>
+                            </div>
+                        </li>
+                        <li>Play it:
+                             <div class="highlighter-rouge">
+                                <div class="highlight">
+                                    <pre class="highlight">
+                                        <code>animationView.play()</code>
+                                    </pre>
+                                </div>
+                            </div>
+                        </li>
+                    </ol>
+                    <h3>Detailed Instructions</h3>
+                    <p>If you need detailed instructions for a specific platform, you'll have to go check out Lottie's documentation:</p>
+                    <ul>
+                        <li><a href="https://airbnb.io/lottie/#/web">Web</a> </li>
+                        <li><a href="https://airbnb.io/lottie/#/android">android</a> </li>
+                        <li><a href="https://airbnb.io/lottie/#/ios">iOS</a> </li>
+                        <li><a href="https://airbnb.io/lottie/#/react-native">React Native</a> </li>
+                        <li><a href="https://airbnb.io/lottie/#/windows">Windows</a> </li>
+                    </ul>
+                    <h2 id="Compatibility">Compatibility</h2>
+                    <p>For a detailed overview of what Flow properties are supported in the Lottie export please visit our <a href="https://createwithflow.com/docs/lottie-compatibility/">Lottie Compatibility</a> document.</p>
+                    <h3 id="Android Notes">Android</h3>
+                    <p>If you're exporting Lottie animations, from Flow, that contain text layers you must include the fonts in your Android Studio project.</p>
+                    <p>The font files must be included in the <code>src/main/assets/fonts</code> directory.</p>
+                    <h3 id="Protopie Notes">Protopie</h3>
+                    <p>Protopie has limitations for importing Lottie files.</p>
+                    <p>Specifically, it will not import Lottie files that contain <code>effects</code>.</p>
+                    <p>For example, drop shadows are implemented in Lottie using effects, and your file will not work in Protopie if any of the layers have drop shadows.</p>
+                    <p>If you want to import your lottie file into Protopie, make sure that all layers in your animation have a <code>shadow color</code> with an opacity value of <code>0</code> throughout the timeline.</p>
+                </div>
+            </div>
+        </div>
+    </div>

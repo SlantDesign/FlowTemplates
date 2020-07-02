@@ -1,0 +1,6 @@
+func imageLayerProperties(layer, timeline)
+    return [
+            "cl": "png",
+            "refId": "\(layer.image.name)"
+      ]
+end
