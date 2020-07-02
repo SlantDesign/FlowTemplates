@@ -1,5 +1,6 @@
 import Web
 import JSON
+import Swift
 
 execute("composition.flp")
 execute("assets.flp")
@@ -24,14 +25,33 @@ execute("pathAnimation.flp")
 execute("characters.flp")
 
 for timeline in timelines
+    // Get a snapshot of the rootLayer at time 0
+    var initialRootSnapshot = timeline.rootLayer(at: 0)
+
     // Get the name of the timeline folder
     var timelineFolder = folderTable.symbolForID(timeline.id, "\(outputFolderPath)/\(documentFolderName)/\(templateFolderName)").name
+
+    // Set the name for the xcode proj file, for consistency give it the same name as the the timeline folder
+    var projectName = timelineFolder
 
     // Get the timeline output path
     var timelineOutputPath = "\(documentFolderName)/\(templateFolderName)/\(timelineFolder)"
 
     // Set the name for the html & css files to the name of the timeline
     var timelineName = timelineFolder
+
+    // Get all assets for this timeline
+    var fontsInTimeline = document.fonts(forTimeline: timeline)
+    var soundsInTimeline = document.sounds(forTimeline: timeline)
+
+    // Set the name for the UIView sublcass
+    var sceneName = timeline.scene.rootLayer.name.lowerCamelCased()
+    var viewName = timeline.scene.rootLayer.name.upperCamelCased()
+    if !viewName.hasSuffix("View")
+        viewName = "\(viewName)View"
+    end
+    viewName = symbolTable.addSymbolWithSuggestedName(viewName, type: "class", context: "Class", id: timeline.scene.rootLayer.id).name
+    var viewControllerClassName = "\(viewName)Controller"
 
     // Folder names
     var imageFolderName = "img"
@@ -41,8 +61,17 @@ for timeline in timelines
     var imageFolderPath = "\(timelineOutputPath)/\(imageFolderName)"
     var fontFolderPath = "\(timelineOutputPath)/\(fontFolderName)"
 
+    // Set unique bundle identifier for each exported timeline 
+    var bundleIdentifier = Swift.convertToValidBundleIdentifier(string: "com.\(organization).\(document.name).\(timelineName)")
+
     // Delete previously exported project
     rm(timelineOutputPath)
+
+    // Create Sources Directory
+    mkdir("\(timelineOutputPath)/Sources/\(timelineName)")
+    process("View.swift.flt", from: Swift, into: "\(timelineOutputPath)/Sources/\(timelineName)/\(viewName).swift", indentation: 0)
+    process("Timeline.swift.flt", from: Swift, into: "\(timelineOutputPath)/Sources/\(timelineName)/\(timelineName).swift", indentation: 0)
+    process("Project/Sources/ViewController.swift.flt", into: "\(timelineOutputPath)/Sources/\(timelineName)/\(viewName)Controller.swift", indentation: 0)
 
     // Create output directories
     mkdir("\(imageFolderPath)")
@@ -64,6 +93,18 @@ for timeline in timelines
             copy(from: font.path, to: "\(fontFolderPath)/\(font.familyName).\(font.extension)")
         end
     end
+
+    // Create Xcode Project Package Directory and subfolder and subfiles
+    mkdir("\(timelineOutputPath)/\(timelineFolder).xcodeproj")
+    process("Project/project.xcodeproj/project.pbxproj.flt", into: "\(timelineOutputPath)/\(timelineFolder).xcodeproj/project.pbxproj", indentation: 0)
+
+    // Create Base.lproj directory and populate it with storyboards
+    mkdir("\(timelineOutputPath)/Resources/Base.lproj")
+    process("Project/Resources/Base.lproj/Main.storyboard.flt", into: "\(timelineOutputPath)/Resources/Base.lproj/Main.storyboard", indentation: 0)
+
+    // Copy info plift into Resources directory
+    process("Project/Resources/Info.plist.flt", into: "\(timelineOutputPath)/Resources/Info.plist", indentation: 0)
+    copy(from: "Project/Resources/Base.lproj/LaunchScreen.storyboard", to: "\(timelineOutputPath)/Resources/Base.lproj/LaunchScreen.storyboard")
 
     // Create Lottie JSON String 
     var dictionary = lottieDictionaryFor(timeline: timeline, imageFolderName: imageFolderName)
