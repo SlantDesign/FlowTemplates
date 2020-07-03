@@ -4,22 +4,23 @@
 //
 
 import UIKit
+import Lottie
 
 public class <%= viewControllerClassName %>: UIViewController {
     @IBOutlet public weak var <%= timeline.scene.name.lowerCamelCased() %>: <%= viewName %>!
     public var timeline: Timeline!
     private var panStartLocation = CGPoint.zero
     private var panStartTime: TimeInterval = 0
+    public var animationView: AnimationView?
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        timeline = <%= timelineName %>(view: <%= timeline.scene.name.lowerCamelCased() %>, duration: <%= timeline.duration %>)
+        animationView = .init(name: "<%= timelineName.lowercased() %>")
 
-        let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
-        view.addGestureRecognizer(pan)
-
-        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
-        view.addGestureRecognizer(tap)
+        animationView?.frame = view.bounds
+        animationView?.loopMode = .loop
+        view.addSubview(animationView!)
+        animationView?.play()
     }
 
     @objc func handlePan(gesture: UIPanGestureRecognizer) {
@@ -32,16 +33,6 @@ public class <%= viewControllerClassName %>: UIViewController {
             timeline.offset(to: panStartTime + t)
         default:
             break
-        }
-    }
-
-    @objc func handleTap(gesture: UITapGestureRecognizer) {
-        if timeline.playing {
-            timeline.pause()
-        } else if timeline.time >= timeline.duration {
-            timeline.reset()
-        } else {
-            timeline.play()
         }
     }
 }
