@@ -39,6 +39,7 @@ for timeline in timelines
 
     // Set the name for the html & css files to the name of the timeline
     var timelineName = timelineFolder
+    var timelineNameLowercased = timelineName.lowercased()
 
     // Get all assets for this timeline
     var fontsInTimeline = document.fonts(forTimeline: timeline)
