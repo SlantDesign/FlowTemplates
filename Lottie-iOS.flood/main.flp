@@ -72,6 +72,8 @@ for timeline in timelines
     process("View.swift.flt", from: Swift, into: "\(timelineOutputPath)/Sources/\(timelineName)/\(viewName).swift", indentation: 0)
     process("Project/Sources/ViewController.swift.flt", into: "\(timelineOutputPath)/Sources/\(timelineName)/\(viewName)Controller.swift", indentation: 0)
 
+    //Create Podfile
+    process("Podfile.flt", into: "\(timelineOutputPath)/Podfile.rb", indentation: 0)
 
     // Create output directories
     mkdir("\(imageFolderPath)")
