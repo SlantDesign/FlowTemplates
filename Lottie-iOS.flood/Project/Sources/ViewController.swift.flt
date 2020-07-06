@@ -6,33 +6,14 @@
 import UIKit
 import Lottie
 
-public class <%= viewControllerClassName %>: UIViewController {
-    @IBOutlet public weak var <%= timeline.scene.name.lowerCamelCased() %>: <%= viewName %>!
-    public var timeline: Timeline!
-    private var panStartLocation = CGPoint.zero
-    private var panStartTime: TimeInterval = 0
-    public var animationView: AnimationView?
+public class SceneViewController: UIViewController {
+    @IBOutlet var animationView: AnimationView!
 
     public override func viewDidLoad() {
-        super.viewDidLoad()
-        animationView = .init(name: "<%= timelineName.lowercased() %>")
+        //Play Lottie animation
+        animationView.frame = view.bounds
+        animationView.loopMode = .loop
+        animationView.play()
 
-        animationView?.frame = view.bounds
-        animationView?.loopMode = .loop
-        view.addSubview(animationView!)
-        animationView?.play()
-    }
-
-    @objc func handlePan(gesture: UIPanGestureRecognizer) {
-        switch gesture.state {
-        case .began:
-            panStartTime = timeline.time
-        case .changed:
-            let dx = gesture.translation(in: view).x
-            let t = TimeInterval(dx / view.bounds.midX)
-            timeline.offset(to: panStartTime + t)
-        default:
-            break
-        }
     }
 }
