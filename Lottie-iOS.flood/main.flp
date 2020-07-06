@@ -47,12 +47,6 @@ for timeline in timelines
 
     // Set the name for the UIView sublcass
     var sceneName = timeline.scene.rootLayer.name.lowerCamelCased()
-    var viewName = timeline.scene.rootLayer.name.upperCamelCased()
-    if !viewName.hasSuffix("View")
-        viewName = "\(viewName)View"
-    end
-    viewName = symbolTable.addSymbolWithSuggestedName(viewName, type: "class", context: "Class", id: timeline.scene.rootLayer.id).name
-    var viewControllerClassName = "\(viewName)Controller"
 
     // Folder names
     var imageFolderName = "img"
@@ -70,8 +64,7 @@ for timeline in timelines
 
     // Create Sources Directory
     mkdir("\(timelineOutputPath)/Sources/\(timelineName)")
-    process("View.swift.flt", from: Swift, into: "\(timelineOutputPath)/Sources/\(timelineName)/\(viewName).swift", indentation: 0)
-    process("Project/Sources/ViewController.swift.flt", into: "\(timelineOutputPath)/Sources/\(timelineName)/\(viewName)Controller.swift", indentation: 0)
+    process("Project/Sources/ViewController.swift.flt", into: "\(timelineOutputPath)/Sources/\(timelineName)/ViewController.swift", indentation: 0)
 
     //Create Podfile
     process("Podfile.flt", into: "\(timelineOutputPath)/Podfile.rb", indentation: 0)
