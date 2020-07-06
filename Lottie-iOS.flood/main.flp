@@ -152,9 +152,6 @@ for timeline in timelines
     process("LaunchAnimation/LaunchAnimationViewController.swift.flt", from: Swift, into: "\(timelineOutputPath)/Sources/LaunchAnimation/LaunchAnimationViewController.swift", indentation: 0)
 
     // Create Lottie files
-    // javascript file that exposes lottie animation as java script variable for use in index.html 
-    // process("timeline.js.flt", into: "\(timelineOutputPath)/\(timelineName).js", indentation: 0)
-    
     // human-readable Lottie json file
     process("timeline.json.flt", into: "\(timelineOutputPath)/Sources/\(timelineName)/\(jsonFileName).json", indentation: 0)
 
