@@ -13,7 +13,6 @@
             <objects>
                 <viewController storyboardIdentifier="<%= viewControllerClassName %>" id="<%= viewControllerClassName %>" customClass="<%= viewControllerClassName %>" customModule="<%= document.name %>" customModuleProvider="target" sceneMemberID="viewController">
                     <%- var mainViewID = makeUUID() -%>
-                    <%- var viewID = makeUUID() -%>
                     <%- var animationViewID = makeUUID() -%>
                     <%- var topLayoutGuideID = makeUUID() -%>
                     <layoutGuides>
@@ -24,7 +23,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="<%= viewID %>" customClass="AnimationView" customModule="Lottie">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="<%= animationViewID %>" customClass="AnimationView" customModule="Lottie">
                                 <rect key="frame" x="<%= (375 - timeline.scene.size.width) / 2 %>" y="<%= (667 - timeline.scene.size.height) / 2 %>" width="<%= timeline.scene.size.width %>" height="<%= timeline.scene.size.height %>"/>
                                 <%- var backgroundColor = timeline.rootLayer(at: 0).backgroundColor %>
                                 <color key="backgroundColor" red="<%= backgroundColor.red %>" green="<%= backgroundColor.green %>" blue="<%= backgroundColor.blue %>" alpha="<%= backgroundColor.alpha %>" colorSpace="custom" customColorSpace="sRGB"/>
@@ -36,17 +35,17 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="<%= viewID %>" firstAttribute="centerY" secondItem="<%= viewID %>" secondAttribute="centerY" id="<%= makeUUID() %>"/>
-                            <constraint firstItem="<%= viewID %>" firstAttribute="centerX" secondItem="<%= viewID %>" secondAttribute="centerX" id="<%= makeUUID() %>"/>
-                            <constraint firstItem="<%= viewID %>" firstAttribute="leading" secondItem="<%= mainViewID %>" secondAttribute="leadingMargin" constant="-16" id="<%= makeUUID() %>"/>
-                            <constraint firstItem="<%= viewID %>" firstAttribute="top" secondItem="<%= topLayoutGuideID %>" secondAttribute="bottom" constant="146" id="<%= makeUUID() %>"/>
-                            <constraint firstItem="<%= viewID %>" firstAttribute="centerY" secondItem="<%= mainViewID %>" secondAttribute="centerY" id="<%= makeUUID() %>"/>
-                            <constraint firstItem="<%= viewID %>" firstAttribute="centerX" secondItem="<%= mainViewID %>" secondAttribute="centerX" id="<%= makeUUID() %>"/>
+                            <constraint firstItem="<%= animationViewID %>" firstAttribute="centerY" secondItem="<%= animationViewID %>" secondAttribute="centerY" id="<%= makeUUID() %>"/>
+                            <constraint firstItem="<%= animationViewID %>" firstAttribute="centerX" secondItem="<%= animationViewID %>" secondAttribute="centerX" id="<%= makeUUID() %>"/>
+                            <constraint firstItem="<%= animationViewID %>" firstAttribute="leading" secondItem="<%= mainViewID %>" secondAttribute="leadingMargin" constant="-16" id="<%= makeUUID() %>"/>
+                            <constraint firstItem="<%= animationViewID %>" firstAttribute="top" secondItem="<%= topLayoutGuideID %>" secondAttribute="bottom" constant="146" id="<%= makeUUID() %>"/>
+                            <constraint firstItem="<%= animationViewID %>" firstAttribute="centerY" secondItem="<%= mainViewID %>" secondAttribute="centerY" id="<%= makeUUID() %>"/>
+                            <constraint firstItem="<%= animationViewID %>" firstAttribute="centerX" secondItem="<%= mainViewID %>" secondAttribute="centerX" id="<%= makeUUID() %>"/>
                         </constraints>
                     </view>
                     <value key="contentSizeForViewInPopover" type="size" width="<%= timeline.scene.size.width %>" height="<%= timeline.scene.size.height %>"/>
                     <connections>
-                        <outlet property="animationView" destination="<%= viewID %>" id="<%= makeUUID() %>" />
+                        <outlet property="animationView" destination="<%= animationViewID %>" id="<%= makeUUID() %>" />
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="<%= makeUUID() %>" sceneMemberID="firstResponder"/>
