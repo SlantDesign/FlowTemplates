@@ -15,8 +15,9 @@
                     <%- var mainViewID = makeUUID() -%>
                     <%- var viewID = makeUUID() -%>
                     <%- var animationViewID = makeUUID() -%>
+                    <%- var topLayoutGuideID = makeUUID() -%>
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="<%= makeUUID() %>"/>
+                        <viewControllerLayoutGuide type="top" id="<%= topLayoutGuideID %>"/>
                         <viewControllerLayoutGuide type="bottom" id="<%= makeUUID() %>"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="<%= mainViewID %>">
@@ -37,6 +38,10 @@
                         <constraints>
                             <constraint firstItem="<%= viewID %>" firstAttribute="centerY" secondItem="<%= viewID %>" secondAttribute="centerY" id="<%= makeUUID() %>"/>
                             <constraint firstItem="<%= viewID %>" firstAttribute="centerX" secondItem="<%= viewID %>" secondAttribute="centerX" id="<%= makeUUID() %>"/>
+                            <constraint firstItem="<%= viewID %>" firstAttribute="leading" secondItem="<%= mainViewID %>" secondAttribute="leadingMargin" constant="-16" id="<%= makeUUID() %>"/>
+                            <constraint firstItem="<%= viewID %>" firstAttribute="top" secondItem="<%= topLayoutGuideID %>" secondAttribute="bottom" constant="146" id="<%= makeUUID() %>"/>
+                            <constraint firstItem="<%= viewID %>" firstAttribute="centerY" secondItem="<%= mainViewID %>" secondAttribute="centerY" id="<%= makeUUID() %>"/>
+                            <constraint firstItem="<%= viewID %>" firstAttribute="centerX" secondItem="<%= mainViewID %>" secondAttribute="centerX" id="<%= makeUUID() %>"/>
                         </constraints>
                     </view>
                     <value key="contentSizeForViewInPopover" type="size" width="<%= timeline.scene.size.width %>" height="<%= timeline.scene.size.height %>"/>
