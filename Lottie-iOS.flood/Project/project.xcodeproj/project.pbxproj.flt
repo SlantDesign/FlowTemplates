@@ -19,8 +19,8 @@
 		Assets_xcassets_BuildFile /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = Assets_xcassets_FileReference /* Assets.xcassets */; };
 		LaunchScreen_storyboard_BuildFile /* Base in Resources */ = {isa = PBXBuildFile; fileRef = LaunchScreen_storyboard_FileReference /* Base */; };
 		Main_storyboard_BuildFile /* Base in Resources */ = {isa = PBXBuildFile; fileRef = Main_storyboard_FileReference /* Base */; };
-		<%= viewControllerClassName %>_swift_BuildFile /* <%= viewControllerClassName %>.swift in <%= timelineName %> */ = {isa = PBXBuildFile; fileRef = <%= viewControllerClassName %>_swift_FileReference /* <%= viewControllerClassName %>.swift */; };
-		<%= timelineName %>_swift_BuildFile /* <%= timelineName %>.swift in <%= timelineName %> */ = {isa = PBXBuildFile; fileRef = <%= timelineName %>_swift_FileReference /* <%= timelineName %>.swift */; };
+		<%= viewControllerClassName %>_swift_BuildFile /* <%= viewControllerClassName %>.swift in <%= projectName %> */ = {isa = PBXBuildFile; fileRef = <%= viewControllerClassName %>_swift_FileReference /* <%= viewControllerClassName %>.swift */; };
+		<%= projectName %>_swift_BuildFile /* <%= projectName %>.swift in <%= projectName %> */ = {isa = PBXBuildFile; fileRef = <%= projectName %>_swift_FileReference /* <%= projectName %>.swift */; };
 	<%- for font in fontsInTimeline -%>
 	  <%- if !Swift.iOSFonts.contains(font.name) && font.path != nil -%>
 		<%= font.name.snakeCased() %>_BuildFile /* <%= font.name %> in Resources */ = {isa = PBXBuildFile; fileRef = <%= font.name.snakeCased() %>_FileReference /* <%= font.name %> */; };
@@ -47,7 +47,7 @@
 		<%- end -%>
 		name_app_FileReference /* <%= timelineFolder %>.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "<%= timelineFolder %>.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		<%= viewControllerClassName %>_swift_FileReference /* <%= viewControllerClassName %>.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = <%= viewControllerClassName %>.swift; sourceTree = "<group>"; };
-		<%= timelineName.lowercased() %>_swift_FileReference /* <%= timelineName.lowercased() %>.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.json; path = <%= timelineName.lowercased() %>.json; sourceTree = "<group>"; };
+		<%= projectName.lowercased() %>_swift_FileReference /* <%= projectName.lowercased() %>.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.json; path = <%= projectName.lowercased() %>.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,13 +61,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		<%= timelineName %>_Group /* <%= timelineName %> */ = {
+		<%= projectName %>_Group /* <%= projectName %> */ = {
 			isa = PBXGroup;
 			children = (
 				83840EDE24AFAE8A00D6CE10 /* <%= timelineNameLowercased %>.json */,
 				<%= viewControllerClassName %>_swift_FileReference /* <%= viewControllerClassName %>.swift */,
 			);
-            path = <%= timelineName %>;
+            path = <%= projectName %>;
    			sourceTree = "<group>";
 		};
 		LaunchAnimation_Group /* LaunchAnimation */ = {
@@ -179,7 +179,7 @@
 				AppDelegate_swift_FileReference /* AppDelegate.swift */,
 				FlowCommon_Group /* FlowCommon */,
 				LaunchAnimation_Group /* LaunchAnimation */,
-				<%= timelineName %>_Group /* <%= timelineName %>_Group */,
+				<%= projectName %>_Group /* <%= projectName %>_Group */,
 			);
 			path = Sources;
 			sourceTree = "<group>";

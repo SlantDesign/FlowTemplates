@@ -5,14 +5,14 @@
 <head>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap" rel="stylesheet">
   <style type="text/css">
-    #<%= timelineName %>_lottie_container {
+    #<%= projectName %>_lottie_container {
       width: <%= containerSize.width %>px;
       height: <%= containerSize.height %>px;
       margin: 50px auto 0px auto;
       box-shadow: 0px 2px 6px #1d1d1633;
     }
 
-    #<%= timelineName %>_lottie_container svg {
+    #<%= projectName %>_lottie_container svg {
       pointer-events: none;
     }
 
@@ -69,10 +69,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.6.3/lottie.min.js" integrity="sha256-lZIvAx83WLHALrd5UIfVRAkDgVmAIxUt8JqPhNZIs4Q=" crossorigin="anonymous"></script>
 </head>
 <body>
-  <div id="<%= timelineName %>_lottie_container"></div> 
+  <div id="<%= projectName %>_lottie_container"></div> 
     <div id="details">
     <p class="section">Title</p>
-    <p><%= timelineName %></p>
+    <p><%= projectName %></p>
     <p class="section">Duration</p>
     <p><%= timeline.duration %>s</p>
     <p class="section">Lottie File</p>
@@ -81,15 +81,15 @@
     <p class="note">NOTE: The shadow on the artboard is not part of the Lottie export. We just think it looks prettier.</p>
   </div>
 </body>
-<script src="<%= timelineName %>.js"></script>
+<script src="<%= projectName %>.js"></script>
 <script>
-let element = document.getElementById("<%= timelineName %>_lottie_container");
+let element = document.getElementById("<%= projectName %>_lottie_container");
 lottie.loadAnimation({
   container: element, // the dom element that will contain the animation
   renderer: 'svg',
   loop: true,
   autoplay: true,
-  animationData: <%= timelineName %>AnimationData // the path to the animation json
+  animationData: <%= projectName %>AnimationData // the path to the animation json
 });
 </script> 
 </html> 

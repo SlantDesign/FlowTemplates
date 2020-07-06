@@ -1,1 +1,1 @@
-var <%= timelineName %>AnimationData = <% insert("timeline.json.flt", indentation: 0) %>
+var <%= projectName %>AnimationData = <% insert("timeline.json.flt", indentation: 0) %>

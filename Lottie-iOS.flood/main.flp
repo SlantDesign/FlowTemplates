@@ -38,8 +38,7 @@ for timeline in timelines
     var timelineOutputPath = "\(documentFolderName)/\(templateFolderName)/\(timelineFolder)"
 
     // Set the name for the html & css files to the name of the timeline
-    var timelineName = timelineFolder
-    var timelineNameLowercased = timelineName.lowercased()
+    var timelineNameLowercased = projectName.lowercased()
 
     // Get all assets for this timeline
     var fontsInTimeline = document.fonts(forTimeline: timeline)
@@ -60,14 +59,14 @@ for timeline in timelines
     var fontFolderPath = "\(timelineOutputPath)/\(fontFolderName)"
 
     // Set unique bundle identifier for each exported timeline 
-    var bundleIdentifier = Swift.convertToValidBundleIdentifier(string: "com.\(organization).\(document.name).\(timelineName)")
+    var bundleIdentifier = Swift.convertToValidBundleIdentifier(string: "com.\(organization).\(document.name).\(projectName)")
 
     // Delete previously exported project
     rm(timelineOutputPath)
 
     // Create Sources Directory
-    mkdir("\(timelineOutputPath)/Sources/\(timelineName)")
-    process("Project/Sources/ViewController.swift.flt", into: "\(timelineOutputPath)/Sources/\(timelineName)/ViewController.swift", indentation: 0)
+    mkdir("\(timelineOutputPath)/Sources/\(projectName)")
+    process("Project/Sources/ViewController.swift.flt", into: "\(timelineOutputPath)/Sources/\(projectName)/ViewController.swift", indentation: 0)
 
     //Create Podfile
     process("Podfile.flt", into: "\(timelineOutputPath)/Podfile.rb", indentation: 0)
@@ -134,7 +133,7 @@ for timeline in timelines
 
     // make name of json file snake cased 
     // because asset files in android studio can only have lowercase a-z, 0-9, or underscore
-    var jsonFileName = timelineName.snakeCased()
+    var jsonFileName = projectName.snakeCased()
 
     // Copy the flowCommon files over
     for fileName in flowCommonFileNames
@@ -149,7 +148,7 @@ for timeline in timelines
 
     // Create Lottie files
     // human-readable Lottie json file
-    process("timeline.json.flt", into: "\(timelineOutputPath)/Sources/\(timelineName)/\(jsonFileName).json", indentation: 0)
+    process("timeline.json.flt", into: "\(timelineOutputPath)/Sources/\(projectName)/\(jsonFileName).json", indentation: 0)
 
     // minified version of Lottie json file to be used in production (smaller file size)
     // process("timeline.min.json.flt", into: "\(timelineOutputPath)/\(jsonFileName).min.json", indentation: 0)   
