@@ -6,7 +6,7 @@
 import UIKit
 import Lottie
 
-public class SceneViewController: UIViewController {
+public class <%= viewControllerClassName %>: UIViewController {
     @IBOutlet var animationView: AnimationView!
 
     public override func viewDidLoad() {

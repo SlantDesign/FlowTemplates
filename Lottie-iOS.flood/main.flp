@@ -48,6 +48,9 @@ for timeline in timelines
     // Set the name for the UIView sublcass
     var sceneName = timeline.scene.rootLayer.name.lowerCamelCased()
 
+    // Set the class name for the view controller
+    var viewControllerClassName = "ViewController"
+
     // Folder names
     var imageFolderName = "img"
     var fontFolderName = "fonts"
