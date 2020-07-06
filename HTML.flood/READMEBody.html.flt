@@ -1,0 +1,100 @@
+    <div class="container content integrating ios animation tutorials">
+        <div class="row">
+            <div class="col-md-3 d-none d-md-block float-left">
+                <br><br>
+                <div id="toc" class="d-none d-md-block toc sticky">
+                    <ul class="toc-ul-root nav">
+                        <li><a class="nav-link toc-link-1" href="#custom-code"><span>1.</span>Custom Code</a></li>
+                        <li><a class="nav-link toc-link-1" href="#flow-common"><span>2.</span>Flow Common</a></li>
+                        <li><a class="nav-link toc-link-1" href="#folder-breakdown"><span>2.</span>Folder Breakdown</a></li>
+                        <li><a class="nav-link toc-link-1" href="#integrating-a-single-instance"><span>3.</span>Integrating </a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-9 col-lg-9 tutorial relative">
+                <div class="docs-content">
+                    <h1>Integrating an HTML Animation into Your Site</h1>
+                <div class="row justify-content-left">
+                    <div class="col-auto">
+                        <p class="post-tags">
+                            <small class="blue">Flow Version <%= flowVersion %></small>
+                        </p>
+                    </div>
+                </div>
+                <hr class="underliner">
+                    <p class="intro">This document covers all the details you need to know to integrate a Flow animation into your website.</p>
+                    <p class="intro">When working through this doc, remember:</p>
+                    <ul class="readme">
+                      <li>The code below contains variables from your Flow file.</li>
+                      <li>That means you can copy and paste it verbatim into your project.</li>
+                      <li>We used our code export engine to produce it, so you can be sure that it is <b>exact</b></li>
+                    </ul>
+                    <h2 id="custom-code">Custom Code</h2>
+                    <p>Every time you export a timeline to code it varies depending on the animations, layer names, etc.
+                        To ensure these instructions are crystal clear they are tailored to the code you have just exported.
+                        For example, the name of the timeline you just exported is called: <code class="highlighter-rouge"><%= timelineName %></code>.</p>
+                    <p>Let’s get to it.</p>
+                    <h2 id="flow-common">Flow Common</h2>
+                    <p>There are a few common files you need to run Flow animations.</p>
+                    <h3>Flow's CDN</h3>
+                    <p>The easiest way to link Flow Common files is through our CDN. We recommend using our minified file:</p>
+                    <p><a href="<%= flowCommonWebMinURL %>"><pre><code><%= flowCommonWebMinURL %></code></pre></a></p>
+                    <p>However, depending on the browser you're designing for you may need to also include a Web Animations polyfill. If so, you can use this link:</p>
+                    <p><a href="<%= webAnimationsURL %>"><pre><code><%= webAnimationsURL %></code></pre></a></p>
+                    <h2 id="folder-breakdown">Folder Breakdown</h2>
+                    <p>When you export a project you’ll see the following structure:</p>
+                    <ul class="readme">
+                      <li>Timeline <small>- Folder</small></li>
+                      <ul class="readme">
+                        <li>CSS <small>- Folder<small></li>
+                        <ul class="readme">
+                          <li>driver.css <small>– the styles for the driver (i.e. play/pause button, slider, etc.)</small></li>
+                          <li><%= timelineName %>.css <small>– the styles for your exported animation.</small></li>
+                        </ul>
+                        <li>fonts <small>- Folder containing any exported fonts for your animation.</small></li>
+                        <li>img <small>- Folder containing any exported images for your animation.</small></li>
+                        <li>js <small>- Folder</small></li>
+                        <ul class="readme">
+                          <li>driver.js <small>- scripts to make the driver sync with your animation.</li>
+                          <li><%= timelineName %>Timeline.js <small>- the web-animations code for your animation.</small></li>
+                        </ul>
+                        <li><%= timelineName %>.html <small>– a sample file to display and test your animation.</li>
+                      </ul>
+                    </ul>
+                    <h2 id="integrating-your-animation">Integrating Your Animation</h2>
+                    <p>This section explains how to integrate your animation into your website.</p>
+                    <ol>
+                      <li>Link the <a href="#flow-common">Flow Common CDN</a> in your page's <code class="highlighter-rouge">&lt;head&gt;</code>
+                      <p><pre><code>&lt;script src="<%= flowCommonWebMinURL %>"></script></code></pre></p>
+                      <li>Link your animation's css file in your page's <code class="highlighter-rouge">&lt;head&gt;</code></pre>
+                      <p><pre><code>&lt;link rel="stylesheet" href="path-to-css-file/<%= timelineName %>.css"&gt;</code></pre></p>
+                      <li>Add your animation's DOM to your page's <code class="highlighter-rouge">&lt;body&gt;</code> by copying and pasting your artboard (from your exported <code class="highlighter-rouge"><%= timelineName %>.html</code> file).
+your artboard<p><pre><code>&lt;div class="flow-artboard" style="visibility: hidden;"><br>  //... all the things in here.<br>&lt;/div></code></pre></p>
+                      <li>Link your animation's timeline file some place <u>below your artboard</u>.
+                      <p><pre><code>&lt;link rel="stylesheet" href="path-to-timeline-folder/<%= timelineName %>Timeline.js"&gt;</code></pre></p>
+                      <li>Add a timer <code class="highlighter-rouge">&lt;div></code> below your artboard.
+                      <p><pre><code>&lt;div id="timer-<%= timelineName.lowercased() %>">&lt;/div></code></pre></p>
+                      <li>Create an instance of a player, using your timeline, below your timer.</li>
+                      <p><pre><code>&lt;script type="text/javascript"><br>  let <%= timelineName.lowercased() %>Timer = document.getElementById('timer-<%= timelineName.lowercased() %>')<br>  let <%= timelineName.lowercased() %>ResourcesPath = "." //replace the . with your path-to-timeline-folder<br>  let timeline = new <%= timelineName %>Timeline(document, "#<%= timelineName %>", timelineResourcesPath)<br>  let player = new Player(timeline, <%= timelineName.lowercased() %>Timer, false, 0)<br>&lt;/script></code></pre></p>
+                      <li>Trigger your animation!</li>
+                    </ol>
+                    <h2 id="triggering-your-animation">Triggering Your Animation</h2>
+                    <p>The easiest way to trigger your animation is to simply play it...</p>
+                    <p><pre><code>player.play()</code></pre></p>
+                    <p>There are many ways to interact with the player, to trigger an animation to start or to set its current time.</p>
+                    <h3>Learn from our Driver</h3>
+                    <p>A great way to see the basics is to read through the <code class="highlighter-rouge">driver.js</code> file that gets exported from Flow. It has functions that play, pause, allow you to set the time (via the slider), and dynamically loop your animation.</p>
+                    <h3>Read the FlowCommon Web Docs</h3>
+                    <p>You should definitely have a look at our <a href="https://createwithflow.com/api/flowcommon/web/">FlowCommon Web</a> docs.
+                    <h3>The Player & Driver in Depth</h3>
+                    <p>Finally, you should definitely have a look at our doc on working with the <a href="https://createwithflow.com/docs/driverPlayer/">Driver and Player</a>.
+                    <h2 id="connect-with-us">Connect With Us</h2>
+                    <p>If you have questions about this, please reach out either:</p>
+                    <ul>
+                      <li>by <a href="mailto:info@createwithflow.com?subject=I Need Help Working With Components">email</a></li>
+                      <li>on our <a href="http://join-createwithflow.herokuapp.com">Slack Group</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>

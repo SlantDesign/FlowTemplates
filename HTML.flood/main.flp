@@ -95,6 +95,11 @@ for timeline in timelines
         end
     end
 
+    // Generate README
+    var escape = true
+    process("README.html.flt", into: "\(timelineOutputPath)/README.html", indentation: 0)
+    escape = false
+
     // Clear the symbol table
     symbolTable.removeAllSymbols()
 end
