@@ -1,4 +1,4 @@
 name: Lottie
 version: 1.0.0
 summary: Lottie template utilities
-description: Provides functions and templates for generating Lottie Animation code
+description: Provides functions and templates for generating a Lottie Animation (i.e. a Lottie .json file)
