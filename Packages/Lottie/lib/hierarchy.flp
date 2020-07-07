@@ -1,0 +1,63 @@
+func shouldIncludeParent(layer, type)
+    if type == "composition" || type == "maskComposition"
+        // no parents needed for composition layers
+        return false
+    end
+
+    if layer.parent == nil
+        // no parent needed for the root layer's background
+        return false
+    end
+
+    if (type == "null") && layer.parent.parent == nil
+        return false
+    end
+
+    // Size layers are aligned with the artboards bounds to prevent vertical or horizontal lines from being cropped.
+    if type == "size"
+        return false
+    end
+
+    return  true
+end
+
+func parentLayerIndex(of layer, timeline, type)
+    if type == "null"
+        return layerIndex(of: layer.parent, timeline: timeline, type: "null")
+    else
+        return layerIndex(of: layer, timeline: timeline, type: "null")
+    end
+end
+
+func layerIndex(of layer, timeline, type)
+    var rootLayer = timeline.rootLayer(at: 0).layer
+    func getID(layer) return layer.id end
+    var layers = [rootLayer].concatenate(rootLayer.descendants)
+    var layerIDs = layers.map(getID)
+    var indexBase = layerIDs.firstIndex(of: layer.id)
+    var indexOffset = layerIndexOffset(type: type)
+    return (indexBase * 10) + indexOffset
+end
+
+func layerIndexOffset(type)
+    switch type
+    case "composition":
+        return 0
+    case "stroke":
+        return 1
+    case "background":
+        return 2
+    case "border":
+        return 3
+    case "content":
+        return 4
+    case "null":
+        return 5
+    case "mask":
+        return 6
+    case "maskComposition":
+        return 7
+    case "size":
+        return 8
+    end
+end

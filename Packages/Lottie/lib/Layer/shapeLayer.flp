@@ -1,0 +1,272 @@
+func shapeLayerProperties(layer, timeline, type)
+    return [
+        "shapes": shapesArray(layer: layer, timeline: timeline, type: type)
+    ]
+
+end
+
+func shapesArray(layer, timeline, type)
+    return [shape(layer: layer, timeline: timeline, type: type)]
+end
+
+func shape(layer, timeline, type)
+    return [ 
+        "ty": "gr", // 'group' shape type
+        "it": shapeElements(layer: layer, timeline: timeline, type: type),
+        "nm": layerName(layer: layer, type: type),
+        "np": numberOfProperties(),
+        "cix": 2
+    ]
+end
+
+func numberOfProperties()
+    return 3
+end
+
+func shapeElements(layer, timeline, type)
+    switch type
+    case "content":
+        return pathElements(layer: layer, timeline: timeline).concatenate(
+            [
+                fillElement(layer: layer, timeline: timeline), 
+                transformElement(layer: layer, timeline: timeline)
+            ]
+        ) 
+    case "stroke":
+        return pathElements(layer: layer, timeline: timeline).concatenate(
+            [
+                strokeElement(layer: layer, timeline: timeline),
+                trimElement(layer: layer, timeline: timeline),
+                transformElement(layer: layer, timeline: timeline)
+            ]
+        )
+    case "background":
+        return [
+            backgroundElement(layer: layer, timeline: timeline),
+            backgroundColorElement(layer: layer, timeline: timeline),
+            transformElement(layer: layer, timeline: timeline)
+        ]
+    case "border":
+        return [
+            borderElement(layer: layer, timeline: timeline),
+            borderStrokeElement(layer: layer, timeline: timeline),
+            transformElement(layer: layer, timeline: timeline)
+        ]
+    case "mask":
+        if layer.type.name == "shapeMask"
+            // Return a custom mask with the maskPath of the shapeMask Layer
+            return pathElements(layer: layer, timeline: timeline).concatenate(
+                [
+                    maskColorElement(layer: layer, timeline: timeline),
+                    transformElement(layer: layer, timeline: timeline)
+                ]
+            )
+        else
+            // Return a normal rectangular mask
+            return [
+                backgroundElement(layer: layer, timeline: timeline),
+                maskColorElement(layer: layer, timeline: timeline),
+                transformElement(layer: layer, timeline: timeline)
+            ]
+        end
+    case "size":
+        return [
+            sizeElement(timeline: timeline),
+            sizeColorElement(),
+            transformElement(layer: layer, timeline: timeline)
+        ]
+    end
+end
+
+func borderElement(layer, timeline)
+    return [
+        "ty": "rc", // 'rect' shape type
+        "d": 1, // direction
+        "p": centerAnimation(layer: layer, timeline: timeline),
+        "r": borderRadiusAnimation(layer: layer, timeline: timeline),
+        "nm": layerName(layer: layer, type: "border"),
+        "s": borderSizeAnimation(layer: layer, timeline: timeline)
+    ]
+end
+
+func backgroundElement(layer, timeline)
+    return [
+        "ty": "rc", // 'rect' shape type
+        "d": 1, // direction
+        "p": centerAnimation(layer: layer, timeline: timeline),
+        "r": borderRadiusAnimation(layer: layer, timeline: timeline),
+        "nm": layerName(layer: layer, type: "background"),
+        "s": sizeAnimation(layer: layer, timeline: timeline)
+    ]
+end
+
+func backgroundColorElement(layer, timeline)
+    return [
+        "ty": "fl",
+        "c": backgroundColorAnimation(layer: layer, timeline: timeline),
+        "o": backgroundColorOpacityAnimation(layer: layer, timeline: timeline),
+        "r": 1,
+        "nm": "Fill 1"
+    ]
+end
+
+func maskColorElement(layer, timeline)
+    var opacity = 100
+    if layer.masksToBounds == false && layer.type.name == "group"
+        // if there is no masking, we want to hide the mask layer, so we set the alpha to 0
+        opacity = 0
+    end
+
+    return [
+        "ty": "fl",
+        "c": ["a": 0.0,"k": [0, 0, 0, 1]],
+        "o": ["a": 0.0,"k": opacity],
+        "r": 1,
+        "nm": "Fill 1"
+    ]
+end
+
+func transformElement(layer, timeline)
+    return [
+        "ty": "tr",
+        "p": ["a": 0,"k": [0,0]], // position
+        "a": ["a": 0,"k": [0,0]], // anchor point
+        "s": ["a": 0,"k": [100,100]], // scale
+        "r": ["a": 0,"k": 0], // rotation
+        "o": ["a": 0,"k": 100], // opacity
+        "sk": ["a": 0,"k": 0], // skew
+        "sa": ["a": 0,"k": 0], // skew axis
+        "nm": "Transform"
+    ]
+end
+
+// Shape Layer Elements
+
+func pathElements(layer, timeline)
+    var pathElements = []
+    for index in 0..<pathFor(layer: layer).paths.count
+        var pathElement = pathElement(layer: layer, timeline: timeline, subPath: index)
+        pathElements = pathElements.appending(pathElement)
+    end
+    return pathElements
+end
+
+func pathFor(layer)
+    switch layer.type.name
+    case "shape":
+        return layer.path
+    case "shapeMask":
+        return layer.maskPath
+    default:
+        return nil
+    end
+end
+
+func pathElement(layer, timeline, subPath index)
+    return [ 
+        "ind": 0,
+        "ty": "sh", // 'shape' shape type
+        "ks": pathAnimation(layer: layer, timeline: timeline, subPath: index),
+        "nm": layerName(layer: layer, type: "path")
+    ]
+end
+
+func borderStrokeElement(layer, timeline)
+    return [
+        "ty": "st",
+        "c": borderColorAnimation(layer: layer, timeline: timeline),
+        "o": borderOpacityAnimation(layer: layer, timeline: timeline),
+        "w": borderWidthAnimation(layer: layer, timeline: timeline),
+        "lc": 1, // linecap
+        "lj": 1, // linejoin
+        "ml": 4, // miter limit
+        "nm": "Stroke 1"
+    ]
+end
+
+func strokeElement(layer, timeline)
+    return [
+        "ty": "st",
+        "c": strokeColorAnimation(layer: layer, timeline: timeline),
+        "o": strokeOpacityAnimation(layer: layer, timeline: timeline),
+        "w": strokeWidthAnimation(layer: layer, timeline: timeline),
+        "lc": lineCap(from: layer), // linecap
+        "lj": lineJoin(from: layer), // linejoin
+        "ml": layer.miterLimit, // miter limit
+        "nm": "Stroke 1",
+        "d": dash(from: layer, timeline: timeline)
+    ]
+end
+
+// Used to prevent vertical and horizontal lines from being cropped
+func sizeElement(timeline)
+    var layer = timeline.rootLayer(at: 0)
+    var center = layer.bounds.center
+    var size = layer.bounds.size
+    return [
+            "ty": "rc", // 'rect' shape type
+            "d": 1, // direction
+            "p": ["a": 0.0, "k": [center.x, center.y]],
+            "r": ["a": 0.0, "k": 0.0],
+            "nm": "sizeElement",
+            "s": ["a": 0.0, "k": [size.width, size.height]]
+        ]
+end
+
+// Color element that is always clear used for size element
+func sizeColorElement()
+    return [
+        "ty": "fl",
+        "c": ["a": 0.0, "k": [0, 0, 0, 0]],
+        "o": ["a": 0.0, "k": 0],
+        "r": 1,
+        "nm": "Fill 1"
+    ]
+end
+
+func lineCap(from layer)
+    switch layer.lineCap.name
+    case "butt":
+        return 1
+    case "round":
+        return 2
+    case "square":
+        return 3
+    end
+end
+
+func lineJoin(from layer)
+    switch layer.lineJoin.name
+    case "miter":
+        return 1
+    case "round":
+        return 2
+    case "bevel":
+        return 3
+    end 
+end
+
+
+func fillElement(layer, timeline) 
+    return [
+        "ty": "fl",
+        "c": fillColorAnimation(layer: layer, timeline: timeline),
+        "o": fillColorOpacityAnimation(layer: layer, timeline: timeline),
+        "r": 1,
+        "nm": "Fill 1"
+    ]
+end
+
+func trimElement(layer, timeline)
+    return [
+        "ty": "tm",
+        "s": strokeStartAnimation(layer: layer, timeline: timeline),
+        "e": strokeEndAnimation(layer: layer, timeline: timeline),
+        "o": [
+            "a": 0,
+            "k": 0
+        ],
+        "m": 2, // trim Type, 1 = simultaneously, 2 = individually
+        "nm": "Trim Paths 1"
+    ]
+end

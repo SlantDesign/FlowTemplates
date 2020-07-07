@@ -1,0 +1,50 @@
+// Top level json element in the lottie json animation
+func lottieDictionaryFor(timeline, imageFolderName)
+    var dictionary = [
+        "v": version(),
+        "meta": meta(timeline: timeline),
+        "fr": frameRate(),
+        "ip": 0, // composition start time in frames
+        "op": lastFrame(timeline: timeline), // composition end time in frames
+        "w": compositionWidth(timeline),
+        "h": compositionHeight(timeline),
+        "nm": compositionName(timeline), 
+        "ddd": compositionHas3DLayers(),
+        "assets": assetsArray(timeline: timeline, imageFolderName: imageFolderName),
+        "layers": layersArray(timeline: timeline),
+        "fonts": fonts(timeline: timeline)
+    ]
+    return dictionary
+end
+
+func version()
+    // Version of body moving the lottie player should expect
+    return "5.6.4"
+end
+
+func meta(timeline)
+    return [
+        "g":"Flow \(flowVersion)",
+        "a":"",
+        "k":"",
+        "d":"\(timeline.name)",
+        "tc":""
+    ]
+end
+
+func compositionWidth(_ timeline)
+    return timeline.rootLayer(at: 0).bounds.width.rounded()
+end
+
+func compositionHeight(_ timeline)
+    return timeline.rootLayer(at: 0).bounds.height.rounded()
+end
+
+func compositionName(_ timeline)
+    return timeline.name
+end
+
+func compositionHas3DLayers()
+    return 0
+end
+
