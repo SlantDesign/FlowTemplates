@@ -1,8 +1,0 @@
-var $bm_rt;
-var x, y;
-x = effect('<%= xPropertyID %>')('Slider');
-y = effect('<%= yPropertyID %>')('Slider');
-$bm_rt = [
-    x,
-    y
-];
