@@ -1,6 +1,9 @@
 <% 
 // Set escape to true to print < and > as &lt and &gt
 escape = true
+var title = "Flow-Integrating an Animation into HTML."
+var content = "This is how you integrate an animation into a website."
+var bodyClass = "Integrating an HTML Animation"
 var body = process("READMEBody.html.flt", into: nil, indentation: 1)
 insert("html/README.html.flt", from: Web, indentation: 0) 
 escape = false
