@@ -1,6 +1,6 @@
 {
   "uuid": "521B2FA9-B678-4DE4-B823-05D2E74663A1",
-  "title": "Lottie",
+  "title": "Lottie-Web",
   "description": "An index page containing a Lottie player for the Web.",
   "parameters": [
     {
@@ -8,7 +8,7 @@
       "description": "Folder name for export, relative to main export folder",
       "variable": "folderName",
       "type": "text",
-      "default": "Lottie"
+      "default": "Lottie-Web"
     }
   ]
 }
