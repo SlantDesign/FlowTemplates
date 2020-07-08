@@ -1,0 +1,4 @@
+func json(with timeline, imageFolderName)
+    var dictionary = lottieDictionaryFor(timeline: timeline, imageFolderName: imageFolderName)
+    return JSON.json(from: dictionary, prioritizedEntries: ["ty"])
+end

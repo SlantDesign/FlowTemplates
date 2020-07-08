@@ -1,3 +1,5 @@
+import JSON
+
 execute("lib/composition.flp")
 execute("lib/assets.flp")
 execute("lib/fonts.flp")
@@ -19,3 +21,4 @@ execute("lib/properties.flp")
 execute("lib/visibility.flp")
 execute("lib/pathAnimation.flp")
 execute("lib/characters.flp")
+execute("lib/util.flp")
