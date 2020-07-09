@@ -47,7 +47,9 @@
                         </li>
                     </ul>
                     <h2 id="integrating-a-single-instance">Integrating the Animation</h2>
-                    <p>Here, we provide some simple steps for integrating your Lottie exports from Flow into an iOS app.</p>
+                    <p>Here, we provide some simple steps for integrating your Lottie exports from Flow into an iOS app. 
+                    You can also use the <b>Lottie - iOS</b> export in Flow to get an example Xcode project which illustrates 
+                    how to integrate a Lottie animation into an iOS app. </p>
                     <p>For a full run-through, check out our doc: <a href="https://createwithflow.com/docs/integrate-lottie/">Integrate an Animation using Lottie on iOS</a>
 <ol>
                         <li>Install <code class="highlighter-rouge">lottie-ios</code> into your project via <code>CocoaPods</code>.
