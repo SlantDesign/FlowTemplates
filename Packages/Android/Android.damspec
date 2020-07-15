@@ -1,0 +1,4 @@
+name: Android
+version: 1.0.0
+summary: Android template utilities
+description: Provides functions and templates for generating Android code
