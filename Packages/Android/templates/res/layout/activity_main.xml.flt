@@ -9,9 +9,9 @@
     <com.airbnb.lottie.LottieAnimationView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/rotate"
+        android:id="@+id/<%= timelineNameLowercased %>"
         app:lottie_loop="true"
-        app:lottie_fileName="rotate.json"
+        app:lottie_fileName="<%= timelineNameLowercased %>.json"
         app:lottie_autoPlay="true"
     />
 
