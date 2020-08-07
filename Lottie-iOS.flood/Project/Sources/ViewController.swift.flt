@@ -1,0 +1,20 @@
+// Made With Flow.
+//
+// DO NOT MODIFY, your changes will be lost when this file is regenerated.
+//
+
+import UIKit
+import Lottie
+
+public class <%= viewControllerClassName %>: UIViewController {
+    @IBOutlet var animationView: AnimationView!
+
+    public override func viewDidLoad() {
+        // Set up animation
+        animationView.animation = Lottie.Animation.named("<%= timelineNameLowercased %>.min", subdirectory: "<%= animationsFolderName %>")
+        animationView.frame = view.bounds
+        animationView.loopMode = .loop
+        // Play animation
+        animationView.play()
+    }
+}

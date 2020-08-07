@@ -1,0 +1,140 @@
+import Web
+import Lottie
+import Swift
+
+for timeline in timelines
+    // Get a snapshot of the rootLayer at time 0
+    var initialRootSnapshot = timeline.rootLayer(at: 0)
+
+    // Get the name of the timeline folder
+    var timelineFolder = folderTable.symbolForID(timeline.id, "\(outputFolderPath)/\(documentFolderName)/\(templateFolderName)").name
+
+    var animationsFolderName = "LottieAnimations"
+
+    // Set the name for the xcode proj file, for consistency give it the same name as the the timeline folder
+    var projectName = timelineFolder
+
+    // Get the timeline output path
+    var timelineOutputPath = "\(documentFolderName)/\(templateFolderName)/\(timelineFolder)"
+
+    // Set the name for the html & css files to the name of the timeline
+    var timelineNameLowercased = projectName.lowercased()
+
+    // Get all assets for this timeline
+    var fontsInTimeline = document.fonts(forTimeline: timeline)
+
+    // Set the name for the UIView sublcass
+    var sceneName = timeline.scene.rootLayer.name.lowerCamelCased()
+
+    // Set the class name for the view controller
+    var viewControllerClassName = "ViewController"
+
+    // Folder names
+    var imageFolderName = "img"
+    var fontFolderName = "Fonts"
+
+    // The paths to use when referencing image and font assets
+    var imageFolderPath = "\(timelineOutputPath)/\(imageFolderName)"
+    var fontFolderPath = "\(timelineOutputPath)/Resources/\(fontFolderName)"
+
+    // Set unique bundle identifier for each exported timeline 
+    var bundleIdentifier = Swift.convertToValidBundleIdentifier(string: "com.\(organization).\(document.name).\(projectName)")
+
+    // Delete previously exported project
+    rm(timelineOutputPath)
+
+    // Create Sources Directory
+    mkdir("\(timelineOutputPath)/Sources/\(projectName)")
+    process("Project/Sources/ViewController.swift.flt", into: "\(timelineOutputPath)/Sources/\(projectName)/ViewController.swift", indentation: 0)
+
+    //Create Podfile
+    process("Podfile.flt", into: "\(timelineOutputPath)/Podfile.rb", indentation: 0)
+
+    // Create output directories
+    mkdir("\(imageFolderPath)")
+
+    // Copy Images over
+    var imagesInTimeline = document.images(forTimeline: timeline)
+    for image in imagesInTimeline
+        var imageData = image.serializeAsPNGData()
+        if imageData != nil 
+            write(data: imageData, to: "\(imageFolderPath)/\(image.name).png")
+        end
+    end
+
+    // Copy Fonts
+    for font in fontsInTimeline
+        if !Swift.iOSFonts.contains(font.name) && font.path != nil
+            copy(from: font.path, to: "\(fontFolderPath)/\(font.name).\(font.extension)")
+        end
+    end
+
+    // Copy App Icon Images 
+    copy(from: "Project/Resources/Assets.xcassets/AppIcon.appiconset/Contents.json", to: "\(timelineOutputPath)/Resources/Assets.xcassets/AppIcon.appiconset/Contents.json")
+    var appIconSizes = [20, 29, 40, 41, 42, 58, 59, 60, 76, 80, 81, 87, 120, 121, 152, 167, 180, 1024]
+    for appIconSize in appIconSizes 
+        copy(from: "Project/Resources/Assets.xcassets/AppIcon.appiconset/Icon-\(appIconSize).png", to: "\(timelineOutputPath)/Resources/Assets.xcassets/AppIcon.appiconset/Icon-\(appIconSize).png")
+    end
+
+    // Copy FlowWord Mark Logo and Contents.json used in launch storyboard
+    copy(from: "Project/Resources/Assets.xcassets/FlowWordmark.imageset/FlowWordmark.pdf", to: "\(timelineOutputPath)/Resources/Assets.xcassets/FlowWordmark.imageset/FlowWordmark.pdf")
+    copy(from: "Project/Resources/Assets.xcassets/FlowWordmark.imageset/Contents.json", to: "\(timelineOutputPath)/Resources/Assets.xcassets/FlowWordmark.imageset/Contents.json")
+    copy(from: "Project/Resources/Assets.xcassets/Contents.json", to: "\(timelineOutputPath)/Resources/Assets.xcassets/Contents.json")
+
+    // Copy Images from Flow document
+    for image in imagesInTimeline
+        mkdir("\(timelineOutputPath)/Resources/Assets.xcassets/\(image.name).imageset")
+        process("Project/Resources/Assets.xcassets/image.imageset/Contents.json.flt", into: "\(timelineOutputPath)/Resources/Assets.xcassets/\(image.name).imageset/Contents.json", indentation: 0)
+        var imageData = image.serializeAsPNGData()
+        write(data: imageData, to: "\(timelineOutputPath)/Resources/Assets.xcassets/\(image.name).imageset/\(image.name).png")
+    end
+
+    // Create Xcode Project Package Directory and subfolder and subfiles
+    mkdir("\(timelineOutputPath)/\(timelineFolder).xcodeproj")
+    process("Project/project.xcodeproj/project.pbxproj.flt", into: "\(timelineOutputPath)/\(timelineFolder).xcodeproj/project.pbxproj", indentation: 0)
+
+    // Create Base.lproj directory and populate it with storyboards
+    mkdir("\(timelineOutputPath)/Resources/Base.lproj")
+    process("Project/Resources/Base.lproj/Main.storyboard.flt", into: "\(timelineOutputPath)/Resources/Base.lproj/Main.storyboard", indentation: 0)
+
+    // Copy info plift into Resources directory
+    process("Project/Resources/Info.plist.flt", into: "\(timelineOutputPath)/Resources/Info.plist", indentation: 0)
+    copy(from: "Project/Resources/Base.lproj/LaunchScreen.storyboard", to: "\(timelineOutputPath)/Resources/Base.lproj/LaunchScreen.storyboard")
+
+    // Copy AppDelegate.swift
+    copy(from: "Project/Sources/AppDelegate.swift", to: "\(timelineOutputPath)/Sources/AppDelegate.swift")
+
+    // Create Lottie JSON String 
+    var jsonString = Lottie.json(with: timeline, imageFolderName: imageFolderName)
+
+    // make name of json file snake cased 
+    // because asset files in android studio can only have lowercase a-z, 0-9, or underscore
+    var jsonFileName = projectName.snakeCased()
+
+    // Copy the flowCommon files over
+    for fileName in flowCommonFileNames
+        copy(from: "\(flowCommonSourcesPath)/\(fileName).swift", to: "\(timelineOutputPath)/Sources/FlowCommon/\(fileName).swift")
+    end
+
+    // Create LaunchAnimation files
+    mkdir("\(timelineOutputPath)/Sources/LaunchAnimation")
+    process("LaunchAnimation/LaunchAnimationTimeline.swift.flt", from: Swift, into: "\(timelineOutputPath)/Sources/LaunchAnimation/LaunchAnimationTimeline.swift", indentation: 0)
+    process("LaunchAnimation/LaunchAnimationView.swift.flt", from: Swift, into: "\(timelineOutputPath)/Sources/LaunchAnimation/LaunchAnimationView.swift", indentation: 0)
+    process("LaunchAnimation/LaunchAnimationViewController.swift.flt", from: Swift, into: "\(timelineOutputPath)/Sources/LaunchAnimation/LaunchAnimationViewController.swift", indentation: 0)
+
+    // Create Lottie files
+    // human-readable Lottie json file
+    mkdir("\(timelineOutputPath)/Resources/\(animationsFolderName)")
+    process("timeline.json.flt", from: Lottie, into: "\(timelineOutputPath)/Resources/\(animationsFolderName)/\(jsonFileName).json", indentation: 0)
+
+    // minified version of Lottie json file to be used in production (smaller file size)
+    process("timeline.min.json.flt", from: Lottie, into: "\(timelineOutputPath)/Resources/\(animationsFolderName)/\(jsonFileName).min.json", indentation: 0)
+
+    // Generate README
+    // var escape = true
+    // process("README.html.flt", into: "\(timelineOutputPath)/README.html", indentation: 0)
+    // escape = false
+
+    // Clear the symbol table 
+    symbolTable.removeAllSymbols()
+end
