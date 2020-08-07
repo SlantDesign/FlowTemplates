@@ -1,0 +1,6 @@
+// Variables in this file are used to build the dependency 
+// and repo sections of the project build.gradle file in the Android package.
+
+// Project build repositories
+var projectBuildScriptRepositories = process("templates/repositories/projectBuildScriptRepositories.flt", into: nil, indentation: 0)
+var projectAllProjectRepositories = process("templates/repositories/projectAllProjectRepositories.flt", into: nil, indentation: 0)

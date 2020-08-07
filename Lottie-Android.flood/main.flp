@@ -1,0 +1,119 @@
+import Web
+import Lottie
+import Android
+
+execute("programs/appBuildVariables.flp")
+execute("programs/projectBuildVariables.flp")
+execute("programs/layoutVariables.flp")
+
+for timeline in timelines
+    // Get a snapshot of the rootLayer at time 0
+    var initialRootSnapshot = timeline.rootLayer(at: 0)
+
+    // Get the name of the timeline folder
+    var timelineFolder = folderTable.symbolForID(timeline.id, "\(outputFolderPath)/\(documentFolderName)/\(templateFolderName)").name
+
+    // Set the name for the xcode proj file, for consistency give it the same name as the the timeline folder
+    var projectName = timelineFolder
+
+    // Get the timeline output path
+    var timelineOutputPath = "\(documentFolderName)/\(templateFolderName)/\(timelineFolder)"
+
+    // Set the name for the html & css files to the name of the timeline
+    var timelineNameLowercased = projectName.lowercased()
+
+    // LayoutView String
+    var layoutView = layoutViewWithTimelineName(timelineNameLowercased)
+
+    // Get all assets for this timeline
+    var fontsInTimeline = document.fonts(forTimeline: timeline)
+
+    // Set the name for the UIView sublcass
+    var sceneName = timeline.scene.rootLayer.name.lowerCamelCased()
+
+    // Folder names
+    var imageFolderName = "img"
+    var fontFolderName = "fonts"
+    var assetsFolderName = "assets"
+
+    // The paths to use when referencing image and font assets
+    var imageFolderPath = "\(timelineOutputPath)/\(imageFolderName)"
+
+    // Path to app/src/main
+    var pathToMain = "\(timelineOutputPath)/app/src/main"
+
+    //Path to Android Package
+    var pathToAndroidPackage = "../../Templates/Packages/Android"
+    var pathToAndroidGradle = "\(pathToAndroidPackage)/templates/gradle"
+    var pathToAndroidProguard = "\(pathToAndroidPackage)/templates/proguard"
+
+    // Delete previously exported project
+    rm(timelineOutputPath)
+
+    // Create GradleScripts folder
+    mkdir("\(timelineOutputPath)/gradle/wrapper")
+    copy(from: "\(pathToAndroidGradle)/gradle-wrapper.properties", to: "\(timelineOutputPath)/gradle/wrapper/gradle-wrapper.properties")
+    copy(from: "\(pathToAndroidGradle)/gradle-wrapper.jar", to: "\(timelineOutputPath)/gradle/wrapper/gradle-wrapper.jar")
+
+    // Create activity_main directory and populate it with storyboards
+    mkdir("\(pathToMain)/java/com/example/\(timelineNameLowercased)")
+    process("main/MainActivity.kt.flt", from: Android, into: "\(pathToMain)/java/com/example/\(timelineNameLowercased)/MainActivity.kt", indentation: 0)
+
+    // Create AndroidManifest folder
+    process("manifest/AndroidManifest.xml.flt", from: Android, into: "\(pathToMain)/AndroidManifest.xml", indentation: 0)
+
+    // Process Gradle Files
+    process("gradle/project:build.gradle.flt", from: Android, into: "\(timelineOutputPath)/build.gradle", indentation: 0)
+    process("gradle/app:build.gradle.flt", from: Android, into: "\(timelineOutputPath)/app/build.gradle", indentation: 0)
+    process("gradle/settings.gradle.flt", from: Android, into: "\(timelineOutputPath)/settings.gradle", indentation: 0)
+    process("gradle/local.properties.flt", from: Android, into: "\(timelineOutputPath)/local.properties", indentation: 0)
+    copy(from: "\(pathToAndroidGradle)/gradle.properties", to: "\(timelineOutputPath)/gradle.properties")
+    copy(from: "\(pathToAndroidGradle)/gradlew.bat", to: "\(timelineOutputPath)/gradlew.bat")
+    copy(from: "\(pathToAndroidGradle)/gradlew", to: "\(timelineOutputPath)/gradlew")
+
+    // Create res folder
+    mkdir("\(pathToMain)/res/layout")
+    process("res/layout/activity_main.xml.flt", from: Android, into: "\(pathToMain)/res/layout/activity_main.xml", indentation: 0)
+
+    // Create values folder and files
+    mkdir("\(pathToMain)/res/values")
+    process("res/values/styles.xml.flt", from: Android, into: "\(pathToMain)/res/values/styles.xml", indentation: 0)
+    process("res/values/colors.xml.flt", from: Android, into: "\(pathToMain)/res/values/colors.xml", indentation: 0)
+    process("res/values/strings.xml.flt", from: Android, into: "\(pathToMain)/res/values/strings.xml", indentation: 0)
+
+    // Process iml files
+    process("iml/project.iml.flt", from: Android, into: "\(timelineOutputPath)/\(timelineFolder).iml", indentation: 0)
+    process("iml/app.iml.flt", from: Android, into: "\(timelineOutputPath)/app/app.iml", indentation: 0)
+
+    // Process proguard rules
+    copy(from: "\(pathToAndroidProguard)/proguard-rules.pro", to: "\(timelineOutputPath)/app/proguard-rules.pro")
+
+    // Create Lottie JSON String 
+    var jsonString = Lottie.json(with: timeline, imageFolderName: imageFolderName)
+
+    // make name of json file snake cased 
+    // because asset files in android studio can only have lowercase a-z, 0-9, or underscore
+    var jsonFileName = projectName.snakeCased()
+
+    // Make assets folder
+    mkdir("\(pathToMain)/\(assetsFolderName)")
+
+    // Create Lottie files
+    // human-readable Lottie json file
+    process("timeline.json.flt", from: Lottie, into: "\(pathToMain)/\(assetsFolderName)/\(jsonFileName).json", indentation: 0)
+
+    // minified version of Lottie json file to be used in production (smaller file size)
+    process("timeline.min.json.flt", from: Lottie, into: "\(pathToMain)/\(assetsFolderName)/\(jsonFileName).json", indentation: 0)
+
+    // Make fonts folder
+    var fontsFolderPath = "\(pathToMain)/\(assetsFolderName)/\(fontFolderName)"
+    mkdir("\(fontsFolderPath)")
+
+    // Copy fonts into fonts folder
+    for font in fontsInTimeline
+        copy(from: font.path, to: "\(fontsFolderPath)/\(font.name).\(font.extension)")
+    end
+
+    // Clear the symbol table 
+    symbolTable.removeAllSymbols()
+end
