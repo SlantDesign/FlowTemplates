@@ -131,9 +131,9 @@ for timeline in timelines
     process("timeline.min.json.flt", from: Lottie, into: "\(timelineOutputPath)/Resources/\(animationsFolderName)/\(jsonFileName).min.json", indentation: 0)
 
     // Generate README
-    // var escape = true
-    // process("README.html.flt", into: "\(timelineOutputPath)/README.html", indentation: 0)
-    // escape = false
+    var escape = true
+    process("README.html.flt", into: "\(timelineOutputPath)/README.html", indentation: 0)
+    escape = false
 
     // Clear the symbol table 
     symbolTable.removeAllSymbols()

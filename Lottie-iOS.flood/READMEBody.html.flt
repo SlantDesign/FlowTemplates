@@ -1,0 +1,71 @@
+  <div class="container content using lottie animation tutorial">
+        <div class="row">
+            <div class="col-md-3 d-none d-md-block float-left">
+                <br><br>
+                <div id="toc" class="d-none d-md-block toc sticky">
+                    <ul class="toc-ul-root nav">
+                        <li><a class="nav-link toc-link-1" href="#folder-breakdown"><span>1.</span>Folder Breakdown</a></li>
+                        <li><a class="nav-link toc-link-1" href="#integrating-a-single-instance"><span>2.</span>Integrating</a></li>
+                        <li><a class="nav-link toc-link-1" href="#Compatibility"><span>3.</span>Compatibility</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-9 col-lg-9 tutorial relative">
+                <div class="docs-content">
+                    <h1>Integrating a Lottie Animation</h1>
+                <div class="row justify-content-left">
+                    <div class="col-auto">
+                      <p>Flow Version <%= flowVersion %></p>
+                    </div>
+                </div>
+                <hr class="underliner">
+                    <p class="intro">This document explains how to run the iOS Xcode project you have just exported using Flow’s Lottie-iOS export.</p>
+                    <p class="intro">When working through this doc, remember:</p>
+                    <ul class="readme">
+                      <li>The code below contains variables from your Flow file.</li>
+                      <li>That means you can copy and paste it verbatim into your project.</li>
+                      <li>We used our code export engine to produce it, so you can be sure that it is <b>exact</b></li>
+                    </ul>
+                    <h2 id="custom-code">Custom Code</h2>
+                    <p>Every time you export a timeline to code it varies depending on the animations, layer names, etc.
+                        To ensure these instructions are crystal clear they are tailored to the code you have just exported.
+                        For example, the name of the timeline you just exported is <code class="highlighter-rouge"><%= timelineFolder.lowercased() %></code>.</p>
+                    <p>Let’s get to it.</p>
+                    <h2 id="folder-breakdown">Folder Breakdown</h2>
+                    <p>When you export a project you’ll see the following structure:</p>
+                    <ul class="readme">
+                        <li><%= timelineFolder %> <small>- Folder containing everything for your animation and demo Xcode project.
+                            <ul class="readme">
+                                <li>img <small>- Folder containing all the image files</code></small></li>
+                                <li>Resources <small>- Folder containing important assets including the Lottie Animation file.</small></li>
+                                <li>Resources/LottieAnimations/<%= timelineFolder.lowercased() %>.min.json <small>- The actual Lottie JSON file, gloriously minified</small></li>
+                                <li>Sources <small>- Folder containing all the code for your animation apart from the Lottie Animation file</small></li>
+                                <ul class="readme">
+                                  <li>FlowCommon <small>- A library containing the code used to play the iOS animations. Optionally, install via the <a href="https://cocoapods.org/pods/FlowCommoniOS">FlowCommon cocoapod</a>.</small></li>
+                                  <li>Launch Animation <small>- The launch animation played when you run <code><%= projectName %>.xcodeproj</code></small></li>
+                                </ul>
+                            </ul>
+                        </li>
+                    </ul>
+                    <h2 id="integrating-a-single-instance">Running the iOS Xcode Project</h2>
+                    <p>Here, we provide some simple steps for running the <b>Lottie - iOS</b> export example Xcode project.</p>
+                    <ol>
+                        <li>Open the newly generated workspace file:
+                             <div class="highlighter-rouge">
+                                <div class="highlight">
+                                    <pre class="highlight">
+                                        <code><%= timelineFolder %>.xcworkspace</code>
+                                    </pre>
+                                </div>
+                            </div>
+                        </li>
+                        <li>Run it!</li>
+                        <br/>
+                        <p>
+                        <b>Note:</b><br />
+                        If the <code><%= timelineFolder %>.xcworkspace</code> file was not generated, it is likely because cocoapods 
+                        is not installed on your device. In this case, install cocoapods on your device by following the instructions provided 
+                        <a href="https://guides.cocoapods.org/using/getting-started.html">here</a> and re export the <b>Readmetest</b> timeline in Flow.
+            </div>
+        </div>
+    </div>
