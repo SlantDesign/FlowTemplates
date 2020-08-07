@@ -137,4 +137,7 @@ for timeline in timelines
 
     // Clear the symbol table 
     symbolTable.removeAllSymbols()
+
+    // Pod install
+    shell("cd '\(outputFolderPath)/\(timelineOutputPath)'; pod install")
 end
