@@ -5,13 +5,6 @@
 */
 
 class <%= timelineClassName %> {
-    
-    // https://developer.mozilla.org/en-US/docs/Web/API/KeyframeEffect/composite
-    <%- insert("js/composites.js.flt", from: Web, indentation: 1) %>
-
-    // https://developer.mozilla.org/en-US/docs/Web/API/EffectTiming/fill
-    <%- insert("js/fills.js.flt", from: Web, indentation: 1) %>
-
     /**
     * @constructor
     *
@@ -148,5 +141,11 @@ end -%>
 
     <%- insert("js/createAnimations.js.flt", from: Web, indentation: 1) %>
 }
+
+// https://developer.mozilla.org/en-US/docs/Web/API/KeyframeEffect/composite
+<%- insert("js/composite.js.flt", from: Web, indentation: 1) %>
+
+// https://developer.mozilla.org/en-US/docs/Web/API/EffectTiming/fill
+<%- insert("js/fill.js.flt", from: Web, indentation: 1) %>
 
 Object.freeze(<%= timelineClassName %>)
