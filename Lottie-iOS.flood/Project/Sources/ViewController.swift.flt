@@ -7,13 +7,24 @@ import UIKit
 import Lottie
 
 public class <%= viewControllerClassName %>: UIViewController {
-    @IBOutlet var animationView: AnimationView!
+    @IBOutlet var animationView: AnimationView! {
+        didSet {
+            // Set up tap gesture recognizer
+             let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+            animationView.addGestureRecognizer(tap)
+        }
+    }
 
     public override func viewDidLoad() {
         // Set up animation
-        animationView.animation = Lottie.Animation.named("<%= timelineNameLowercased %>.min", subdirectory: "<%= animationsFolderName %>")
+        animationView.animation = Lottie.Animation.named("<%= timelineNameLowercased %>.min", subdirectory: "LottieAnimations")
         animationView.frame = view.bounds
-        animationView.loopMode = .loop
+        animationView.loopMode = .playOnce
+    }
+
+    @objc func handleTap(_ sender: UITapGestureRecognizer? = nil) {
+        // Restart animation
+        animationView.currentTime = 0
         // Play animation
         animationView.play()
     }
