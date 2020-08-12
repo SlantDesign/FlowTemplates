@@ -1,0 +1,5 @@
+<%= timelineName %>Timeline.composite = {
+    ADD: 'add',
+    REPLACE: 'replace',
+    ACCUMULATE: 'accumulate',
+}
