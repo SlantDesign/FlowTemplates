@@ -1,4 +1,4 @@
-static fill = {
+<%= timelineName %>Timeline.fill = {
     ADD: 'none',
     FORWARDS: 'forwards',
     BACKWARDS: 'backwards',
