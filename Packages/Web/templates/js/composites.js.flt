@@ -1,0 +1,5 @@
+static composite = {
+    ADD: 'add',
+    REPLACE: 'replace',
+    ACCUMULATE: 'accumulate',
+}

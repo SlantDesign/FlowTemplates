@@ -1,4 +1,3 @@
-
 <%-
 // Add the track name to the list of track names to create
 trackNames = trackNames.appending(trackName)
@@ -12,7 +11,7 @@ trackNames = trackNames.appending(trackName)
       },
       {
         duration: this.duration,
-        composite: 'add',
+        composite: <%= timelineName %>Timeline.composite.REPLACE,
         fill: 'forwards'
       }
     )

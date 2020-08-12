@@ -5,6 +5,7 @@
 */
 
 class <%= timelineClassName %> {
+    <%- insert("js/composites.js.flt", from: Web, indentation: 0) %>
     /**
     * @constructor
     *
