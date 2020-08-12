@@ -1,0 +1,7 @@
+static fill = {
+    ADD: 'none',
+    FORWARDS: 'forwards',
+    BACKWARDS: 'backwards',
+    BOTH: 'both',
+    AUTO: 'auto',
+}

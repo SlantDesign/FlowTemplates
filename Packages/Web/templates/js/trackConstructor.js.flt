@@ -12,7 +12,7 @@ trackNames = trackNames.appending(trackName)
       {
         duration: this.duration,
         composite: <%= timelineName %>Timeline.composite.REPLACE,
-        fill: 'forwards'
+        fill: <%= timelineName %>Timeline.composite.FORWARDS
       }
     )
 }
