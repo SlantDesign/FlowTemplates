@@ -10,14 +10,14 @@ public class <%= viewControllerClassName %>: UIViewController {
     @IBOutlet var animationView: AnimationView! {
         didSet {
             // Set up tap gesture recognizer
-             let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+            let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
             animationView.addGestureRecognizer(tap)
         }
     }
 
     public override func viewDidLoad() {
         // Set up animation
-        animationView.animation = Lottie.Animation.named("<%= timelineNameLowercased %>.min", subdirectory: "LottieAnimations")
+        animationView.animation = Lottie.Animation.named("<%= timelineNameLowercased %>.min", subdirectory: "<%= animationsFolderName %>")
         animationView.frame = view.bounds
         animationView.loopMode = .playOnce
     }
