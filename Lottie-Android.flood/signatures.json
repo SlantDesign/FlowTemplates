@@ -1,11 +1,12 @@
 {
-  "main.flp" : "MEUCIQC9X6kmP0okAt+vgdRrnAPDTdedKf4h94AcElpsMoj40wIgaMk+EGIofziOZPoEdrrdBLrkR9EqdPhDquFbyoIv4Sc=",
+  "main.flp" : "MEUCIQDPzvFg0rDBK06Ad7sd1oeHHblfLTgAbcPAZiL87Pl5LQIgOsgJyTt2n1t2euCxCuU7TYthHjRhVQ3E+X5c9JKLKz4=",
   "programs\/appBuildVariables.flp" : "MEQCIBONUm6ELFaNoaNj+8GYI8lOJ6I1RiMPvtadDxSX\/Z1gAiACZb+dS\/XGR2YdxQfsm9wdty3c9A5tEx5Ii9k527PVUA==",
   "programs\/layoutVariables.flp" : "MEUCIFcm3cR1jWHW3e7EWCBO8pxZZrzRLEp3TNvdNHfA++zgAiEAsRwAmfOqPK4Jhe1k1TzZvvvbFmB1DGiqHO8lDDxH+hA=",
+  "programs\/mipmapContents.flp" : "MEQCIHhunmzM93tX8AfONvMTkNey8dg0YECl0jKeaqxKF9gEAiAlIuu+HLBdasLCN9METxZExstnVQLQFGVlZ7V45jaO9Q==",
   "programs\/projectBuildVariables.flp" : "MEUCIQCt+Kru755xbanAZDKQ1J2f8qRA21g+c0MasNKM57STIQIgOcBBV7VqoO6OnKgVRdickOwoz92vx8BMn\/ExWqJj21Q=",
   "templates\/dependencies\/appBuildDependencies.flt" : "MEUCIQDJB1cUGwh6jl\/xcIftHjkgRZ2qYEUlvlLibkzYSxCjRAIgILfM6E78K9LCUrqKr0POvSeCrMPWD9HUIjVl\/6iT3Uc=",
   "templates\/dependencies\/appBuildScriptDependencies.flt" : "MEUCIFWpiaDPEpEpVxYjPMI\/3rm3pv5dcqQNT16DLBdXsRpPAiEAhPULNrFBB7UEG+8ztHoKqsQsbzU+TAYdGjiOEsLVR2Q=",
-  "templates\/layout\/layoutView.flt" : "MEYCIQDjropYicl2oCLagAQsQQ2no6OtTg0DCSe81Xy7BVzLiwIhAKmg2QAK\/65yCBByft2FUEyIX\/mNSfnA4gxTeD3rmc2L",
+  "templates\/layout\/layoutView.flt" : "MEQCIAvKNKndxaNNjXmvr5Wg66tqxDvsD9fhxG0JSq\/42c55AiAUahmg\/Pw5Mb8xwqboVJdYca0tCmw4qpubCTkZx72G1A==",
   "templates\/repositories\/appBuildScriptRepositories.flt" : "MEUCIB4TxQp4eqdQZzcFoW34kUFwfXN8eHl6SAvqnaSUKZ2qAiEAha3lHqEniuD+wFbDjOAP16Dxmt8lik9rIW7x2NVKzVk=",
   "templates\/repositories\/projectAllProjectRepositories.flt" : "MEUCIQCWgSwtQPFyINf4qGjyFxfe5oHHoSu6BYBHppqQo2S1gwIgEKCY7aMaDWYuMESpDH3KeCtON\/Ka+Pp0preUUoDBuoE=",
   "templates\/repositories\/projectBuildScriptRepositories.flt" : "MEQCIFNEwKWnjJyrWj7MirY5PuqyEtShEMZnyw8U4hnkh4S9AiAcp6JFb904YHktV19\/agq9SOb9UUnjViE02iaXC\/jMQw=="
