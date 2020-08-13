@@ -5,6 +5,7 @@ import Android
 execute("programs/appBuildVariables.flp")
 execute("programs/projectBuildVariables.flp")
 execute("programs/layoutVariables.flp")
+execute("programs/mipmapContents.flp")
 
 for timeline in timelines
     // Get a snapshot of the rootLayer at time 0
@@ -46,6 +47,7 @@ for timeline in timelines
     var pathToAndroidPackage = "../../Templates/Packages/Android"
     var pathToAndroidGradle = "\(pathToAndroidPackage)/templates/gradle"
     var pathToAndroidProguard = "\(pathToAndroidPackage)/templates/proguard"
+    var pathToAndroidRes = "\(pathToAndroidPackage)/templates/res"
 
     // Delete previously exported project
     rm(timelineOutputPath)
@@ -80,6 +82,10 @@ for timeline in timelines
     process("res/values/styles.xml.flt", from: Android, into: "\(pathToMain)/res/values/styles.xml", indentation: 0)
     process("res/values/colors.xml.flt", from: Android, into: "\(pathToMain)/res/values/colors.xml", indentation: 0)
     process("res/values/strings.xml.flt", from: Android, into: "\(pathToMain)/res/values/strings.xml", indentation: 0)
+    process("res/values/ic_launcher_background.xml.flt", from: Android, into: "\(pathToMain)/res/values/ic_launcher_background.xml", indentation: 0)
+
+    //Create mipmap folder
+    copyMipmap(from: pathToAndroidRes, to: "\(pathToMain)/res/")
 
     // Process iml files
     process("iml/project.iml.flt", from: Android, into: "\(timelineOutputPath)/\(timelineFolder).iml", indentation: 0)

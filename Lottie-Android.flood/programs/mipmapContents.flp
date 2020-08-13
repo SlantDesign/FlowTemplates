@@ -1,0 +1,14 @@
+
+func copyMipmap(from androidResPath, to exportResPath) 
+    var mipmapContents = [
+        "mipmap-anydpi-v26", 
+        "mipmap-hdpi",
+        "mipmap-mdpi",
+        "mipmap-xhdpi",
+        "mipmap-xxhdpi",
+        "mipmap-xxxhdpi"
+        ]
+    for folder in mipmapContents
+        copy(from: "\(androidResPath)/mipmap/\(folder)", to: "\(exportResPath)/\(folder)")
+    end
+ end
