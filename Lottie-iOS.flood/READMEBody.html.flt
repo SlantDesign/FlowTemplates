@@ -71,6 +71,10 @@
                             <pre class="highlight">
                                 <code>cd '<%= outputFolderPath %>/<%= timelineOutputPath %>'; pod install</code>
                             </pre>
+                        <p>
+                            Running this command should generate the <code><%= timelineFolder %>.xcworkspace</code> file.
+                            You can now follow the instructions provided to run your app.
+                        </p>
             </div>
         </div>
     </div>
