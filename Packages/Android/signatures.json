@@ -6,10 +6,11 @@
   "templates\/gradle\/settings.gradle.flt" : "MEYCIQCGUPUYrrbRYBXxFJtfnhKPpkv0gueF5Vt7kmt0EKxLKAIhAM3nL9UaVMu0ndLr4i3qi0ql1S25EyT8UqSIkoljJKvu",
   "templates\/iml\/app.iml.flt" : "MEYCIQCUb1bHf2wna1x1IhJDrG6bhJGRV+ZrI1N6MLmOim1kLwIhAJc7XAHFF3J25cY9pb5PHAg\/2YMCVwnQesjJUEQttRwh",
   "templates\/iml\/project.iml.flt" : "MEUCIFEiv9lkty3uMsfhh+V1BDV+VuX6ycSktyb12gt92nvoAiEAnb8AiKvmbTya8G0YhoNe5md7ZYD3C0LCS1Art7e7MEI=",
-  "templates\/main\/MainActivity.kt.flt" : "MEUCICG92UZ6E7HSyKf3Jq4e0eh1nBlSGwnwJ0kgmRvJ48n+AiEAtRc+JskgkllAshegVubrcA\/2ArzxfO1UtaW2gnvSZQA=",
-  "templates\/manifest\/AndroidManifest.xml.flt" : "MEYCIQC\/fftFo0a07y6QS8D26146PMhKqfBzsAEdC+oReUdodwIhALcJSRub\/JZiFwi3kHZrYer4Tk0iRlbaNXkso\/+dSoB8",
+  "templates\/main\/MainActivity.kt.flt" : "MEYCIQCgmykE2La7w701rAP7OgR\/q8XH7PkAESF5Ilg6oHqD0wIhALA\/YMDjwwxoNpdIirgHb\/LAi\/cLwCQ55GWisjncz4jW",
+  "templates\/manifest\/AndroidManifest.xml.flt" : "MEUCIQCLWTq6rW\/EIeB5DlM2BEQ0S6nZMWmnJOMkIr5c5lk2sgIgDqCoPTl6OqtLzpnKIBo16ZmhSmppbDqNyudAwHBFK4U=",
   "templates\/res\/layout\/activity_main.xml.flt" : "MEUCIQCpkvfTNlIHV7iQqhmgqvO2CSfuU3bx52Ws6QZ7C9DLDQIgecSjgcBBNfZK4f2YmGioaY6oihunDf5GORp0Up+ofNA=",
   "templates\/res\/values\/colors.xml.flt" : "MEUCIQD8+pFIOX7M0fR6l5FiNe+03njKdwwzF3fZJIZt4qYK6wIgRIfv9+Yr0YfpemdqXV4m\/yoJpvTaqQ9PjM3E7P9eMso=",
+  "templates\/res\/values\/ic_launcher_background.xml.flt" : "MEYCIQCkcBJlNjXENM0\/yyr98AT1vfRF1PSemZznL7ZUvNhd\/gIhAOeolUJJiao+uHQrt0CXv05japhHWLGjPECgaLyiF0Kn",
   "templates\/res\/values\/strings.xml.flt" : "MEUCIDWqkAOSljlCubJkmo\/fLGrS3Z03sDVgpItTHhz8VJCIAiEAxZnH9DSZLLz7pv\/3oRZ5k1gDkNciAW3mo69ESSZv7Po=",
   "templates\/res\/values\/styles.xml.flt" : "MEUCIQDiKI5tpuoCpFw0usbGuz7YTBU9AhicOpqzIRRavSshpAIgE3gIl6Z6HrYRyv8aeZ0OjWfzLZhAgF4FqPAK+lZ54Y0="
 }
