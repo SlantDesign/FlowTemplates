@@ -152,8 +152,8 @@ func imageDictionary(from image, imageFolderName)
     return [
         "id":"\(image.name)", 
         "p": "data:image/png;base64,\(image.base64Encoded())", 
-        "w": image.size.width,
-        "h": image.size.height,
+        "w": image.size.width.rounded(),
+        "h": image.size.height.rounded(),
         "e": 1,
         "u": "\(imageFolderName)/"
     ]
