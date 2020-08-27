@@ -70,6 +70,16 @@
                         <br />If you've never usedCocoaPods before refer to <a href="https://guides.cocoapods.org/using/getting-started.html">CocoaPods Getting Started</a>.
                         </li>
                         <li>Move <code><%= timelineName %>.swift</code> and <code><%= viewName %>.swift</code> to a location of your choice inside your iOS Project.</li>
+                        <li>Add the following import statement to <code><%= timelineName %>.swift</code> and <code><%= viewName %>.swift</code>.
+                        <div class="highlighter-rouge">
+                            <div class="highlight">
+                                <pre class="highlight">
+                                    <code>import FlowCommoniOS</code>
+                                </pre>
+                            </div>
+                        </div> 
+                        </li>
+
                         <li>Add a <code>UIView</code> to the story board corresponding to your ViewController. Postion, size and constrain it.
                         <li>Change the view's type to: <code><%= viewName %></code>.
                         </li>
