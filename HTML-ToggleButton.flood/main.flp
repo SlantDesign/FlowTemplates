@@ -81,7 +81,7 @@ for timeline in timelines
     end
 
     // Generate Reverse Timeline
-    timelineClassName =  reverseTimelineName
+    timelineClassName = reverseTimelineName
     timeline = timeline.reversed
     layer = timeline.rootLayer(at: 0)
     process("js/timeline.js.flt", from: Web, into: "\(timelineOutputPath)/\(jsFolderName)/\(reverseTimelineName).js", indentation: 0)
