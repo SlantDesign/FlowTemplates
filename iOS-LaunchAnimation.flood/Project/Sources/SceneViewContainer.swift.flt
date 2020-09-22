@@ -8,7 +8,7 @@ import UIKit
 @IBDesignable
 class <%= viewContainerName %>: UIView {
 
-    private lazy var artboard: <%= viewName %> = {
+    private lazy var scene: <%= viewName %> = {
         let startView = <%= viewName %>(frame: .zero)
         startView.scale(to: frame.size)
         return startView
@@ -19,7 +19,7 @@ class <%= viewContainerName %>: UIView {
     var timeline: Timeline?
 
     func createView() -> UIView {
-        return artboard
+        return scene
     }
 
     override func layoutSubviews() {
@@ -29,6 +29,6 @@ class <%= viewContainerName %>: UIView {
     private func setupView() {
         view = createView()
         addSubview(view)
-        self.timeline = <%= timelineName %>(view: artboard, duration: 1.3)
+        self.timeline = <%= timelineName %>(view: scene, duration: 1.3)
     }
 }

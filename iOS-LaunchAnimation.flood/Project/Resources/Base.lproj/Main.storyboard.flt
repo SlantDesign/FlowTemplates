@@ -75,7 +75,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="artboard" destination="<%= viewID %>" id="<%= makeUUID() %>"/>
+                        <outlet property="scene" destination="<%= viewID %>" id="<%= makeUUID() %>"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="<%= makeUUID() %>" userLabel="First Responder" sceneMemberID="firstResponder"/>
