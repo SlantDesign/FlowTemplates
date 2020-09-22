@@ -8,6 +8,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8324392C2519813800C1AE5E /* <%= viewContainerName %>.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8324392B2519813800C1AE5E /* <%= viewContainerName %>.swift */; };
 		<%= timelineName %>_swift_BuildFile /* <%= timelineName %>.swift in LaunchAnimation */ = {isa = PBXBuildFile; fileRef = <%= timelineName %>_swift_FileReference /* <%= timelineName %>.swift */; };
 		<%= viewControllerClassName %>_swift_BuildFile /* <%= viewControllerClassName %>.swift in LaunchAnimation */ = {isa = PBXBuildFile; fileRef = <%= viewControllerClassName %>_swift_FileReference /* <%= viewControllerClassName %>.swift */; };
 		<%= viewName %>_swift_BuildFile /* <%= viewName %>.swift in LaunchAnimation */ = {isa = PBXBuildFile; fileRef = <%= viewName %>_swift_FileReference /* <%= viewName %>.swift */; };
@@ -32,6 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8324392B2519813800C1AE5E /* <%= viewContainerName %>.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = <%= viewContainerName %>.swift; sourceTree = "<group>"; };
 		<%= timelineName %>_swift_FileReference /* <%= timelineName %>.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = <%= timelineName %>.swift; sourceTree = "<group>"; };
 		<%= viewControllerClassName %>_swift_FileReference /* <%= viewControllerClassName %>.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = <%= viewControllerClassName %>.swift; sourceTree = "<group>"; };
 		<%= viewName %>_swift_FileReference /* <%= viewName %>.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = <%= viewName %>.swift; sourceTree = "<group>"; };		
@@ -74,6 +76,7 @@
 				<%= timelineName %>_swift_FileReference /* <%= timelineName %>.swift */,
 				<%= viewControllerClassName %>_swift_FileReference /* <%= viewControllerClassName %>.swift */,
 				<%= viewName %>_swift_FileReference /* <%= viewName %>.swift */,
+				8324392B2519813800C1AE5E /* <%= viewContainerName %>.swift */,
 			);
 			path = LaunchAnimation;
 			sourceTree = "<group>";
@@ -239,6 +242,7 @@
 				<%- for fileName in flowCommonFileNames -%>
 				<%= xcodeProjectFileReferences[fileName] %>_swift_BuildFile /* <%= fileName %>.swift in Sources */,
 				<%- end -%>
+				8324392C2519813800C1AE5E /* <%= viewContainerName %>.swift in Sources */,
 				StartView_swift_BuildFile /* StartView.swift in Sources */,
 				StartViewController_swift_BuildFile /* StartViewController.swift in Sources */,
 			);
