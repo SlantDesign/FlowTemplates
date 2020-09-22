@@ -13,6 +13,9 @@ for timeline in timelines
     end
     viewName = symbolTable.addSymbolWithSuggestedName(viewName, type: "class", context: "Class", id: timeline.scene.rootLayer.id).name
 
+    // Set the name for the UIView Container subclass
+    var viewContainerName = "\(viewName)Container"
+
     // Set the name for the UIViewController subclass
     var viewControllerClassName = "\(viewName)Controller"
 
@@ -106,7 +109,7 @@ for timeline in timelines
     process("View.swift.flt", from: Swift, into: "\(projectPath)/Sources/LaunchAnimation/\(viewName).swift", indentation: 0)
     process("Timeline.swift.flt", from: Swift, into: "\(projectPath)/Sources/LaunchAnimation/\(timelineName).swift", indentation: 0)
     process("Project/Sources/ViewController.swift.flt", into: "\(projectPath)/Sources/LaunchAnimation/\(viewControllerClassName).swift", indentation: 0)
-    
+    process("Project/Sources/SceneViewContainer.swift.flt", into: "\(projectPath)/Sources/LaunchAnimation/\(viewContainerName).swift", indentation: 0)    
 
     // Clear the symbol table
     symbolTable.removeAllSymbols()

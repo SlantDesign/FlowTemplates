@@ -1,0 +1,34 @@
+// Made With Flow.
+//
+// DO NOT MODIFY, your changes will be lost when this file is regenerated.
+//
+
+import UIKit
+
+@IBDesignable
+class <%= viewContainerName %>: UIView {
+
+    private lazy var artboard: <%= viewName %> = {
+        let startView = <%= viewName %>(frame: .zero)
+        startView.scale(to: frame.size)
+        return startView
+    }()
+
+    public private(set) var view: UIView!
+
+    var timeline: Timeline?
+
+    func createView() -> UIView {
+        return artboard
+    }
+
+    override func layoutSubviews() {
+        setupView()
+    }
+
+    private func setupView() {
+        view = createView()
+        addSubview(view)
+        self.timeline = <%= timelineName %>(view: artboard, duration: 1.3)
+    }
+}
