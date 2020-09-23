@@ -8,27 +8,20 @@ import UIKit
 @IBDesignable
 class <%= viewContainerName %>: UIView {
 
-    private lazy var scene: <%= viewName %> = {
+    private lazy var containedView: <%= viewName %> = {
         let startView = <%= viewName %>(frame: .zero)
         startView.scale(to: frame.size)
         return startView
     }()
 
-    public private(set) var view: UIView!
-
     var timeline: Timeline?
-
-    func createView() -> UIView {
-        return scene
-    }
 
     override func layoutSubviews() {
         setupView()
     }
 
     private func setupView() {
-        view = createView()
-        addSubview(view)
-        self.timeline = <%= timelineName %>(view: scene, duration: 1.3)
+        addSubview(containedView)
+        timeline = <%= timelineName %>(view: containedView, duration: 1.3)
     }
 }

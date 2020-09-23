@@ -6,13 +6,13 @@
 import UIKit
 
 public class <%= viewControllerClassName %>: UIViewController {
-    @IBOutlet var scene: <%= viewContainerName %>!
+    @IBOutlet var <%= viewNameLowerCamelCased %>: <%= viewContainerName %>!
 
     public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        scene.timeline?.play()
-        guard let duration = scene.timeline?.duration else {
+        <%= viewNameLowerCamelCased %>.timeline?.play()
+        guard let duration = <%= viewNameLowerCamelCased %>.timeline?.duration else {
             return
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
