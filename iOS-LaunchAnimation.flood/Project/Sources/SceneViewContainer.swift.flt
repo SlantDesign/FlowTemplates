@@ -6,7 +6,7 @@
 import UIKit
 
 @IBDesignable
-class <%= viewContainerName %>: UIView {
+class <%= viewContainerClassName %>: UIView {
 
     private lazy var containedView: <%= viewName %> = {
         let startView = <%= viewName %>(frame: .zero)

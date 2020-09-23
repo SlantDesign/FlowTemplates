@@ -58,7 +58,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="<%= viewID %>" customClass="<%= viewContainerName %>" customModule="<%= document.name %>" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="<%= viewID %>" customClass="<%= viewContainerClassName %>" customModule="<%= document.name %>" customModuleProvider="target">
                                 <rect key="frame" x="<%= (375 - timeline.scene.size.width) / 2 %>" y="<%= (667 - timeline.scene.size.height) / 2 %>" width="<%= timeline.scene.size.width %>" height="<%= timeline.scene.size.height %>"/>
                                 <%- var backgroundColor = timeline.rootLayer(at: 0).backgroundColor %>
                                 <color key="backgroundColor" red="<%= backgroundColor.red %>" green="<%= backgroundColor.green %>" blue="<%= backgroundColor.blue %>" alpha="<%= backgroundColor.alpha %>" colorSpace="custom" customColorSpace="sRGB"/>
@@ -75,7 +75,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="<%= viewNameLowerCamelCased %>" destination="<%= viewID %>" id="<%= makeUUID() %>"/>
+                        <outlet property="<%= viewContainerName %>" destination="<%= viewID %>" id="<%= makeUUID() %>"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="<%= makeUUID() %>" userLabel="First Responder" sceneMemberID="firstResponder"/>
