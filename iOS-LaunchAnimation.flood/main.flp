@@ -6,15 +6,22 @@ for timeline in timelines
     // Get a snapshot of the rootLayer at time 0
     var initialRootSnapshot = timeline.rootLayer(at: 0)
 
+    // Set the name of the timelineName prefix
+    var timelineNamePrefix = timeline.name.upperCamelCased()
+
     // Set the name for the UIView sublcass
-    var viewName = timeline.scene.rootLayer.name.upperCamelCased()
+    var viewName = timeline.name.upperCamelCased()
     if !viewName.hasSuffix("View")
         viewName = "\(viewName)View"
     end
     viewName = symbolTable.addSymbolWithSuggestedName(viewName, type: "class", context: "Class", id: timeline.scene.rootLayer.id).name
+    
+    // Set the name for the UIView Container subclass
+    var viewContainerClassName = "\(viewName)Container"
+    var viewContainerName = viewName.lowerCamelCased()
 
     // Set the name for the UIViewController subclass
-    var viewControllerClassName = "\(viewName)Controller"
+    var viewControllerClassName = "\(timelineNamePrefix)ViewController"
 
     // Set the name for the Timeline subclass
     var timelineName = timeline.name.upperCamelCased()
@@ -106,7 +113,7 @@ for timeline in timelines
     process("View.swift.flt", from: Swift, into: "\(projectPath)/Sources/LaunchAnimation/\(viewName).swift", indentation: 0)
     process("Timeline.swift.flt", from: Swift, into: "\(projectPath)/Sources/LaunchAnimation/\(timelineName).swift", indentation: 0)
     process("Project/Sources/ViewController.swift.flt", into: "\(projectPath)/Sources/LaunchAnimation/\(viewControllerClassName).swift", indentation: 0)
-    
+    process("Project/Sources/SceneViewContainer.swift.flt", into: "\(projectPath)/Sources/LaunchAnimation/\(viewContainerClassName).swift", indentation: 0)    
 
     // Clear the symbol table
     symbolTable.removeAllSymbols()

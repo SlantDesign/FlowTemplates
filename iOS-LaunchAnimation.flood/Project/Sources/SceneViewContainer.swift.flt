@@ -1,0 +1,27 @@
+// Made With Flow.
+//
+// DO NOT MODIFY, your changes will be lost when this file is regenerated.
+//
+
+import UIKit
+
+@IBDesignable
+class <%= viewContainerClassName %>: UIView {
+
+    private lazy var containedView: <%= viewName %> = {
+        let startView = <%= viewName %>(frame: .zero)
+        startView.scale(to: frame.size)
+        return startView
+    }()
+
+    var timeline: Timeline?
+
+    override func layoutSubviews() {
+        setupView()
+    }
+
+    private func setupView() {
+        addSubview(containedView)
+        timeline = <%= timelineName %>(view: containedView, duration: 1.3)
+    }
+}

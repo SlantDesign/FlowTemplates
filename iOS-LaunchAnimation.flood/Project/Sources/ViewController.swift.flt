@@ -6,15 +6,16 @@
 import UIKit
 
 public class <%= viewControllerClassName %>: UIViewController {
-    @IBOutlet public weak var <%= timeline.scene.name.lowerCamelCased() %>: <%= viewName %>!
-    public var timeline: <%= timelineName %>!
+    @IBOutlet var <%= viewContainerName %>: <%= viewContainerClassName %>!
 
-    public override func viewDidLoad() {
-        super.viewDidLoad()
-        timeline = <%= timelineName %>(view: <%= timeline.scene.name.lowerCamelCased() %>, duration: <%= timeline.duration %>)
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
 
-        timeline.play()
-        DispatchQueue.main.asyncAfter(deadline: .now() + timeline.duration) {
+        <%= viewContainerName %>.timeline?.play()
+        guard let duration = <%= viewContainerName %>.timeline?.duration else {
+            return
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
             self.showStartViewController()
         }
     }
