@@ -67,7 +67,9 @@
                       <li>Link the <a href="#flow-common">Flow Common CDN</a> in your page's <code class="highlighter-rouge">&lt;head&gt;</code>
                       <p><pre><code>&lt;script src="<%= flowCommonWebMinURL %>"></script></code></pre></p>
                       <li>Link your animation's css file in your page's <code class="highlighter-rouge">&lt;head&gt;</code></pre>
-                      <p><pre><code>&lt;link rel="stylesheet" href="path-to-css-file/<%= timelineName %>.css"&gt;</code></pre></p>
+                      
+                      <p><pre><code>&lt;script src="path-to-js-file/<%= timelineName %>.js></script></code></pre></p>
+
                       <li>Add your animation's DOM to your page's <code class="highlighter-rouge">&lt;body&gt;</code> by copying and pasting your artboard (from your exported <code class="highlighter-rouge"><%= timelineName %>.html</code> file).
 your artboard<p><pre><code>&lt;div class="flow-artboard" style="visibility: hidden;"><br>  //... all the things in here.<br>&lt;/div></code></pre></p>
                       <li>Link your animation's timeline file some place <u>below your artboard</u>.
@@ -75,7 +77,7 @@ your artboard<p><pre><code>&lt;div class="flow-artboard" style="visibility: hidd
                       <li>Add a timer <code class="highlighter-rouge">&lt;div></code> below your artboard.
                       <p><pre><code>&lt;div id="timer-<%= timelineName.lowercased() %>">&lt;/div></code></pre></p>
                       <li>Create an instance of a player, using your timeline, below your timer.</li>
-                      <p><pre><code>&lt;script type="text/javascript"><br>  let <%= timelineName.lowercased() %>Timer = document.getElementById('timer-<%= timelineName.lowercased() %>')<br>  let <%= timelineName.lowercased() %>ResourcesPath = "." //replace the . with your path-to-timeline-folder<br>  let timeline = new <%= timelineName %>Timeline(document, "#<%= timelineName %>", timelineResourcesPath)<br>  let player = new Player(timeline, <%= timelineName.lowercased() %>Timer, false, 0)<br>&lt;/script></code></pre></p>
+                      <p><pre><code>&lt;script type="text/javascript"><br>  let <%= timelineName.lowercased() %>Timer = document.getElementById('timer-<%= timelineName.lowercased() %>')<br>  let <%= timelineName.lowercased() %>ResourcesPath = "." //replace the . with your path-to-timeline-folder<br>  let timeline = new <%= timelineName %>Timeline(document, "#<%= timelineName %>", <%= timelineName.lowercased() %>ResourcesPath)<br>  let player = new Player(timeline, <%= timelineName.lowercased() %>Timer, false, 0)<br>&lt;/script></code></pre></p>
                       <li>Trigger your animation!</li>
                     </ol>
                     <h2 id="triggering-your-animation">Triggering Your Animation</h2>
