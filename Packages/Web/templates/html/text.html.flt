@@ -24,6 +24,6 @@
   "><%= run.string %></span><%--%>
   <%- end -%>
 <%- else if layer.string != nil -%>
-  <%= layer.string %>
+  <%= layer.string.replacingOccurrences(of: "\n", with: "<br>") %>
 <%- end -%>
 </div>
