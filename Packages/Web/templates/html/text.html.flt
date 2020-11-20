@@ -21,7 +21,7 @@
     <%- var shadow = run.attributes["shadow"]; if shadow != nil -%>
     text-shadow:<%= shadow.offset.x %> <%= shadow.offset.y %> <%= shadow.blurRadius %> <%= shadow.color.hex %>;
     <%- end -%>
-  "><%= run.string %></span><%--%>
+  "><%= run.string.replacingOccurrences(of: "\n", with: "<br>") %></span><%--%>
   <%- end -%>
 <%- else if layer.string != nil -%>
   <%= layer.string.replacingOccurrences(of: "\n", with: "<br>") %>
