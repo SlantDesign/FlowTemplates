@@ -58,8 +58,8 @@ if !keyvalues.isEmpty
 <%end -%>
     ], {
         duration: this.duration,
-        composite: 'add',
-        fill: 'forwards'
+        composite: <%= timelineClassName %>.composite.REPLACE,
+        fill: <%= timelineClassName %>.fill.FORWARDS
     });
 }
 <%
