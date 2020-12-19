@@ -52,16 +52,18 @@ class ToggleButton: UIButton {
         }
         current?.pause()
         let newTime = current!.duration - current!.time
-        if isSelected {
-            current = reverse
-        } else {
-            current = forward
+        toggleTimeline()
+        current?.reset() { timeline in
+            timeline.offset(to: newTime)
+            timeline.play()
         }
-        current?.reset()
-        current?.offset(to: newTime)
-        current?.play()
+        
         super.isSelected = !isSelected
         delegate?.didToggle(sender: self)
+    }
+
+    private func toggleTimeline() {
+        current = isSelected ? reverse : forward
     }
 
     override var isSelected: Bool {
