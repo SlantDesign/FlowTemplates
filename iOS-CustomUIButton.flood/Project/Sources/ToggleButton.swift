@@ -40,6 +40,7 @@ class ToggleButton: UIButton {
 
     private func setupView() {
         view = createView()
+        view.isUserInteractionEnabled = false
         addSubview(view)
     }
 
