@@ -346,23 +346,36 @@ func cssImage(image, importImage)
   end
 end
 
+/// SVG Does not support angular or conic gradients, default to same behaviour as radial
 func gradientTag(_ gradient)
     switch gradient.type
     case "linear":
       return "linearGradient"
+    case "angular":
+      return "radialGradient"
     case "radial":
       return "radialGradient"
     end
 end
 
+/// SVG Does not support angular or conic gradients, default to same behaviour as radial
 func gradientAttributes(_ gradient)
     switch gradient.type
-    case "linear": 
+    case "linear":
         var x1 = gradient.from.x
         var y1 = gradient.from.y
         var x2 = gradient.to.x
-        var y2 = gradient.to.y 
+        var y2 = gradient.to.y
         return "x1=\"\(x1)\" y1=\"\(y1)\" x2=\"\(x2)\" y2=\"\(y2)\""
+    case "angular":
+        var r = gradient.radius
+        var x = gradient.from.x
+        var y = gradient.from.y
+        var scaleX = gradient.ellipseAspectRatio
+        var cx = x / scaleX
+        var fx = cx
+        var gradientTransform = "translate(0.5, 0.5) scale(\(scaleX), 1) translate(\(-0.5 / scaleX), -0.5)"
+        return "r=\"\(r)\" cx=\"\(cx)\" cy=\"\(y)\" fx=\"\(fx)\" fy=\"\(y)\" gradientTransform=\"\(gradientTransform)\""
     case "radial":
         var r = gradient.radius
         var x = gradient.from.x
