@@ -346,7 +346,7 @@ func cssImage(image, importImage)
   end
 end
 
-/// SVG Does not support angular / conic gradients, default to same behaviour as radial
+/// SVG Does not support angular or conic gradients, default to same behaviour as radial
 func gradientTag(_ gradient)
     switch gradient.type
     case "linear":
