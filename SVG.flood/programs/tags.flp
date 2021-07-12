@@ -185,6 +185,20 @@ func patternTag(id, layer, timeline, indentation)
   )
 end
 
+func patternTileTag(id, layer, timeline, indentation)
+  var body = process("fillImage.svg.flt", into: nil, indentation: 1)
+  return patternElementTag(
+    id: "\(id)-fillImage",
+    x: "0",
+    y: "0",
+    width: layer.fillImage.tileSize.width,
+    height: layer.fillImage.tileSize.height,
+    patternUnits: "userSpaceOnUse",
+    body: body,
+    indentation: indentation
+  )
+end
+
 func patternElementTag(id, x, y, width, height, patternUnits, body, indentation)
   var attributes = [
     "id": id,
