@@ -1,5 +1,15 @@
-<% if layer.type.name == "shape" %>
-<image href="<%= imageHref(image: layer.fillImage.image) %>" x="0" y="0">
-    <%= animation(property: "fillImage", layer: layer, timeline: timeline, hrefID: nil, attributeType: nil, indentation: 0)%>	
-</image>
-<% end %>
+<%-
+if layer.type.name == "shape" 
+
+var contentMode = layer.fillImage.patternFillType
+var layerSize = layer.bounds.size
+var imageSize = layer.fillImage.tileSize
+var x = shapeImageX(contentMode: contentMode, layerSize: layerSize, imageSize: imageSize)
+var y = shapeImageY(contentMode: contentMode, layerSize: layerSize, imageSize: imageSize)
+var w = shapeImageWidth(contentMode: contentMode, layerSize: layerSize, imageSize: imageSize)
+var h = shapeImageHeight(contentMode: contentMode, layerSize: layerSize, imageSize: imageSize)
+-%>
+<image  x="<%=x%>" y="<%=y%>" width="<%=w%>px" height="<%=h%>px" href="<%= imageHref(image: layer.fillImage.image) %>" preserveAspectRatio="none">
+<%= animation(property: "fillImage", layer: layer, timeline: timeline, hrefID: nil, attributeType: nil, indentation: 2) -%>
+    </image>
+<%- end -%>
