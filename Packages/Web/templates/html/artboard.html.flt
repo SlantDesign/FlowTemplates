@@ -1,7 +1,7 @@
 <div class="flow-artboard" style="visibility: hidden;">
-    <div class="flow-artboard" id="<%= timelineName %>">
+        <div class="flow-artboard" id="<%= timelineName %>">
     <% for layer in layer.sublayers -%>
-    <% insert("html/layer.html.flt", from: Web, indentation: 3) %>
-    <% end -%>
+        <% insert("html/layer.html.flt", from: Web, indentation: indentation+3) %>
+    <%- end -%>
+        </div>
     </div>
-</div>
