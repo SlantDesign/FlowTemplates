@@ -1,0 +1,94 @@
+//This file is similar to image.flp, but works with fillImage content modes
+
+func shapeFillTypeName(_ contentMode)
+    switch contentMode
+    case 0:
+        return "tile"
+    case 1:
+        return "fill"
+    case 2:
+        return "stretch"
+    default: 
+        return "fit"
+    end
+end
+
+func shapeImageX(contentMode, layerSize, imageSize)
+    var imageWidth = shapeImageWidth(contentMode: contentMode, layerSize: layerSize, imageSize: imageSize)
+    var layerWidth = layerSize.width
+
+  if ["fill", "fit"].contains(shapeFillTypeName(contentMode))
+    return (layerWidth / 2) - (imageWidth / 2)
+  else
+    return 0
+  end
+end
+
+func shapeImageY(contentMode, layerSize, imageSize)
+    var imageHeight = shapeImageHeight(contentMode: contentMode, layerSize: layerSize, imageSize: imageSize)
+    var layerHeight = layerSize.height
+
+
+  if ["fill", "fit"].contains(shapeFillTypeName(contentMode))
+    return (layerHeight / 2) - (imageHeight / 2)
+  else
+    return 0
+  end
+end
+
+func shapeImageWidth(contentMode, layerSize, imageSize)
+    if ["stretch", "fit"].contains(shapeFillTypeName(contentMode))
+      return layerSize.width
+    else
+      var xScale = shapeXImageScale(contentMode: contentMode, layerSize: layerSize, imageSize: imageSize)
+      return imageSize.width * xScale
+    end
+end
+
+func shapeImageHeight(contentMode, layerSize, imageSize)
+    if shapeFillTypeName(contentMode) == "fill"
+      return layerSize.height
+    end
+    var yScale = shapeYImageScale(contentMode: contentMode, layerSize: layerSize, imageSize: imageSize)
+    return imageSize.height * yScale
+end
+
+func shapeXImageScale(contentMode, layerSize, imageSize)
+    var imageWidth = imageSize.width
+    var layerWidth = layerSize.width
+    var imageHeight = imageSize.height
+    var layerHeight = layerSize.height
+    var widthRatio = layerWidth / imageWidth
+    var heightRatio = layerHeight / imageHeight
+    
+    switch shapeFillTypeName(contentMode)
+    case "fit":
+        return layerWidth / imageWidth
+    case "stretch":
+        return min(widthRatio, heightRatio)
+    case "fill":
+        return max(widthRatio, heightRatio)
+    default: 
+        return 1
+    end
+end
+
+func shapeYImageScale(contentMode, layerSize, imageSize)
+    var imageWidth = imageSize.width
+    var layerWidth = layerSize.width
+    var imageHeight = imageSize.height
+    var layerHeight = layerSize.height
+    var widthRatio = layerWidth / imageWidth
+    var heightRatio = layerHeight / imageHeight
+
+    switch shapeFillTypeName(contentMode)
+    case "fit":
+        return min(widthRatio, heightRatio)
+    case "stretch":
+        return layerHeight / imageHeight
+    case "fill":
+        return max(widthRatio, heightRatio)
+    default: 
+        return 1
+    end
+end

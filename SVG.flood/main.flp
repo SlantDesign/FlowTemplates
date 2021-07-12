@@ -4,6 +4,7 @@ execute("programs/util.flp")
 execute("programs/tags.flp")
 execute("programs/animations.flp")
 execute("programs/image.flp")
+execute("programs/shape.flp")
 execute("programs/definitions.flp")
 
 var importImage = false;
