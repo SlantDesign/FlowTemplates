@@ -1,4 +1,5 @@
 <div class="flow-layer <%= id %>">
+  <div class="flow-border <%= id %>-border"></div>
 <%- if layer.attributedString != nil -%>
   <%- for run in layer.attributedString.runs -%>
   <%--%><span style="

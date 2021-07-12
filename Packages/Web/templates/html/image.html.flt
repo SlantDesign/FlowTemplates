@@ -1,1 +1,3 @@
-<div class="flow-layer <%= id %>"></div>
+<div class="flow-layer <%= id %>">
+  <div class="flow-border image <%= id %>-border"></div>
+</div>
