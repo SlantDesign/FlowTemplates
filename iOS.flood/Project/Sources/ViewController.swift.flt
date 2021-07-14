@@ -38,7 +38,7 @@ public class <%= viewControllerClassName %>: UIViewController {
     @objc func handleTap(gesture: UITapGestureRecognizer) {
         if timeline.playing {
             timeline.pause()
-        } else if timeline.time >= timeline.duration {
+        } else if timeline.time >= timeline.repeatDuration {
             timeline.reset()
         } else {
             timeline.play()
