@@ -134,6 +134,7 @@ end -%>
             duration: <%= timeline.duration * 1000 %>,
         });
     }
+
     <%
     var animationNames = []
     var trackNames = []

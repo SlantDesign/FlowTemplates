@@ -1,0 +1,11 @@
+return element.animate({
+    <%= propertyName -%>: <%= values %>,
+    easing: <%= timingFunctions %>,
+    offset: <%= Web.trackOffsets(times, duration) %>,
+  },
+  {
+    duration: this.duration,
+    composite: <%= timelineClassName %>.composite.REPLACE,
+    fill: <%= timelineClassName %>.fill.FORWARDS
+  }
+)

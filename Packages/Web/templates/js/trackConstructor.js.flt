@@ -4,15 +4,15 @@ trackNames = trackNames.appending(trackName)
 -%>
 <%= trackName %>() {
     const element = this.rootElement.querySelector(<%= querrySelector %>);
-    return element.animate({
-        <%= propertyName -%>: <%= values %>,
-        easing: <%= timingFunctions %>,
-        offset: <%= Web.trackOffsets(times, duration) %>,
-      },
-      {
-        duration: this.duration,
-        composite: <%= timelineClassName %>.composite.REPLACE,
-        fill: <%= timelineClassName %>.fill.FORWARDS
-      }
-    )
+<%- insert("js/trackConstructorBody.js.flt", from: Web, indentation: 2) -%>
 }
+<%- if layer.type.name == "shape" && layer.fillImage != nil
+if property.id == "bounds.size.width" || property.id == "bounds.size.height"
+trackNames = trackNames.appending(trackName.appending("_pattern"))-%>
+<%=trackName%>_pattern() {
+    const element = this.rootElement.getElementById("<%= timelineNameLowercased %>-<%= id %>-fillImage")
+<%- insert("js/trackConstructorBody.js.flt", from: Web, indentation: 2) -%>
+}
+<%  end
+end
+-%>
