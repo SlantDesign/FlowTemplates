@@ -55,19 +55,33 @@
                     <p>This section explains how to integrate your animation into your iOS XCode project.</p>
                     <p>For a full run-through, check out our doc: <a href="https://createwithflow.com/docs/integrate-ios/">Integrate an Animation into iOS</a>
                     <ol>
-                        <li>Install <code class="highlighter-rouge">FlowCommoniOS</code> into your project via <code>CocoaPods</code>.
-                            To do this add the following to your project's Podfile.
-
+                        <li>If you've never used CocoaPods before refer to <a href="https://guides.cocoapods.org/using/getting-started.html">CocoaPods Getting Started</a>.</li>
+                        <li>Install <code class="highlighter-rouge">FlowCommoniOS</code> into your project via <code>CocoaPods</code>. To do this add the following to your project's Podfile.
                         <div class="highlighter-rouge">
-                                <div class="highlight">
-                                    <pre class="highlight">
-                                        <code>pod 'FlowCommoniOS', '~> <%= flowVersion %>'</code>
-                                    </pre>
-                                </div>
+                            <div class="highlight">
+                                <pre class="highlight">
+                                    <code>pod 'FlowCommoniOS', '~> <%= flowVersion %>'</code>
+                                </pre>
                             </div>
-
-                        Then run <code>pod install</code>.
-                        <br />If you've never usedCocoaPods before refer to <a href="https://guides.cocoapods.org/using/getting-started.html">CocoaPods Getting Started</a>.
+                        </div>
+                        </li>
+                        <li>To make sure you have the latest version of our pod, you may want to: 
+                                                <div class="highlighter-rouge">
+                            <div class="highlight">
+                                <pre class="highlight">
+                                    <code>pod repo update</code>
+                                </pre>
+                            </div>
+                        </div>
+                        </li>
+                        <li>Then run:
+                        <div class="highlighter-rouge">
+                            <div class="highlight">
+                                <pre class="highlight">
+                                    <code>pod install</code>
+                                </pre>
+                            </div>
+                        </div>
                         </li>
                         <li>Move <code><%= timelineName %>.swift</code> and <code><%= viewName %>.swift</code> to a location of your choice inside your iOS Project.</li>
                         <li>Add the following import statement to <code><%= timelineName %>.swift</code> and <code><%= viewName %>.swift</code>.

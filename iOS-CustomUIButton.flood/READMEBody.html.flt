@@ -56,19 +56,33 @@
                     <h2 id="integrating-a-single-instance">Integrating the Custom Button</h2>
                     <p>This section explains how to integrate your custom button into your iOS XCode project.</p>
                     <ol>
-                        <li>Install <code class="highlighter-rouge">FlowCommoniOS</code> into your project via <code>CocoaPods</code>.
-                            To do this add the following to your project's Podfile.
-
+                        <li>If you've never used CocoaPods before refer to <a href="https://guides.cocoapods.org/using/getting-started.html">CocoaPods Getting Started</a>.</li>
+                        <li>Install <code class="highlighter-rouge">FlowCommoniOS</code> into your project via <code>CocoaPods</code>. To do this add the following to your project's Podfile.
                         <div class="highlighter-rouge">
-                                <div class="highlight">
-                                    <pre class="highlight">
-                                        <code>pod 'FlowCommoniOS', '~> <%= flowVersion %>'</code>
-                                    </pre>
-                                </div>
+                            <div class="highlight">
+                                <pre class="highlight">
+                                    <code>pod 'FlowCommoniOS', '~> <%= flowVersion %>'</code>
+                                </pre>
                             </div>
-
-                        Then run <code>pod install</code>. If you've never used <code>CocoaPods</code>
-                        before refer to <a href="https://guides.cocoapods.org/using/getting-started.html">CocoaPods Getting Started</a>.
+                        </div>
+                        </li>
+                        <li>To make sure you have the latest version of our pod, you may want to: 
+                                                <div class="highlighter-rouge">
+                            <div class="highlight">
+                                <pre class="highlight">
+                                    <code>pod repo update</code>
+                                </pre>
+                            </div>
+                        </div>
+                        </li>
+                        <li>Then run:
+                        <div class="highlighter-rouge">
+                            <div class="highlight">
+                                <pre class="highlight">
+                                    <code>pod install</code>
+                                </pre>
+                            </div>
+                        </div>
                         </li>
                         <li>Move <code><%= timelineName %>.swift</code>, <code><%= viewName %>.swift</code>, <code><%= buttonClassName %>.swift</code>, and <code>ToggleButton.swift</code> 
                          to a location of your choice inside your iOS Project.
