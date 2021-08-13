@@ -8,9 +8,13 @@ end
 
 func fontDictionary(from font)
     return [
-        "fName": "\(font.name)",
+        "origin": 3,
+        "fPath": "data:font/\(font.extension);base64,\(font.base64EncodedString)",
+        "fClass": "",
         "fFamily": "\(font.familyName)",
+        "fWeight": "",
         "fStyle": lottieFontStyle(from: font.style),
+        "fName": "\(font.name)",
         "ascent": ascent(from: font)
     ]
 end
