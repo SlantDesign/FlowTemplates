@@ -31,7 +31,7 @@ for timeline in timelines
     var imagesInTimeline = document.images(forTimeline: timeline)
     for image in imagesInTimeline
         var imageData = image.serializeAsPNGData()
-        if imageData != nil 
+        if imageData != nil
             write(data: imageData, to: "\(imageFolderPath)/\(image.name).png")
         end
     end
@@ -39,7 +39,7 @@ for timeline in timelines
     // Copy Fonts
     for font in document.fonts(forTimeline: timeline)
         if !Web.webFonts.contains(font.name) && font.path != nil
-            copy(from: font.path, to: "\(fontFolderPath)/\(font.familyName).\(font.extension)")
+            copy(from: font.path, to: "\(fontFolderPath)/\(font.name).\(font.extension)")
         end
     end
 
