@@ -1,0 +1,93 @@
+import Web
+
+for timeline in timelines
+    // Get a snapshot of the rootLayer at time 0
+    var layer = timeline.rootLayer(at: 0)
+    
+    // Get the name of the timeline folder
+    var timelineFolder = folderTable.symbolForID(timeline.id, "\(outputFolderPath)/\(documentFolderName)/\(templateFolderName)").name
+
+    // Get the timeline output path
+    var timelineOutputPath = "\(documentFolderName)/\(templateFolderName)/\(timelineFolder)"
+
+    // Set the name for the html & css files to the name of the timeline
+    var timelineName = timelineFolder
+    var forwardTimelineName = "\(timelineName)Timeline"
+    var timelineNameLowercased = timelineName.lowercased()
+    var resourcesPath = "\(timelineNameLowercased)ResourcesPath"
+    var reverseTimelineName = "\(timelineName)ReverseTimeline"
+    var containerID = "\(timelineName)-ContainerID"
+
+    //Import image file or generate path to image file
+    var importImage = true
+
+    // Get all assets for this timeline
+    var fontsInTimeline = document.fonts(forTimeline: timeline)
+    var imagesInTimeline = document.images(forTimeline: timeline)
+
+    // Folder names
+    var imageFolderName = "img"
+    var fontFolderName = "fonts"
+    var jsFolderName = "js"
+    var cssFolderName = "css"
+    var commonFolderName = "FlowCommon"
+
+    // The absolute paths to use when reference assets in the image, font, js or css folders
+    var imageFolderAbsPath = "\(baseUrl)/\(imageFolderName)"
+    var fontFolderAbsPath = "\(baseUrl)/\(fontFolderName)"
+    var jsFolderAbsPath = "\(baseUrl)/\(jsFolderName)"
+    var cssFolderAbsPath = "\(baseUrl)/\(cssFolderName)"
+    var commonFolderAbsPath = "\(baseUrl)/\(commonFolderName)"
+
+    // Relative path to the common folder 
+    var flowCommonFolderPath = "\(timelineOutputPath)/\(commonFolderName)"
+
+    // Delete previously exported project
+    rm(timelineOutputPath)
+
+    // Create output directories
+    mkdir("\(timelineOutputPath)/\(imageFolderName)")
+    mkdir("\(timelineOutputPath)/\(cssFolderName)")
+    mkdir("\(timelineOutputPath)/\(jsFolderName)")
+    mkdir("\(timelineOutputPath)/\(fontFolderName)")
+    mkdir("\(timelineOutputPath)/\(commonFolderName)")
+
+    var shapeIDs = []
+    
+    //The element ID for the web animations api timer element
+    var timerID = "timer-\(timelineNameLowercased)"
+
+    process("index.html.flt", into: "\(timelineOutputPath)/\(timelineName).html", indentation: 0)
+    process("css/style.css.flt", from: Web, into: "\(timelineOutputPath)/\(cssFolderName)/\(timelineName).css", indentation: 0)
+    
+    // Generate Forward Timeline
+    var timelineClassName =  forwardTimelineName
+    process("js/timeline.js.flt", from: Web, into: "\(timelineOutputPath)/\(jsFolderName)/\(forwardTimelineName).js", indentation: 0)
+    process("js/player.js.flt", from: Web, into: "\(timelineOutputPath)/\(commonFolderName)/player.js", indentation: 0)
+
+    Web.copyOverCommonFiles(to: flowCommonFolderPath, flowCommonWebFileNames, flowCommonWebSourcesPath)
+
+    // Copy Images
+    for image in imagesInTimeline
+        var imageData = image.serializeAsPNGData()
+        if imageData != nil 
+            write(data: imageData, to: "\(timelineOutputPath)/\(imageFolderName)/\(image.name).png")
+        end
+    end
+
+    // Copy Fonts
+    for font in fontsInTimeline
+        if !Web.webFonts.contains(font.name) && font.path != nil
+            copy(from: font.path, to: "\(timelineOutputPath)/\(fontFolderName)/\(font.name).\(font.extension)")
+        end
+    end
+
+    // Generate Reverse Timeline
+    timelineClassName =  reverseTimelineName
+    timeline = timeline.reversed
+    layer = timeline.rootLayer(at: 0)
+    process("js/timeline.js.flt", from: Web, into: "\(timelineOutputPath)/\(jsFolderName)/\(reverseTimelineName).js", indentation: 0)
+
+    // Clear the symbol table
+    symbolTable.removeAllSymbols()
+end
