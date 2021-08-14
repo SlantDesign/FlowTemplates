@@ -1,0 +1,21 @@
+{
+  "uuid": "1578702F-B689-4955-BF3D-9EAD78F52876",
+  "title": "iOS - Custom Activity Indicator",
+  "description": "A template which generates an iOS project with a custom UIActivityIndicatorView.",
+  "parameters": [
+    {
+      "label": "Output Folder",
+      "description": "Folder name for export, relative to main export folder",
+      "variable": "folderName",
+      "type": "text",
+      "default": "iOS - Custom Activity Indicator"
+    },
+    {
+      "label": "Organization",
+      "description": "Organization of the exported Xcode project",
+      "variable": "organization",
+      "type": "text",
+      "default": "Flow"
+    }
+  ]
+}
