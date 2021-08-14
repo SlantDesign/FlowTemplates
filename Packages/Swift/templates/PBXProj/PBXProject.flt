@@ -2,7 +2,7 @@
 		<%= projectName.snakeCased() %>_Project /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1020;
+				LastUpgradeCheck = 1240;
 				ORGANIZATIONNAME = "<%= organization %>";
 				TargetAttributes = {
 					<%= projectName.snakeCased() %>_Target = {

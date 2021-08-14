@@ -1,0 +1,28 @@
+// Made With Flow.
+//
+// DO NOT MODIFY, your changes will be lost when this file is regenerated.
+//
+
+import UIKit
+
+@IBDesignable
+class <%= indicatorClassName %>: ActivityIndicatorView {
+    <%- var viewVariableName = timeline.scene.name.lowerCamelCased() -%>
+    private lazy var <%= viewVariableName %>: <%= viewName %> = {
+        let startView = <%= viewName %>(frame: .zero)
+        startView.scale(to: frame.size)
+        <%- var backgroundColor = timeline.rootLayer(at: 0).backgroundColor -%>
+        //The background color for this custom activity indicator should always be solid
+        //Otherwise, the native ActivityIndicatorView animation will be visible
+        startView.backgroundColor = UIColor(red: <%= backgroundColor.red %>, green: <%= backgroundColor.green %>, blue: <%= backgroundColor.blue %>, alpha: <%= backgroundColor.alpha %>)
+        return startView
+    }()
+
+    override var timeline: Timeline? {
+        return <%= timelineName %>(view: <%= viewVariableName %>, duration: <%= timeline.duration %>, repeatCount: .greatestFiniteMagnitude)
+    }
+    
+    override func createView() -> UIView {
+        return <%= viewVariableName %>
+    }
+}
