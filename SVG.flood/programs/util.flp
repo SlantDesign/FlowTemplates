@@ -167,9 +167,7 @@ func getLineJoin(layer)
 end
 
 func layerMasksToBounds(layer)
-  if (layer.type.name == "group" && layer.masksToBounds) || 
-        layer.type.name == "image" || 
-        layer.type.name == "text"
+  if layer.masksToBounds
     return "hidden"
   else
     return "visible"
