@@ -24,11 +24,7 @@ var id = Web.elementIDFor(layer: layer, symbolTable: symbolTable)
   <%- if layer.cornerRadius != 0 -%>
     border-radius: <%= layer.cornerRadius %>px;
   <%- end -%>
-  <%- if layer.masksToBounds %>
-    overflow: hidden;
-  <%- else -%>
-    overflow: visible;
-  <%- end -%>
+    overflow: <%= Web.layerMasksToBounds(layer)%>;
 <%- if layer.type.name != "shape"
     insert("css/\(layer.type.name).css.flt", from: Web, indentation: 1)
 end -%>

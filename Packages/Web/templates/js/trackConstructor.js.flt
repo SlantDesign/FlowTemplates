@@ -6,7 +6,7 @@ trackNames = trackNames.appending(trackName)
     const element = this.rootElement.querySelector(<%= querrySelector %>);
 <%- insert("js/trackConstructorBody.js.flt", from: Web, indentation: 2) -%>
 }
-<%- if layer.type.name == "shape" && layer.fillImage != nil
+<%- if layer.type.name == "shape" && layer.currentFillType == "Image"
 if property.id == "bounds.size.width" || property.id == "bounds.size.height"
 trackNames = trackNames.appending(trackName.appending("_pattern"))-%>
 <%=trackName%>_pattern() {

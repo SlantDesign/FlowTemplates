@@ -3,10 +3,10 @@
   <svg class="<%= id %>-svg">
     <title><%= layer.name %></title>
     <desc>Made with Flow.</desc>
-<%- if layer.fillImage != nil -%>
+<%- if layer.currentFillType == "Image" -%>
   <%- insert("svg/pattern.svg.flt", from: Web, indentation: indentation + 1) -%>
 <% end -%>
-<%- if layer.fillGradient != nil
+<%- if layer.currentFillType == "Gradient"
   insert("html/fillGradient.html.flt", from: Web, indentation: indentation + 1)
   end %>
     <path id="<%= id %>-path" vector-effect="non-scaling-stroke" d="<%= layer.path.svgc(width: layer.size.width, height: layer.size.height) %>">

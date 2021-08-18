@@ -1,9 +1,9 @@
 <% if layer.strokeColor != Color.clear -%>
 stroke: <%= layer.strokeColor.hex %>;
 <% end -%>
-<% if layer.fillGradient != nil -%>
+<% if layer.currentFillType == "Gradient" -%>
 fill: url(#<%= id %>-fill);
-<% else if layer.fillImage !=nil -%>
+<% else if layer.currentFillType == "Image" -%>
 fill: url("#<%= timelineNameLowercased %>-<%= id %>-fillImage");
 <% else -%>
 fill: <%= layer.fillColor.hex %>;

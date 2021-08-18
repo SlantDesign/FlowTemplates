@@ -524,3 +524,11 @@ func transform(rotation, from timeline, with layer)
     var anchorY = timeline.value(property: "anchorPoint.y", layer: layer.layer, time: 0)
     return "'\(cssTransformFormValues(anchorX: anchorX, anchorY: anchorY, scaleX: scaleX, scaleY: scaleY, rotation: rotation))'"
 end
+
+func layerMasksToBounds(_ layer)
+  if layer.masksToBounds
+    return "hidden"
+  else
+    return "visible"
+  end
+end

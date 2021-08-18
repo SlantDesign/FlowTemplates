@@ -1,11 +1,7 @@
 #<%= timelineName %>.flow-artboard {
     width: <%= layer.bounds.size.width %>px;
     height: <%= layer.bounds.size.height %>px;
-    <%- if layer.masksToBounds %>
-    overflow: hidden;
-    <%- else -%>
-    overflow: visible;
-    <%- end -%>
+    overflow: <%= Web.layerMasksToBounds(layer) %>;
     position: relative;
     padding: 0px;
     margin: 0px auto;
