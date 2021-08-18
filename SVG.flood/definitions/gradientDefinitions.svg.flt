@@ -3,7 +3,7 @@
 <%- for layer in layer.descendants
         var id = generateSymbolID(layer: layer)
         if layer.type.name == "shape"
-            if layer.fillGradient != nil 
+            if layer.currentFillType == "Gradient" 
                 insert("gradient/gradient.svg.flt", indentation: 1)
             end
         end

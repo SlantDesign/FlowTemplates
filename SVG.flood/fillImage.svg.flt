@@ -9,7 +9,7 @@ var y = shapeImageY(contentMode: contentMode, layerSize: layerSize, imageSize: i
 var w = shapeImageWidth(contentMode: contentMode, layerSize: layerSize, imageSize: imageSize)
 var h = shapeImageHeight(contentMode: contentMode, layerSize: layerSize, imageSize: imageSize)
 -%>
-<image  x="<%=x%>" y="<%=y%>" width="<%=w%>px" height="<%=h%>px" href="<%= imageHref(image: layer.fillImage.image) %>" preserveAspectRatio="none">
-<%= animation(property: "fillImage", layer: layer, timeline: timeline, hrefID: nil, attributeType: nil, indentation: 2) -%>
-    </image>
+<image x="<%=x%>" y="<%=y%>" width="<%=w%>px" height="<%=h%>px" href="<%= imageHref(image: layer.fillImage.image) %>" preserveAspectRatio="none">
+<%= animation(property: "fillImage", layer: layer, timeline: timeline, hrefID: nil, attributeType: nil, indentation: 2) %>
+</image>
 <%- end -%>

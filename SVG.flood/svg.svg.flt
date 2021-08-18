@@ -3,7 +3,7 @@
     <title><%= layer.name %></title>
     <!-- Layers -->
     <%- for layer in layer.sublayers -%>
-    <%- insert("layer/layer.svg.flt", indentation: 1) %>
+    <%- insert("layer/layer.svg.flt", indentation: 1) -%>
     <%- end -%>
-    <%- insert("definitions/definitions.svg.flt", indentation: 1) %>
+    <%- insert("definitions/definitions.svg.flt", indentation: 1) -%>
 </svg>

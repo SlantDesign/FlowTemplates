@@ -1,13 +1,15 @@
 <!-- FillImages -->
-<defs><%- for layer in layer.descendants
+<defs>
+<%- for layer in layer.descendants
     var id = generateSymbolID(layer: layer)
     if layer.type.name == "shape"
-        if layer.fillImage != nil %>
+        if layer.fillImage != nil -%>
 <%- if shapeFillTypeName(layer.fillImage.patternFillType) == "tile" 
 var tileSize = layer.fillImage.tileSize -%><%= patternTileTag(id: id, layer: layer, timeline: timeline, indentation: 1) -%>
-<%- else %>
+<%- else -%>
 <%= patternTag(id: id, layer: layer, timeline: timeline, indentation: 1) -%>
 <%- end
 end
 end 
-end -%></defs>
+end %>
+</defs>

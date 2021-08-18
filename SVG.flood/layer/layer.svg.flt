@@ -96,7 +96,7 @@ var offsetAnimationY = animation(
                         <%- insert("layer/\(layer.type.name).svg.flt", indentation: indentation + 5) -%>
                         <%- if isBorderVisible(layer: layer, timeline: timeline) -%>
                         <%- print(borderTag(layer: layer, timeline: timeline, indentation: indentation + 5)) -%>
-                        <%- end -%>  
+                        <%- end -%>
                     </g>
                 </g>
             </svg>

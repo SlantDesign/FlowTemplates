@@ -141,10 +141,10 @@ func transform(of layer)
 end
 
 func getFillAttribute(id, layer)
-    if layer.fillGradient != nil
+    if layer.currentFillType == "Gradient"
         return "url(#\(id)-fill)"
     end
-    if layer.fillImage != nil
+    if layer.currentFillType == "Image"
         return "url(#\(id)-fillImage)"
     end
     return "\(layer.fillColor.hex)"
