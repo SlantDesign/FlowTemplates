@@ -2,9 +2,9 @@
 <%- if snapshot.strokeColor != Color.clear -%>
 <%= symbol.name %>.shapeLayer.strokeColor = <%= Swift.code(snapshot.strokeColor, layer: snapshot) %>.cgColor
 <%- end -%>
-<%- if snapshot.fillGradient != nil -%>
+<%- if snapshot.currentFillType == "Gradient" -%>
 <%= symbol.name %>.shapeLayer.fillColor = nil
-<%- else if snapshot.fillImage != nil -%>
+<%- else if snapshot.currentFillType == "Image" -%>
 let mask = CAShapeLayer()
 mask.path = <%= Swift.code(snapshot.path, layer: snapshot) %>
 mask.fillColor = UIColor.black.cgColor
@@ -57,7 +57,7 @@ let newImage = image.resized(to: size)
 <%= symbol.name %>.shapeLayer.lineWidth = <%= snapshot.strokeWidth %>
 <%= symbol.name %>.shapeLayer.path = <%= Swift.code(snapshot.path, layer: snapshot) %>
 
-<%- if snapshot.fillGradient != nil -%>
+<%- if snapshot.currentFillType == "Gradient" -%>
 let startPoint = <%= Swift.code(snapshot.fillGradient.from, layer: snapshot) %>
 let endPoint = <%= Swift.code(snapshot.fillGradient.caGradientLayerEndPoint, layer: snapshot) %>
 let colors = <%= snapshot.fillGradient.stops.map(Swift.gradientStopColor) %>
