@@ -1,4 +1,4 @@
-func kevaluesArray(layer, propertyID, timeline)
+func keyvaluesArray(layer, propertyID, timeline)
     var tracks = tracksFor(layer: layer, propertyID: propertyID, timeline: timeline)
     if tracks.isEmpty
         return []
@@ -43,6 +43,10 @@ func keyFrame(inX, inY, outX, outY, frame, value)
         "t": frame, // frame number
         "s": array(from: value)
     ]
+end
+
+func stringKeyvalue(from keyvalue, propertyID)
+    return extractValue(from: keyvalue, propertyID: propertyID)
 end
 
 func keyvalueValue(from keyvalue, propertyID)

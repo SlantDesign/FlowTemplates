@@ -1,0 +1,3 @@
+func textLayerPosition(layer)
+    return [0, -(layer.font.lineHeight / 2 + (layer.font.lineHeight - layer.font.size) / 2)]
+end
