@@ -169,6 +169,8 @@ func lottieValue(from value, propertyID)
         return value
     case imageScaleProperty:
         return value
+    case stringProperty:
+        return value
     default:
         return nil
     end

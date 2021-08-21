@@ -45,6 +45,10 @@ func keyFrame(inX, inY, outX, outY, frame, value)
     ]
 end
 
+func stringKeyvalue(from keyvalue, propertyID)
+    return extractValue(from: keyvalue, propertyID: propertyID)
+end
+
 func keyvalueValue(from keyvalue, propertyID)
     var value = extractValue(from: keyvalue, propertyID: propertyID)
     return lottieValue(from: value, propertyID: propertyID)
