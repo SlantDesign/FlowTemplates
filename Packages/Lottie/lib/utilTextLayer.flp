@@ -1,0 +1,3 @@
+func textLayerPosition(layer)
+    return nil
+end

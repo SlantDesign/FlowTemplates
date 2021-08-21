@@ -41,7 +41,8 @@ func textKeyframes(layer, keyvalues)
                 "tr": 0, //tracking
                 "lh": layer.font.lineHeight,
                 "ls": 0,
-                "fc": colorValue(from: layer.foregroundColor)
+                "fc": colorValue(from: layer.foregroundColor),
+                "ps": textLayerPosition(layer: layer)
             ]
 
         keyframes = keyframes.appending([
@@ -62,7 +63,8 @@ func startValue(layer, timeline)
                 "tr": 0, //tracking
                 "lh": layer.font.lineHeight,
                 "ls": 0,
-                "fc": colorValue(from: layer.foregroundColor)
+                "fc": colorValue(from: layer.foregroundColor),
+                "ps": textLayerPosition(layer: layer)
             ]
 end
 
