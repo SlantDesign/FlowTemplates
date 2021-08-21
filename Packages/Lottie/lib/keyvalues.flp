@@ -1,4 +1,4 @@
-func kevaluesArray(layer, propertyID, timeline)
+func keyvaluesArray(layer, propertyID, timeline)
     var tracks = tracksFor(layer: layer, propertyID: propertyID, timeline: timeline)
     if tracks.isEmpty
         return []

@@ -116,7 +116,7 @@ func imageScaleAnimation(layer, timeline)
 end
 
 func animation(layer, propertyID, timeline)
-    var keyvalues = kevaluesArray(layer: layer, propertyID: propertyID, timeline: timeline)
+    var keyvalues = keyvaluesArray(layer: layer, propertyID: propertyID, timeline: timeline)
     var animationValue = keyvalues
     
     if keyvalues.isEmpty
