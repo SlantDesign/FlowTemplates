@@ -155,8 +155,7 @@ func codeForProperty(_ property, value, layer, time, timeline)
 
   // Text
   case "alignmentMode": return ".\(value)"
-  case "string": return "\"\(value.escaped())\""
-
+  case "string": return "\"\(string(from:value).escaped())\""
   case "font": return "\"\(value.name)\""
   case "fontSize": return "\(value)"
   case "foregroundColor": return "\(colorCode(value)).cgColor"
@@ -171,6 +170,10 @@ func code(_ object, layer)
     switch object
     case is String:
         return "\"\(object.escaped())\""
+    case is NSAttributedString:
+        return "\"\(string(from: object).escaped())\""
+    case is NSMutableAttributedString:
+        return "\"\(string(from: object).escaped())\""
     case is Color:
         return colorCode(object)
     case is ContentMode:
@@ -337,7 +340,11 @@ func string(from object)
         return object
     case is NSAttributedString:
         return object.string
+    case is NSConcreteAttributedString:
+        return object.string
     case is NSMutableAttributedString:
+        return object.string
+    case is NSConcreteMutableAttributedString:
         return object.string
     end
 
