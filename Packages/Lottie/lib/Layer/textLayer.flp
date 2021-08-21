@@ -12,14 +12,44 @@ func textProperties(layer, timeline)
 end
 
 func textData(layer, timeline)
+    var keyvalues = keyvaluesArray(layer: layer, propertyID: stringProperty, timeline: timeline)
+
+    var keyframes = []
+    if keyvalues.isEmpty
+      keyframes = [[
+          "s": startValue(layer: layer, timeline: timeline),
+          "t": 0 //start time
+      ]]
+    else
+      keyframes = textKeyframes(layer: layer, keyvalues: keyvalues)
+    end
+
     return [
-                "k": [ // keyframes
-                    [
-                        "s": startValue(layer: layer, timeline: timeline),
-                        "t": 0 // start time
-                    ]
-                ]
-        ]
+      "k": keyframes
+    ]
+end
+
+func textKeyframes(layer, keyvalues) 
+    var keyframes = []
+    for value in keyvalues
+        var details = [
+                "sz": [layer.bounds.width, layer.bounds.height],
+                "s": layer.font.size,
+                "f": "\(layer.font.name)",
+                "t": value["s"][0],
+                "j": textAlignmentValue(from: layer.alignment),
+                "tr": 0, //tracking
+                "lh": layer.font.lineHeight,
+                "ls": 0,
+                "fc": colorValue(from: layer.foregroundColor)
+            ]
+
+        keyframes = keyframes.appending([
+            "s": details,
+            "t": value["t"]
+          ])
+    end
+    return keyframes
 end
 
 func startValue(layer, timeline)
