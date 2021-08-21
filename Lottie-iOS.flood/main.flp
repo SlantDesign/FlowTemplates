@@ -1,6 +1,7 @@
 import Web
-import Lottie
 import Swift
+import Lottie
+import LottieiOS
 
 for timeline in timelines
     // Get a snapshot of the rootLayer at time 0
@@ -105,7 +106,7 @@ for timeline in timelines
     copy(from: "Project/Sources/AppDelegate.swift", to: "\(timelineOutputPath)/Sources/AppDelegate.swift")
 
     // Create Lottie JSON String 
-    var jsonString = Lottie.json(with: timeline, imageFolderName: imageFolderName)
+    var jsonString = LottieiOS.json(with: timeline, imageFolderName: imageFolderName)
 
     // make name of json file snake cased 
     // because asset files in android studio can only have lowercase a-z, 0-9, or underscore
