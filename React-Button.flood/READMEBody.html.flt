@@ -107,7 +107,7 @@
                     <h3>web-animations.min.js</h3>
                     <p>The polyfill for the Web Animations api. This file comes from [W3C's Github Page](https://github.com/web-animations/web-animations-js), and is maintanied by W3C.</p>
 
-                    <h3>player.js</h3>
+                    <h3>Player.js</h3>
                     <p>This file is the thing that actually controls your animations. If you want to learn some more about it, have a look at our <a href="https://createwithflow.com/docs/driverPlayer/?utm_source=readme&utm_medium=HTML%20Toggle%20Button%20Web%20Component#playerjs">player documentation</a>.</p>
 
                     <h3>ToggleButton.js</h3>
