@@ -21,7 +21,9 @@
     <!-- End of script tags you need to delete -->
 
     <script src="<%= Web.pathPrefix(relativePath: "./js", absolutePath: jsFolderAbsPath, relative: relative) %>/<%= forwardTimelineName %>.js"></script>
-<% if generateUI -%>
+    <div id="<%= timerID %>"></div>
+
+  <% if generateUI -%>
     <!-- Animation driver panel, remove if desired -->
     <div class="playback">
         <div class="slider">
@@ -41,7 +43,6 @@
             </div>
         </div>
     </div>
-    <div id="<%= timerID %>"></div>
     <script src="<%= Web.pathPrefix(relativePath: "./js", absolutePath: jsFolderAbsPath, relative: relative) %>/driver.js"></script>
     <%- var driverName = "driver\(timelineName)" -%>
     <script type="text/javascript">
@@ -66,6 +67,14 @@
         });
     </script>
     <!-- Animation driver panel end -->
+<% else -%>
+  <script>
+    let <%= resourcesPath %> = "."
+    let <%= timelineNameLowerCamelCased %>Timer = document.getElementById('<%= timerID %>')
+    let <%= timelineNameLowerCamelCased %> = new <%= forwardTimelineName %>(document, "#<%= timelineName %>", <%= resourcesPath %>)
+    this.player = new Player(<%= timelineNameLowerCamelCased %>, <%= timelineNameLowerCamelCased %>Timer, true, 0)
+    this.player.play()
+  </script>
 <% end -%>
 </body>
 </html>

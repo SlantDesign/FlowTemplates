@@ -15,7 +15,7 @@
       "description": "Whether to generate a UI to control playback of the timeline.",
       "variable": "generateUI",
       "type": "boolean",
-      "default": true
+      "default": false
     },
     {
       "label": "Hostable",
