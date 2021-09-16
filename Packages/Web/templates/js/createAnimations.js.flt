@@ -3,7 +3,9 @@
     */
     createAllAnimations() {
         return [
+  <%- if includeSafariArtboardAnimtionBugFix -%>
             this.artboardAnimation(),
+  <%- end -%>
     <%- for animationName in animationNames -%>
             this.<%= animationName -%>(),
     <%- end -%>
