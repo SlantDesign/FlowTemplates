@@ -4,6 +4,7 @@ if symbol == nil
   var className = viewClassName(of: snapshot.type)
   symbol = symbolTable.addSymbolWithSuggestedName(suggestedName, type: className, context: "", id: snapshot.id)
 -%>
+
 let <%= symbol.name %> = <%= viewClassName(of: snapshot.type) %>(frame: CGRect(x: <%= snapshot.position.x %>, y: <%= snapshot.position.y %>, width: <%= snapshot.bounds.width %>, height: <%= snapshot.bounds.height %>))
 <%- else -%>
 <%= symbol.name %> = <%= viewClassName(of: snapshot.type) %>(frame: CGRect(x: <%= snapshot.position.x %>, y: <%= snapshot.position.y %>, width: <%= snapshot.bounds.width %>, height: <%= snapshot.bounds.height %>))
@@ -64,6 +65,7 @@ if snapshot.cornerRadius != 0 -%>
 end
 
 -%>
+<%= symbol.name %>.layer.name = "<%= symbol.name %>"
 <%= symbol.name %>.layer.shadowColor = <%= Swift.code(snapshot.shadowColor, layer: snapshot) %>.cgColor
 <%= symbol.name %>.layer.shadowOpacity = 1
 <%= symbol.name %>.layer.position = <%= Swift.code(snapshot.position, layer: snapshot) %>

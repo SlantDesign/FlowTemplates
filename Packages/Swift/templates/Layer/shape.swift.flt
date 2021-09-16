@@ -1,3 +1,4 @@
+<%= symbol.name %>.shapeLayer.name = "<%= symbol.name %>.shapeLayer"
 <%= symbol.name %>.shapeLayer.fillRule = CAShapeLayerFillRule.evenOdd
 <%- if snapshot.strokeColor != Color.clear -%>
 <%= symbol.name %>.shapeLayer.strokeColor = <%= Swift.code(snapshot.strokeColor, layer: snapshot) %>.cgColor

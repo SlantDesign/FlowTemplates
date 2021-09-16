@@ -43,6 +43,7 @@ public class <%= viewName %>: UIView {
         clipsToBounds = <%= initialRootSnapshot.masksToBounds %>
         createViews()
         addSubviews()
+        layer.name = "sceneLayer"
         //scale(to: frame.size)
     }
 

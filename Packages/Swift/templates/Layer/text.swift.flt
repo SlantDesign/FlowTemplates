@@ -1,4 +1,5 @@
 <%- import Swift -%>
+<%= symbol.name %>.textLayer.name = "<%= symbol.name %>.textLayer"
 <%= symbol.name %>.textLayer.string = <% printCodeFor(string: snapshot.string, withIndentation: "            ") %>
 <%= symbol.name %>.textLayer.font = "<%= snapshot.font.name %>" as NSString
 <%= symbol.name %>.textLayer.fontSize = <%= snapshot.fontSize %>
