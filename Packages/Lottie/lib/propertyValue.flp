@@ -171,6 +171,8 @@ func lottieValue(from value, propertyID)
         return value
     case stringProperty:
         return value
+    case attributedStringProperty:
+        return value.string
     default:
         return nil
     end
