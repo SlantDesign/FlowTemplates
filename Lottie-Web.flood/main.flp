@@ -45,6 +45,7 @@ for timeline in timelines
 
     // Create Lottie JSON String 
     var jsonString = Lottie.json(with: timeline, imageFolderName: imageFolderName)
+    jsonString = jsonString.replacingNewlines()
 
     // make name of json file snake cased 
     // because asset files in android studio can only have lowercase a-z, 0-9, or underscore
