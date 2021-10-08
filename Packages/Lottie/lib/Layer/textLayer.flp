@@ -125,3 +125,48 @@ func textSelector()
                 "r": 1
             ]
 end
+
+func fontAscenderAnimation(layer, timeline) 
+    var keyvalues = keyvaluesArray(layer: layer, propertyID: fontAscenderProperty, timeline: timeline)
+    var keyframes = []
+    if keyvalues.isEmpty
+      return nonAnimatingFontKeyframe(layer: layer)
+    end
+    return [
+        "s": true, // seperate position dimensions into x and y components in order to animate them independently
+        "x": ["a": 0, "k": xTextPosition(layer: layer)],
+        "y": ["a": 1.0, "k": keyvalues]
+    ]
+end
+
+func nonAnimatingFontKeyframe(layer)
+    return [
+        "a": 0,
+        "k": [
+            xTextPosition(layer: layer),
+            yTextPosition(layer: layer)
+        ]
+    ]
+end
+
+func xTextPosition(layer)
+    switch layer.alignment.name
+    case "right":
+        return 0
+    case "left":
+        return 0
+    case "center":
+        return 0
+    case "justified":
+        return 0
+    default:
+        return 0
+    end
+end
+
+func yTextPosition(layer)
+    var fontSize = layer.fontSize
+    var font = layer.font.withSize(size: fontSize)
+    var ascender = font.ascender
+    return ascender
+end
