@@ -12,7 +12,7 @@ func textProperties(layer, timeline)
 end
 
 func textData(layer, timeline)
-    var keyvalues = keyvaluesArray(layer: layer, propertyID: stringProperty, timeline: timeline)
+    var keyvalues = keyvaluesArray(layer: layer, propertyID: textDataProperty, timeline: timeline)
 
     var keyframes = []
     if keyvalues.isEmpty
@@ -32,14 +32,15 @@ end
 func textKeyframes(layer, keyvalues) 
     var keyframes = []
     for value in keyvalues
+        var fontSize = value["s"][0]["fontSize"]
         var details = [
                 "sz": [layer.bounds.width, layer.bounds.height],
-                "s": layer.font.size,
-                "f": "\(layer.font.name)",
-                "t": value["s"][0],
+                "s": fontSize,
+                "f": "\(layer.font.name)-\(fontSize)",
+                "t": value["s"][0]["string"],
                 "j": textAlignmentValue(from: layer.alignment),
                 "tr": 0, //tracking
-                "lh": layer.font.lineHeight,
+                "lh": value["s"][0]["fontSize"],
                 "ls": 0,
                 "fc": colorValue(from: layer.foregroundColor),
                 "ps": textLayerPosition(layer: layer)
@@ -56,12 +57,12 @@ end
 func startValue(layer, timeline)
     return [
                 "sz": [layer.bounds.width, layer.bounds.height],
-                "s": layer.font.size,
+                "s": layer.fontSize,
                 "f": "\(layer.font.name)",
-                "t": "\(layer.string)",
+                "t": lottieValue(from: layer.string, propertyID: stringProperty),
                 "j": textAlignmentValue(from: layer.alignment),
                 "tr": 0, //tracking
-                "lh": layer.font.lineHeight,
+                "lh": layer.fontSize,
                 "ls": 0,
                 "fc": colorValue(from: layer.foregroundColor),
                 "ps": textLayerPosition(layer: layer)

@@ -179,6 +179,8 @@ func tracksFor(layer, propertyID, timeline)
         tracks = [timeline.sizeTrack(layer: layer)]
     case imageScaleProperty:
         tracks = [timeline.sizeTrack(layer: layer)]
+    case textDataProperty:
+        tracks = [timeline.textTrack(layer: layer)]
     default:
         tracks = [timeline.trackFor(layer: layer, property: propertyID)]
     end
