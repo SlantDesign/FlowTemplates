@@ -11,7 +11,7 @@ func fontDictionary(from font)
         "origin": 3,
         "fPath": "data:font/\(font.extension);base64,\(font.base64EncodedString)",
         "fClass": "",
-        "fFamily": "\(font.name)-\(font.size)", //Bug in Lottie defaults to fFamily instead of fName
+        "fFamily": "\(font.name)", //Bug in Lottie defaults to fFamily instead of fName
         "fWeight": "",
         "fStyle": lottieFontStyle(from: font.style),
         "fName": "\(font.name)",

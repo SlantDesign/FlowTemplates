@@ -32,15 +32,15 @@ end
 func textKeyframes(layer, keyvalues) 
     var keyframes = []
     for value in keyvalues
-        var fontSize = value["s"][0]["fontSize"]
+        var font = value["s"][0]["font"]
         var details = [
                 "sz": [layer.bounds.width, layer.bounds.height],
-                "s": fontSize,
-                "f": "\(layer.font.name)-\(fontSize)",
+                "s": font.size,
+                "f": font.name,
                 "t": value["s"][0]["string"],
                 "j": textAlignmentValue(from: layer.alignment),
                 "tr": 0, //tracking
-                "lh": value["s"][0]["fontSize"],
+                "lh": font.lineHeight,
                 "ls": 0,
                 "fc": colorValue(from: layer.foregroundColor),
                 "ps": textLayerPosition(layer: layer)
@@ -62,7 +62,7 @@ func startValue(layer, timeline)
                 "t": lottieValue(from: layer.string, propertyID: stringProperty),
                 "j": textAlignmentValue(from: layer.alignment),
                 "tr": 0, //tracking
-                "lh": layer.fontSize,
+                "lh": layer.font.lineHeight,
                 "ls": 0,
                 "fc": colorValue(from: layer.foregroundColor),
                 "ps": textLayerPosition(layer: layer)
@@ -167,6 +167,5 @@ end
 func yTextPosition(layer)
     var fontSize = layer.fontSize
     var font = layer.font.withSize(size: fontSize)
-    var ascender = font.ascender
-    return ascender
+    return font.ascender
 end
