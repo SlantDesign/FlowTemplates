@@ -86,6 +86,10 @@ func propertyValue(layer, propertyID)
     case imageScaleProperty:
         var scale = imageScale(contentMode: layer.contentMode, layerSize: layer.bounds.size, imageSize: layer.image.size)
         return lottieValue(from: scale, propertyID: propertyID)
+    case textDataProperty:
+        return lottieValue(from: layer.font.size, propertyID: propertyID)
+    case fontAscenderProperty:
+        return lottieValue(from: layer.font.size, propertyID: propertyID)
     default:
         return nil
     end
@@ -168,6 +172,10 @@ func lottieValue(from value, propertyID)
     case imagePositionYProperty:
         return value
     case imageScaleProperty:
+        return value
+    case textDataProperty:
+        return value
+    case fontAscenderProperty:
         return value
     case stringProperty:
         return value

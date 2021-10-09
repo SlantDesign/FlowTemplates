@@ -58,36 +58,11 @@ func positionComponent(layer, timeline, type)
     if type == "content" 
         switch layer.type.name
         case "text":
-            return [
-                    "a": 0,
-                    "k": [
-                        xTextPosition(layer: layer),
-                        yTextPosition(layer: layer)
-                    ]
-                ]
+            return fontAscenderAnimation(layer: layer, timeline: timeline)
         case "image":
             return imagePositionAnimation(layer: layer, timeline: timeline)
         end
     end
 
     return ["a": 0,"k": [0,0]]
-end
-
-func xTextPosition(layer)
-    switch layer.alignment.name
-    case "right":
-        return 0
-    case "left":
-        return 0
-    case "center":
-        return 0
-    case "justified":
-        return 0
-    default:
-        return 0
-    end
-end
-
-func yTextPosition(layer)
-    return layer.font.ascender
 end

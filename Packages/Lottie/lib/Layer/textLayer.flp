@@ -12,7 +12,7 @@ func textProperties(layer, timeline)
 end
 
 func textData(layer, timeline)
-    var keyvalues = keyvaluesArray(layer: layer, propertyID: stringProperty, timeline: timeline)
+    var keyvalues = keyvaluesArray(layer: layer, propertyID: textDataProperty, timeline: timeline)
 
     var keyframes = []
     if keyvalues.isEmpty
@@ -32,14 +32,15 @@ end
 func textKeyframes(layer, keyvalues) 
     var keyframes = []
     for value in keyvalues
+        var font = value["s"][0]["font"]
         var details = [
                 "sz": [layer.bounds.width, layer.bounds.height],
-                "s": layer.font.size,
-                "f": "\(layer.font.name)",
-                "t": value["s"][0],
+                "s": font.size,
+                "f": font.name,
+                "t": value["s"][0]["string"],
                 "j": textAlignmentValue(from: layer.alignment),
                 "tr": 0, //tracking
-                "lh": layer.font.lineHeight,
+                "lh": font.lineHeight,
                 "ls": 0,
                 "fc": colorValue(from: layer.foregroundColor),
                 "ps": textLayerPosition(layer: layer)
@@ -56,9 +57,9 @@ end
 func startValue(layer, timeline)
     return [
                 "sz": [layer.bounds.width, layer.bounds.height],
-                "s": layer.font.size,
+                "s": layer.fontSize,
                 "f": "\(layer.font.name)",
-                "t": "\(layer.string)",
+                "t": lottieValue(from: layer.string, propertyID: stringProperty),
                 "j": textAlignmentValue(from: layer.alignment),
                 "tr": 0, //tracking
                 "lh": layer.font.lineHeight,
@@ -123,4 +124,48 @@ func textSelector()
                 "sh": 1,
                 "r": 1
             ]
+end
+
+func fontAscenderAnimation(layer, timeline) 
+    var keyvalues = keyvaluesArray(layer: layer, propertyID: fontAscenderProperty, timeline: timeline)
+    var keyframes = []
+    if keyvalues.isEmpty
+      return nonAnimatingFontKeyframe(layer: layer)
+    end
+    return [
+        "s": true, // seperate position dimensions into x and y components in order to animate them independently
+        "x": ["a": 0, "k": xTextPosition(layer: layer)],
+        "y": ["a": 1.0, "k": keyvalues]
+    ]
+end
+
+func nonAnimatingFontKeyframe(layer)
+    return [
+        "a": 0,
+        "k": [
+            xTextPosition(layer: layer),
+            yTextPosition(layer: layer)
+        ]
+    ]
+end
+
+func xTextPosition(layer)
+    switch layer.alignment.name
+    case "right":
+        return 0
+    case "left":
+        return 0
+    case "center":
+        return 0
+    case "justified":
+        return 0
+    default:
+        return 0
+    end
+end
+
+func yTextPosition(layer)
+    var fontSize = layer.fontSize
+    var font = layer.font.withSize(size: fontSize)
+    return font.ascender
 end
