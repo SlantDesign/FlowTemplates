@@ -66,7 +66,7 @@
       background-color: #FD0178;
     }
   </style>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.6.3/lottie.min.js" integrity="sha256-lZIvAx83WLHALrd5UIfVRAkDgVmAIxUt8JqPhNZIs4Q=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/<%= lottieVersion %>/lottie.min.js" integrity="<%= sriHash %>" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
   <div id="<%= timelineName %>_lottie_container"></div> 

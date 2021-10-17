@@ -18,8 +18,13 @@ func lottieDictionaryFor(timeline, imageFolderName)
 end
 
 func version()
-    // Version of body moving the lottie player should expect
-    return "5.6.4"
+    // Version of bodymovin https://cdnjs.com/libraries/lottie-web
+    return "5.7.14"
+end
+
+func sriHash()
+    // SRI Hash retrieved from https://cdnjs.com/libraries/lottie-web
+    return "sha512-G1R66RZMhyLDEcAu92/Kv4sWNypnEiJcM6yhe0PNyiYDaMAKpMrJ6ZLR67xC/RMNGRa8Pm9TxtO8a98F6Ct+Gw=="
 end
 
 func meta(timeline)
