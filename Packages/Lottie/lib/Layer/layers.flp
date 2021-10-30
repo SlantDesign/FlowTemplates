@@ -50,7 +50,6 @@ func lottieLayer(layer, timeline, type)
         "ty": layerType(layer: layer, type: type), 
         "ks": transform(layer: layer, timeline: timeline, type: type), 
         "ao": autoOrient(), 
-        "tt": matteMode(layer: layer, type: type), 
         "ddd": 0, 
         "ind": layerIndex(of: layer, timeline: timeline, type: type),   
         "op": lastFrame(timeline: timeline), // end time of layer in frames (out point)
@@ -59,6 +58,15 @@ func lottieLayer(layer, timeline, type)
         "nm": layerName(layer: layer, type: type), 
         "sr": layerTimeStretching()
     ]
+
+    if type == "mask"
+        lottieLayer = lottieLayer.updatingValue(1, forKey: "td")
+    end
+
+    var matteMode = matteMode(layer: layer, type: type)
+    if matteMode != 0
+        lottieLayer = lottieLayer.updatingValue(matteMode, forKey: "tt")
+    end
 
     var effects = effectsArray(layer: layer, timeline: timeline, type: type)
     if !effects.isEmpty
