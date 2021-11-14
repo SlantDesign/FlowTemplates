@@ -1,0 +1,21 @@
+{
+  "uuid": "0C21FE5C-A124-4587-A73C-EBE9470A97E8",
+  "title": "iOS - Tap Button",
+  "description": "A UIButton that plays an animation when it is tapped.",
+  "parameters": [
+    {
+      "label": "Output Folder",
+      "description": "Folder name for export, relative to main export folder",
+      "variable": "folderName",
+      "type": "text",
+      "default": "iOS - Tap Button"
+    },
+    {
+      "label": "Organization",
+      "description": "Organization of the exported Xcode project",
+      "variable": "organization",
+      "type": "text",
+      "default": "Flow"
+    }
+  ]
+}
