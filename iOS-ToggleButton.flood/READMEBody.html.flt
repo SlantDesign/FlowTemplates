@@ -18,15 +18,15 @@
                             <small class="blue">
                                 iOS,
                                 Animaiton,
-                                Custom UIButton
+                                Toggle Button
                             </small>
                         </p>
                     </div>
                 </div>
                 <hr class="underliner">
                 <div class="docs-content">
-                    <h1>Integrating a Custom iOS UIButton</h1>
-                    <p class="intro">This document covers all the details you need to know to integrate Flow's custom iOS UIButton into your app.</p>
+                    <h1>Integrating a Toggle Button</h1>
+                    <p class="intro">This document covers all the details you need to know to integrate Flow's Toggle Button into your app.</p>
                     <p class="intro">When working through this doc, remember:</p>
                     <ul class="readme">
                       <li>The code below contains variables from your Flow file.</li>
@@ -53,8 +53,8 @@
                         </li>
                     </ul>
 
-                    <h2 id="integrating-a-single-instance">Integrating the Custom Button</h2>
-                    <p>This section explains how to integrate your custom button into your iOS XCode project.</p>
+                    <h2 id="integrating-a-single-instance">Integrating the Toggle Button</h2>
+                    <p>This section explains how to integrate your toggle button into your iOS XCode project.</p>
                     <ol>
                         <li>If you've never used CocoaPods before refer to <a href="https://guides.cocoapods.org/using/getting-started.html">CocoaPods Getting Started</a>.</li>
                         <li>Install <code class="highlighter-rouge">FlowCommoniOS</code> into your project via <code>CocoaPods</code>. To do this add the following to your project's Podfile.

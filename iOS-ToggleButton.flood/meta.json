@@ -1,6 +1,6 @@
 {
   "uuid": "34FABF48-C0CD-4611-9035-6EE258ACF8E8",
-  "title": "iOS - Custom UIButton",
+  "title": "iOS - Toggle Button",
   "description": "A template which generates an iOS project with a custom UIButton.",
   "parameters": [
     {
@@ -8,7 +8,7 @@
       "description": "Folder name for export, relative to main export folder",
       "variable": "folderName",
       "type": "text",
-      "default": "iOS - Custom UIButton"
+      "default": "iOS - Toggle Button"
     },
     {
       "label": "Organization",
