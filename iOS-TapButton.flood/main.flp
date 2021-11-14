@@ -104,10 +104,10 @@ for timeline in timelines
     process("Project/Resources/Info.plist.flt", into: "\(projectPath)/Resources/Info.plist", indentation: 0)
     copy(from: "Project/Resources/Base.lproj/LaunchScreen.storyboard", to: "\(projectPath)/Resources/Base.lproj/LaunchScreen.storyboard")
 
-    // Copy AppDelegate, ViewController, ToggleButton 
+    // Copy AppDelegate, ViewController, TapButton 
     copy(from: "Project/Sources/AppDelegate.swift", to: "\(projectPath)/Sources/AppDelegate.swift")
     copy(from: "Project/Sources/ViewController.swift", to: "\(projectPath)/Sources/\(viewControllerClassName).swift")
-    copy(from: "Project/Sources/ToggleButton.swift", to: "\(projectPath)/Sources/ToggleButton.swift")
+    copy(from: "Project/Sources/TapButton.swift", to: "\(projectPath)/Sources/TapButton.swift")
     process("Project/Sources/Button.swift.flt", into: "\(projectPath)/Sources/\(buttonClassName).swift", indentation: 0)
 
     // Copy FlowCommon files
