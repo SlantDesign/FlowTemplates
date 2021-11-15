@@ -53,7 +53,7 @@
                         </li>
                     </ul>
 
-                    <h2 id="integrating-a-single-instance">Integrating the Toggle Button</h2>
+                    <h2 id="integrating-a-single-instance">Integrating the Slider</h2>
                     <p>This section explains how to integrate your toggle button into your iOS XCode project.</p>
                     <ol>
                         <li>If you've never used CocoaPods before refer to <a href="https://guides.cocoapods.org/using/getting-started.html">CocoaPods Getting Started</a>.</li>
@@ -84,21 +84,21 @@
                             </div>
                         </div>
                         </li>
-                        <li>Move <code><%= timelineName %>.swift</code>, <code><%= viewName %>.swift</code>, <code><%= buttonClassName %>.swift</code>, and <code>ToggleButton.swift</code> 
+                        <li>Move <code><%= timelineName %>.swift</code>, <code><%= viewName %>.swift</code>, <code><%= sliderClassName %>.swift</code>, and <code>Slider.swift</code> 
                          to a location of your choice inside your iOS Project.
                         </li>
                         <li> 
-                            Add a button to your <code>ViewController</code> in a stoyboard. Change the buttons class name to <code><%= buttonClassName %></code> in the
+                            Add a button to your <code>ViewController</code> in a stoyboard. Change the buttons class name to <code><%= sliderClassName %></code> in the
                             <code>Identity Inspector</code>.
                         </li>
-                        <li>To use multiple <code><%= buttonClassName %></code> buttons you simply only need to repeat steps 3</li>.
+                        <li>To use multiple <code><%= sliderClassName %></code> buttons you simply only need to repeat steps 3</li>.
                         <li>If you would like to use a different button, feel free to repeat this process as many times as you wish with as many buttons as you like.</li>
                     </ol>
 
                     <h3 id="details-for-what-you-just-did">Details For What You Just Did</h3>
                     <p>You installed the <code>FlowCommoniOS</code> CocoaPod library into your project.</p>
-                    <p>You moved <code><%= timelineName %>.swift</code>, <code><%= viewName %>.swift</code>, <code><%= buttonClassName %>.swift</code>, and <code>ToggleButton.swift</code>  from your exported animation into your iOS project <strong>(without editing anything)</strong>.</p>
-                    <p>You added a new <code><%= buttonClassName %></code> to your stoyboard.</p>
+                    <p>You moved <code><%= timelineName %>.swift</code>, <code><%= viewName %>.swift</code>, <code><%= sliderClassName %>.swift</code>, and <code>Slider.swift</code>  from your exported animation into your iOS project <strong>(without editing anything)</strong>.</p>
+                    <p>You added a new <code><%= sliderClassName %></code> to your stoyboard.</p>
                     
                     <h2 id="flowcommon">FlowCommoniOS</h2>
                     <p>FlowCommoniOS is a CocoaPod library containing the set of files you’ll need to run your iOS Animation in a iOS application.</p>
