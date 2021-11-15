@@ -1,0 +1,21 @@
+{
+  "uuid": "3C0617B0-6995-4966-ACEE-AE2C9EC21876",
+  "title": "iOS - Progress Bar",
+  "description": "An iOS project containing a progress bar.",
+  "parameters": [
+    {
+      "label": "Output Folder",
+      "description": "Folder name for export, relative to main export folder",
+      "variable": "folderName",
+      "type": "text",
+      "default": "iOS - Progress Bar"
+    },
+    {
+      "label": "Organization",
+      "description": "Organization of the exported Xcode project",
+      "variable": "organization",
+      "type": "text",
+      "default": "Flow"
+    }
+  ]
+}
