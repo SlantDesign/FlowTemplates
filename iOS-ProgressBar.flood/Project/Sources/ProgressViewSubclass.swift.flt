@@ -1,0 +1,20 @@
+// Made With Flow.
+//
+// DO NOT MODIFY, your changes will be lost when this file is regenerated.
+//
+
+import UIKit
+
+class <%= projectName %>ProgressView: ProgressView {
+    <% var sceneName = timeline.scene.name.lowerCamelCased() %>
+    private lazy var <%= sceneName %>: <%= viewName %> = {
+        let <%= sceneName %> = <%= viewName %>(frame: .zero)
+        <%= sceneName %>.scale(to: frame.size)
+        return <%= sceneName %>
+    }()
+
+    override func createView() -> UIView {
+        timeline = <%= timelineName %>(view: <%= sceneName %>, duration: <%= timeline.duration %>)
+        return <%= sceneName %>
+    }
+}

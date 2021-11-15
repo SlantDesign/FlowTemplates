@@ -1,0 +1,20 @@
+// Made With Flow.
+//
+// DO NOT MODIFY, your changes will be lost when this file is regenerated.
+//
+
+import UIKit
+
+class <%= viewControllerClassName %>: UIViewController {
+    @IBOutlet public weak var progressView: <%= projectName %>ProgressView!
+    let progressSimulator = ProgressSimulator()
+
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        progressView.observedProgress = progressSimulator.progress
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        progressSimulator.simulateProgress()
+    }
+}
