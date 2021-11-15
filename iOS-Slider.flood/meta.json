@@ -1,0 +1,21 @@
+{
+  "uuid": "6E041D19-5D27-401A-893A-D41DC57AF910",
+  "title": "iOS - Slider",
+  "description": "A template which generates an iOS project with a custom UISlider.",
+  "parameters": [
+    {
+      "label": "Output Folder",
+      "description": "Folder name for export, relative to main export folder",
+      "variable": "folderName",
+      "type": "text",
+      "default": "iOS - Slider"
+    },
+    {
+      "label": "Organization",
+      "description": "Organization of the exported Xcode project",
+      "variable": "organization",
+      "type": "text",
+      "default": "Flow"
+    }
+  ]
+}

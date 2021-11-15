@@ -1,0 +1,32 @@
+// Made With Flow.
+//
+// DO NOT MODIFY, your changes will be lost when this file is regenerated.
+//
+
+import UIKit
+
+@IBDesignable
+class <%= sliderClassName %>: Slider {
+    <%- var viewVariableName = timeline.scene.name.lowerCamelCased() -%>
+    private lazy var <%= viewVariableName %>: <%= viewName %> = {
+    //There is an additional 2pt padding added by UIKit to a Slider
+        let startView = <%= viewName %>(frame: bounds.inset(by: UIEdgeInsets(top: 0, left: 2, bottom: 0, right: 2)))
+        //Since we may use scaling, the startView must not clip to bounds 
+        startView.clipsToBounds = false
+        //Let the slider do the clipping
+        clipsToBounds = <%= initialRootSnapshot.masksToBounds %>
+        //Since we are scaling, set the background color of the slider, and clear the backgroundColor of the startView
+        backgroundColor = startView.backgroundColor
+        startView.backgroundColor = .clear
+
+        return startView
+    }()
+
+    override func createTimeline() -> Timeline {
+        return <%= timelineName %>(view: <%= viewVariableName %>, duration: <%= timeline.duration %>)
+    }
+
+    override func createView() -> UIView {
+        return <%= viewVariableName %>
+    }
+}
