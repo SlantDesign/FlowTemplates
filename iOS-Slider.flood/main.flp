@@ -24,7 +24,7 @@ for timeline in timelines
     end
     timelineName = symbolTable.addSymbolWithSuggestedName(timelineName, type: "class", context: "Class", id: timeline.id).name
 
-    var buttonClassName = "\(timeline.name.upperCamelCased())Button"
+    var sliderClassName = "\(timeline.name.upperCamelCased())Slider"
 
     // Set unique bundle identifier for each exported timeline 
     var bundleIdentifier = Swift.convertToValidBundleIdentifier(string: "com.\(organization).\(document.name).\(timelineName)")
@@ -94,27 +94,27 @@ for timeline in timelines
     // Create Xcode Project Package Directory and subfolder and subfiles
     mkdir("\(projectPath)/\(projectName).xcodeproj")
     process("Project/project.xcodeproj/project.pbxproj.flt", into: "\(projectPath)/\(projectName).xcodeproj/project.pbxproj", indentation: 0)
-
+     mkdir("\(projectPath)/\(projectName).xcodeproj/project.xcworkspace")
+    copy(from: "Project/project.xcodeproj/project.xcworkspace/contents.xcworkspacedata", to:"\(projectPath)/\(projectName).xcodeproj/project.xcworkspace/contents.xcworkspacedata")
 
     // Create Base.lproj directory and populate it with storyboards
     mkdir("\(projectPath)/Resources/Base.lproj")
     process("Project/Resources/Base.lproj/Main.storyboard.flt", into: "\(projectPath)/Resources/Base.lproj/Main.storyboard", indentation: 0)
 
-    // Copy info plift into Resources directory
+    // Copy info plist into Resources directory
     process("Project/Resources/Info.plist.flt", into: "\(projectPath)/Resources/Info.plist", indentation: 0)
     copy(from: "Project/Resources/Base.lproj/LaunchScreen.storyboard", to: "\(projectPath)/Resources/Base.lproj/LaunchScreen.storyboard")
 
-    // Copy AppDelegate, ViewController, ToggleButton 
+    // Copy AppDelegate, ViewController, Slider 
     copy(from: "Project/Sources/AppDelegate.swift", to: "\(projectPath)/Sources/AppDelegate.swift")
     copy(from: "Project/Sources/ViewController.swift", to: "\(projectPath)/Sources/\(viewControllerClassName).swift")
-    copy(from: "Project/Sources/ToggleButton.swift", to: "\(projectPath)/Sources/ToggleButton.swift")
-    process("Project/Sources/Button.swift.flt", into: "\(projectPath)/Sources/\(buttonClassName).swift", indentation: 0)
+    copy(from: "Project/Sources/Slider.swift", to: "\(projectPath)/Sources/Slider.swift")
+    process("Project/Sources/SliderSubclass.swift.flt", into: "\(projectPath)/Sources/\(sliderClassName).swift", indentation: 0)
 
     // Copy FlowCommon files
     for fileName in flowCommonFileNames
         copy(from: "\(flowCommonSourcesPath)/\(fileName).swift", to: "\(projectPath)/Sources/FlowCommon/\(fileName).swift")
     end
-
 
     // Create LaunchAnimation files
     mkdir("\(projectPath)/Sources/LaunchAnimation")
