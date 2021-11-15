@@ -8,20 +8,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F9BC6A72742DB95007894F0 /* Slider.swift in Sources */ = {isa = PBXBuildFile; fileRef = Slider_swift_FileReference /* Slider.swift */; };
 		LaunchAnimationTimeline_swift_BuildFile /* LaunchAnimationTimeline.swift in LaunchAnimation */ = {isa = PBXBuildFile; fileRef = LaunchAnimationTimeline_swift_FileReference /* LaunchAnimationTimeline.swift */; };
 		LaunchAnimationViewController_swift_BuildFile /* LaunchAnimationViewController.swift in LaunchAnimation */ = {isa = PBXBuildFile; fileRef = LaunchAnimationViewController_swift_FileReference /* LaunchAnimationViewController.swift */; };
 		LaunchAnimationView_swift_BuildFile /* LaunchAnimationView.swift in LaunchAnimation */ = {isa = PBXBuildFile; fileRef = LaunchAnimationView_swift_FileReference /* LaunchAnimationView.swift */; };
 		AppDelegate_swift_BuildFile /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AppDelegate_swift_FileReference /* AppDelegate.swift */; };
-		ToggleButton_swift_BuildFile /* ToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ToggleButton_swift_FileReference /* ToggleButton.swift */; };
+		Slider_swift_FileReference /* Slider.swift in Sources */ = {isa = PBXBuildFile; fileRef = Slider_swift_FileReference /* Slider.swift */; };
 		<%- for fileName in flowCommonFileNames -%>
 		<%= xcodeProjectFileReferences[fileName] %>_swift_BuildFile /* <%= fileName %>.swift in FlowCommon */ = {isa = PBXBuildFile; fileRef = <%= xcodeProjectFileReferences[fileName] %>_swift_FileReference /* <%= fileName %>.swift */; };
 		<%- end -%>
 		Assets_xcassets_BuildFile /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = Assets_xcassets_FileReference /* Assets.xcassets */; };
 		LaunchScreen_storyboard_BuildFile /* Base in Resources */ = {isa = PBXBuildFile; fileRef = LaunchScreen_storyboard_FileReference /* Base */; };
 		Main_storyboard_BuildFile /* Base in Resources */ = {isa = PBXBuildFile; fileRef = Main_storyboard_FileReference /* Base */; };
-		<%= viewControllerClassName %>_swift_BuildFile /* <%= viewControllerClassName %>.swift in Sources */ = {isa = PBXBuildFile; fileRef = <%= viewControllerClassName %>_swift_FileReference /* <%= viewControllerClassName %>.swift */; };
 		<%= viewName %>_swift_BuildFile /* <%= viewName %>.swift in <%= timelineName %> */ = {isa = PBXBuildFile; fileRef = <%= viewName %>_swift_FileReference /* <%= viewName %>.swift */; };
-		<%= buttonClassName %>_swift_BuildFile /* <%= buttonClassName %>.swift in <%= timelineName %> */ = {isa = PBXBuildFile; fileRef = <%= buttonClassName %>_swift_FileReference /* <%= buttonClassName %>.swift */; };
+		<%= sliderClassName %>_swift_BuildFile /* <%= sliderClassName %>.swift in <%= timelineName %> */ = {isa = PBXBuildFile; fileRef = <%= sliderClassName %>_swift_FileReference /* <%= sliderClassName %>.swift */; };
 		<%= timelineName %>_swift_BuildFile /* <%= timelineName %>.swift in <%= timelineName %> */ = {isa = PBXBuildFile; fileRef = <%= timelineName %>_swift_FileReference /* <%= timelineName %>.swift */; };
 	<%- for font in fontsInTimeline -%>
 	  <%- if !Swift.iOSFonts.contains(font.name) && font.path != nil -%>
@@ -40,7 +40,7 @@
 		LaunchAnimationView_swift_FileReference /* LaunchAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchAnimationView.swift; sourceTree = "<group>"; };		
 		Animation_swift_FileReference /* Animation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
 		AppDelegate_swift_FileReference /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		ToggleButton_swift_FileReference /* ToggleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToggleButton.swift; sourceTree = "<group>"; };
+		Slider_swift_FileReference /* Slider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Slider.swift; sourceTree = "<group>"; };
 		Assets_xcassets_FileReference /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		Info_plist_FileReference /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		LaunchScreen_storyboard_FileReference /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,9 +49,8 @@
 		<%= xcodeProjectFileReferences[fileName] %>_swift_FileReference /* <%= fileName %>.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "<%= fileName %>.swift"; sourceTree = "<group>"; };
 		<%- end -%>
 		name_app_FileReference /* <%= projectName %>.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "<%= projectName %>.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		<%= viewControllerClassName %>_swift_FileReference /* <%= viewControllerClassName %>.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = <%= viewControllerClassName %>.swift; sourceTree = "<group>"; };
 		<%= viewName %>_swift_FileReference /* <%= viewName %>.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = <%= viewName %>.swift; sourceTree = "<group>"; };
-		<%= buttonClassName %>_swift_FileReference /* <%= buttonClassName %>.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = <%= buttonClassName %>.swift; sourceTree = "<group>"; };
+		<%= sliderClassName %>_swift_FileReference /* <%= sliderClassName %>.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = <%= sliderClassName %>.swift; sourceTree = "<group>"; };
 		<%= timelineName %>_swift_FileReference /* <%= timelineName %>.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = <%= timelineName %>.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -182,9 +181,8 @@
 			isa = PBXGroup;
 			children = (
 				AppDelegate_swift_FileReference /* AppDelegate.swift */,
-				<%= buttonClassName %>_swift_FileReference /* <%= buttonClassName %>.swift */,
-				ToggleButton_swift_FileReference /* ToggleButton.swift */,
-				<%= viewControllerClassName %>_swift_FileReference /* <%= viewControllerClassName %>.swift */,
+				<%= sliderClassName %>_swift_FileReference /* <%= sliderClassName %>.swift */,
+				Slider_swift_FileReference /* Slider.swift */,
 				<%= timelineName %>_Group /* <%= timelineName %>_Group */,
 				FlowCommon_Group /* FlowCommon */,
 				LaunchAnimation_Group /* LaunchAnimation */,
@@ -198,6 +196,7 @@
 		<%= projectName.snakeCased() %>_Target /* <%= projectName %> */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = <%= projectName.snakeCased() %>_Target_ConfigurationList /* Build configuration list for PBXNativeTarget "<%= projectName %>" */;
+			compatibilityVersion = "Xcode 9.3";
 			buildPhases = (
 				Sources_BuildPhase /* Sources */,
 				Frameworks_BuildPhase /* Frameworks */,
@@ -246,14 +245,14 @@
                 LaunchAnimationViewController_swift_BuildFile /* LaunchAnimationViewController.swift in Sources */,
                 LaunchAnimationTimeline_swift_BuildFile /* LaunchAnimationTimeline.swift in Sources */,
 				AppDelegate_swift_BuildFile /* AppDelegate.swift in Sources */,
-				ToggleButton_swift_BuildFile /* ToggleButton.swift in Sources */,
+				Slider_swift_BuildFile /* Slider.swift in Sources */,
+				1F9BC6A72742DB95007894F0 /* Slider.swift in Sources */,
 				<%- for fileName in flowCommonFileNames -%>
 				<%= xcodeProjectFileReferences[fileName] %>_swift_BuildFile /* <%= fileName %>.swift in Sources */,
 				<%- end -%>
 				<%= viewName %>_swift_BuildFile /* <%= viewName %>.swift in Sources */,
-				<%= buttonClassName %>_swift_BuildFile /* <%= buttonClassName %>.swift in Sources */,
+				<%= sliderClassName %>_swift_BuildFile /* <%= sliderClassName %>.swift in Sources */,
 				<%= timelineName %>_swift_BuildFile /* <%= timelineName %>.swift in Sources */,
-				<%= viewControllerClassName %>_swift_BuildFile /* <%= viewControllerClassName %>.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
