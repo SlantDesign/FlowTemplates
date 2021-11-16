@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="gNs-5D-dvo">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--<%= viewControllerClassName %>-->
+        <scene sceneID="<%= timeline.scene.id %>">
+            <objects>
+                <viewController storyboardIdentifier="ViewController" id="ViewController" sceneMemberID="viewController">
+                    <%- var mainViewID = makeUUID() -%>
+                    <%- var textFieldID = makeUUID() -%>
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="<%= makeUUID() %>"/>
+                        <viewControllerLayoutGuide type="bottom" id="<%= makeUUID() %>"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="<%= mainViewID %>">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="<%= textFieldID %>" customClass="<%= textFieldClassName %>" customModule="<%= projectName %>" customModuleProvider="target">
+                                <rect key="frame" x="<%= (375 - timeline.scene.size.width) / 2 %>" y="<%= (667 - timeline.scene.size.height) / 2 %>" width="<%= timeline.scene.size.width %>" height="<%= timeline.scene.size.height %>"/>
+                                <%- var backgroundColor = timeline.rootLayer(at: 0).backgroundColor %>
+                                <color key="backgroundColor" red="<%= backgroundColor.red %>" green="<%= backgroundColor.green %>" blue="<%= backgroundColor.blue %>" alpha="<%= backgroundColor.alpha %>" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="<%= timeline.scene.size.height %>" id="opV-ms-vXv"/>
+                                    <constraint firstAttribute="width" constant="<%= timeline.scene.size.width %>" id="sjb-Zv-Qk0"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="<%= textFieldID %>" firstAttribute="centerY" secondItem="<%= mainViewID %>" secondAttribute="centerY" id="<%= makeUUID() %>"/>
+                            <constraint firstItem="<%= textFieldID %>" firstAttribute="centerX" secondItem="<%= mainViewID %>" secondAttribute="centerX" id="<%= makeUUID() %>"/>
+                        </constraints>
+                    </view>
+                    <value key="contentSizeForViewInPopover" type="size" width="<%= timeline.scene.size.width %>" height="<%= timeline.scene.size.height %>"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="<%= makeUUID() %>" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="0.0" y="0.0"/>
+        </scene>
+        <!--Launch Animation View Controller-->
+        <scene sceneID="uPg-I4-Jwi">
+            <objects>
+                <viewController id="gNs-5D-dvo" customClass="LaunchAnimationViewController" customModule="<%= projectName %>" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Lws-Dv-aGB"/>
+                        <viewControllerLayoutGuide type="bottom" id="NOy-1h-cy6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Lsv-YY-aZj">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CJs-KB-Ydh" customClass="LaunchAnimationView" customModule="<%= projectName %>" customModuleProvider="target">
+                                <rect key="frame" x="42.5" y="303.5" width="290" height="60"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="F34-UY-EOV"/>
+                                    <constraint firstAttribute="width" constant="290" id="lnu-tW-77y"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="CJs-KB-Ydh" firstAttribute="centerY" secondItem="Lsv-YY-aZj" secondAttribute="centerY" id="Uwo-hT-4Ki"/>
+                            <constraint firstItem="CJs-KB-Ydh" firstAttribute="centerX" secondItem="Lsv-YY-aZj" secondAttribute="centerX" id="pPV-qb-LTz"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="scene" destination="CJs-KB-Ydh" id="KDI-Qj-fDB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vxw-N1-2S8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1" y="649"/>
+        </scene>
+
+    </scenes>
+</document>
