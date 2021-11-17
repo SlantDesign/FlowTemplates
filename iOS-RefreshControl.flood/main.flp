@@ -1,0 +1,130 @@
+import Swift
+import Web
+
+// Create a Timeline .swift file for each timeline in the document in "Source" directory.
+// Create a View and ViewController .swift file for the root layer of each timeline in "Source" directory.
+for timeline in timelines
+    // Get a snapshot of the rootLayer at time 0
+    var initialRootSnapshot = timeline.rootLayer(at: 0)
+
+    // Set the name for the UIView sublcass
+    var viewName = timeline.scene.rootLayer.name.upperCamelCased()
+    if !viewName.hasSuffix("View")
+        viewName = "\(viewName)View"
+    end
+    viewName = symbolTable.addSymbolWithSuggestedName(viewName, type: "class", context: "Class", id: timeline.scene.rootLayer.id).name
+
+    // Set the name for the UIViewController subclass
+    var viewControllerClassName = "TableViewController"
+
+    // Set the name for the Timeline subclass
+    var timelineName = timeline.name.upperCamelCased()
+    if !timelineName.hasSuffix("Timeline")
+        timelineName = "\(timelineName)Timeline"
+    end
+    timelineName = symbolTable.addSymbolWithSuggestedName(timelineName, type: "class", context: "Class", id: timeline.id).name
+
+    var refreshControlClassName = "\(timeline.name.upperCamelCased())RefreshControl"
+
+    // Set unique bundle identifier for each exported timeline 
+    var bundleIdentifier = Swift.convertToValidBundleIdentifier(string: "com.\(organization).\(document.name).\(timelineName)")
+
+    // Get the name of the timeline folder
+    var timelineFolder = folderTable.symbolForID(timeline.id, "\(outputFolderPath)/\(documentFolderName)/\(templateFolderName)").name
+
+
+    // Get the path to the xcode project
+    var projectPath = "\(documentFolderName)/\(templateFolderName)/\(timelineFolder)"
+
+    // Set the name for the xcode proj file, for consistency give it the same name as the the timeline folder
+    var projectName = timelineFolder
+
+    // Get all assets for this timeline
+    var fontsInTimeline = document.fonts(forTimeline: timeline)
+    var soundsInTimeline = document.sounds(forTimeline: timeline)
+    var imagesInTimeline = document.images(forTimeline: timeline)
+
+    // Delete previously exported project
+    rm(projectPath)
+    
+    // Create Sources Directory
+    mkdir("\(projectPath)/Sources/\(timelineName)")
+    process("View.swift.flt", from: Swift, into: "\(projectPath)/Sources/\(timelineName)/\(viewName).swift", indentation: 0)
+    process("Timeline.swift.flt", from: Swift, into: "\(projectPath)/Sources/\(timelineName)/\(timelineName).swift", indentation: 0)
+
+    // Copy Resources Into Project
+
+    // Copy App Icon Images 
+    copy(from: "Project/Resources/Assets.xcassets/AppIcon.appiconset/Contents.json", to: "\(projectPath)/Resources/Assets.xcassets/AppIcon.appiconset/Contents.json")
+    var appIconSizes = [20, 29, 40, 41, 42, 58, 59, 60, 76, 80, 81, 87, 120, 121, 152, 167, 180, 1024]
+    for appIconSize in appIconSizes 
+        copy(from: "Project/Resources/Assets.xcassets/AppIcon.appiconset/Icon-\(appIconSize).png", to: "\(projectPath)/Resources/Assets.xcassets/AppIcon.appiconset/Icon-\(appIconSize).png")
+    end
+
+    // Copy FlowWord Mark Logo and Contents.json used in launch storyboard
+    copy(from: "Project/Resources/Assets.xcassets/FlowWordmark.imageset/FlowWordmark.pdf", to: "\(projectPath)/Resources/Assets.xcassets/FlowWordmark.imageset/FlowWordmark.pdf")
+    copy(from: "Project/Resources/Assets.xcassets/FlowWordmark.imageset/Contents.json", to: "\(projectPath)/Resources/Assets.xcassets/FlowWordmark.imageset/Contents.json")
+    copy(from: "Project/Resources/Assets.xcassets/Contents.json", to: "\(projectPath)/Resources/Assets.xcassets/Contents.json")
+
+    // Copy Images from Flow document
+    for image in imagesInTimeline
+        mkdir("\(projectPath)/Resources/Assets.xcassets/\(image.name).imageset")
+        process("Project/Resources/Assets.xcassets/image.imageset/Contents.json.flt", into: "\(projectPath)/Resources/Assets.xcassets/\(image.name).imageset/Contents.json", indentation: 0)
+        var imageData = image.serializeAsPNGData()
+        write(data: imageData, to: "\(projectPath)/Resources/Assets.xcassets/\(image.name).imageset/\(image.name).png")
+    end
+
+    // Copy Fonts
+    mkdir("\(projectPath)/Resources/Fonts")
+    for font in fontsInTimeline
+        if !Swift.iOSFonts.contains(font.name) && font.path != nil
+            copy(from: font.path, to: "\(projectPath)/Resources/Fonts/\(font.name).\(font.extension)")
+        end
+    end
+
+    // Copy Sounds
+    mkdir("\(projectPath)/Resources/Sounds")
+    for sound in soundsInTimeline
+        copy(from: sound.path, to: "\(projectPath)/Resources/Sounds/\(sound.fileName)")
+    end
+
+    // Create Xcode Project Package Directory and subfolder and subfiles
+    mkdir("\(projectPath)/\(projectName).xcodeproj")
+    process("Project/project.xcodeproj/project.pbxproj.flt", into: "\(projectPath)/\(projectName).xcodeproj/project.pbxproj", indentation: 0)
+    copy(from: "Project/project.xcodeproj/project.xcworkspace/contents.xcworkspacedata", to:"\(projectPath)/\(projectName).xcodeproj/project.xcworkspace/contents.xcworkspacedata")
+
+    // Create Base.lproj directory and populate it with storyboards
+    mkdir("\(projectPath)/Resources/Base.lproj")
+    process("Project/Resources/Base.lproj/Main.storyboard.flt", into: "\(projectPath)/Resources/Base.lproj/Main.storyboard", indentation: 0)
+
+    // Copy info plift into Resources directory
+    process("Project/Resources/Info.plist.flt", into: "\(projectPath)/Resources/Info.plist", indentation: 0)
+    copy(from: "Project/Resources/Base.lproj/LaunchScreen.storyboard", to: "\(projectPath)/Resources/Base.lproj/LaunchScreen.storyboard")
+
+    // Copy Files
+    copy(from: "Project/Sources/AppDelegate.swift", to: "\(projectPath)/Sources/AppDelegate.swift")
+    copy(from: "Project/Sources/RefreshControl.swift", to: "\(projectPath)/Sources/RefreshControl.swift")
+    copy(from: "Project/Sources/DataSource.swift", to: "\(projectPath)/Sources/DataSource.swift")
+    process("Project/Sources/CustomRefreshControl.swift.flt", into: "\(projectPath)/Sources/\(refreshControlClassName).swift", indentation: 0)
+    process("Project/Sources/TableViewController.swift.flt", into: "\(projectPath)/Sources/\(projectName)Timeline/\(viewControllerClassName).swift", indentation: 0)
+
+    // Copy FlowCommon files
+    for fileName in flowCommonFileNames
+        copy(from: "\(flowCommonSourcesPath)/\(fileName).swift", to: "\(projectPath)/Sources/FlowCommon/\(fileName).swift")
+    end
+
+
+    // Create LaunchAnimation files
+    mkdir("\(projectPath)/Sources/LaunchAnimation")
+    process("LaunchAnimation/LaunchAnimationTimeline.swift.flt", from: Swift, into: "\(projectPath)/Sources/LaunchAnimation/LaunchAnimationTimeline.swift", indentation: 0)
+    process("LaunchAnimation/LaunchAnimationView.swift.flt", from: Swift, into: "\(projectPath)/Sources/LaunchAnimation/LaunchAnimationView.swift", indentation: 0)
+    process("LaunchAnimation/LaunchAnimationViewController.swift.flt", from: Swift, into: "\(projectPath)/Sources/LaunchAnimation/LaunchAnimationViewController.swift", indentation: 0)
+
+    // Generate README
+    var escape = true
+    process("README.html.flt", into: "\(projectPath)/README.html", indentation: 0)
+    escape = false
+
+    // Clear the symbol table
+    symbolTable.removeAllSymbols()
+end
