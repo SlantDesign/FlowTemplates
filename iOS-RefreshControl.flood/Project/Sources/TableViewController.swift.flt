@@ -1,0 +1,65 @@
+//
+//  ViewController.swift
+//  RefreshControl
+//
+//  Created by Travis on 2021-11-12.
+//
+
+import UIKit
+
+class TableViewController: UITableViewController {
+    struct Defaults {
+        static let offsetThreshold: CGFloat = -150
+    }
+<%- var viewVariableName = timeline.scene.name.lowerCamelCased() -%>
+
+    let dataSource = DataSource()
+    let <%= viewVariableName %>RefreshControl = <%= refreshControlClassName %>()
+    private(set) var defaultOffset: CGFloat = 0
+    private(set) var hasSetDefault = false
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        refreshControl = <%= viewVariableName %>RefreshControl
+        tableView.dataSource = dataSource
+        tableView.delegate = self
+        <%= viewVariableName %>RefreshControl.setup() //needs to be run after the control has been added to the view hierarchy
+
+        refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
+    }
+
+    //simulate refreshing
+    @objc func refresh() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            self.updateData()
+        }
+    }
+
+    //load new data, then provide a signal to end refreshing
+    func updateData() {
+        dataSource.updateData()
+        tableView.reloadData()
+        refreshControl?.endRefreshing()
+    }
+
+    func handle(offset: CGFloat) {
+        // the first time the scrollview is loaded, set the default offset
+        if !hasSetDefault {
+            hasSetDefault = true
+            defaultOffset = offset
+        }
+
+        // when the tableview is pulled down further than it's default y position
+        // normalized the offset and pass it to the custom refresh control
+        if offset < defaultOffset {
+            let actualOffset = offset - defaultOffset
+            let normalizedOffset = actualOffset / Defaults.offsetThreshold
+            <%= viewVariableName %>RefreshControl.process(offset: normalizedOffset)
+        }
+    }
+
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        handle(offset: scrollView.contentOffset.y)
+    }
+}

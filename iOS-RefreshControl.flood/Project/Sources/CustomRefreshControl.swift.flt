@@ -1,0 +1,21 @@
+// Made With Flow.
+//
+// DO NOT MODIFY, your changes will be lost when this file is regenerated.
+//
+
+import UIKit
+
+class <%= refreshControlClassName %>: RefreshControl {
+    <% var viewVariableName = timeline.scene.name.lowerCamelCased() -%>
+    private lazy var <%= viewVariableName %>: <%= viewName %> = {
+        return <%= viewName %>(frame: CGRect(origin: .zero, size: <%= viewName %>.Defaults.size))
+    }()
+
+    override func createView() -> UIView {
+        return <%= viewVariableName %>
+    }
+
+    override func createTimeline() -> Timeline {
+        return <%= timelineName %>(view: <%= viewVariableName %>, duration: <%= timeline.duration %>, repeatCount: .greatestFiniteMagnitude)
+    }
+}

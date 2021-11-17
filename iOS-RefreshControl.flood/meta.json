@@ -1,0 +1,21 @@
+{
+  "uuid": "F7B3B6DD-E34D-4251-91B0-8E99C70A9F81",
+  "title": "iOS - Refresh Control",
+  "description": "A template which generates an iOS project with a custom Refresh Control.",
+  "parameters": [
+    {
+      "label": "Output Folder",
+      "description": "Folder name for export, relative to main export folder",
+      "variable": "folderName",
+      "type": "text",
+      "default": "iOS - Refresh Control"
+    },
+    {
+      "label": "Organization",
+      "description": "Organization of the exported Xcode project",
+      "variable": "organization",
+      "type": "text",
+      "default": "Flow"
+    }
+  ]
+}
