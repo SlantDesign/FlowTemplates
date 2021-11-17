@@ -21,11 +21,11 @@ class <%= textFieldClassName %>: TextField {
     }()
 
     override var forward: Timeline {
-        return <%= timelineName %>(view: <%= viewVariableName %>, duration: 0.25)
+        return <%= timelineName %>(view: <%= viewVariableName %>, duration: <%= timeline.duration %>)
     }
 
     override var reverse: Timeline {
-        return <%= timelineName %>(view: <%= viewVariableName %>, duration: 0.25).reversed
+        return <%= timelineName %>(view: <%= viewVariableName %>, duration: <%= timeline.duration %>).reversed
     }
 
     override func createView() -> UIView {
