@@ -1,19 +1,12 @@
-//
-//  ActivityIndicatorView.swift
-//  Loader
-//
-//  Created by Travis on 2020-04-15.
-//  Copyright © 2020 Travis. All rights reserved.
-//
+// Made with Flow.
+
 import Foundation
 import UIKit
 
 class ActivityIndicatorView: UIActivityIndicatorView {
   public private(set) var view: UIView!
 
-  var timeline: Timeline? {
-    return nil
-  }
+  var timeline: Timeline!
 
   public override init(frame: CGRect) {
     super.init(frame: frame)
@@ -29,25 +22,31 @@ class ActivityIndicatorView: UIActivityIndicatorView {
     return UIView(frame: CGRect.null)
   }
 
+  public func createTimeline() -> Timeline {
+    return Timeline(view: UIView(), animationsByLayer: [CALayer(): []], sounds: [], duration: 1, repeatCount: .greatestFiniteMagnitude)
+  }
+
   private func setup() {
+    for subview in subviews {
+        subview.isHidden = true
+    }
     view = createView()
+    timeline = createTimeline()
     addSubview(view)
   }
 
   func handleAnimating() {
-    if isAnimating {
-      timeline?.play()
-    }
+      timeline.play()
   }
 
   override func startAnimating() {
     super.startAnimating()
-    timeline?.play()
+    timeline.play()
   }
 
   override func stopAnimating() {
     super.stopAnimating()
-    timeline?.pause()
-    timeline?.offset(to: 0)
+    timeline.pause()
+    timeline.offset(to: 0)
   }
 }

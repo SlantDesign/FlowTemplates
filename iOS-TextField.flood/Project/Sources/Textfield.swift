@@ -7,14 +7,8 @@ import UIKit
 
 class TextField: UITextField, UITextFieldDelegate {
     public private(set) var view: UIView!
-
-    var forward: Timeline {
-        return Timeline(view: view, animationsByLayer: [CALayer(): []], sounds: [], duration: 1)
-    }
-
-    var reverse: Timeline {
-        return Timeline(view: view, animationsByLayer: [CALayer(): []], sounds: [], duration: 1).reversed
-    }
+    public private(set) var forward: Timeline!
+    public private(set) var reverse: Timeline!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,7 +22,8 @@ class TextField: UITextField, UITextFieldDelegate {
 
     func setup() {
         view = createView()
-
+        reverse = createReverse()
+        forward = createForward()
         view.isUserInteractionEnabled = false
 
         addSubview(view)
@@ -64,6 +59,14 @@ class TextField: UITextField, UITextFieldDelegate {
 
     func createView() -> UIView {
         return UIView()
+    }
+  
+    func createForward() -> Timeline {
+      return Timeline(view: UIView(), animationsByLayer: [CALayer(): []], sounds: [], duration: 1)
+    }
+
+    func createReverse() -> Timeline {
+      return Timeline(view: UIView(), animationsByLayer: [CALayer(): []], sounds: [], duration: 1).reversed
     }
 }
 

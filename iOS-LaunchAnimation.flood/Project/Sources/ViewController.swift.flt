@@ -12,6 +12,7 @@ public class <%= viewControllerClassName %>: UIViewController {
         super.viewDidAppear(animated)
 
         <%= viewContainerName %>.timeline?.play()
+        view.backgroundColor = <%= viewContainerName %>.backgroundColor
         guard let duration = <%= viewContainerName %>.timeline?.duration else {
             return
         }

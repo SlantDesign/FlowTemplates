@@ -10,7 +10,6 @@ public class StartViewController: UIViewController {
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        start.clipsToBounds = true
         start.frame = view.frame
     }
 }

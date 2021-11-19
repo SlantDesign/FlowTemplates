@@ -83,6 +83,6 @@ class ToggleButton: UIButton {
     }
 }
 
-protocol ToggleButtonDelegate: class {
+protocol ToggleButtonDelegate: AnyObject {
     func didToggle(sender: ToggleButton)
 }

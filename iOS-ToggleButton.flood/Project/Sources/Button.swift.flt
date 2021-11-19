@@ -9,8 +9,8 @@ import UIKit
 class <%= buttonClassName %>: ToggleButton {
     <%- var viewVariableName = timeline.scene.name.lowerCamelCased() -%>
     private lazy var <%= viewVariableName %>: <%= viewName %> = {
-        let startView = <%= viewName %>(frame: .zero)
-        startView.scale(to: frame.size)
+        let startView = <%= viewName %>(frame: CGRect(origin: .zero, size: <%= viewName %>.Defaults.size))
+        //startView.scale(to: frame.size)
         //Since we use scaling, the startView must not clip to bounds 
         startView.clipsToBounds = false
         //Let the button do the clipping
