@@ -21,7 +21,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="<%= viewID %>" customClass="ProgressBarConvertProgressView" customModule="ProgressBarConvert" customModuleProvider="target">
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="<%= viewID %>" customClass="<%= projectName %>ProgressView" customModule="ProgressBarConvert" customModuleProvider="target">
                                 <rect key="frame" x="<%= (375 - timeline.scene.size.width) / 2 %>" y="<%= (667 - timeline.scene.size.height) / 2 %>" width="<%= timeline.scene.size.width %>" height="<%= timeline.scene.size.height %>"/>
                                 <%- var backgroundColor = timeline.rootLayer(at: 0).backgroundColor %>
                                 <color key="backgroundColor" red="<%= backgroundColor.red %>" green="<%= backgroundColor.green %>" blue="<%= backgroundColor.blue %>" alpha="<%= backgroundColor.alpha %>" colorSpace="custom" customColorSpace="sRGB"/>
