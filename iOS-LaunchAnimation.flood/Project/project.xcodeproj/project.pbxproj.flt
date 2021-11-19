@@ -8,6 +8,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F2BF40127481667009888CB /* Rubik-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F2BF3FF27481667009888CB /* Rubik-Light.ttf */; };
+		1F2BF40227481667009888CB /* Rubik-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F2BF40027481667009888CB /* Rubik-Bold.ttf */; };
 		8324392C2519813800C1AE5E /* <%= viewContainerClassName %>.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8324392B2519813800C1AE5E /* <%= viewContainerClassName %>.swift */; };
 		<%= timelineName %>_swift_BuildFile /* <%= timelineName %>.swift in LaunchAnimation */ = {isa = PBXBuildFile; fileRef = <%= timelineName %>_swift_FileReference /* <%= timelineName %>.swift */; };
 		<%= viewControllerClassName %>_swift_BuildFile /* <%= viewControllerClassName %>.swift in LaunchAnimation */ = {isa = PBXBuildFile; fileRef = <%= viewControllerClassName %>_swift_FileReference /* <%= viewControllerClassName %>.swift */; };
@@ -22,17 +24,18 @@
 		StartViewController_swift_BuildFile /* StartViewController.swift in Start */ = {isa = PBXBuildFile; fileRef = StartViewController_swift_FileReference /* StartViewController.swift */; };
 		StartView_swift_BuildFile /* StartView.swift in Start */ = {isa = PBXBuildFile; fileRef = StartView_swift_FileReference /* StartView.swift */; };
 	<%- for font in fontsInTimeline -%>
-	  <%- if !Swift.iOSFonts.contains(font.name) && font.path != nil -%>
+	  <%- if !Swift.iOSFonts.contains(font.name) && font.path != nil && font.name != "Rubik-Bold" && font.name != "Rubik-Light" -%>
 		<%= font.name.snakeCased() %>_BuildFile /* <%= font.name %> in Resources */ = {isa = PBXBuildFile; fileRef = <%= font.name.snakeCased() %>_FileReference /* <%= font.name %> */; };
 	  <%- end -%>
 	<%- end -%>
 	<%- for sound in soundsInTimeline -%>
 		<%= sound.fileName.snakeCased() %>_BuildFile /* <%= sound.fileName %> in Resources */ = {isa = PBXBuildFile; fileRef = <%= sound.fileName.snakeCased() %>_FileReference /* <%= sound.fileName %> */; };
 	<%- end -%>
-
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1F2BF3FF27481667009888CB /* Rubik-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Light.ttf"; sourceTree = "<group>"; };
+		1F2BF40027481667009888CB /* Rubik-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Bold.ttf"; sourceTree = "<group>"; };
 		8324392B2519813800C1AE5E /* <%= viewContainerClassName %>.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = <%= viewContainerClassName %>.swift; sourceTree = "<group>"; };
 		<%= timelineName %>_swift_FileReference /* <%= timelineName %>.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = <%= timelineName %>.swift; sourceTree = "<group>"; };
 		<%= viewControllerClassName %>_swift_FileReference /* <%= viewControllerClassName %>.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = <%= viewControllerClassName %>.swift; sourceTree = "<group>"; };
@@ -116,9 +119,7 @@
 				Assets_xcassets_FileReference /* Assets.xcassets */,
 				Main_storyboard_Group /* Main.storyboard */,
 				LaunchScreen_storyboard_Group /* LaunchScreen.storyboard */,
-			<%- if !fontsInTimeline.isEmpty -%>
 				Fonts_Group /* Fonts */,
-			<%- end -%>
 			<%- if !soundsInTimeline.isEmpty -%>
 				Sounds_Group /* Sounds */,
 			<%- end -%>
@@ -126,10 +127,11 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-	<%- if !fontsInTimeline.isEmpty -%>
 		Fonts_Group = {
 			isa = PBXGroup;
 			children = (
+				1F2BF40027481667009888CB /* Rubik-Bold.ttf */,
+				1F2BF3FF27481667009888CB /* Rubik-Light.ttf */,
 		<%- for font in fontsInTimeline -%>
 			<%- if !Swift.iOSFonts.contains(font.name) && font.path != nil -%>
 				<%= font.name.snakeCased() %>_FileReference,
@@ -140,7 +142,6 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
-	<%- end -%>
 	<%- for font in fontsInTimeline -%>
 	  <%- if !Swift.iOSFonts.contains(font.name) && font.path != nil -%>
 		<%= font.name.snakeCased() %>_FileReference = {
@@ -217,6 +218,8 @@
 				Assets_xcassets_BuildFile /* Assets.xcassets in Resources */,
 				Main_storyboard_BuildFile /* Base in Resources */,
 				LaunchScreen_storyboard_BuildFile /* Base in Resources */,
+				1F2BF40227481667009888CB /* Rubik-Bold.ttf in Resources */,
+				1F2BF40127481667009888CB /* Rubik-Light.ttf in Resources */,
 		<%- for font in fontsInTimeline -%>
 			<%- if !Swift.iOSFonts.contains(font.name) && font.path != nil -%>
 				<%= font.name.snakeCased() %>_BuildFile /* <%= font.name %> in Resources */,

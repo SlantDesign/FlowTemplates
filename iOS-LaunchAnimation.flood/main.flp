@@ -96,9 +96,12 @@ for timeline in timelines
     mkdir("\(projectPath)/Resources/Base.lproj")
     process("Project/Resources/Base.lproj/Main.storyboard.flt", into: "\(projectPath)/Resources/Base.lproj/Main.storyboard", indentation: 0)
 
-    // Copy info plift into Resources directory
+    // Copy info plist & fonts into Resources directory
     process("Project/Resources/Info.plist.flt", into: "\(projectPath)/Resources/Info.plist", indentation: 0)
     copy(from: "Project/Resources/Base.lproj/LaunchScreen.storyboard", to: "\(projectPath)/Resources/Base.lproj/LaunchScreen.storyboard")
+    mkdir("\(projectPath)/Resources/Fonts")
+    copy(from: "Project/Resources/Fonts/Rubik-Bold.ttf", to: "\(projectPath)/Resources/Fonts/Rubik-Bold.ttf")
+    copy(from: "Project/Resources/Fonts/Rubik-Light.ttf", to: "\(projectPath)/Resources/Fonts/Rubik-Light.ttf")    
 
     // Copy AppDelegate.swift
     copy(from: "Project/Sources/AppDelegate.swift", to: "\(projectPath)/Sources/AppDelegate.swift")

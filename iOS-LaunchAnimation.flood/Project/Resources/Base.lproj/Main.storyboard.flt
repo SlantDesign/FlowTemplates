@@ -20,11 +20,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F901DD81-3D89-4ED2-B201-5904314B5B6D" userLabel="StartView" customClass="StartView" customModule="Timeline" customModuleProvider="target">
-                                <rect key="frame" x="37.5" y="183.5" width="300" height="300"/>
+                                <rect key="frame" x="37.5" y="183.5" width="200" height="200"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="j34-GD-VQT"/>
-                                    <constraint firstAttribute="height" constant="300" id="mae-Dg-r3c"/>
+                                    <constraint firstAttribute="width" constant="200" id="j34-GD-VQT"/>
+                                    <constraint firstAttribute="height" constant="200" id="mae-Dg-r3c"/>
                                 </constraints>
                             </view>
                         </subviews>

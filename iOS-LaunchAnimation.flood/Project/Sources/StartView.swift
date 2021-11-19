@@ -8,13 +8,13 @@ import UIKit
 @IBDesignable
 public class StartView: UIView {
     public struct Defaults {
-        public static let size = CGSize(width: 300, height: 300)
+        public static let size = CGSize(width: 200, height: 200)
         public static let backgroundColor = UIColor.white
     }
 
-    public var blueIcon: UIView!
-    public var yourAppLabel: TextView!
-    public var reminderLabel: TextView!
+    public var square: UIView!
+    public var mainLabel: TextView!
+    public var minorLabel: TextView!
 
     public override var intrinsicContentSize: CGSize {
         return Defaults.size
@@ -32,69 +32,103 @@ public class StartView: UIView {
 
     private func setup() {
         backgroundColor = Defaults.backgroundColor
+        clipsToBounds = false
         createViews()
         addSubviews()
+        layer.name = "sceneLayer"
+        //scale(to: frame.size)
+    }
+
+    /// Scales `self` and its subviews to `size`.
+    ///
+    /// - Parameter size: The size `self` is scaled to.
+    ///
+    /// UIKit specifies: "In iOS 8.0 and later, the transform property does not affect Auto Layout. Auto layout
+    /// calculates a view's alignment rectangle based on its untransformed frame."
+    ///
+    /// see: https://developer.apple.com/documentation/uikit/uiview/1622459-transform
+    ///
+    /// If there are any constraints in IB affecting the frame of `self`, this method will have consequences on
+    /// layout / rendering. To properly scale an animation, you will have to position the view manually.
+    public func scale(to size: CGSize) {
+        let x = size.width / Defaults.size.width
+        let y = size.height / Defaults.size.height
+        transform = CGAffineTransform(scaleX: x, y: y)
     }
 
     private func createViews() {
         CATransaction.suppressAnimations {
-            createBlueIcon()
-            createYourAppLabel()
-            createReminderLabel()
+            createSquare()
+            createMainLabel()
+            createMinorLabel()
         }
     }
 
-    private func createBlueIcon() {
-        blueIcon = UIView(frame: CGRect(x: 150.14, y: 150, width: 230.4, height: 230.4))
-        blueIcon.backgroundColor = UIColor(red: 0.918, green: 0.2, blue: 0.471, alpha: 1)
-        blueIcon.layer.shadowOffset = CGSize(width: 0, height: 0)
-        blueIcon.layer.cornerRadius = 30
-        blueIcon.layer.shadowColor = UIColor.clear.cgColor
-        blueIcon.layer.shadowOpacity = 1
-        blueIcon.layer.position = CGPoint(x: 150.14, y: 150)
-        blueIcon.layer.bounds = CGRect(x: 0, y: 0, width: 230.4, height: 230.4)
-        blueIcon.layer.masksToBounds = false
+    private func createSquare() {
+        square = UIView(frame: CGRect(x: 100, y: 100, width: 200, height: 200))
+        square.backgroundColor = UIColor(red: 0.114, green: 0.114, blue: 0.086, alpha: 1)
+        square.layer.shadowOffset = CGSize(width: 0, height: 3)
+        square.layer.cornerRadius = 4
+        square.layer.name = "square"
+        square.layer.shadowColor = UIColor(red: 0.114, green: 0.114, blue: 0.086, alpha: 1).cgColor
+        square.layer.shadowOpacity = 1
+        square.layer.position = CGPoint(x: 100, y: 100)
+        square.layer.bounds = CGRect(x: 0, y: 0, width: 200, height: 200)
+        square.layer.masksToBounds = false
+
     }
 
-    private func createYourAppLabel() {
-        yourAppLabel = TextView(frame: CGRect(x: 150, y: 150, width: 130.412, height: 43.3477))
-        yourAppLabel.backgroundColor = UIColor.clear
-        yourAppLabel.layer.shadowOffset = CGSize(width: 0, height: 0)
-        yourAppLabel.layer.shadowColor = UIColor.clear.cgColor
-        yourAppLabel.layer.shadowOpacity = 1
-        yourAppLabel.layer.position = CGPoint(x: 150, y: 150)
-        yourAppLabel.layer.bounds = CGRect(x: 0, y: 0, width: 130.412, height: 43.3477)
-        yourAppLabel.layer.masksToBounds = false
-        yourAppLabel.textLayer.string = "YOUR APP STARTS HERE"
-        yourAppLabel.textLayer.font = "Helvetica-Bold" as NSString
-        yourAppLabel.textLayer.fontSize = 18
-        yourAppLabel.textLayer.foregroundColor = UIColor.white.cgColor
-        yourAppLabel.textLayer.alignmentMode = .center
-        yourAppLabel.textLayer.truncationMode = .none
-        yourAppLabel.textLayer.isWrapped = true
+    private func createMainLabel() {
+        mainLabel = TextView(frame: CGRect(x: 100, y: 100, width: 141.71, height: 44.98))
+        mainLabel.backgroundColor = UIColor.clear
+        mainLabel.layer.shadowOffset = CGSize(width: 0, height: 0)
+        mainLabel.layer.name = "mainLabel"
+        mainLabel.layer.shadowColor = UIColor.clear.cgColor
+        mainLabel.layer.shadowOpacity = 1
+        mainLabel.layer.position = CGPoint(x: 100, y: 100)
+        mainLabel.layer.bounds = CGRect(x: 0, y: 0, width: 141.71, height: 44.98)
+        mainLabel.layer.masksToBounds = false
+        mainLabel.textLayer.name = "mainLabel.textLayer"
+        mainLabel.textLayer.string = """
+            YOUR APP
+            STARTS HERE
+            """
+        mainLabel.textLayer.font = "Rubik-Bold" as NSString
+        mainLabel.textLayer.fontSize = 18
+        mainLabel.textLayer.foregroundColor = UIColor.white.cgColor
+        mainLabel.textLayer.alignmentMode = .center
+        mainLabel.textLayer.truncationMode = .none
+        mainLabel.textLayer.isWrapped = true
+
     }
 
-    private func createReminderLabel() {
-        reminderLabel = TextView(frame: CGRect(x: 150, y: 283, width: 191.967, height: 20.521))
-        reminderLabel.backgroundColor = UIColor.clear
-        reminderLabel.layer.shadowOffset = CGSize(width: 0, height: 0)
-        reminderLabel.layer.shadowColor = UIColor.clear.cgColor
-        reminderLabel.layer.shadowOpacity = 1
-        reminderLabel.layer.position = CGPoint(x: 150, y: 283)
-        reminderLabel.layer.bounds = CGRect(x: 0, y: 0, width: 191.967, height: 20.521)
-        reminderLabel.layer.masksToBounds = false
-        reminderLabel.textLayer.string = "TO PREVIEW YOUR LAUNCH ANIMATION AGAIN... QUIT AND REOPEN THE APP."
-        reminderLabel.textLayer.font = "Helvetica" as NSString
-        reminderLabel.textLayer.fontSize = 8
-        reminderLabel.textLayer.foregroundColor = UIColor(red: 0, green: 0, blue: 1, alpha: 1).cgColor
-        reminderLabel.textLayer.alignmentMode = .center
-        reminderLabel.textLayer.truncationMode = .none
-        reminderLabel.textLayer.isWrapped = true
+    private func createMinorLabel() {
+        minorLabel = TextView(frame: CGRect(x: 100, y: 178, width: 190.67, height: 25.32))
+        minorLabel.backgroundColor = UIColor.clear
+        minorLabel.layer.shadowOffset = CGSize(width: 0, height: 0)
+        minorLabel.layer.name = "minorLabel"
+        minorLabel.layer.shadowColor = UIColor.clear.cgColor
+        minorLabel.layer.shadowOpacity = 1
+        minorLabel.layer.position = CGPoint(x: 100, y: 178)
+        minorLabel.layer.bounds = CGRect(x: 0, y: 0, width: 190.67, height: 25.32)
+        minorLabel.layer.masksToBounds = false
+        minorLabel.textLayer.name = "minorLabel.textLayer"
+        minorLabel.textLayer.string = """
+            Quit and relaunch the app
+            to see your beautiful work again
+            """
+        minorLabel.textLayer.font = "Rubik-Light" as NSString
+        minorLabel.textLayer.fontSize = 10
+        minorLabel.textLayer.foregroundColor = UIColor.white.cgColor
+        minorLabel.textLayer.alignmentMode = .center
+        minorLabel.textLayer.truncationMode = .none
+        minorLabel.textLayer.isWrapped = true
+
     }
 
     private func addSubviews() {
-        addSubview(blueIcon)
-        addSubview(yourAppLabel)
-        addSubview(reminderLabel)
+        addSubview(square)
+        addSubview(mainLabel)
+        addSubview(minorLabel)
     }
 }
