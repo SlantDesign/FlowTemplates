@@ -24,7 +24,7 @@ for timeline in timelines
     end
     timelineName = symbolTable.addSymbolWithSuggestedName(timelineName, type: "class", context: "Class", id: timeline.id).name
 
-    var buttonClassName = "\(timeline.name.upperCamelCased())Button"
+    var buttonClassName = "\(timeline.name.upperCamelCased())TapButton"
 
     // Set unique bundle identifier for each exported timeline 
     var bundleIdentifier = Swift.convertToValidBundleIdentifier(string: "com.\(organization).\(document.name).\(timelineName)")

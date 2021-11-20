@@ -11,16 +11,19 @@ class TapButton: UIButton {
     var current: Timeline?
     var tapstate: TapButtonState = .up
 
-    public var forward: Timeline? {
-        return nil
-    }
-
-    public var reverse: Timeline? {
-        return nil
-    }
+    public private(set) var forward: Timeline!
+    public private(set) var reverse: Timeline!
 
     public func createView() -> UIView {
         return UIView(frame: CGRect.null)
+    }
+
+    public func createForward() -> Timeline {
+        return Timeline(view: UIView(), animationsByLayer: [CALayer(): []], sounds: [], duration: 1)
+    }
+
+    public func createReverse() -> Timeline {
+        return Timeline(view: UIView(), animationsByLayer: [CALayer(): []], sounds: [], duration: 1).reversed
     }
 
     public private(set) var view: UIView!
@@ -36,6 +39,9 @@ class TapButton: UIButton {
 
     private func setup() {
         setupView()
+        reverse = createReverse()
+        forward = createForward()
+        current = forward
         addTarget(self, action: #selector(touchDown), for: .touchDown)
         addTarget(self, action: #selector(touchUp), for: [.touchUpInside, .touchDragExit])
     }
@@ -52,7 +58,7 @@ class TapButton: UIButton {
             return
         }
         tapstate = .down
-        forward?.play()
+        play(forward)
     }
 
     @objc
@@ -61,11 +67,24 @@ class TapButton: UIButton {
             return
         }
         tapstate = .up
-        reverse?.play()
+        play(reverse)
+    }
+    
+    func play(_ timeline: Timeline) {
+        guard let _ = current else {
+            return
+        }
+        current?.pause()
+        let newTime = current!.duration - current!.time
+        self.current = timeline
+        current?.reset() { timeline in
+            timeline.offset(to: newTime)
+            timeline.play()
+        }
     }
 }
 
-protocol TapButtonDelegate: class {
+protocol TapButtonDelegate: AnyObject {
     func didTap(sender: TapButton)
 }
 

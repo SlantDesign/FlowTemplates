@@ -22,11 +22,11 @@ class <%= buttonClassName %>: TapButton {
         return startView
     }()
 
-    override var forward: Timeline? {
+    override func createForward() -> Timeline {
         return <%= timelineName %>(view: <%= viewVariableName %>, duration: <%= timeline.duration %>)
     }
 
-    override var reverse: Timeline? {
+    override func createReverse() -> Timeline {
         return <%= timelineName %>(view: <%= viewVariableName %>, duration: <%= timeline.duration %>).reversed
     }
 
