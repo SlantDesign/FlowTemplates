@@ -42,13 +42,17 @@ class TextField: UITextField, UITextFieldDelegate {
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if text == nil || text == "" {
-            forward.play()
+            forward.reset() { timeline in
+                timeline.play()
+            }
         }
     }
 
     func textFieldDidEndEditing(_ textField: UITextField) {
         if text == nil || text == "" {
-            reverse.play()
+            reverse.reset() { timeline in
+                timeline.play()
+            }
         }
     }
 
