@@ -24,7 +24,8 @@
 		StartViewController_swift_BuildFile /* StartViewController.swift in Start */ = {isa = PBXBuildFile; fileRef = StartViewController_swift_FileReference /* StartViewController.swift */; };
 		StartView_swift_BuildFile /* StartView.swift in Start */ = {isa = PBXBuildFile; fileRef = StartView_swift_FileReference /* StartView.swift */; };
 	<%- for font in fontsInTimeline -%>
-	  <%- if !Swift.iOSFonts.contains(font.name) && font.path != nil && font.name != "Rubik-Bold" && font.name != "Rubik-Light" -%>
+	  <%- if font.name != "Rubik-Bold" || font.name != "Rubik-Light" -%>
+	  <%- else !Swift.iOSFonts.contains(font.name) && font.path != nil -%>
 		<%= font.name.snakeCased() %>_BuildFile /* <%= font.name %> in Resources */ = {isa = PBXBuildFile; fileRef = <%= font.name.snakeCased() %>_FileReference /* <%= font.name %> */; };
 	  <%- end -%>
 	<%- end -%>
