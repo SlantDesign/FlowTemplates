@@ -24,7 +24,7 @@ for timeline in timelines
     end
     timelineName = symbolTable.addSymbolWithSuggestedName(timelineName, type: "class", context: "Class", id: timeline.id).name
 
-    var buttonClassName = "\(timeline.name.upperCamelCased())TapButton"
+    var buttonClassName = "\(timeline.name.upperCamelCased())PushButton"
 
     // Set unique bundle identifier for each exported timeline 
     var bundleIdentifier = Swift.convertToValidBundleIdentifier(string: "com.\(organization).\(document.name).\(timelineName)")
@@ -104,10 +104,10 @@ for timeline in timelines
     process("Project/Resources/Info.plist.flt", into: "\(projectPath)/Resources/Info.plist", indentation: 0)
     copy(from: "Project/Resources/Base.lproj/LaunchScreen.storyboard", to: "\(projectPath)/Resources/Base.lproj/LaunchScreen.storyboard")
 
-    // Copy AppDelegate, ViewController, TapButton 
+    // Copy AppDelegate, ViewController, PushButton 
     copy(from: "Project/Sources/AppDelegate.swift", to: "\(projectPath)/Sources/AppDelegate.swift")
     copy(from: "Project/Sources/ViewController.swift", to: "\(projectPath)/Sources/\(viewControllerClassName).swift")
-    copy(from: "Project/Sources/TapButton.swift", to: "\(projectPath)/Sources/TapButton.swift")
+    copy(from: "Project/Sources/PushButton.swift", to: "\(projectPath)/Sources/PushButton.swift")
     process("Project/Sources/Button.swift.flt", into: "\(projectPath)/Sources/\(buttonClassName).swift", indentation: 0)
 
     // Copy FlowCommon files

@@ -12,7 +12,7 @@
 		LaunchAnimationViewController_swift_BuildFile /* LaunchAnimationViewController.swift in LaunchAnimation */ = {isa = PBXBuildFile; fileRef = LaunchAnimationViewController_swift_FileReference /* LaunchAnimationViewController.swift */; };
 		LaunchAnimationView_swift_BuildFile /* LaunchAnimationView.swift in LaunchAnimation */ = {isa = PBXBuildFile; fileRef = LaunchAnimationView_swift_FileReference /* LaunchAnimationView.swift */; };
 		AppDelegate_swift_BuildFile /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AppDelegate_swift_FileReference /* AppDelegate.swift */; };
-		TapButton_swift_BuildFile /* TapButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = TapButton_swift_FileReference /* TapButton.swift */; };
+		PushButton_swift_BuildFile /* PushButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = PushButton_swift_FileReference /* PushButton.swift */; };
 		<%- for fileName in flowCommonFileNames -%>
 		<%= xcodeProjectFileReferences[fileName] %>_swift_BuildFile /* <%= fileName %>.swift in FlowCommon */ = {isa = PBXBuildFile; fileRef = <%= xcodeProjectFileReferences[fileName] %>_swift_FileReference /* <%= fileName %>.swift */; };
 		<%- end -%>
@@ -40,7 +40,7 @@
 		LaunchAnimationView_swift_FileReference /* LaunchAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchAnimationView.swift; sourceTree = "<group>"; };		
 		Animation_swift_FileReference /* Animation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
 		AppDelegate_swift_FileReference /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		TapButton_swift_FileReference /* TapButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapButton.swift; sourceTree = "<group>"; };
+		PushButton_swift_FileReference /* PushButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushButton.swift; sourceTree = "<group>"; };
 		Assets_xcassets_FileReference /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		Info_plist_FileReference /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		LaunchScreen_storyboard_FileReference /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -183,7 +183,7 @@
 			children = (
 				AppDelegate_swift_FileReference /* AppDelegate.swift */,
 				<%= buttonClassName %>_swift_FileReference /* <%= buttonClassName %>.swift */,
-				TapButton_swift_FileReference /* TapButton.swift */,
+				PushButton_swift_FileReference /* PushButton.swift */,
 				<%= viewControllerClassName %>_swift_FileReference /* <%= viewControllerClassName %>.swift */,
 				<%= timelineName %>_Group /* <%= timelineName %>_Group */,
 				FlowCommon_Group /* FlowCommon */,
@@ -246,7 +246,7 @@
                 LaunchAnimationViewController_swift_BuildFile /* LaunchAnimationViewController.swift in Sources */,
                 LaunchAnimationTimeline_swift_BuildFile /* LaunchAnimationTimeline.swift in Sources */,
 				AppDelegate_swift_BuildFile /* AppDelegate.swift in Sources */,
-				TapButton_swift_BuildFile /* TapButton.swift in Sources */,
+				PushButton_swift_BuildFile /* PushButton.swift in Sources */,
 				<%- for fileName in flowCommonFileNames -%>
 				<%= xcodeProjectFileReferences[fileName] %>_swift_BuildFile /* <%= fileName %>.swift in Sources */,
 				<%- end -%>
