@@ -6,7 +6,7 @@
 import UIKit
 
 @IBDesignable
-class <%= buttonClassName %>: TapButton {
+class <%= buttonClassName %>: PushButton {
     <%- var viewVariableName = timeline.scene.name.lowerCamelCased() -%>
     private lazy var <%= viewVariableName %>: <%= viewName %> = {
         let startView = <%= viewName %>(frame: .zero)
