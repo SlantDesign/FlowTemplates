@@ -84,7 +84,7 @@
                             </div>
                         </div>
                         </li>
-                        <li>Move <code><%= timelineName %>.swift</code>, <code><%= viewName %>.swift</code>, <code><%= buttonClassName %>.swift</code>, and <code>TapButton.swift</code> 
+                        <li>Move <code><%= timelineName %>.swift</code>, <code><%= viewName %>.swift</code>, <code><%= buttonClassName %>.swift</code>, and <code>PushButton.swift</code> 
                          to a location of your choice inside your iOS Project.
                         </li>
                         <li> 
@@ -97,7 +97,7 @@
 
                     <h3 id="details-for-what-you-just-did">Details For What You Just Did</h3>
                     <p>You installed the <code>FlowCommoniOS</code> CocoaPod library into your project.</p>
-                    <p>You moved <code><%= timelineName %>.swift</code>, <code><%= viewName %>.swift</code>, <code><%= buttonClassName %>.swift</code>, and <code>TapButton.swift</code>  from your exported animation into your iOS project <strong>(without editing anything)</strong>.</p>
+                    <p>You moved <code><%= timelineName %>.swift</code>, <code><%= viewName %>.swift</code>, <code><%= buttonClassName %>.swift</code>, and <code>PushButton.swift</code>  from your exported animation into your iOS project <strong>(without editing anything)</strong>.</p>
                     <p>You added a new <code><%= buttonClassName %></code> to your stoyboard.</p>
                     
                     <h2 id="flowcommon">FlowCommoniOS</h2>

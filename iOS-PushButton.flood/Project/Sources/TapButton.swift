@@ -6,10 +6,10 @@
 import Foundation
 import UIKit
 
-class TapButton: UIButton {
-    weak var delegate: TapButtonDelegate?
+class PushButton: UIButton {
+    weak var delegate: PushButtonDelegate?
     var current: Timeline?
-    var tapstate: TapButtonState = .up
+    var tapstate: PushButtonState = .up
 
     public private(set) var forward: Timeline!
     public private(set) var reverse: Timeline!
@@ -84,10 +84,10 @@ class TapButton: UIButton {
     }
 }
 
-protocol TapButtonDelegate: AnyObject {
-    func didTap(sender: TapButton)
+protocol PushButtonDelegate: AnyObject {
+    func didTap(sender: PushButton)
 }
 
-enum TapButtonState: Int {
+enum PushButtonState: Int {
     case down = 0, up
 }
