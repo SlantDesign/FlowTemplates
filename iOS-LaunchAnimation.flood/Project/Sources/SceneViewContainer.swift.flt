@@ -9,8 +9,7 @@ import UIKit
 class <%= viewContainerClassName %>: UIView {
 
     private lazy var containedView: <%= viewName %> = {
-        let startView = <%= viewName %>(frame: .zero)
-        startView.scale(to: frame.size)
+        let startView = <%= viewName %>(frame: bounds)
         return startView
     }()
 
