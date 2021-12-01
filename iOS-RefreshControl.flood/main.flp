@@ -15,7 +15,7 @@ for timeline in timelines
     viewName = symbolTable.addSymbolWithSuggestedName(viewName, type: "class", context: "Class", id: timeline.scene.rootLayer.id).name
 
     // Set the name for the UIViewController subclass
-    var viewControllerClassName = "TableViewController"
+    var viewControllerClassName = "ViewController"
 
     // Set the name for the Timeline subclass
     var timelineName = timeline.name.upperCamelCased()
@@ -106,7 +106,7 @@ for timeline in timelines
     copy(from: "Project/Sources/RefreshControl.swift", to: "\(projectPath)/Sources/RefreshControl.swift")
     copy(from: "Project/Sources/DataSource.swift", to: "\(projectPath)/Sources/DataSource.swift")
     process("Project/Sources/CustomRefreshControl.swift.flt", into: "\(projectPath)/Sources/\(refreshControlClassName).swift", indentation: 0)
-    process("Project/Sources/TableViewController.swift.flt", into: "\(projectPath)/Sources/\(projectName)Timeline/\(viewControllerClassName).swift", indentation: 0)
+    process("Project/Sources/ViewController.swift.flt", into: "\(projectPath)/Sources/\(projectName)Timeline/\(viewControllerClassName).swift", indentation: 0)
 
     // Copy FlowCommon files
     for fileName in flowCommonFileNames

@@ -11,7 +11,6 @@
 		1F9BC73027445BE0007894F0 /* <%= viewControllerClassName %>.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9BC72F27445BE0007894F0 /* <%= viewControllerClassName %>.swift */; };
 		1F9BC73427445C05007894F0 /* <%= refreshControlClassName %>.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9BC73227445C05007894F0 /* <%= refreshControlClassName %>.swift */; };
 		1F9BC73527445C05007894F0 /* RefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9BC73327445C05007894F0 /* RefreshControl.swift */; };
-		1F9BC73827445C26007894F0 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9BC73727445C26007894F0 /* DataSource.swift */; };
 		LaunchAnimationTimeline_swift_BuildFile /* LaunchAnimationTimeline.swift in LaunchAnimation */ = {isa = PBXBuildFile; fileRef = LaunchAnimationTimeline_swift_FileReference /* LaunchAnimationTimeline.swift */; };
 		LaunchAnimationViewController_swift_BuildFile /* LaunchAnimationViewController.swift in LaunchAnimation */ = {isa = PBXBuildFile; fileRef = LaunchAnimationViewController_swift_FileReference /* LaunchAnimationViewController.swift */; };
 		LaunchAnimationView_swift_BuildFile /* LaunchAnimationView.swift in LaunchAnimation */ = {isa = PBXBuildFile; fileRef = LaunchAnimationView_swift_FileReference /* LaunchAnimationView.swift */; };
@@ -40,7 +39,6 @@
 		1F9BC72F27445BE0007894F0 /* <%= viewControllerClassName %>.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = <%= viewControllerClassName %>.swift; sourceTree = "<group>"; };
 		1F9BC73227445C05007894F0 /* <%= refreshControlClassName %>.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = <%= refreshControlClassName %>.swift; sourceTree = "<group>"; };
 		1F9BC73327445C05007894F0 /* RefreshControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshControl.swift; sourceTree = "<group>"; };
-		1F9BC73727445C26007894F0 /* DataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		LaunchAnimationTimeline_swift_FileReference /* LaunchAnimationTimeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchAnimationTimeline.swift; sourceTree = "<group>"; };
 		LaunchAnimationViewController_swift_FileReference /* LaunchAnimationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchAnimationViewController.swift; sourceTree = "<group>"; };
 		LaunchAnimationView_swift_FileReference /* LaunchAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchAnimationView.swift; sourceTree = "<group>"; };		
@@ -189,7 +187,6 @@
 				AppDelegate_swift_FileReference /* AppDelegate.swift */,
 				1F9BC73227445C05007894F0 /* <%= refreshControlClassName %>.swift */,
 				1F9BC73327445C05007894F0 /* RefreshControl.swift */,
-				1F9BC73727445C26007894F0 /* DataSource.swift */,
 				<%= timelineName %>_Group /* <%= timelineName %>_Group */,
 				FlowCommon_Group /* FlowCommon */,
 				LaunchAnimation_Group /* LaunchAnimation */,
@@ -253,7 +250,6 @@
 				AppDelegate_swift_BuildFile /* AppDelegate.swift in Sources */,
 				1F9BC73427445C05007894F0 /* <%= refreshControlClassName %>.swift in Sources */,
 				1F9BC73027445BE0007894F0 /* <%= viewControllerClassName %>.swift in Sources */,
-				1F9BC73827445C26007894F0 /* DataSource.swift in Sources */,
 				<%- for fileName in flowCommonFileNames -%>
 				<%= xcodeProjectFileReferences[fileName] %>_swift_BuildFile /* <%= fileName %>.swift in Sources */,
 				<%- end -%>

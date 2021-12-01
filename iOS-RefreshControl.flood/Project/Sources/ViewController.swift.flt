@@ -1,19 +1,16 @@
-//
-//  ViewController.swift
-//  RefreshControl
-//
-//  Created by Travis on 2021-11-12.
-//
+// Made With Flow
 
 import UIKit
 
-class TableViewController: UITableViewController {
+class ViewController: UIViewController, UIScrollViewDelegate {
     struct Defaults {
         static let offsetThreshold: CGFloat = -150
     }
+    
+    @IBOutlet var scrollView: UIScrollView!
+
 <%- var viewVariableName = timeline.scene.name.lowerCamelCased() -%>
 
-    let dataSource = DataSource()
     let <%= viewVariableName %>RefreshControl = <%= refreshControlClassName %>()
     private(set) var defaultOffset: CGFloat = 0
     private(set) var hasSetDefault = false
@@ -21,12 +18,11 @@ class TableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        refreshControl = <%= viewVariableName %>RefreshControl
-        tableView.dataSource = dataSource
-        tableView.delegate = self
+        scrollView.refreshControl = <%= viewVariableName %>RefreshControl
+        scrollView.delegate = self
         <%= viewVariableName %>RefreshControl.setup() //needs to be run after the control has been added to the view hierarchy
 
-        refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        <%= viewVariableName %>RefreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
     }
 
     //simulate refreshing
@@ -38,9 +34,7 @@ class TableViewController: UITableViewController {
 
     //load new data, then provide a signal to end refreshing
     func updateData() {
-        dataSource.updateData()
-        tableView.reloadData()
-        refreshControl?.endRefreshing()
+        scrollView.refreshControl?.endRefreshing()
     }
 
     func handle(offset: CGFloat) {
@@ -59,7 +53,7 @@ class TableViewController: UITableViewController {
         }
     }
 
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         handle(offset: scrollView.contentOffset.y)
     }
 }
