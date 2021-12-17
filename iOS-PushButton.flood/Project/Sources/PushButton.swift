@@ -71,13 +71,13 @@ class PushButton: UIButton {
     }
 
     func play(_ timeline: Timeline) {
-        guard let _ = current else {
+        guard let current = current else {
             return
         }
-        current?.pause()
-        let newTime = current!.duration - current!.time
+        current.pause()
+        let newTime = current.duration - current.time
         self.current = timeline
-        current?.reset { timeline in
+        self.current?.reset { timeline in
             timeline.offset(to: newTime)
             timeline.play()
         }

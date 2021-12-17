@@ -73,4 +73,3 @@ class TextField: UITextField, UITextFieldDelegate {
       return Timeline(view: UIView(), animationsByLayer: [CALayer(): []], sounds: [], duration: 1).reversed
     }
 }
-
