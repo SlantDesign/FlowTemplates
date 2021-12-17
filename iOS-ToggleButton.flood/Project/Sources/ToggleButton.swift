@@ -48,13 +48,13 @@ class ToggleButton: UIButton {
 
     @objc
     func toggle() {
-        guard let _ = current else {
+        guard let current = current else {
             return
         }
-        current?.pause()
-        let newTime = current!.duration - current!.time
+        current.pause()
+        let newTime = current.duration - current.time
         toggleTimeline()
-        current?.reset { timeline in
+        self.current?.reset { timeline in
             timeline.offset(to: newTime)
             timeline.play()
         }
