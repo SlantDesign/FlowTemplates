@@ -38,7 +38,7 @@ for timeline in timelines
     var imageFolderPath = "\(timelineOutputPath)/\(imageFolderName)"
     var fontFolderPath = "\(timelineOutputPath)/Resources/\(fontFolderName)"
 
-    // Set unique bundle identifier for each exported timeline 
+    // Set unique bundle identifier for each exported timeline
     var bundleIdentifier = Swift.convertToValidBundleIdentifier(string: "com.\(organization).\(document.name).\(projectName)")
 
     // Delete previously exported project
@@ -58,7 +58,7 @@ for timeline in timelines
     var imagesInTimeline = document.images(forTimeline: timeline)
     for image in imagesInTimeline
         var imageData = image.serializeAsPNGData()
-        if imageData != nil 
+        if imageData != nil
             write(data: imageData, to: "\(imageFolderPath)/\(image.name).png")
         end
     end
@@ -70,10 +70,10 @@ for timeline in timelines
         end
     end
 
-    // Copy App Icon Images 
+    // Copy App Icon Images
     copy(from: "Project/Resources/Assets.xcassets/AppIcon.appiconset/Contents.json", to: "\(timelineOutputPath)/Resources/Assets.xcassets/AppIcon.appiconset/Contents.json")
     var appIconSizes = [20, 29, 40, 41, 42, 58, 59, 60, 76, 80, 81, 87, 120, 121, 152, 167, 180, 1024]
-    for appIconSize in appIconSizes 
+    for appIconSize in appIconSizes
         copy(from: "Project/Resources/Assets.xcassets/AppIcon.appiconset/Icon-\(appIconSize).png", to: "\(timelineOutputPath)/Resources/Assets.xcassets/AppIcon.appiconset/Icon-\(appIconSize).png")
     end
 
@@ -105,10 +105,10 @@ for timeline in timelines
     // Copy AppDelegate.swift
     copy(from: "Project/Sources/AppDelegate.swift", to: "\(timelineOutputPath)/Sources/AppDelegate.swift")
 
-    // Create Lottie JSON String 
+    // Create Lottie JSON String
     var jsonString = LottieiOS.json(with: timeline, imageFolderName: imageFolderName)
 
-    // make name of json file snake cased 
+    // make name of json file snake cased
     // because asset files in android studio can only have lowercase a-z, 0-9, or underscore
     var jsonFileName = projectName.snakeCased()
 
@@ -136,7 +136,7 @@ for timeline in timelines
     process("README.html.flt", into: "\(timelineOutputPath)/README.html", indentation: 0)
     escape = false
 
-    // Clear the symbol table 
+    // Clear the symbol table
     symbolTable.removeAllSymbols()
 
     // Pod install

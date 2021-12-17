@@ -179,7 +179,7 @@ func clipPathURL(layer)
 		var id = generateSymbolID(layer: layer)
 		return "url(#\(id)-clipPath)"
 	else
-		return "" 
+		return ""
 	end
 end
 
@@ -196,7 +196,7 @@ func shapeProperties()
         "strokeColor"
         // Not supported by SVG spec
         //"strokeEnd",
-        //"strokeStart"    
+        //"strokeStart"
     ]
 end
 
@@ -287,7 +287,7 @@ func shadowFilter(layer, timeline)
 end
 
 func isShadowVisible(layer, timeline)
-    if timeline.trackFor(layer: layer, property: "shadowColor") == nil && 
+    if timeline.trackFor(layer: layer, property: "shadowColor") == nil &&
         layer.shadowColor.alpha == 0
         return false
     else
@@ -300,7 +300,7 @@ func isFontVisible(layer, timeline)
         return false
     end
 
-    if timeline.trackFor(layer: layer, property: "foregroundColor") == nil && 
+    if timeline.trackFor(layer: layer, property: "foregroundColor") == nil &&
     layer.foregroundColor.hex == 0
         return false
     else
@@ -309,7 +309,7 @@ func isFontVisible(layer, timeline)
 end
 
 func isBackgroundVisible(layer, timeline)
-    if timeline.trackFor(layer: layer, property: "backgroundColor") == nil && 
+    if timeline.trackFor(layer: layer, property: "backgroundColor") == nil &&
         layer.backgroundColor.alpha == 0
         return false
     else
@@ -318,7 +318,7 @@ func isBackgroundVisible(layer, timeline)
 end
 
 func isBorderVisible(layer, timeline)
-    if timeline.trackFor(layer: layer, property: "borderWidth") == nil && 
+    if timeline.trackFor(layer: layer, property: "borderWidth") == nil &&
         layer.borderWidth == 0
         return false
     else

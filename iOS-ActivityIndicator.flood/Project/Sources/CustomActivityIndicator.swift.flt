@@ -21,7 +21,7 @@ class <%= indicatorClassName %>: ActivityIndicatorView {
     override func createTimeline() -> Timeline {
         return <%= timelineName %>(view: <%= viewVariableName %>, duration: <%= timeline.duration %>, repeatCount: .greatestFiniteMagnitude)
     }
-    
+
     override func createView() -> UIView {
         return <%= viewVariableName %>
     }

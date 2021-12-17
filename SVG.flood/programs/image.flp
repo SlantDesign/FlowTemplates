@@ -54,7 +54,7 @@ func xImageScale(contentMode, layerSize, imageSize)
     var layerHeight = layerSize.height
     var widthtRatio = layerWidth / imageWidth
     var heightRatio = layerHeight / imageHeight
-    
+
     switch contentMode
     case "resize":
         return layerWidth / imageWidth
@@ -62,7 +62,7 @@ func xImageScale(contentMode, layerSize, imageSize)
         return min(widthtRatio, heightRatio)
     case "resizeAspectFill":
         return max(widthtRatio, heightRatio)
-    default: 
+    default:
         return 1
     end
 end
@@ -82,7 +82,7 @@ func yImageScale(contentMode, layerSize, imageSize)
         return min(widthtRatio, heightRatio)
     case "resizeAspectFill":
         return max(widthtRatio, heightRatio)
-    default: 
+    default:
         return 1
     end
 end

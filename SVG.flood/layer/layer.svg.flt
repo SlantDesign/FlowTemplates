@@ -12,65 +12,65 @@ var anchorPoint = layer.anchorPoint
 var clipPathURL = clipPathURL(layer: layer)
 
 var xAnimation = animation(
-    property: "position.x", 
-    layer: layer, 
-    timeline: timeline, 
-    hrefID: nil, 
-    attributeType: nil, 
+    property: "position.x",
+    layer: layer,
+    timeline: timeline,
+    hrefID: nil,
+    attributeType: nil,
     indentation: indentation + 1
 )
 var yAnimation = animation(
-    property: "position.y", 
-    layer: layer, 
-    timeline: timeline, 
-    hrefID: nil, 
-    attributeType: nil, 
+    property: "position.y",
+    layer: layer,
+    timeline: timeline,
+    hrefID: nil,
+    attributeType: nil,
     indentation: indentation + 1
 )
 var widthAnimation = animation(
-    property: "bounds.size.width", 
-    layer: layer, 
-    timeline: timeline, 
-    hrefID: nil, 
-    attributeType: nil, 
+    property: "bounds.size.width",
+    layer: layer,
+    timeline: timeline,
+    hrefID: nil,
+    attributeType: nil,
     indentation: indentation + 4
 )
 var heightAnimation = animation(
-    property: "bounds.size.height", 
-    layer: layer, 
-    timeline: timeline, 
-    hrefID: nil, 
-    attributeType: nil, 
+    property: "bounds.size.height",
+    layer: layer,
+    timeline: timeline,
+    hrefID: nil,
+    attributeType: nil,
     indentation: indentation + 4
 )
 var opacityAnimation = animation(
-    property: "opacity", 
-    layer: layer, 
-    timeline: timeline, 
-    hrefID: nil, 
-    attributeType: nil, 
+    property: "opacity",
+    layer: layer,
+    timeline: timeline,
+    hrefID: nil,
+    attributeType: nil,
     indentation: indentation + 4
 )
 var transformAnimations = transformAnimation(
-    property: "transform.rotation.z", 
-    layer: layer, 
+    property: "transform.rotation.z",
+    layer: layer,
     timeline: timeline,
     indentation: indentation + 3
 )
 var offsetAnimationX = animation(
-    property: "position.offset.x", 
-    layer: layer, 
-    timeline: timeline, 
-    hrefID: nil, 
-    attributeType: nil, 
+    property: "position.offset.x",
+    layer: layer,
+    timeline: timeline,
+    hrefID: nil,
+    attributeType: nil,
     indentation: indentation + 4
 )
 var offsetAnimationY = animation(
-    property: "position.offset.y", 
-    layer: layer, 
-    timeline: timeline, 
-    hrefID: nil, 
-    attributeType: nil, 
+    property: "position.offset.y",
+    layer: layer,
+    timeline: timeline,
+    hrefID: nil,
+    attributeType: nil,
     indentation: indentation + 4
 )
 -%>

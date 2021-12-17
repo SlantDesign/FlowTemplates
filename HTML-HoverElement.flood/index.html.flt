@@ -10,7 +10,7 @@
 </head>
 <body>
 
-    <!-- A div element is used instead of a button to avoid default properties, 
+    <!-- A div element is used instead of a button to avoid default properties,
          as well as allowing the element to resize with the animation. -->
     <div onmouseenter="<%= hoverElementName %>.enter()" onmouseleave="<%= hoverElementName %>.exit()" id="<%= containerID %>">
     <% insert("html/artboard.html.flt", from: Web, indentation: 0) %>
@@ -37,6 +37,6 @@
     document.getElementById("<%= containerID %>").setAttribute("style", "<% insert("css/container.css.flt", from: Web, indentation: 0) %>");
     <%= hoverElementName %> = new HoverElement(<%= forwardTimelineName.lowerCamelCased() %>, <%= reverseTimelineName.lowerCamelCased() %>, '<%= containerID %>', timer, false, null)
     </script>
- 
+
 </body>
 </html>

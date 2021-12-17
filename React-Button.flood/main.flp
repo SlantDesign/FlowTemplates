@@ -34,7 +34,7 @@ for timeline in timelines
     var fontsInTimeline = document.fonts(forTimeline: timeline)
     var imagesInTimeline = document.images(forTimeline: timeline)
 
-    // Folder names 
+    // Folder names
     var imageFolderName = "img"
     var fontFolderName = "fonts"
     var jsFolderName = "js"
@@ -70,7 +70,7 @@ for timeline in timelines
     // Copy Images
     for image in imagesInTimeline
         var imageData = image.serializeAsPNGData()
-        if imageData != nil 
+        if imageData != nil
             write(data: imageData, to: "\(timelineOutputPath)/\(imageFolderName)/\(image.name).png")
         end
     end

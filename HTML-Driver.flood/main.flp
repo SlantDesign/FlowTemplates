@@ -3,7 +3,7 @@ import Web
 for timeline in timelines
     // Get a snapshot of the rootLayer at time 0
     var layer = timeline.rootLayer(at: 0)
-    
+
     // Get the name of the timeline folder
     var timelineFolder = folderTable.symbolForID(timeline.id, "\(outputFolderPath)/\(documentFolderName)/\(templateFolderName)").name
 
@@ -39,7 +39,7 @@ for timeline in timelines
     var cssFolderAbsPath = "\(baseUrl)/\(cssFolderName)"
     var commonFolderAbsPath = "\(baseUrl)/\(commonFolderName)"
 
-    // Relative path to the common folder 
+    // Relative path to the common folder
     var flowCommonFolderPath = "\(timelineOutputPath)/\(commonFolderName)"
 
     // Delete previously exported project
@@ -69,21 +69,21 @@ for timeline in timelines
     // Copy driver panel assets
     if generateUI
         copy(from: "driver/driver.js", to: "\(timelineOutputPath)/\(jsFolderName)/driver.js")
-        
+
         process("driver/driver.css.flt", into: "\(timelineOutputPath)/\(cssFolderName)/driver.css", indentation: 0)
-        
+
         copy(from: "driver/loop.svg", to: "\(timelineOutputPath)/\(imageFolderName)/loop.svg")
         copy(from: "driver/pause.svg", to: "\(timelineOutputPath)/\(imageFolderName)/pause.svg")
         copy(from: "driver/play.svg", to: "\(timelineOutputPath)/\(imageFolderName)/play.svg")
         copy(from: "driver/sliderThumb.svg", to: "\(timelineOutputPath)/\(imageFolderName)/sliderThumb.svg")
-        
+
         copy(from: "driver/Roboto-Regular.ttf", to: "\(timelineOutputPath)/\(fontFolderName)/Roboto-Regular.ttf")
     end
 
     // Copy Images
     for image in imagesInTimeline
         var imageData = image.serializeAsPNGData()
-        if imageData != nil 
+        if imageData != nil
             write(data: imageData, to: "\(timelineOutputPath)/\(imageFolderName)/\(image.name).png")
         end
     end

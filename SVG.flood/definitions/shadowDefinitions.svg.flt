@@ -8,6 +8,6 @@
             <%= shadowAnimations(timeline: timeline, layer: layer, id: id, indentation: 0) %>
         </feDropShadow>
     </filter>
-<%- end 
+<%- end
 end -%>
 </defs>

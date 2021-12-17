@@ -26,7 +26,7 @@ for timeline in timelines
 
     var sliderClassName = "\(timeline.name.upperCamelCased())Slider"
 
-    // Set unique bundle identifier for each exported timeline 
+    // Set unique bundle identifier for each exported timeline
     var bundleIdentifier = Swift.convertToValidBundleIdentifier(string: "com.\(organization).\(document.name).\(timelineName)")
 
     // Get the name of the timeline folder
@@ -49,7 +49,7 @@ for timeline in timelines
 
     // Delete previously exported project
     rm(projectPath)
-    
+
     // Create Sources Directory
     mkdir("\(projectPath)/Sources/\(timelineName)")
     process("View.swift.flt", from: Swift, into: "\(projectPath)/Sources/\(timelineName)/\(viewName).swift", indentation: 0)
@@ -57,10 +57,10 @@ for timeline in timelines
 
     // Copy Resources Into Project
 
-    // Copy App Icon Images 
+    // Copy App Icon Images
     copy(from: "Project/Resources/Assets.xcassets/AppIcon.appiconset/Contents.json", to: "\(projectPath)/Resources/Assets.xcassets/AppIcon.appiconset/Contents.json")
     var appIconSizes = [20, 29, 40, 41, 42, 58, 59, 60, 76, 80, 81, 87, 120, 121, 152, 167, 180, 1024]
-    for appIconSize in appIconSizes 
+    for appIconSize in appIconSizes
         copy(from: "Project/Resources/Assets.xcassets/AppIcon.appiconset/Icon-\(appIconSize).png", to: "\(projectPath)/Resources/Assets.xcassets/AppIcon.appiconset/Icon-\(appIconSize).png")
     end
 
@@ -105,7 +105,7 @@ for timeline in timelines
     process("Project/Resources/Info.plist.flt", into: "\(projectPath)/Resources/Info.plist", indentation: 0)
     copy(from: "Project/Resources/Base.lproj/LaunchScreen.storyboard", to: "\(projectPath)/Resources/Base.lproj/LaunchScreen.storyboard")
 
-    // Copy AppDelegate, ViewController, Slider 
+    // Copy AppDelegate, ViewController, Slider
     copy(from: "Project/Sources/AppDelegate.swift", to: "\(projectPath)/Sources/AppDelegate.swift")
     copy(from: "Project/Sources/ViewController.swift", to: "\(projectPath)/Sources/\(viewControllerClassName).swift")
     copy(from: "Project/Sources/Slider.swift", to: "\(projectPath)/Sources/Slider.swift")

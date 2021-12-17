@@ -94,10 +94,10 @@ for timeline in timelines
     // Process proguard rules
     copy(from: "\(pathToAndroidProguard)/proguard-rules.pro", to: "\(timelineOutputPath)/app/proguard-rules.pro")
 
-    // Create Lottie JSON String 
+    // Create Lottie JSON String
     var jsonString = Lottie.json(with: timeline, imageFolderName: imageFolderName)
 
-    // make name of json file snake cased 
+    // make name of json file snake cased
     // because asset files in android studio can only have lowercase a-z, 0-9, or underscore
     var jsonFileName = projectName.snakeCased()
 
@@ -120,6 +120,6 @@ for timeline in timelines
         copy(from: font.path, to: "\(fontsFolderPath)/\(font.name).\(font.extension)")
     end
 
-    // Clear the symbol table 
+    // Clear the symbol table
     symbolTable.removeAllSymbols()
 end

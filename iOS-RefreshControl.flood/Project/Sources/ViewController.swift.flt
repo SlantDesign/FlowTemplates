@@ -6,7 +6,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     struct Defaults {
         static let offsetThreshold: CGFloat = -150
     }
-    
+
     @IBOutlet var scrollView: UIScrollView!
 
 <%- var viewVariableName = timeline.scene.name.lowerCamelCased() -%>

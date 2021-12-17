@@ -3,5 +3,5 @@ var i = 0
 for stop in gradient.stops -%>
 <% insert("gradient/stop.svg.flt", indentation: indentation) %>
     <%- i = i + 1
-end 
+end
 -%>

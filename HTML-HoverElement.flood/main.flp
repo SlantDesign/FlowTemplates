@@ -3,7 +3,7 @@ import Web
 for timeline in timelines
     // Get a snapshot of the rootLayer at time 0
     var layer = timeline.rootLayer(at: 0)
-    
+
     // Get the name of the timeline folder
     var timelineFolder = folderTable.symbolForID(timeline.id, "\(outputFolderPath)/\(documentFolderName)/\(templateFolderName)").name
 
@@ -39,7 +39,7 @@ for timeline in timelines
     var cssFolderAbsPath = "\(baseUrl)/\(cssFolderName)"
     var commonFolderAbsPath = "\(baseUrl)/\(commonFolderName)"
 
-    // Relative path to the common folder 
+    // Relative path to the common folder
     var flowCommonFolderPath = "\(timelineOutputPath)/\(commonFolderName)"
 
     // Delete previously exported project
@@ -53,13 +53,13 @@ for timeline in timelines
     mkdir("\(timelineOutputPath)/\(commonFolderName)")
 
     var shapeIDs = []
-    
+
     //The element ID for the web animations api timer element
     var timerID = "timer-\(timelineNameLowercased)"
 
     process("index.html.flt", into: "\(timelineOutputPath)/\(timelineName).html", indentation: 0)
     process("css/style.css.flt", from: Web, into: "\(timelineOutputPath)/\(cssFolderName)/\(timelineName).css", indentation: 0)
-    
+
     // Generate Forward Timeline
     var timelineClassName =  forwardTimelineName
     process("js/timeline.js.flt", from: Web, into: "\(timelineOutputPath)/\(jsFolderName)/\(forwardTimelineName).js", indentation: 0)
@@ -70,7 +70,7 @@ for timeline in timelines
     // Copy Images
     for image in imagesInTimeline
         var imageData = image.serializeAsPNGData()
-        if imageData != nil 
+        if imageData != nil
             write(data: imageData, to: "\(timelineOutputPath)/\(imageFolderName)/\(image.name).png")
         end
     end

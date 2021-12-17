@@ -177,7 +177,7 @@ function createDriver(
     driverResourcesPath,
     timelineResourcesPath,
     ForwardTimeline) {
-        
+
     let driverShadowDomContainer = document.getElementById(driverRootID);
     let shadowDomContainer = document.getElementById(rootID);
     let driverShadowRoot = driverShadowDomContainer.shadowRoot;

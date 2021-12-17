@@ -64,7 +64,7 @@ class TextField: UITextField, UITextFieldDelegate {
     func createView() -> UIView {
         return UIView()
     }
-  
+
     func createForward() -> Timeline {
       return Timeline(view: UIView(), animationsByLayer: [CALayer(): []], sounds: [], duration: 1)
     }

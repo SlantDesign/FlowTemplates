@@ -43,11 +43,11 @@ for timeline in timelines
   var layer = timeline.rootLayer(at: 0)
   process("index.html.flt", into: "\(timelineOutputPath)/\(timelineName).html", indentation: 0)
   process("style.css.flt", into: "\(timelineOutputPath)/\(cssFolderName)/\(timelineName).css", indentation: 0)
-  process("svg.svg.flt", into: "\(timelineOutputPath)/\(timelineName).svg", indentation: 0) 
+  process("svg.svg.flt", into: "\(timelineOutputPath)/\(timelineName).svg", indentation: 0)
   // Copy Images
   for image in imagesInTimeline
         var imageData = image.serializeAsPNGData()
-        if imageData != nil 
+        if imageData != nil
             write(data: imageData, to: "\(timelineOutputPath)/\(imageFolderName)/\(image.name).png")
         end
     end

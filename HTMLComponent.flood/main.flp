@@ -1,13 +1,13 @@
 import Web
 
-// Indicates whether or not special characters should be escaped when printing out template. 
+// Indicates whether or not special characters should be escaped when printing out template.
 // Used to print out HTML code in HTML files in the generated REAMDE.
 var escape = false
 
 for timeline in timelines
     // Get a snapshot of the rootLayer at time 0
     var layer = timeline.rootLayer(at: 0)
-    
+
     // Get the name of the timeline folder
     var timelineFolder = folderTable.symbolForID(timeline.id, "\(outputFolderPath)/\(documentFolderName)/\(templateFolderName)").name
 
@@ -45,7 +45,7 @@ for timeline in timelines
     var cssFolderAbsPath = "\(baseUrl)/\(cssFolderName)"
     var commonFolderAbsPath = "\(baseUrl)/\(commonFolderName)"
 
-    // Relative path to the common folder 
+    // Relative path to the common folder
     var flowCommonFolderPath = "\(timelineOutputPath)/\(commonFolderName)"
 
     // Delete previously exported project
@@ -87,19 +87,19 @@ for timeline in timelines
 
     process("driver/driver.js.flt", into: "\(driverOutputPath)/\(jsFolderName)/driver.js", indentation: 0)
     process("driver/DriverComponent.js.flt", into: "\(driverOutputPath)/\(jsFolderName)/DriverComponent.js", indentation: 0)
-    
+
     process("driver/driver.css.flt", into: "\(driverOutputPath)/\(cssFolderName)/driver.css", indentation: 0)
     copy(from: "driver/loop.svg", to: "\(driverOutputPath)/\(imageFolderName)/loop.svg")
     copy(from: "driver/pause.svg", to: "\(driverOutputPath)/\(imageFolderName)/pause.svg")
     copy(from: "driver/play.svg", to: "\(driverOutputPath)/\(imageFolderName)/play.svg")
     copy(from: "driver/sliderThumb.svg", to: "\(driverOutputPath)/\(imageFolderName)/sliderThumb.svg")
-    
+
     copy(from: "driver/Roboto-Regular.ttf", to: "\(driverOutputPath)/\(fontFolderName)/Roboto-Regular.ttf")
 
     // Copy Images
     for image in imagesInTimeline
         var imageData = image.serializeAsPNGData()
-        if imageData != nil 
+        if imageData != nil
             write(data: imageData, to: "\(timelineOutputPath)/\(imageFolderName)/\(image.name).png")
         end
     end

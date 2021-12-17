@@ -23,7 +23,7 @@ export default class <%= timelineName %>Button extends HTMLElement {
             </style>
         </head>
 
-    <!-- A div element is used instead of a button to avoid default properties, 
+    <!-- A div element is used instead of a button to avoid default properties,
          as well as allowing the element to resize with the animation. -->
         <% insert("html/artboard.html.flt", from: Web, indentation: 3) %>
     `;
@@ -34,4 +34,4 @@ export default class <%= timelineName %>Button extends HTMLElement {
       <%= timelineNameLowercased %>.append(timer);
         }
     }
-    customElements.define("<%= customElementName %>", <%= timelineName %>Button); 
+    customElements.define("<%= customElementName %>", <%= timelineName %>Button);

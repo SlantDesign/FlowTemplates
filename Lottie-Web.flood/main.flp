@@ -46,23 +46,23 @@ for timeline in timelines
         end
     end
 
-    // Create Lottie JSON String 
+    // Create Lottie JSON String
     var jsonString = Lottie.json(with: timeline, imageFolderName: imageFolderName)
     jsonString = jsonString.replacingNewlines()
 
-    // make name of json file snake cased 
+    // make name of json file snake cased
     // because asset files in android studio can only have lowercase a-z, 0-9, or underscore
     var jsonFileName = timelineName.snakeCased()
 
     // Create Lottie files
-    // javascript file that exposes lottie animation as java script variable for use in index.html 
+    // javascript file that exposes lottie animation as java script variable for use in index.html
     process("timeline.js.flt", into: "\(timelineOutputPath)/\(timelineName).js", indentation: 0)
 
     // human-readable Lottie json file
     process("timeline.json.flt", from: Lottie, into: "\(timelineOutputPath)/\(jsonFileName).json", indentation: 0)
 
     // minified version of Lottie json file to be used in production (smaller file size)
-    process("timeline.min.json.flt", from: Lottie, into: "\(timelineOutputPath)/\(jsonFileName).min.json", indentation: 0) 
+    process("timeline.min.json.flt", from: Lottie, into: "\(timelineOutputPath)/\(jsonFileName).min.json", indentation: 0)
 
     // html file used to quickly preview the Lottie animation
     process("index.html.flt", into: "\(timelineOutputPath)/index.html", indentation: 0)
@@ -72,6 +72,6 @@ for timeline in timelines
     process("README.html.flt", into: "\(timelineOutputPath)/README.html", indentation: 0)
     escape = false
 
-    // Clear the symbol table 
+    // Clear the symbol table
     symbolTable.removeAllSymbols()
 end

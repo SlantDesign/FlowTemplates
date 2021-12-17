@@ -66,7 +66,7 @@
                             </div>
                         </div>
                         </li>
-                        <li>To make sure you have the latest version of our pod, you may want to: 
+                        <li>To make sure you have the latest version of our pod, you may want to:
                                                 <div class="highlighter-rouge">
                             <div class="highlight">
                                 <pre class="highlight">
@@ -84,10 +84,10 @@
                             </div>
                         </div>
                         </li>
-                        <li>Move <code><%= timelineName %>.swift</code>, <code><%= viewName %>.swift</code>, <code><%= sliderClassName %>.swift</code>, and <code>Slider.swift</code> 
+                        <li>Move <code><%= timelineName %>.swift</code>, <code><%= viewName %>.swift</code>, <code><%= sliderClassName %>.swift</code>, and <code>Slider.swift</code>
                          to a location of your choice inside your iOS Project.
                         </li>
-                        <li> 
+                        <li>
                             Add a button to your <code>ViewController</code> in a stoyboard. Change the buttons class name to <code><%= sliderClassName %></code> in the
                             <code>Identity Inspector</code>.
                         </li>
@@ -99,7 +99,7 @@
                     <p>You installed the <code>FlowCommoniOS</code> CocoaPod library into your project.</p>
                     <p>You moved <code><%= timelineName %>.swift</code>, <code><%= viewName %>.swift</code>, <code><%= sliderClassName %>.swift</code>, and <code>Slider.swift</code>  from your exported animation into your iOS project <strong>(without editing anything)</strong>.</p>
                     <p>You added a new <code><%= sliderClassName %></code> to your stoyboard.</p>
-                    
+
                     <h2 id="flowcommon">FlowCommoniOS</h2>
                     <p>FlowCommoniOS is a CocoaPod library containing the set of files you’ll need to run your iOS Animation in a iOS application.</p>
 

@@ -1,5 +1,5 @@
 <%-
-if layer.type.name == "shape" 
+if layer.type.name == "shape"
 
 var contentMode = layer.fillImage.patternFillType
 var layerSize = layer.bounds.size

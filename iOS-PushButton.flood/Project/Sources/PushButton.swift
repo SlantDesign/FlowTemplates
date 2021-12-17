@@ -69,7 +69,7 @@ class PushButton: UIButton {
         tapstate = .up
         play(reverse)
     }
-    
+
     func play(_ timeline: Timeline) {
         guard let _ = current else {
             return

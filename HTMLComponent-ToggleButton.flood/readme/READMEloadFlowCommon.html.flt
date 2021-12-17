@@ -7,7 +7,7 @@
             document.head.appendChild(script);
         });
     }
-    
+
     let commonFolderPath = "./FlowCommon"
     let flowCommonScript = [`${commonFolderPath}/flowCommon.js`];
     loadScripts(flowCommonScript)

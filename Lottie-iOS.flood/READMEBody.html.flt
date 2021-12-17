@@ -65,9 +65,9 @@
                         <br/>
                         <p>
                         <b>Note:</b><br />
-                        If the <code><%= timelineFolder %>.xcworkspace</code> file was not generated, it is likely because cocoapods 
-                        is not installed on your device. In this case, install cocoapods on your device by following the instructions provided 
-                        <a href="https://guides.cocoapods.org/using/getting-started.html">here</a> and run the following command in terminal: 
+                        If the <code><%= timelineFolder %>.xcworkspace</code> file was not generated, it is likely because cocoapods
+                        is not installed on your device. In this case, install cocoapods on your device by following the instructions provided
+                        <a href="https://guides.cocoapods.org/using/getting-started.html">here</a> and run the following command in terminal:
                             <pre class="highlight">
                                 <code>cd '<%= outputFolderPath %>/<%= timelineOutputPath %>'; pod install</code>
                             </pre>

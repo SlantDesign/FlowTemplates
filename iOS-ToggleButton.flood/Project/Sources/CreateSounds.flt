@@ -12,7 +12,7 @@ private static func createSounds() -> [(sound: AVAudioPlayer, delay: TimeInterva
         var symbol = symbolTable.symbolForID(soundTrack.id, "") -%>
         sounds.append((sound: <%= symbol.name %>, delay: <%= soundTrack.startTime %>))
     <%- end -%>
-    } catch let error as NSError { 
+    } catch let error as NSError {
         print(error.localizedDescription)
     }
 

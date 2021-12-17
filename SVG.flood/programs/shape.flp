@@ -8,7 +8,7 @@ func shapeFillTypeName(_ contentMode)
         return "fill"
     case 2:
         return "stretch"
-    default: 
+    default:
         return "fit"
     end
 end
@@ -60,7 +60,7 @@ func shapeXImageScale(contentMode, layerSize, imageSize)
     var layerHeight = layerSize.height
     var widthRatio = layerWidth / imageWidth
     var heightRatio = layerHeight / imageHeight
-    
+
     switch shapeFillTypeName(contentMode)
     case "fit":
         return layerWidth / imageWidth
@@ -68,7 +68,7 @@ func shapeXImageScale(contentMode, layerSize, imageSize)
         return min(widthRatio, heightRatio)
     case "fill":
         return max(widthRatio, heightRatio)
-    default: 
+    default:
         return 1
     end
 end
@@ -88,7 +88,7 @@ func shapeYImageScale(contentMode, layerSize, imageSize)
         return layerHeight / imageHeight
     case "fill":
         return max(widthRatio, heightRatio)
-    default: 
+    default:
         return 1
     end
 end

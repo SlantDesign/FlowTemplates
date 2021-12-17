@@ -67,7 +67,7 @@
                       <li>Link the <a href="#flow-common">Flow Common CDN</a> in your page's <code class="highlighter-rouge">&lt;head&gt;</code>
                       <p><pre><code>&lt;script src="<%= flowCommonWebMinURL %>"></script></code></pre></p>
                       <li>Link your animation's css file in your page's <code class="highlighter-rouge">&lt;head&gt;</code></pre>
-                      
+
                       <p><pre><code>&lt;script src="path-to-js-file/<%= timelineName %>.js></script></code></pre></p>
 
                       <li>Add your animation's DOM to your page's <code class="highlighter-rouge">&lt;body&gt;</code> by copying and pasting your artboard (from your exported <code class="highlighter-rouge"><%= timelineName %>.html</code> file).

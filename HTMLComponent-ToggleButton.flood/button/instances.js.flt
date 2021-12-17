@@ -1,4 +1,4 @@
-<% 
-var instanceSuffix = ""; 
-insert("button/instance.js.flt", indentation: 0) 
+<%
+var instanceSuffix = "";
+insert("button/instance.js.flt", indentation: 0)
 %>

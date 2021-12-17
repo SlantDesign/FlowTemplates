@@ -5,7 +5,7 @@
 
 import UIKit
 
-public class ViewController: UIViewController { 
+public class ViewController: UIViewController {
   @IBOutlet var activityIndicator: <%= indicatorClassName %>?
   public override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)

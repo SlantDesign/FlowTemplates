@@ -10,7 +10,7 @@
 </head>
 <body>
 
-    <!-- A div element is used instead of a button to avoid default properties, 
+    <!-- A div element is used instead of a button to avoid default properties,
          as well as allowing the element to resize with the animation. -->
     <div onclick="<%= buttonName %>.toggle(true)" class="flow-artboard" id="<%= containerID %>">
         <% insert("html/artboard.html.flt", from: Web, indentation: 2) %>
@@ -36,6 +36,6 @@
     let <%= reverseTimelineName.lowerCamelCased() %> = new <%= reverseTimelineName %>(document, "#<%= timelineName %>", <%= resourcesPath %>)
     <%= buttonName %> = new ToggleButton(<%= forwardTimelineNameLowerCased %>, <%= reverseTimelineName.lowerCamelCased() %>, timer, false, null)
     </script>
- 
+
 </body>
 </html>

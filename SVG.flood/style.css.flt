@@ -22,7 +22,7 @@ body {
 }
 
 path {
-    fill-rule: evenodd; 
+    fill-rule: evenodd;
 }
 
 svg {

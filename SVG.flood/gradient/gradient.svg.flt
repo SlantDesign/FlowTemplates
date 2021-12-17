@@ -1,6 +1,6 @@
 <%-
   var gradient = layer.fillGradient
-  var gradientID = "\(id)-fill" 
+  var gradientID = "\(id)-fill"
   var tag = Web.gradientTag(gradient) -%>
   <<%= tag %> id="<%= gradientID %>" <%= Web.gradientAttributes(gradient) %>>
   <%- insert("gradient/stops.svg.flt", indentation: indentation + 1) -%>

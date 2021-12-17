@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="${<%= resourcesPath %>}<%= Web.pathPrefix(relativePath: "/css", absolutePath: cssFolderAbsPath, relative: relative) %>/<%= timelineName %>.css">
 </head>
 
-    <!-- A div element is used instead of a button to avoid default properties, 
+    <!-- A div element is used instead of a button to avoid default properties,
          as well as allowing the element to resize with the animation. -->
         <% insert("html/artboard.html.flt", from: Web, indentation: 2) %>
     `;
@@ -32,5 +32,5 @@
       <%= timelineNameLowercased %>.append(timer);
         }
     }
-    customElements.define("<%= timelineNameLowercased %>-button", <%= timelineName %>Button); 
+    customElements.define("<%= timelineNameLowercased %>-button", <%= timelineName %>Button);
 })();

@@ -35,16 +35,16 @@ end
 
 func rectTag(id, x, y, width, height, rx, stroke, strokeWidth, fill, preserveAspectRatio, body, indentation)
     var attributes = [
-       "id": id, 
-       "x": x, 
-       "y": y, 
-       "width": width, 
-       "height": height, 
-       "rx": rx, 
+       "id": id,
+       "x": x,
+       "y": y,
+       "width": width,
+       "height": height,
+       "rx": rx,
        "stroke": stroke,
-       "stroke-width": strokeWidth, 
-       "fill": fill, 
-       "preserveAspectRatio": preserveAspectRatio 
+       "stroke-width": strokeWidth,
+       "fill": fill,
+       "preserveAspectRatio": preserveAspectRatio
     ]
     return elementTag("rect", attributes: attributes, body: body, indentation: indentation)
 end
@@ -52,40 +52,40 @@ end
 func borderTag(layer, timeline, indentation)
   var body = animations(properties: borderProperties(), layer: layer, timeline: timeline, hrefID: nil, attributeType: nil, indentation: 1)
 
-  return rectTag(id: nil, 
-          x: 0, 
-          y: 0, 
-          width: "100%", 
-          height: "100%", 
-          rx: layer.cornerRadius, 
+  return rectTag(id: nil,
+          x: 0,
+          y: 0,
+          width: "100%",
+          height: "100%",
+          rx: layer.cornerRadius,
           stroke: layer.borderColor.hex,
-          strokeWidth: layer.borderWidth, 
-          fill: "none", 
-          preserveAspectRatio: nil, 
-          body: body, 
+          strokeWidth: layer.borderWidth,
+          fill: "none",
+          preserveAspectRatio: nil,
+          body: body,
           indentation: indentation)
 end
 
 func backgroundTag(layer, timeline, indentation)
   var body = animations(properties: backgroundProperties(), layer: layer, timeline: timeline, hrefID: nil, attributeType: nil, indentation: 1)
-  return rectTag(id: nil, 
-          x: 0, 
-          y: 0, 
-          width: "100%", 
-          height: "100%", 
-          rx: layer.cornerRadius, 
+  return rectTag(id: nil,
+          x: 0,
+          y: 0,
+          width: "100%",
+          height: "100%",
+          rx: layer.cornerRadius,
           stroke: nil,
           strokeWidth: 0,
-          fill: layer.backgroundColor.hex, 
-          preserveAspectRatio: nil, 
+          fill: layer.backgroundColor.hex,
+          preserveAspectRatio: nil,
           body: body,
           indentation: indentation)
 end
 
 func shapeTag(timeline, layer, id, indentation)
   var body = animations(properties: shapeProperties(), layer: layer, timeline: timeline, hrefID: "#\(id)", attributeType: nil, indentation: 1)
-  return pathTag(id: id, 
-          vectorEffect: nil, 
+  return pathTag(id: id,
+          vectorEffect: nil,
           strokeMiterlimit: layer.miterLimit,
           stroke: layer.strokeColor.hex,
           strokeLinecap: getLineCap(layer: layer),
@@ -102,10 +102,10 @@ end
 func pathTag(id,
             vectorEffect,
             strokeMiterlimit,
-            stroke, 
-            strokeLinecap, 
-            strokeLinejoin, 
-            strokeDasharray, 
+            stroke,
+            strokeLinecap,
+            strokeLinejoin,
+            strokeDasharray,
             strokeDashOffset,
             strokeWidth,
             d,
@@ -113,17 +113,17 @@ func pathTag(id,
             body,
             indentation)
   var attributes = [
-       "id": id, 
-       "vector-effect": vectorEffect, 
-       "stroke-miterlimit": strokeMiterlimit, 
-       "stroke": stroke, 
-       "stroke-linecap": strokeLinecap, 
-       "stroke-linejoin": strokeLinejoin, 
+       "id": id,
+       "vector-effect": vectorEffect,
+       "stroke-miterlimit": strokeMiterlimit,
+       "stroke": stroke,
+       "stroke-linecap": strokeLinecap,
+       "stroke-linejoin": strokeLinejoin,
        "stroke-dasharray": strokeDasharray,
-       "stroke-dashoffset": strokeDashOffset, 
-       "stroke-width": strokeWidth, 
+       "stroke-dashoffset": strokeDashOffset,
+       "stroke-width": strokeWidth,
        "d": d,
-       "fill": fill 
+       "fill": fill
     ]
     return elementTag("path", attributes: attributes, body: body, indentation: indentation)
 end
@@ -148,10 +148,10 @@ func imageTag(layer, timeline, indentation)
     var body = process("layer/body/imageBody.svg.flt", into: nil, indentation: 1)
     return imageElementTag(id: generateSymbolID(layer: layer),
                 href: href,
-                x: x, 
-                y: y, 
-                width: width, 
-                height: height, 
+                x: x,
+                y: y,
+                width: width,
+                height: height,
                 preserveAspectRatio: preserveAspectRatio,
                 body: body,
                 indentation: indentation)
@@ -159,12 +159,12 @@ end
 
 func imageElementTag(id, href, x, y, width, height, preserveAspectRatio, body, indentation)
   var attributes = [
-    "id": id, 
-    "href": href, 
-    "x": x, 
-    "y": y, 
-    "width": width, 
-    "height": height, 
+    "id": id,
+    "href": href,
+    "x": x,
+    "y": y,
+    "width": width,
+    "height": height,
     "preserveAspectRatio": preserveAspectRatio
   ]
 
@@ -204,8 +204,8 @@ func patternElementTag(id, x, y, width, height, patternUnits, body, indentation)
     "id": id,
     "x": x,
     "y": y,
-    "width": width, 
-    "height": height, 
+    "width": width,
+    "height": height,
     "patternUnits": patternUnits
   ]
 
@@ -236,15 +236,15 @@ end
 
 func textElementTag(id, x, y, width, height, fontFamily, fontSize, textAnchor, style, fill, visibility, body, layer, dominantBaseline, indentation)
   var attributes = [
-    "id": id, 
-    "x": x, 
-    "y": y, 
-    "width": width, 
-    "height": height, 
-    "font-family": fontFamily, 
-    "font-size": fontSize, 
-    "text-anchor": textAnchor, 
-    "style": style, 
+    "id": id,
+    "x": x,
+    "y": y,
+    "width": width,
+    "height": height,
+    "font-family": fontFamily,
+    "font-size": fontSize,
+    "text-anchor": textAnchor,
+    "style": style,
     "fill": fill,
     "dominant-baseline": dominantBaseline,
     "visibility": visibility

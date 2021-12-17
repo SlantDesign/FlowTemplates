@@ -58,7 +58,7 @@ class ToggleButton: UIButton {
             timeline.offset(to: newTime)
             timeline.play()
         }
-        
+
         super.isSelected = !isSelected
         delegate?.didToggle(sender: self)
     }

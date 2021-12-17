@@ -65,7 +65,7 @@
                             </div>
                         </div>
                         </li>
-                        <li>To make sure you have the latest version of our pod, you may want to: 
+                        <li>To make sure you have the latest version of our pod, you may want to:
                                                 <div class="highlighter-rouge">
                             <div class="highlight">
                                 <pre class="highlight">
@@ -91,7 +91,7 @@
                                     <code>import FlowCommoniOS</code>
                                 </pre>
                             </div>
-                        </div> 
+                        </div>
                         </li>
 
                         <li>Add a <code>UIView</code> to the story board corresponding to your ViewController. Postion, size and constrain it.
@@ -131,14 +131,14 @@
                     <h2 id="controlling-your-animation">Controlling Your Animation</h2>
                     <p>To control the animation you can use the methods found in <code>Timeline.swift</code>. You can check it out our <a href="https://createwithflow.com/api/flowcommon/ios/timeline/">Timeline</a> doc page, or have a look for it in the <code>FlowCommoniOS</code> pod.
 
-                    <p>From the iOS project you just exported, have a look at the <code>handlePan</code> and <code>handleTap</code> methods in <code><%=viewName%>Controller.swift</code> 
+                    <p>From the iOS project you just exported, have a look at the <code>handlePan</code> and <code>handleTap</code> methods in <code><%=viewName%>Controller.swift</code>
                     for examples on how to connect the animation to a <code>pan</code> or <code>tap gesture</code> respectively.</p>
 
                     <h3 id="details-for-what-you-just-did">Details For What You Just Did</h3>
                     <p>You installed the <code>FlowCommoniOS</code> CocoaPod library into your project.</p>
                     <p>You moved <code><%= timelineName %>.swift</code> and <code><%= viewName %>.swift</code> from your exported animation into your iOS project <strong>(without editing anything)</strong>.</p>
                     <p>You added a new <code><%= viewName %></code> and <code>Timeline</code> to your <code>ViewController</code>.</p>
-                    
+
                     <h2 id="flowcommon">FlowCommoniOS</h2>
                     <p>FlowCommoniOS is a CocoaPod library containing the set of files you’ll need to run your iOS Animation in a iOS application.</p>
 

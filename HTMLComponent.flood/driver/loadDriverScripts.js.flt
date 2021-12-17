@@ -1,7 +1,7 @@
 <script>
     let driverResourcesPath = "./driver"
     let driverScripts = [
-        `${driverResourcesPath}/js/driver.js`, 
+        `${driverResourcesPath}/js/driver.js`,
         `${driverResourcesPath}/js/DriverComponent.js`
     ];
     loadScripts(driverScripts)

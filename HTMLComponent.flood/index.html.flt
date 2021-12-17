@@ -12,7 +12,7 @@
 
 <body>
     <% var instanceSuffix = ""; insert("timelineComponent.html.flt", indentation: 2) %>
-    <% instanceSuffix = ""; insert("driver/driverComponent.html.flt", indentation: 2) %>  
+    <% instanceSuffix = ""; insert("driver/driverComponent.html.flt", indentation: 2) %>
 </body>
 
 </html>

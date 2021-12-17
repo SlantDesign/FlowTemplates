@@ -1,21 +1,21 @@
-func transformAnimation(property, layer, timeline, indentation) 
+func transformAnimation(property, layer, timeline, indentation)
     if isAnimated(layer, property: property, timeline: timeline)
         var track = trackFor(layer, property: property, timeline: timeline)
         var values = valuesFrom(track: track, layer: layer, property: property)
         var keytimes = keyTimesFrom(track: track)
         var keysplines = keysplinesFrom(track: track)
-        return animateTransformTag(label: layer.name,  
-                            hrefID: nil, 
-                            attributeName: "transform", 
+        return animateTransformTag(label: layer.name,
+                            hrefID: nil,
+                            attributeName: "transform",
                             type: transformType(property: property),
                             additive: nil,
-                            values: values.joined(separator: ";"), 
+                            values: values.joined(separator: ";"),
                             dur: timeline.duration,
                             fill: "freeze",
-                            calcMode: "spline",  
-                            keytimes: keytimes.joined(separator: ";"), 
-                            keysplines: keysplines.joined(separator: ";"), 
-                            repeats: "indefinite", 
+                            calcMode: "spline",
+                            keytimes: keytimes.joined(separator: ";"),
+                            keysplines: keysplines.joined(separator: ";"),
+                            repeats: "indefinite",
                             attributeType: nil,
                             indentation: indentation)
     end
@@ -42,10 +42,10 @@ end
 func animations(properties, layer, timeline, hrefID, attributeType, indentation)
     var animations = []
     for property in properties
-        var animation = animation(property: property, 
-                        layer: layer, 
-                        timeline: timeline, 
-                        hrefID: hrefID, attributeType: 
+        var animation = animation(property: property,
+                        layer: layer,
+                        timeline: timeline,
+                        hrefID: hrefID, attributeType:
                         attributeType,
                         indentation: indentation)
         if animation != nil
@@ -61,17 +61,17 @@ func animation(property, layer, timeline, hrefID, attributeType, indentation)
         var values = valuesFrom(track: track, layer: layer, property: property)
         var keytimes = keyTimesFrom(track: track)
         var keysplines = keysplinesFrom(track: track)
-      
+
         return animateTag(
-                hrefID: hrefID, 
-                attributeName: svgAttributeName(of: property), 
-                values: values.joined(separator: ";"), 
+                hrefID: hrefID,
+                attributeName: svgAttributeName(of: property),
+                values: values.joined(separator: ";"),
                 dur: "\(track.timeline.duration)s",
                 fill: "freeze",
-                calcMode: "spline", 
-                keytimes: keytimes.joined(separator: ";"), 
-                keysplines: keysplines.joined(separator: ";"), 
-                repeats: "indefinite", 
+                calcMode: "spline",
+                keytimes: keytimes.joined(separator: ";"),
+                keysplines: keysplines.joined(separator: ";"),
+                repeats: "indefinite",
                 attributeType: attributeType,
                 indentation: indentation)
     end
@@ -167,7 +167,7 @@ end
 func gradientStopAnimation(timeline, layer, stopIndex, property, indentation)
     var track = timeline.trackFor(layer: layer, property: "fillGradient")
 
-    if track == nil 
+    if track == nil
         return ""
     end
 
@@ -186,15 +186,15 @@ func gradientStopAnimation(timeline, layer, stopIndex, property, indentation)
     end
 
     return animateTag(
-                hrefID: nil, 
-                attributeName: svgAttributeName(of: property), 
-                values: values.joined(separator: ";"), 
+                hrefID: nil,
+                attributeName: svgAttributeName(of: property),
+                values: values.joined(separator: ";"),
                 dur: "\(track.timeline.duration)s",
                 fill: "freeze",
-                calcMode: "spline", 
-                keytimes: keytimes.joined(separator: ";"), 
-                keysplines: keysplines.joined(separator: ";"), 
-                repeats: "indefinite", 
+                calcMode: "spline",
+                keytimes: keytimes.joined(separator: ";"),
+                keysplines: keysplines.joined(separator: ";"),
+                repeats: "indefinite",
                 attributeType: nil,
                 indentation: indentation)
 end

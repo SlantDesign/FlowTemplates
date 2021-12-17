@@ -7,7 +7,7 @@ end
 var keyTimes = times.joined(separator: ";")
 
 switch gradient.type
-case "linear": 
+case "linear":
 
     var x1 = [gradient.from.x]
 	var y1 = [gradient.from.y]
@@ -18,10 +18,10 @@ case "linear":
 	    y1 = y1.appending(animation.to.from.y)
 	    x2 = x2.appending(animation.to.to.x)
 	    y2 = y2.appending(animation.to.to.y)
-	end 
+	end
 
 	var x1Values = x1.joined(separator: ";")
-	var y1Values = y1.joined(separator: ";") 
+	var y1Values = y1.joined(separator: ";")
 	var x2Values = x2.joined(separator: ";")
 	var y2Values = y2.joined(separator: ";") -%>
 <animate attributeName="x1" values="<%= x1Values %>" keyTimes="<%= keyTimes %>" dur="<%= duration %>s" fill="freeze" <% if repeats -%>repeatCount="indefinite"<% end %>/>
@@ -30,7 +30,7 @@ case "linear":
 <animate attributeName="y2" values="<%= y2Values %>" keyTimes="<%= keyTimes %>" dur="<%= duration %>s" fill="freeze" <% if repeats -%>repeatCount="indefinite"<% end %>/>
 <%- case "radial":
 
-    func transform(scaleX) 
+    func transform(scaleX)
 		return "translate(0.5, 0.5) scale(\(scaleX), 1) translate(\(-0.5 / scaleX), -0.5)"
 	end
 
@@ -46,9 +46,9 @@ case "linear":
 	    y = y.appending(animation.to.from.y)
 	    r = r.appending(animation.to.radius)
 	    transforms = transforms.appending(transform(scaleX: scaleX))
-	end 
+	end
 
-	
+
 	var xValues = x.joined(separator: ";")
 	var yValues = y.joined(separator: ";")
 	var rValues = r.joined(separator: ";")

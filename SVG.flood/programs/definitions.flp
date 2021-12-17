@@ -5,9 +5,9 @@ func shouldIncludeFillImageDefinitions(timeline)
             if layer.currentFillType == "Image"
                 return true
             end
-        end 
+        end
     end
-    
+
     return false
 end
 
@@ -15,7 +15,7 @@ func shouldIncludeGradientDefinitions(timeline)
     var rootLayer = timeline.rootLayer(at: 0)
     for layer in rootLayer.descendants
         if layer.type.name == "shape"
-            if layer.currentFillType == "Gradient" 
+            if layer.currentFillType == "Gradient"
                 return true
             end
         end
@@ -29,7 +29,7 @@ func shouldIncludeShadowDefinitions(timeline)
     for layer in rootLayer.descendants
         if isShadowVisible(layer: layer, timeline: timeline)
             return true
-        end 
+        end
     end
 
     return false
@@ -40,7 +40,7 @@ func shouldIncludeFontDefinitions(timeline)
     for layer in rootLayer.descendants
         if isFontVisible(layer: layer, timeline: timeline)
             return true
-        end 
+        end
     end
 
     return false
@@ -51,7 +51,7 @@ func shouldIncludeClipPathDefinitions(timeline)
     for layer in rootLayer.descendants
         if layer.type.name == "shapeMask"
             return true
-        end 
+        end
     end
 
     return false

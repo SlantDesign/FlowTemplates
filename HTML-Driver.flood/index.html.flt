@@ -12,7 +12,7 @@
 </head>
 <body>
     <% insert("html/artboard.html.flt", from: Web, indentation: 0) %>
-    
+
     <%- insert("html/cdn.html.flt", from: Web, indentation: indentation + 1) %>
 
     <!-- If you want to use the FlowCommonWeb CDN delete the following script tags -->

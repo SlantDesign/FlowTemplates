@@ -69,7 +69,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/<%= lottieVersion %>/lottie.min.js" integrity="<%= sriHash %>" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
-  <div id="<%= timelineName %>_lottie_container"></div> 
+  <div id="<%= timelineName %>_lottie_container"></div>
     <div id="details">
     <p class="section">Title</p>
     <p><%= timelineName %></p>
@@ -91,7 +91,7 @@ lottie.loadAnimation({
   autoplay: true,
   animationData: <%= timelineName %>AnimationData // the path to the animation json
 });
-</script> 
-</html> 
+</script>
+</html>
 
 

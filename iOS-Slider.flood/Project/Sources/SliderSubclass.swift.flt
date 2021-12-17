@@ -11,7 +11,7 @@ class <%= sliderClassName %>: Slider {
     private lazy var <%= viewVariableName %>: <%= viewName %> = {
     //There is an additional 2pt padding added by UIKit to a Slider
         let startView = <%= viewName %>(frame: bounds.inset(by: UIEdgeInsets(top: 0, left: 2, bottom: 0, right: 2)))
-        //Since we may use scaling, the startView must not clip to bounds 
+        //Since we may use scaling, the startView must not clip to bounds
         startView.clipsToBounds = false
         //Let the slider do the clipping
         clipsToBounds = <%= initialRootSnapshot.masksToBounds %>
