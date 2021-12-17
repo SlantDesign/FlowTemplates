@@ -42,7 +42,7 @@ class TextField: UITextField, UITextFieldDelegate {
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if text == nil || text == "" {
-            forward.reset() { timeline in
+            forward.reset { timeline in
                 timeline.play()
             }
         }
@@ -50,7 +50,7 @@ class TextField: UITextField, UITextFieldDelegate {
 
     func textFieldDidEndEditing(_ textField: UITextField) {
         if text == nil || text == "" {
-            reverse.reset() { timeline in
+            reverse.reset { timeline in
                 timeline.play()
             }
         }

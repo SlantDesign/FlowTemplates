@@ -54,7 +54,7 @@ class ToggleButton: UIButton {
         current?.pause()
         let newTime = current!.duration - current!.time
         toggleTimeline()
-        current?.reset() { timeline in
+        current?.reset { timeline in
             timeline.offset(to: newTime)
             timeline.play()
         }
