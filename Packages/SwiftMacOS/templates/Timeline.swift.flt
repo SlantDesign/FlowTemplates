@@ -1,0 +1,28 @@
+// Made With Flow.
+//
+// DO NOT MODIFY, your changes will be lost when this file is regenerated.
+//
+
+import AppKit
+<% if !timeline.soundTracks.isEmpty -%>
+import AVFoundation
+<%- end -%>
+
+public class <%= timelineName %>: Timeline {
+    public convenience init(view: <%= viewName %>, duration: TimeInterval, autoreverses: Bool = false, repeatCount: Float = 0) {
+        let animationsByLayer = <%= timelineName %>.animationsByLayer(view: view, duration: duration)
+        <%- if timeline.soundTracks.isEmpty -%>
+        self.init(view: view, animationsByLayer: animationsByLayer, sounds: [], duration: duration, autoreverses: autoreverses, repeatCount: repeatCount)
+        <%- else -%>
+        let sounds = <%= timelineName %>.createSounds()
+        self.init(view: view, animationsByLayer: animationsByLayer, sounds: sounds, duration: duration, autoreverses: autoreverses, repeatCount: repeatCount)
+        <%- end -%>
+    }
+    private static func animationsByLayer(view: <%= viewName %>, duration: TimeInterval) -> [CALayer: [CAKeyframeAnimation]] {
+        <%- insert("Project/Sources/Animations.swift.flt", indentation: 2) %>
+    }
+    <%- if !timeline.soundTracks.isEmpty %>
+
+        <%- insert("Project/Sources/CreateSounds.flt", indentation: 1) %>
+    <%- end -%>
+}

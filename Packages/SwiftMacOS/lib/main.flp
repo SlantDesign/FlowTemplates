@@ -1,0 +1,451 @@
+// Prefix to use for importing UIKit or AppKit
+var kit = "App"
+
+// Prefix to use for UI classes. Use "UI" for iOS or "NS" for macOS.
+var prefix = "NS"
+
+execute("lib/fonts.flp")
+
+// Returns the view class name for an object.
+func viewClassName(of layerType)
+    switch layerType.name
+    case "text":
+        return "TextLayer"
+    case "image":
+        return "ImageLayer"
+    case "shape":
+        return "ShapeLayer"
+    case "shapeMask":
+        return "ShapeLayer"
+    default:
+        return "Layer"
+    end
+end
+
+func caKeyframeAnimationName(layerName, keyPath, property)
+    if property.id == "maskPath"
+        return "maskPath_\(layerName)"
+    else
+        return "\(keyPath.snakeCased())_\(layerName)"
+    end
+end
+
+func convertToValidBundleIdentifier(string)
+   return string.replacingOccurrences(of: "[^A-Za-z0-9\\-\\.]", with: "")
+end
+
+
+// Generates code for adding all descendant views of a layer.
+func addDescendantViews(of layer, symbolTable)
+    if layer.sublayers.isEmpty || layer.type.name == "shape"
+        return;
+    end
+    for sublayer in layer.sublayers
+        addDescendantViews(of: sublayer, symbolTable: symbolTable)
+    end
+    var parentSymbol = symbolTable.symbolForID(layer.id, "")
+    for sublayer in layer.sublayers
+        var symbol = symbolTable.symbolForID(sublayer.id, "")
+        print("        \(parentSymbol.name).addSubview(\(symbol.name))\n")
+    end
+end
+
+// Returns the code for the CALayer values associated to `keyvalue` and `layer` organized by keypaths.
+func valuesByKeyPath(keyvalue, layer)
+    var property = keyvalue.property
+    var value = keyvalue.value
+    var time = keyvalue.time
+    var timeline = keyvalue.timeline
+
+    var code = codeForProperty(property, value: value, layer: layer, time: time, timeline: timeline)
+
+    switch property.id
+    case "fillImage":
+        return fillImageCodeByKeyPath(fillImage: value)
+    case "fillGradient":
+        var bounds = timeline.value(property: "bounds", layer: layer, time: time)
+        var path = timeline.value(property: "combinedPath", layer: layer, time: time)
+        return fillGradientCodeByKeyPath(fillGradient: value, frame: bounds, path: path)
+    case "image":
+        return ["contents": code]
+    default:
+        return [property.layerKeyPath: code]
+    end
+end
+
+// Returns a string representing the time of given keyvalue
+func timeFromKeyvalue(_ keyvalue)
+    return keyvalue.time / keyvalue.timeline.duration
+end
+
+// Returns a string representing the timing function of given animation
+func timingFunctionFromAnimation(_ animation)
+    return code(animation.timingFunction, layer: animation.layer)
+end
+
+/// Returns the keypaths associated to the given property.
+func keyPaths(property)
+  switch property.id
+  case "image": return ["contents"]
+  case "fillImage": return ["contents", "fillColor", "contentsGravity", "masksToBounds"]
+  case "fillGradient": return ["startPoint", "endPoint", "colors", "locations", "frame", "path"]
+  default: return [property.layerKeyPath]
+  end
+end
+
+
+/// Formats a property value as Swift Code.
+func codeForProperty(_ property, value, layer, time, timeline)
+  switch property.id
+  case "position.x": return "\(value)"
+  case "position.y": return "\(value)"
+  case "bounds.size.width": return "\(value)"
+  case "bounds.size.height": return "\(value)"
+  case "anchorPoint.x": return "\(value)"
+  case "anchorPoint.y": return "\(value)"
+  case "transform.rotation.z": return "\(value.radians)"
+  case "opacity": return "\(value)"
+  case "backgroundColor": return "\(colorCode(value)).cgColor"
+  case "borderWidth": return "\(value)"
+  case "borderColor": return "\(colorCode(value)).cgColor"
+  case "cornerRadius": return "\(value)"
+  case "shadowColor": return "\(colorCode(value)).cgColor"
+  case "shadowRadius": return "\(value)"
+  case "shadowOffset.width": return "\(value)"
+  case "shadowOffset.height": return "\(value)"
+  case "resizing.margin.top": return "\(value)"
+  case "resizing.margin.left": return "\(value)"
+  case "resizing.margin.bottom": return "\(value)"
+  case "resizing.margin.right": return "\(value)"
+  case "transform.scale.x": return "\(value)"
+  case "transform.scale.y": return "\(value)"
+
+  // Image
+  case "image": return "\(prefix)Image(named: \"\(value.name)\")!.cgImage!"
+  case "contentsGravity": return contentModeCode(value)
+
+  // Path
+  // This property is not used. The `combinedPath` property on `ShapeLayer` is used to export the `path`.
+  case "path": return ""
+  case "operation": return ""
+
+  // Shape
+  case "combinedPath":
+    var size = timeline.value(property: "size", layer: layer, time: time)
+    return pathCode(path: value, size: size)
+  case "fillColor": return "\(colorCode(value)).cgColor"
+  case "strokeColor": return "\(colorCode(value)).cgColor"
+  case "lineWidth": return "\(value)"
+  case "strokeStart": return "\(value)"
+  case "strokeEnd":
+    if value == 1.0
+        return "1.001"
+    else
+        return "\(value)"
+    end
+  case "miterLimit": return "\(value)"
+  case "lineCap": return ".\(value)"
+  case "lineJoin": return ".\(value)"
+  case "fillGradient": return ""
+  case "fillImage": return ""
+  case "lineDashPattern": return "\(value)"
+  case "lineDashPhase": return "\(value)"
+
+  // Shape Mask
+  case "maskPath":
+    var size = timeline.value(property: "size", layer: layer, time: time)
+    return pathCode(path: value, size: size)
+
+  // Text
+  case "alignmentMode": return ".\(value)"
+  case "string": return "\"\(string(from:value).escaped())\""
+  case "font": return "\"\(value.name)\""
+  case "fontSize": return "\(value)"
+  case "foregroundColor": return "\(colorCode(value)).cgColor"
+  case "truncationMode": return ".\(value)"
+  case nil:
+    return nil
+  end
+end
+
+/// Returns the Swift representation of an object.
+func code(_ object, layer)
+    switch object
+    case is String:
+        return "\"\(object.escaped())\""
+    case is NSAttributedString:
+        return "\"\(string(from: object).escaped())\""
+    case is NSMutableAttributedString:
+        return "\"\(string(from: object).escaped())\""
+    case is Color:
+        return colorCode(object)
+    case is ContentMode:
+        return contentModeCode(object)
+    case is Point:
+        return pointCode(point: object)
+    case is Size:
+        return sizeCode(size: object)
+    case is Rect:
+        return rectCode(rect: object)
+    case is CompositePath:
+        return pathCode(path: object, size: layer.size)
+    case is Font:
+        return fontCode(font: object)
+    case is LineCap:
+        return "\"\(object.name)\""
+    case is LineJoin:
+        return "\"\(object.name)\""
+    case is TimingFunction:
+        return timingFunctionCode(object)
+    default:
+        return object
+    end
+end
+
+func gradientTypeCode(_ type)
+  switch type
+  case "linear":
+        return ".axial"
+    case "radial":
+        return ".radial"
+    case "angular":
+        return ".conic"
+    default:
+      return nil
+  end
+end
+
+func contentModeCode(_ contentMode)
+    var code
+    switch contentMode.name
+    case "center":
+        code = contentMode.name
+    case "top":
+        code = "bottom"
+    case "bottom":
+        code = "top"
+    case "left":
+        code = contentMode.name
+    case "right":
+        code = contentMode.name
+    case "topLeft":
+        code = "bottomLeft"
+    case "topRight":
+        code = "bottomRight"
+    case "bottomLeft":
+        code = "topLeft"
+    case "bottomRight":
+        code = "topRight"
+    case "resize":
+        code = contentMode.name
+    case "resizeAspect":
+        code = contentMode.name
+    case "resizeAspectFill":
+        code = contentMode.name
+    default:
+        code = contentMode.name
+    end
+
+    return ".\(code)"
+end
+
+// Returns the NS/UIColor creation code from a color object
+func colorCode(_ color)
+    if color.red == 1 && color.green == 1 && color.blue == 1 && color.alpha == 1
+        return "\(prefix)Color.white"
+    else if color.red == 0 && color.green == 0 && color.blue == 0 && color.alpha == 1
+        return "\(prefix)Color.black"
+    else if color.red == 0 && color.green == 0 && color.blue == 0 && color.alpha == 0
+        return "\(prefix)Color.clear"
+    end
+
+    return "\(prefix)Color(red: \(round(color.red / 0.001) * 0.001), green: \(round(color.green / 0.001) * 0.001), blue: \(round(color.blue / 0.001) * 0.001), alpha: \(round(color.alpha / 0.001) * 0.001))"
+end
+
+func pointCode(point)
+    return "CGPoint(x: \(point.x), y: \(point.y))"
+end
+
+func sizeCode(size)
+   return "CGSize(width: \(size.width), height: \(size.height))"
+end
+
+func rectCode(rect)
+    return "CGRect(x: \(rect.origin.x), y: \(rect.origin.y), width: \(rect.size.width), height: \(rect.size.height))"
+end
+
+func pathCode(path, size)
+    return "CGPathCreateWithSVGString(\"\(path.svg(width: size.width, height: size.height))\")!"
+end
+
+func fontCode(font)
+    return "\(prefix)Font(name: \"\(font.name)\", size: \(font.size))"
+end
+
+func fillImageCodeByKeyPath(fillImage)
+    var contents = nil
+    var fillColor = nil
+    var contentsGravity = nil
+    var masksToBounds = nil
+
+    var imageCode = "\(prefix)Image(named: \"\(fillImage.image.name)\")!"
+
+    switch fillImage.patternFillType
+    case 0: //tile
+    var height =
+        fillColor = "\(prefix)Color(patternImage: \(imageCode).resized(to: CGSize(width: \(fillImage.tileSize.width), height: \(fillImage.tileSize.height)))).cgColor"
+        contents = "nil"
+        contentsGravity = "CALayerContentsGravity.resize"
+        masksToBounds = "false"
+    case 1: //fill
+        contents = "\(imageCode).cgImage!"
+        fillColor = "\(prefix)Color.clear.cgColor"
+        contentsGravity = "CALayerContentsGravity.resizeAspectFill"
+        masksToBounds = "true"
+    case 2: //stretch
+        contents = "\(imageCode).cgImage!"
+        fillColor = "\(prefix)Color.clear.cgColor"
+        contentsGravity = "CALayerContentsGravity.resize"
+        masksToBounds = "true"
+    case 3: //fit
+        contents = "\(imageCode).cgImage!"
+        fillColor = "\(prefix)Color.clear.cgColor"
+        contentsGravity = "CALayerContentsGravity.resizeAspect"
+        masksToBounds = "true"
+    end
+
+    return ["contents": contents, "fillColor": fillColor, "contentsGravity": contentsGravity, "masksToBounds": masksToBounds]
+end
+
+func fillGradientCodeByKeyPath(fillGradient, frame, path)
+    var startPoint = pointCode(point: fillGradient.from)
+    var endPoint = pointCode(point: fillGradient.caGradientLayerEndPoint)
+    var colors = fillGradient.stops.map(gradientStopColor)
+    var locations = fillGradient.stops.map(gradientStopPosition)
+    var rect = rectCode(rect: frame)
+    var maskPath = pathCode(path: path, size: frame.size)
+
+    return ["startPoint": startPoint, "endPoint": endPoint, "colors": colors, "locations": locations, "frame": rect, "path": maskPath]
+end
+
+func gradientStopColor(_ stop)
+    return "\(colorCode(stop.color)).cgColor"
+end
+
+func gradientStopPosition(_ stop)
+    return "NSNumber(value: \(stop.position))"
+end
+
+/// Extraxts the text from the given string or attributed string. Returns `nil` if the object is not a string or attributed string.
+func string(from object)
+    switch object
+    case is String:
+        return object
+    case is NSAttributedString:
+        return object.string
+    case is NSConcreteAttributedString:
+        return object.string
+    case is NSMutableAttributedString:
+        return object.string
+    case is NSConcreteMutableAttributedString:
+        return object.string
+    end
+
+    return nil
+end
+
+func timingFunctionCode(_ timingFunction)
+    switch timingFunction.name
+    case "Linear":
+        return ".linear"
+    case "Ease In":
+        return ".easeIn"
+    case "Ease Out":
+        return ".easeOut"
+    case "Ease In, Ease Out":
+        return ".easeInEaseOut"
+    case "Custom":
+        var controlPoints = timingFunction.controlPoints
+        var c1 = controlPoints[0]
+        var c2 = controlPoints[1]
+        return "CAMediaTimingFunction(controlPoints: \(c1.x), \(c1.y), \(c2.x), \(c2.y))"
+    end
+
+    return ".linear"
+end
+
+/// Prints a dictionary using the keyPrinter and valuePrinter functions to print the keys and values. with the given indentation.
+func printDictionary(_ dictionary, keyPrinter printKey, valuePrinter printValue, indentation)
+    print("[\n")
+    var firstEntry = true
+    for (key, value) in dictionary
+        print(indentation)
+        print("    ")
+        printKey(key)
+        print(": ")
+        printValue(value)
+        print(",\n")
+        firstEntry = false
+    end
+    print("\(indentation)]")
+end
+
+func printAttrStringKey(_ key)
+    print(".\(key)")
+end
+
+func printAttrStringValue(_ value)
+    var string = nil
+    switch value
+    case is Font:
+         string = "\(prefix)Font(name: \"\(value.name)\", size: \(value.size))!"
+    case is ParagraphStyle:
+        string = "NSMutableParagraphStyle(alignment: .\(value.alignment), firstLineHeadIndent: \(value.firstLineHeadIndent), headIndent: \(value.headIndent), tailIndent: \(value.tailIndent), lineHeightMultiple: \(value.lineHeightMultiple), maximumLineHeight: \(value.maximumLineHeight), minimumLineHeight: \(value.minimumLineHeight), lineSpacing: \(value.lineSpacing), paragraphSpacing: \(value.paragraphSpacing), paragraphSpacingBefore: \(value.paragraphSpacingBefore))"
+    case is Color:
+        string = "\(colorCode(value))"
+    case is Number:
+        string = "\(value)"
+    case is NSShadow:
+        string = "NSShadow(blurRadius: \(value.blurRadius), offset: \(value.offset), color: \(value.color))"
+    case is String:
+        string = value
+    end
+    print(string)
+end
+
+func autoresizingMask(layer)
+    func maskForConstraint(_ constraint)
+        switch constraint
+        case "right": return ".flexibleRightMargin"
+        case "left": return ".flexibleLeftMargin"
+        case "top": return ".flexibleTopMargin"
+        case "bottom": return ".flexibleBottomMargin"
+        case "width": return ".flexibleWidth"
+        case "height": return ".flexibleHeight"
+        default: return ""
+        end
+    end
+    var items = layer.resizingConstraint.flexibleElements.map(maskForConstraint).joined(separator: ", ")
+    return "[\(items)]"
+end
+
+func print(multiLineString multiLineString, withIndentation indentation)
+    var indentedMultiLineString = ""
+
+    var lines = multiLineString.components(separatedBy: "\n")
+    for line in lines
+        if line is String
+            print("\(indentation)\(line)\n")
+        end
+    end
+end
+
+func printCodeFor(string string, withIndentation indentation)
+    if string.lineCount > 1
+        print("\"\"\"\n")
+        print(multiLineString: string, withIndentation: indentation)
+        print("\(indentation)\"\"\"")
+    else
+        print("\"\(string.escaped())\"")
+    end
+end

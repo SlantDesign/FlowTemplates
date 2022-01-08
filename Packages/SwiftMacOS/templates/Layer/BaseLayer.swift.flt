@@ -1,0 +1,74 @@
+<%- import Swift
+if symbol == nil
+  var suggestedName = snapshot.name.lowerCamelCased()
+  var className = viewClassName(of: snapshot.type)
+  symbol = symbolTable.addSymbolWithSuggestedName(suggestedName, type: className, context: "", id: snapshot.id)
+-%>
+
+let <%= symbol.name %> = <%= viewClassName(of: snapshot.type) %>(frame: CGRect(x: <%= snapshot.position.x %>, y: <%= snapshot.position.y %>, width: <%= snapshot.bounds.width %>, height: <%= snapshot.bounds.height %>))
+<%- else -%>
+<%= symbol.name %> = <%= viewClassName(of: snapshot.type) %>(frame: CGRect(x: <%= snapshot.position.x %>, y: <%= snapshot.position.y %>, width: <%= snapshot.bounds.width %>, height: <%= snapshot.bounds.height %>))
+<%-
+end
+
+if snapshot.type.name != "image"
+-%>
+<%= symbol.name %>.backgroundColor = <%= Swift.code(snapshot.backgroundColor, layer: snapshot) %>
+<%-
+end
+
+if snapshot.anchorPoint.x != 0.5 || snapshot.anchorPoint.y != 0.5 -%>
+<%= symbol.name %>.layer.anchorPoint = CGPoint(x: <%= snapshot.anchorPoint.x %>, y: <%= snapshot.anchorPoint.y %>)
+<%-
+end
+
+if !snapshot.visible -%>
+<%= symbol.name %>.alpha = 0
+<%- else if snapshot.opacity != 1 -%>
+<%= symbol.name %>.alpha = <%= snapshot.opacity %>
+<%-
+end
+
+if snapshot.rotation.radians != 0 -%>
+<%= symbol.name %>.transform = CGAffineTransform(rotationAngle: <%= snapshot.rotation.radians / pi %> * CGFloat.pi)
+<%-
+end
+
+if snapshot.flippedHorizontal != 1 || snapshot.flippedVertical != 1 -%>
+<%= symbol.name %>.transform = <%= symbol.name %>.transform.scaledBy(x: <%= snapshot.flippedHorizontal %>, y: <%= snapshot.flippedVertical %>)
+<%-
+end
+
+if snapshot.shadowOffset.width != 0 || snapshot.shadowOffset.height != -3 -%>
+<%= symbol.name %>.layer.shadowOffset = <%= Swift.code(snapshot.shadowOffset, layer: snapshot) %>
+<%-
+end
+
+if snapshot.shadowRadius != 3 -%>
+<%= symbol.name %>.layer.shadowRadius = <%= snapshot.shadowRadius %>
+<%-
+end
+
+if snapshot.borderWidth != 0 -%>
+<%= symbol.name %>.layer.borderWidth = <%= snapshot.borderWidth %>
+<%-
+end
+
+if snapshot.borderColor != Color.black -%>
+<%= symbol.name %>.layer.borderColor = <%= Swift.code(snapshot.borderColor, layer: snapshot) %>.cgColor
+<%-
+end
+
+if snapshot.cornerRadius != 0 -%>
+<%= symbol.name %>.layer.cornerRadius = <%= snapshot.cornerRadius %>
+<%-
+end
+
+-%>
+<%= symbol.name %>.layer.name = "<%= symbol.name %>"
+<%= symbol.name %>.layer.shadowColor = <%= Swift.code(snapshot.shadowColor, layer: snapshot) %>.cgColor
+<%= symbol.name %>.layer.shadowOpacity = 1
+<%= symbol.name %>.layer.position = <%= Swift.code(snapshot.position, layer: snapshot) %>
+<%= symbol.name %>.layer.bounds = <%= Swift.code(snapshot.bounds, layer: snapshot) %>
+<%= symbol.name %>.layer.masksToBounds = <%= snapshot.masksToBounds %>
+<%- insert("Layer/\(snapshot.type.name).swift.flt", from: Swift, indentation: indentation) %>

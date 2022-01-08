@@ -1,0 +1,4 @@
+name: SwiftMacOS
+version: 1.0.0
+summary: Swift template utilities for MacOS
+description: Provides functions and templates for generating Swift code for MacOS

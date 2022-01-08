@@ -1,0 +1,11 @@
+<% 
+switch keyPath
+case "alignmentMode": print(" as [CATextLayerAlignmentMode]") 
+case "contents": print(" as [Any?] as [Any]")
+case "contentsGravity": print(" as [CALayerContentsGravity]")
+case "font": print(" as [NSString]")
+case "fontSize": print(" as [CGFloat]")
+case "lineJoin": print(" as [CAShapeLayerLineJoin]") 
+case "lineCap": print(" as [CAShapeLayerLineCap]")
+case "truncationMode": print(" as [CATextLayerTruncationMode]")
+end %>
