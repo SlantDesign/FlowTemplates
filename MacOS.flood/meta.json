@@ -1,0 +1,21 @@
+{
+  "uuid": "0630868D-6B01-4716-A94D-83F1F9904830",
+  "title": "MacOS",
+  "description": "A MacOS project.",
+  "parameters": [
+    {
+      "label": "Output Folder",
+      "description": "Folder name for export, relative to main export folder",
+      "variable": "folderName",
+      "type": "text",
+      "default": "MacOS"
+    },
+    {
+      "label": "Organization",
+      "description": "Organization of the exported Xcode project",
+      "variable": "organization",
+      "type": "text",
+      "default": "Flow"
+    }
+  ]
+}
