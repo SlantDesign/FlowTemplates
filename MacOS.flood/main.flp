@@ -87,8 +87,7 @@ for timeline in timelines
 
     // Create Xcode Project Package Directory and subfolder and subfiles
     mkdir("\(projectPath)/\(projectName).xcodeproj")
-    process("Project/MacOSConvert.xcodeproj/project.pbxproj.flt", into: "\(projectPath)/\(projectName).xcodeproj/project.pbxproj", indentation: 0)
-
+    process("Project/project.pbxproj.flt", into: "\(projectPath)/\(projectName).xcodeproj/project.pbxproj", indentation: 0)
 
     // Create Base.lproj directory and populate it with storyboards
     mkdir("\(projectPath)/\(projectName)/Base.lproj")
@@ -96,7 +95,6 @@ for timeline in timelines
 
     // Copy info plist into Resources directory
     process("Project/Resources/Info.plist.flt", into: "\(projectPath)/\(projectName)/Resources/Info.plist", indentation: 0)
-    copy(from: "Project/Resources/Base.lproj/LaunchScreen.storyboard", to: "\(projectPath)/\(projectName)/Base.lproj/LaunchScreen.storyboard")
 
     // Copy entitlements into Resources directory
     process("Project/Resources/project.entitlements.flt", into: "\(projectPath)/\(projectName)/\(projectName).entitlements", indentation: 0)
