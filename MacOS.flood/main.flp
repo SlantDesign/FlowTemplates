@@ -98,6 +98,9 @@ for timeline in timelines
     // Copy AppDelegate.swift
     copy(from: "Project/Sources/AppDelegate.swift", to: "\(projectPath)/\(projectName)/AppDelegate.swift")
 
+    // Copy Info.plist
+    copy(from: "Project/Resources/Info.plist", to: "\(projectPath)/\(projectName)/Info.plist")
+
     // Copy the flowCommon files over
     for fileName in flowCommonMacOSFileNames
         copy(from: "\(flowCommonMacOSSourcesPath)/\(fileName).swift", to: "\(projectPath)/\(projectName)/FlowCommon/\(fileName).swift")
