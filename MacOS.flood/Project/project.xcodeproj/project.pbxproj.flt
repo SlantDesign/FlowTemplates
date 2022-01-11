@@ -8,9 +8,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		LaunchAnimationTimeline_swift_BuildFile /* LaunchAnimationTimeline.swift in LaunchAnimation */ = {isa = PBXBuildFile; fileRef = LaunchAnimationTimeline_swift_FileReference /* LaunchAnimationTimeline.swift */; };
-		LaunchAnimationViewController_swift_BuildFile /* LaunchAnimationViewController.swift in LaunchAnimation */ = {isa = PBXBuildFile; fileRef = LaunchAnimationViewController_swift_FileReference /* LaunchAnimationViewController.swift */; };
-		LaunchAnimationView_swift_BuildFile /* LaunchAnimationView.swift in LaunchAnimation */ = {isa = PBXBuildFile; fileRef = LaunchAnimationView_swift_FileReference /* LaunchAnimationView.swift */; };
 		AppDelegate_swift_BuildFile /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AppDelegate_swift_FileReference /* AppDelegate.swift */; };
 		<%- for fileName in flowCommonMacOSFileNames -%>
 		<%= xcodeProjectFileReferences[fileName] %>_swift_BuildFile /* <%= fileName %>.swift in FlowCommon */ = {isa = PBXBuildFile; fileRef = <%= xcodeProjectFileReferences[fileName] %>_swift_FileReference /* <%= fileName %>.swift */; };
