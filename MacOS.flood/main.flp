@@ -32,7 +32,6 @@ for timeline in timelines
     // Get the name of the timeline folder
     var timelineFolder = folderTable.symbolForID(timeline.id, "\(outputFolderPath)/\(documentFolderName)/\(templateFolderName)").name
 
-
     // Get the path to the xcode project
     var projectPath = "\(documentFolderName)/\(templateFolderName)/\(timelineFolder)"
 
@@ -92,9 +91,6 @@ for timeline in timelines
     // Create Base.lproj directory and populate it with storyboards
     mkdir("\(projectPath)/\(projectName)/Base.lproj")
     process("Project/Resources/Base.lproj/Main.storyboard.flt", into: "\(projectPath)/\(projectName)/Base.lproj/Main.storyboard", indentation: 0)
-
-    // Copy info plist into Resources directory
-    process("Project/Resources/Info.plist.flt", into: "\(projectPath)/\(projectName)/Resources/Info.plist", indentation: 0)
 
     // Copy entitlements into Resources directory
     process("Project/Resources/project.entitlements.flt", into: "\(projectPath)/\(projectName)/\(projectName).entitlements", indentation: 0)
