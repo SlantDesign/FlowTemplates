@@ -96,7 +96,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 1FC08F4A278D082F007B2B2A /* Build configuration list for PBXProject "<%= timelineName %>" */;
+			buildConfigurationList = 1FC08F4A278D082F007B2B2A /* Build configuration list for PBXProject "<%= projectName %>" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -269,7 +269,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = <%= timelineName %>/<%= timelineName %>.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -296,7 +295,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = <%= timelineName %>/<%= timelineName %>.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -322,7 +320,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1FC08F4A278D082F007B2B2A /* Build configuration list for PBXProject "<%= timelineName %>" */ = {
+		1FC08F4A278D082F007B2B2A /* Build configuration list for PBXProject "<%= projectName %>" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1FC08F5C278D082F007B2B2A /* Debug */,

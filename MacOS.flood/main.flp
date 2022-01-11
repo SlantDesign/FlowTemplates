@@ -55,9 +55,6 @@ for timeline in timelines
 
     process("Project/Sources/ViewController.swift.flt", into: "\(projectPath)/\(timelineName)/\(viewControllerClassName).swift", indentation: 0)
 
-    // Copy Accent Color
-    copy(from: "Project/Resources/Assets.xcassets/AccentColor.appiconset/Contents.json", to: "\(projectPath)/\(timelineName)/Assets.xcassets/AccentColor.appiconset/Contents.json")
-
     // Copy App Icon Images
     copy(from: "Project/Resources/Assets.xcassets/AppIcon.appiconset/Contents.json", to: "\(projectPath)/\(timelineName)/Assets.xcassets/AppIcon.appiconset/Contents.json")
     var appIconSizes = [16, 32, 128, 256, 512]
