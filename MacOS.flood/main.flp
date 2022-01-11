@@ -48,41 +48,41 @@ for timeline in timelines
     rm(projectPath)
 
     // Create Sources Directory
-    mkdir("\(projectPath)/\(timelineName)")
-    mkdir("\(projectPath)/Sources/\(timelineName)")
-    process("View.swift.flt", from: SwiftMacOS, into: "\(projectPath)/Sources/\(timelineName)/\(viewName).swift", indentation: 0)
-    process("Timeline.swift.flt", from: SwiftMacOS, into: "\(projectPath)/Sources/\(timelineName)/\(timelineName).swift", indentation: 0)
+    mkdir("\(projectPath)/\(projectName)")
+    mkdir("\(projectPath)/\(projectName)/\(timelineName)")
+    process("View.swift.flt", from: SwiftMacOS, into: "\(projectPath)/\(projectName)/\(timelineName)/\(viewName).swift", indentation: 0)
+    process("Timeline.swift.flt", from: SwiftMacOS, into: "\(projectPath)/\(projectName)/\(timelineName)/\(timelineName).swift", indentation: 0)
 
-    process("Project/Sources/ViewController.swift.flt", into: "\(projectPath)/\(timelineName)/\(viewControllerClassName).swift", indentation: 0)
+    process("Project/Sources/ViewController.swift.flt", into: "\(projectPath)/\(projectName)/\(timelineName)/\(viewControllerClassName).swift", indentation: 0)
 
     // Copy App Icon Images
-    copy(from: "Project/Resources/Assets.xcassets/AppIcon.appiconset/Contents.json", to: "\(projectPath)/\(timelineName)/Assets.xcassets/AppIcon.appiconset/Contents.json")
+    copy(from: "Project/Resources/Assets.xcassets/AppIcon.appiconset/Contents.json", to: "\(projectPath)/\(projectName)/Resources/Assets.xcassets/AppIcon.appiconset/Contents.json")
     var appIconSizes = [16, 32, 128, 256, 512]
     for appIconSize in appIconSizes
-        copy(from: "Project/Resources/Assets.xcassets/AppIcon.appiconset/\(appIconSize)x\(appIconSize).png", to: "\(projectPath)/\(timelineName)/Assets.xcassets/AppIcon.appiconset/\(appIconSize)x\(appIconSize).png")
-        copy(from: "Project/Resources/Assets.xcassets/AppIcon.appiconset/\(appIconSize)x\(appIconSize)@2x.png", to: "\(projectPath)/\(timelineName)/Assets.xcassets/AppIcon.appiconset/\(appIconSize)x\(appIconSize)@2x.png")
+        copy(from: "Project/Resources/Assets.xcassets/AppIcon.appiconset/\(appIconSize)x\(appIconSize).png", to: "\(projectPath)/\(projectName)/Resources/Assets.xcassets/AppIcon.appiconset/\(appIconSize)x\(appIconSize).png")
+        copy(from: "Project/Resources/Assets.xcassets/AppIcon.appiconset/\(appIconSize)x\(appIconSize)@2x.png", to: "\(projectPath)/\(projectName)/Resources/Assets.xcassets/AppIcon.appiconset/\(appIconSize)x\(appIconSize)@2x.png")
     end
 
     // Copy Images from Flow document
     for image in imagesInTimeline
-        mkdir("\(projectPath)/Resources/Assets.xcassets/\(image.name).imageset")
-        process("Project/Resources/Assets.xcassets/image.imageset/Contents.json.flt", into: "\(projectPath)/Resources/Assets.xcassets/\(image.name).imageset/Contents.json", indentation: 0)
+        mkdir("\(projectPath)/\(projectName)/Resources/Assets.xcassets/\(image.name).imageset")
+        process("Project/Resources/Assets.xcassets/image.imageset/Contents.json.flt", into: "\(projectPath)/\(projectName)/Resources/Assets.xcassets/\(image.name).imageset/Contents.json", indentation: 0)
         var imageData = image.serializeAsPNGData()
-        write(data: imageData, to: "\(projectPath)/Resources/Assets.xcassets/\(image.name).imageset/\(image.name).png")
+        write(data: imageData, to: "\(projectPath)/\(projectName)/Resources/Assets.xcassets/\(image.name).imageset/\(image.name).png")
     end
 
     // Copy Fonts
-    mkdir("\(projectPath)/Resources/Fonts")
+    mkdir("\(projectPath)/\(projectName)/Resources/Fonts")
     for font in fontsInTimeline
         if !SwiftMacOS.MacOSFonts.contains(font.name) && font.path != nil
-            copy(from: font.path, to: "\(projectPath)/Resources/Fonts/\(font.name).\(font.extension)")
+            copy(from: font.path, to: "\(projectPath)/\(projectName)/Resources/Fonts/\(font.name).\(font.extension)")
         end
     end
 
     // Copy Sounds
-    mkdir("\(projectPath)/Resources/Sounds")
+    mkdir("\(projectPath)/\(projectName)/Resources/Sounds")
     for sound in soundsInTimeline
-        copy(from: sound.path, to: "\(projectPath)/Resources/Sounds/\(sound.fileName)")
+        copy(from: sound.path, to: "\(projectPath)/\(projectName)/Resources/Sounds/\(sound.fileName)")
     end
 
     // Create Xcode Project Package Directory and subfolder and subfiles
@@ -91,22 +91,22 @@ for timeline in timelines
 
 
     // Create Base.lproj directory and populate it with storyboards
-    mkdir("\(projectPath)/\(timelineName)/Base.lproj")
-    process("Project/Resources/Base.lproj/Main.storyboard.flt", into: "\(projectPath)/\(timelineName)/Base.lproj/Main.storyboard", indentation: 0)
+    mkdir("\(projectPath)/\(projectName)/Base.lproj")
+    process("Project/Resources/Base.lproj/Main.storyboard.flt", into: "\(projectPath)/\(projectName)/Base.lproj/Main.storyboard", indentation: 0)
 
     // Copy info plist into Resources directory
-    process("Project/Resources/Info.plist.flt", into: "\(projectPath)/Resources/Info.plist", indentation: 0)
-    copy(from: "Project/Resources/Base.lproj/LaunchScreen.storyboard", to: "\(projectPath)/\(timelineName)/Base.lproj/LaunchScreen.storyboard")
+    process("Project/Resources/Info.plist.flt", into: "\(projectPath)/\(projectName)/Resources/Info.plist", indentation: 0)
+    copy(from: "Project/Resources/Base.lproj/LaunchScreen.storyboard", to: "\(projectPath)/\(projectName)/Base.lproj/LaunchScreen.storyboard")
 
     // Copy entitlements into Resources directory
-    process("Project/Resources/project.entitlements.flt", into: "\(projectPath)/\(timelineName)/\(timelineName).entitlements", indentation: 0)
+    process("Project/Resources/project.entitlements.flt", into: "\(projectPath)/\(projectName)/\(projectName).entitlements", indentation: 0)
 
     // Copy AppDelegate.swift
-    copy(from: "Project/Sources/AppDelegate.swift", to: "\(projectPath)/\(timelineName)/AppDelegate.swift")
+    copy(from: "Project/Sources/AppDelegate.swift", to: "\(projectPath)/\(projectName)/AppDelegate.swift")
 
     // Copy the flowCommon files over
     for fileName in flowCommonMacOSFileNames
-        copy(from: "\(flowCommonMacOSSourcesPath)/\(fileName).swift", to: "\(projectPath)/Sources/FlowCommon/\(fileName).swift")
+        copy(from: "\(flowCommonMacOSSourcesPath)/\(fileName).swift", to: "\(projectPath)/\(projectName)/FlowCommon/\(fileName).swift")
     end
 
     // Generate README

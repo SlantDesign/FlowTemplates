@@ -8,18 +8,28 @@
 
 /* Begin PBXBuildFile section */
 		1FC08F53278D082F007B2B2A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC08F52278D082F007B2B2A /* AppDelegate.swift */; };
-		1FC08F55278D082F007B2B2A /* <%= viewControllerClassName %>.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC08F54278D082F007B2B2A /* <%= viewControllerClassName %>.swift */; };
+		<%= viewControllerClassName %>_BuildFile /* <%= viewControllerClassName %>.swift in Sources */ = {isa = PBXBuildFile; fileRef = <%= viewControllerClassName %>_FileReference /* <%= viewControllerClassName %>.swift */; };
 		1FC08F57278D082F007B2B2A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FC08F56278D082F007B2B2A /* Assets.xcassets */; };
 		1FC08F5A278D082F007B2B2A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FC08F58278D082F007B2B2A /* Main.storyboard */; };
+		<%= timelineName %>_BuildFile  /* <%= timelineName %>.swift in Sources */ = {isa = PBXBuildFile; fileRef = <%= timelineName %>_FileReference /* <%= timelineName %>.swift */; };
+		<%= viewName %>_BuildFile /* <%= viewName %>.swift in Sources */ = {isa = PBXBuildFile; fileRef = <%= viewName %>_FileReference /* <%= viewName %>.swift */; };
+		<%- for fileName in flowCommonMacOSFileNames -%>
+		<%= xcodeProjectFileReferences[fileName] %>_BuildFile /* <%= fileName %>.swift in Sources */ = {isa = PBXBuildFile; fileRef = <%= xcodeProjectFileReferences[fileName] %>_FileReference /* <%= fileName %>.swift */; };
+		<%- end %>
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1FC08F4F278D082F007B2B2A /* <%= timelineName %>.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = <%= timelineName %>.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		1FC08F52278D082F007B2B2A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1FC08F54278D082F007B2B2A /* <%= viewControllerClassName %>.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = <%= viewControllerClassName %>.swift; sourceTree = "<group>"; };
-		1FC08F56278D082F007B2B2A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		1FC08F59278D082F007B2B2A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		1FC08F5B278D082F007B2B2A /* <%= timelineName %>.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = <%= timelineName %>.entitlements; sourceTree = "<group>"; };
+		<%= timelineName %>_FileReference /* <%= timelineName %>.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = <%= timelineName %>.swift; path = <%= projectName %>/<%= timelineName %>/<%= timelineName %>.swift; sourceTree = SOURCE_ROOT; };
+		<%= viewName %>_FileReference /* <%= viewName %>.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = <%= viewName %>.swift; path = <%= projectName %>/<%= timelineName %>/<%= viewName %>.swift; sourceTree = SOURCE_ROOT; };
+		<%- for fileName in flowCommonMacOSFileNames -%>
+		<%= xcodeProjectFileReferences[fileName] %>_FileReference /* <%= fileName %>.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "<%= fileName %>.swift"; sourceTree = "<group>"; };
+		<%- end %>
+		1FC08F4F278D082F007B2B2A /* <%= projectName %>.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = <%= projectName %>.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1FC08F52278D082F007B2B2A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = <%= projectName %>/AppDelegate.swift; sourceTree = "<group>"; };
+		<%= viewControllerClassName %>_FileReference /* <%= viewControllerClassName %>.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = <%= viewControllerClassName %>.swift; path = <%= projectName %>/<%= timelineName %>/<%= viewControllerClassName %>.swift; sourceTree = SOURCE_ROOT; };
+		1FC08F56278D082F007B2B2A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = <%= projectName %>/Resources/Assets.xcassets; sourceTree = "<group>"; };
+		1FC08F59278D082F007B2B2A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = <%= projectName %>/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1FC08F5B278D082F007B2B2A /* <%= projectName %>.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = <%= projectName %>.entitlements; path = <%= projectName %>/<%= projectName %>.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,10 +43,45 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+			1F369CA7278D350000B3BD8A /* FlowCommon */ = {
+				isa = PBXGroup;
+			children = (
+				<%- for fileName in flowCommonMacOSFileNames -%>
+				<%= xcodeProjectFileReferences[fileName] %>_FileReference /* <%= fileName %>.swift */,
+				<%- end -%>
+			);
+
+			name = FlowCommon;
+			path = <%= projectName %>/FlowCommon;
+			sourceTree = SOURCE_ROOT;
+		};
+		1F369D17278D51C300B3BD8A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1FC08F56278D082F007B2B2A /* Assets.xcassets */,
+				1FC08F58278D082F007B2B2A /* Main.storyboard */,
+				1FC08F5B278D082F007B2B2A /* <%= projectName %>.entitlements */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		1F369D38278D65F500B3BD8A /* HerdTimeline */ = {
+			isa = PBXGroup;
+			children = (
+				<%= timelineName %>_FileReference /* <%= timelineName %>.swift */,
+				<%= viewName %>_FileReference /* <%= viewName %>.swift */,
+				<%= viewControllerClassName %>_FileReference /* <%= viewControllerClassName %>.swift */,
+			);
+			name = HerdTimeline;
+			sourceTree = "<group>";
+		};
 		1FC08F46278D082F007B2B2A = {
 			isa = PBXGroup;
 			children = (
-				1FC08F51278D082F007B2B2A /* <%= timelineName %> */,
+				1F369D38278D65F500B3BD8A /* HerdTimeline */,
+				1FC08F52278D082F007B2B2A /* AppDelegate.swift */,
+				1F369CA7278D350000B3BD8A /* FlowCommon */,
+				1F369D17278D51C300B3BD8A /* Resources */,
 				1FC08F50278D082F007B2B2A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -44,21 +89,9 @@
 		1FC08F50278D082F007B2B2A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1FC08F4F278D082F007B2B2A /* <%= timelineName %>.app */,
+				1FC08F4F278D082F007B2B2A /* <%= projectName %>.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		1FC08F51278D082F007B2B2A /* <%= timelineName %> */ = {
-			isa = PBXGroup;
-			children = (
-				1FC08F52278D082F007B2B2A /* AppDelegate.swift */,
-				1FC08F54278D082F007B2B2A /* <%= viewControllerClassName %>.swift */,
-				1FC08F56278D082F007B2B2A /* Assets.xcassets */,
-				1FC08F58278D082F007B2B2A /* Main.storyboard */,
-				1FC08F5B278D082F007B2B2A /* <%= timelineName %>.entitlements */,
-			);
-			path = <%= timelineName %>;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -76,9 +109,9 @@
 			);
 			dependencies = (
 			);
-			name = <%= timelineName %>;
-			productName = <%= timelineName %>;
-			productReference = 1FC08F4F278D082F007B2B2A /* <%= timelineName %>.app */;
+			name = <%= projectName %>;
+			productName = <%= projectName %>;
+			productReference = 1FC08F4F278D082F007B2B2A /* <%= projectName %>.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -131,8 +164,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1FC08F55278D082F007B2B2A /* <%= viewControllerClassName %>.swift in Sources */,
+				<%= timelineName %>_BuildFile /* <%= timelineName %>.swift in Sources */,
+				<%= viewName %>_BuildFile /* <%= viewName %>.swift in Sources */,
+				<%= viewControllerClassName %>_BuildFile /* <%= viewControllerClassName %>.swift in Sources */,
 				1FC08F53278D082F007B2B2A /* AppDelegate.swift in Sources */,
+				<%- for fileName in flowCommonMacOSFileNames -%>
+				<%= xcodeProjectFileReferences[fileName] %>_BuildFile /* <%= fileName %>.swift in Sources */,
+				<%- end %>
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,7 +307,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = <%= timelineName %>/<%= timelineName %>.entitlements;
+				CODE_SIGN_ENTITLEMENTS = <%= projectName %>/<%= projectName %>.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -295,7 +333,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = <%= timelineName %>/<%= timelineName %>.entitlements;
+				CODE_SIGN_ENTITLEMENTS = <%= projectName %>/<%= projectName %>.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;

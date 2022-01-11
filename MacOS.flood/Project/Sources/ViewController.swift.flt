@@ -5,5 +5,5 @@
 
 import <%= kit -%>Kit
 
-public class ViewController : NSViewController {
+public class <%= viewControllerClassName %> : NSViewController {
 }
