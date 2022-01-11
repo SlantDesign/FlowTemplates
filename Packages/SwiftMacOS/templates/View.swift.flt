@@ -39,10 +39,10 @@ public class <%= viewName %>: <%= prefix -%>View {
     }
 
     private func setup() {
+        wantsLayer = true
         guard let layer = layer else {
             return
         }
-        wantsLayer = true
         layer.backgroundColor = Defaults.backgroundColor
         layer.masksToBounds = <%= initialRootSnapshot.masksToBounds %>
         createLayers()
