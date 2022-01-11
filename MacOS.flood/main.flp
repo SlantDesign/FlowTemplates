@@ -60,9 +60,10 @@ for timeline in timelines
 
     // Copy App Icon Images
     copy(from: "Project/Resources/Assets.xcassets/AppIcon.appiconset/Contents.json", to: "\(projectPath)/\(timelineName)/Assets.xcassets/AppIcon.appiconset/Contents.json")
-    var appIconSizes = [20, 29, 40, 41, 42, 58, 59, 60, 76, 80, 81, 87, 120, 121, 152, 167, 180, 1024]
+    var appIconSizes = [16, 32, 128, 256, 512]
     for appIconSize in appIconSizes
-        copy(from: "Project/Resources/Assets.xcassets/AppIcon.appiconset/Icon-\(appIconSize).png", to: "\(projectPath)/\(timelineName)/Assets.xcassets/AppIcon.appiconset/Icon-\(appIconSize).png")
+        copy(from: "Project/Resources/Assets.xcassets/AppIcon.appiconset/\(appIconSize)x\(appIconSize).png", to: "\(projectPath)/\(timelineName)/Assets.xcassets/AppIcon.appiconset/\(appIconSize)x\(appIconSize).png")
+        copy(from: "Project/Resources/Assets.xcassets/AppIcon.appiconset/\(appIconSize)x\(appIconSize)@2x.png", to: "\(projectPath)/\(timelineName)/Assets.xcassets/AppIcon.appiconset/\(appIconSize)x\(appIconSize)@2x.png")
     end
 
     // Copy Images from Flow document
