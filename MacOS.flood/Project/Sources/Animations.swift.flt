@@ -1,4 +1,4 @@
-<%- import Swift
+<%- import SwiftMacOS
 
 func caLayerPath(property, layerName, keyPath)
     switch property.id

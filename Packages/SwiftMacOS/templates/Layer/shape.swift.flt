@@ -1,69 +1,69 @@
-<%= symbol.name %>.shapeLayer.name = "<%= symbol.name %>.shapeLayer"
-<%= symbol.name %>.shapeLayer.fillRule = CAShapeLayerFillRule.evenOdd
+<%= symbol.name %>.name = "<%= symbol.name %>.shapeLayer"
+<%= symbol.name %>.fillRule = CAShapeLayerFillRule.evenOdd
 <%- if snapshot.strokeColor != Color.clear -%>
-<%= symbol.name %>.shapeLayer.strokeColor = <%= Swift.code(snapshot.strokeColor, layer: snapshot) %>.cgColor
+<%= symbol.name %>.strokeColor = <%= SwiftMacOS.code(snapshot.strokeColor, layer: snapshot) %>.cgColor
 <%- end -%>
 <%- if snapshot.currentFillType == "Gradient" -%>
-<%= symbol.name %>.shapeLayer.fillColor = nil
+<%= symbol.name %>.fillColor = nil
 <%- else if snapshot.currentFillType == "Image" -%>
 let mask = CAShapeLayer()
-mask.path = <%= Swift.code(snapshot.path, layer: snapshot) %>
+mask.path = <%= SwiftMacOS.code(snapshot.path, layer: snapshot) %>
 mask.fillColor = \(prefix)Color.black.cgColor
-<%= symbol.name %>.shapeLayer.mask = mask
+<%= symbol.name %>.mask = mask
 let image = \(prefix)Image(named: "<%= snapshot.fillImage.image.name %>")!
 <%- switch snapshot.fillImage.patternFillType
     case 0: -%>
 let size = CGSize(width: <%= snapshot.fillImage.tileSize.height %>, height: <%= snapshot.fillImage.tileSize.height %>)
 let newImage = image.resized(to: size)
-<%= symbol.name %>.shapeLayer.fillColor = \(prefix)Color(patternImage: newImage).cgColor
-<%= symbol.name %>.shapeLayer.contents = nil
-<%= symbol.name %>.shapeLayer.masksToBounds = false
+<%= symbol.name %>.fillColor = \(prefix)Color(patternImage: newImage).cgColor
+<%= symbol.name %>.contents = nil
+<%= symbol.name %>.masksToBounds = false
 <%- case 1: -%>
-<%= symbol.name %>.shapeLayer.contents = image.cgImage
-<%= symbol.name %>.shapeLayer.fillColor = \(prefix)Color.clear.cgColor
-<%= symbol.name %>.shapeLayer.contentsGravity = CALayerContentsGravity.resizeAspectFill
-<%= symbol.name %>.shapeLayer.masksToBounds = true
+<%= symbol.name %>.contents = image.cgImage
+<%= symbol.name %>.fillColor = \(prefix)Color.clear.cgColor
+<%= symbol.name %>.contentsGravity = CALayerContentsGravity.resizeAspectFill
+<%= symbol.name %>.masksToBounds = true
 <%- case 2: -%>
-<%= symbol.name %>.shapeLayer.contents = image.cgImage
-<%= symbol.name %>.shapeLayer.fillColor = \(prefix)Color.clear.cgColor
-<%= symbol.name %>.shapeLayer.masksToBounds = true
+<%= symbol.name %>.contents = image.cgImage
+<%= symbol.name %>.fillColor = \(prefix)Color.clear.cgColor
+<%= symbol.name %>.masksToBounds = true
 <%- case 3: -%>
-<%= symbol.name %>.shapeLayer.contents = image.cgImage
-<%= symbol.name %>.shapeLayer.fillColor = \(prefix)Color.clear.cgColor
-<%= symbol.name %>.shapeLayer.contentsGravity = CALayerContentsGravity.resizeAspect
-<%= symbol.name %>.shapeLayer.masksToBounds = true
+<%= symbol.name %>.contents = image.cgImage
+<%= symbol.name %>.fillColor = \(prefix)Color.clear.cgColor
+<%= symbol.name %>.contentsGravity = CALayerContentsGravity.resizeAspect
+<%= symbol.name %>.masksToBounds = true
 <%- end -%>
 <%- else if snapshot.fillColor != Color.clear -%>
-<%= symbol.name %>.shapeLayer.fillColor = <%= Swift.code(snapshot.fillColor, layer: snapshot) %>.cgColor
+<%= symbol.name %>.fillColor = <%= SwiftMacOS.code(snapshot.fillColor, layer: snapshot) %>.cgColor
 <%- else -%>
-<%= symbol.name %>.shapeLayer.fillColor = nil
+<%= symbol.name %>.fillColor = nil
 <%- end -%>
 <%- if snapshot.lineCap.name != "butt" -%>
-<%= symbol.name %>.shapeLayer.lineCap = CAShapeLayerLineCap(rawValue: <%= Swift.code(snapshot.lineCap, layer: snapshot) %>)
+<%= symbol.name %>.lineCap = CAShapeLayerLineCap(rawValue: <%= SwiftMacOS.code(snapshot.lineCap, layer: snapshot) %>)
 <%- end -%>
 <%- if snapshot.lineJoin.name != "miter" -%>
-<%= symbol.name %>.shapeLayer.lineJoin = CAShapeLayerLineJoin(rawValue: <%= Swift.code(snapshot.lineJoin, layer: snapshot) %>)
+<%= symbol.name %>.lineJoin = CAShapeLayerLineJoin(rawValue: <%= SwiftMacOS.code(snapshot.lineJoin, layer: snapshot) %>)
 <%- end -%>
 <%- if snapshot.strokeStart != 0 -%>
-<%= symbol.name %>.shapeLayer.strokeStart = <%= snapshot.strokeStart %>
+<%= symbol.name %>.strokeStart = <%= snapshot.strokeStart %>
 <%- end -%>
 <%- if snapshot.strokeEnd != 1 -%>
-<%= symbol.name %>.shapeLayer.strokeEnd = <%= snapshot.strokeEnd %>
+<%= symbol.name %>.strokeEnd = <%= snapshot.strokeEnd %>
 <%- end -%>
 <%- if snapshot.miterLimit != 10 -%>
-<%= symbol.name %>.shapeLayer.miterLimit = <%= snapshot.miterLimit %>
+<%= symbol.name %>.miterLimit = <%= snapshot.miterLimit %>
 <%- end -%>
-<%= symbol.name %>.shapeLayer.lineDashPattern = <%= snapshot.dashPattern %>
-<%= symbol.name %>.shapeLayer.lineDashPhase = <%= snapshot.dashPatternOffset %>
-<%= symbol.name %>.shapeLayer.lineWidth = <%= snapshot.strokeWidth %>
-<%= symbol.name %>.shapeLayer.path = <%= Swift.code(snapshot.path, layer: snapshot) %>
+<%= symbol.name %>.lineDashPattern = <%= snapshot.dashPattern %>
+<%= symbol.name %>.lineDashPhase = <%= snapshot.dashPatternOffset %>
+<%= symbol.name %>.lineWidth = <%= snapshot.strokeWidth %>
+<%= symbol.name %>.path = <%= SwiftMacOS.code(snapshot.path, layer: snapshot) %>
 
 <%- if snapshot.currentFillType == "Gradient" -%>
-let startPoint = <%= Swift.code(snapshot.fillGradient.from, layer: snapshot) %>
-let endPoint = <%= Swift.code(snapshot.fillGradient.caGradientLayerEndPoint, layer: snapshot) %>
+let startPoint = <%= SwiftMacOS.code(snapshot.fillGradient.from, layer: snapshot) %>
+let endPoint = <%= SwiftMacOS.code(snapshot.fillGradient.caGradientLayerEndPoint, layer: snapshot) %>
 let colors = <%= snapshot.fillGradient.stops.map(Swift.gradientStopColor) %>
 let locations = <%= snapshot.fillGradient.stops.map(Swift.gradientStopPosition) %>
 let stops = zip(colors, locations).map { $0 }
-let type: CAGradientLayerType = <%= Swift.gradientTypeCode(snapshot.fillGradient.type) %>
+let type: CAGradientLayerType = <%= SwiftMacOS.gradientTypeCode(snapshot.fillGradient.type) %>
 <%= symbol.name %>.addGradient(type: type, startPoint: startPoint, endPoint: endPoint, stops: stops)
 <%- end -%>

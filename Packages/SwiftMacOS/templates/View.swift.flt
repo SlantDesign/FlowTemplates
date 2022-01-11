@@ -1,4 +1,4 @@
-<%- import Swift -%>
+<%- import SwiftMacOS -%>
 // Made With Flow.
 //
 // DO NOT MODIFY, your changes will be lost when this file is regenerated.
@@ -10,7 +10,7 @@ import AppKit
 public class <%= viewName %>: <%= prefix -%>View {
     public struct Defaults {
         public static let size = <%= code(initialRootSnapshot.bounds.size, layer: initialRootSnapshot) %>
-        public static let backgroundColor = <%= code(initialRootSnapshot.backgroundColor, layer: initialRootSnapshot) %>
+        public static let backgroundColor = <%= code(initialRootSnapshot.backgroundColor, layer: initialRootSnapshot) %>.cgColor
     }
 
 <%- for snapshot in initialRootSnapshot.descendants
@@ -39,10 +39,14 @@ public class <%= viewName %>: <%= prefix -%>View {
     }
 
     private func setup() {
-        backgroundColor = Defaults.backgroundColor
-        clipsToBounds = <%= initialRootSnapshot.masksToBounds %>
-        createViews()
-        addSubviews()
+        guard let layer = layer else {
+            return
+        }
+        wantsLayer = true
+        layer.backgroundColor = Defaults.backgroundColor
+        layer.masksToBounds = <%= initialRootSnapshot.masksToBounds %>
+        createLayers()
+        addSublayers()
         layer.name = "sceneLayer"
         //scale(to: frame.size)
     }
@@ -54,12 +58,15 @@ public class <%= viewName %>: <%= prefix -%>View {
     /// If there are any constraints in IB affecting the frame of `self`, this method will have consequences on
     /// layout / rendering. To properly scale an animation, you will have to position the view manually.
     public func scale(to size: CGSize) {
+        guard let layer = layer else {
+            return
+        }
         let x = size.width / Defaults.size.width
         let y = size.height / Defaults.size.height
-        transform = CGAffineTransform(scaleX: x, y: y)
+        layer.transform = CATransform3DMakeScale(x, y, 1)
     }
 
-    private func createViews() {
+    private func createLayers() {
         CATransaction.suppressAnimations {
         <%- for snapshot in initialRootSnapshot.descendants -%>
             <%- if snapshot.type.name == "path" continue end -%>
@@ -73,21 +80,28 @@ public class <%= viewName %>: <%= prefix -%>View {
         <%- if snapshot.type.name == "path" continue end -%>
         <%- var symbol = symbolTable.symbolForID(snapshot.id, "") -%>
     private func create<%= symbol.name.upperCamelCased() %>() {
-        <%- insert("Layer/BaseLayer.swift.flt", from: Swift, indentation: 2) -%>
+        <%- insert("Layer/BaseLayer.swift.flt", from: SwiftMacOS, indentation: 2) -%>
     }
 
     <%- end -%>
-    private func addSubviews() {
+    private func addSublayers() {
+        guard let layer = layer else {
+            return
+        }
         <%-
         // Add descendant views of sceneView
         for snapshot in initialRootSnapshot.sublayers
-            Swift.addDescendantViews(of: snapshot, symbolTable: symbolTable)
+            SwiftMacOS.addDescendantViews(of: snapshot, symbolTable: symbolTable)
         end
         // Add direct SubViews to sceneView
         for snapshot in initialRootSnapshot.sublayers
             if snapshot.type.name == "path" continue end
             var symbol = symbolTable.symbolForID(snapshot.id, "") -%>
-        addSubview(<%= symbol.name %>)
+        layer.addSublayer(<%= symbol.name %>)
         <%- end -%>
+    }
+
+    public override var isFlipped: Bool {
+        return true
     }
 }
