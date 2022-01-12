@@ -8,28 +8,30 @@
 <%- else if snapshot.currentFillType == "Image" -%>
 let mask = CAShapeLayer()
 mask.path = <%= SwiftMacOS.code(snapshot.path, layer: snapshot) %>
-mask.fillColor = \(prefix)Color.black.cgColor
+mask.fillColor = <%= prefix %>Color.black.cgColor
 <%= symbol.name %>.mask = mask
-let image = \(prefix)Image(named: "<%= snapshot.fillImage.image.name %>")!
+let image = <%= prefix %>Image(named: "<%= snapshot.fillImage.image.name %>")!
 <%- switch snapshot.fillImage.patternFillType
     case 0: -%>
 let size = CGSize(width: <%= snapshot.fillImage.tileSize.height %>, height: <%= snapshot.fillImage.tileSize.height %>)
 let newImage = image.resized(to: size)
-<%= symbol.name %>.fillColor = \(prefix)Color(patternImage: newImage).cgColor
+if newImage != nil {
+<%= symbol.name %>.fillColor = <%= prefix %>Color(patternImage: newImage!).cgColor
+}
 <%= symbol.name %>.contents = nil
 <%= symbol.name %>.masksToBounds = false
 <%- case 1: -%>
 <%= symbol.name %>.contents = image.cgImage
-<%= symbol.name %>.fillColor = \(prefix)Color.clear.cgColor
+<%= symbol.name %>.fillColor = <%= prefix %>Color.clear.cgColor
 <%= symbol.name %>.contentsGravity = CALayerContentsGravity.resizeAspectFill
 <%= symbol.name %>.masksToBounds = true
 <%- case 2: -%>
 <%= symbol.name %>.contents = image.cgImage
-<%= symbol.name %>.fillColor = \(prefix)Color.clear.cgColor
+<%= symbol.name %>.fillColor = <%= prefix %>Color.clear.cgColor
 <%= symbol.name %>.masksToBounds = true
 <%- case 3: -%>
 <%= symbol.name %>.contents = image.cgImage
-<%= symbol.name %>.fillColor = \(prefix)Color.clear.cgColor
+<%= symbol.name %>.fillColor = <%= prefix %>Color.clear.cgColor
 <%= symbol.name %>.contentsGravity = CALayerContentsGravity.resizeAspect
 <%= symbol.name %>.masksToBounds = true
 <%- end -%>
@@ -61,8 +63,8 @@ let newImage = image.resized(to: size)
 <%- if snapshot.currentFillType == "Gradient" -%>
 let startPoint = <%= SwiftMacOS.code(snapshot.fillGradient.from, layer: snapshot) %>
 let endPoint = <%= SwiftMacOS.code(snapshot.fillGradient.caGradientLayerEndPoint, layer: snapshot) %>
-let colors = <%= snapshot.fillGradient.stops.map(Swift.gradientStopColor) %>
-let locations = <%= snapshot.fillGradient.stops.map(Swift.gradientStopPosition) %>
+let colors = <%= snapshot.fillGradient.stops.map(SwiftMacOS.gradientStopColor) %>
+let locations = <%= snapshot.fillGradient.stops.map(SwiftMacOS.gradientStopPosition) %>
 let stops = zip(colors, locations).map { $0 }
 let type: CAGradientLayerType = <%= SwiftMacOS.gradientTypeCode(snapshot.fillGradient.type) %>
 <%= symbol.name %>.addGradient(type: type, startPoint: startPoint, endPoint: endPoint, stops: stops)

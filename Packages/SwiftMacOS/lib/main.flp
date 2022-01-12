@@ -46,7 +46,7 @@ func addDescendantViews(of layer, symbolTable)
     var parentSymbol = symbolTable.symbolForID(layer.id, "")
     for sublayer in layer.sublayers
         var symbol = symbolTable.symbolForID(sublayer.id, "")
-        print("        \(parentSymbol.name).addSubview(\(symbol.name))\n")
+        print("        \(parentSymbol.name).addSublayer(\(symbol.name))\n")
     end
 end
 
@@ -121,7 +121,7 @@ func codeForProperty(_ property, value, layer, time, timeline)
   case "transform.scale.y": return "\(value)"
 
   // Image
-  case "image": return "\(prefix)Image(named: \"\(value.name)\")!.cgImage!"
+  case "image": return "\(prefix)Image(named: \"\(value.name)\")!.cgImage"
   case "contentsGravity": return contentModeCode(value)
 
   // Path
@@ -298,17 +298,17 @@ func fillImageCodeByKeyPath(fillImage)
         contentsGravity = "CALayerContentsGravity.resize"
         masksToBounds = "false"
     case 1: //fill
-        contents = "\(imageCode).cgImage!"
+        contents = "\(imageCode).cgImage"
         fillColor = "\(prefix)Color.clear.cgColor"
         contentsGravity = "CALayerContentsGravity.resizeAspectFill"
         masksToBounds = "true"
     case 2: //stretch
-        contents = "\(imageCode).cgImage!"
+        contents = "\(imageCode).cgImage"
         fillColor = "\(prefix)Color.clear.cgColor"
         contentsGravity = "CALayerContentsGravity.resize"
         masksToBounds = "true"
     case 3: //fit
-        contents = "\(imageCode).cgImage!"
+        contents = "\(imageCode).cgImage"
         fillColor = "\(prefix)Color.clear.cgColor"
         contentsGravity = "CALayerContentsGravity.resizeAspect"
         masksToBounds = "true"

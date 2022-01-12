@@ -30,12 +30,12 @@ if !snapshot.visible -%>
 end
 
 if snapshot.rotation.radians != 0 -%>
-<%= symbol.name %>.transform = CGAffineTransform(rotationAngle: <%= snapshot.rotation.radians / pi %> * CGFloat.pi)
+<%= symbol.name %>.transform = CATransform3DMakeRotation(<%= snapshot.rotation.radians / pi %> * CGFloat.pi, 0, 0, 1)
 <%-
 end
 
 if snapshot.flippedHorizontal != 1 || snapshot.flippedVertical != 1 -%>
-<%= symbol.name %>.transform = <%= symbol.name %>.transform.scaledBy(x: <%= snapshot.flippedHorizontal %>, y: <%= snapshot.flippedVertical %>)
+<%= symbol.name %>.transform = CATransform3DScale(<%= snapshot.flippedHorizontal %>, <%= snapshot.flippedVertical %>, 1)
 <%-
 end
 

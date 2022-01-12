@@ -3,15 +3,15 @@
 func caLayerPath(property, layerName, keyPath)
     switch property.id
     case "maskPath":
-        return "\(layerName).layer.mask!"
+        return "\(layerName).mask!"
     case "fillGradient":
         if keyPath == "path"
-            return "\(layerName).gradientLayer!.mask!"
+            return "\(layerName).mask!"
         else
-            return "\(layerName).gradientLayer!"
+            return "\(layerName)"
         end
     default:
-        return "\(layerName).layer"
+        return "\(layerName)"
     end
 end
 
