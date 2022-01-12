@@ -7,7 +7,7 @@ func printAnimationInitializations(caLayerPathSuffix)
     for (layer, tracksByProperty) in timeline.tracksByLayerProperty
         var symbol = symbolTable.symbolForID(layer.id, "")
         if symbol == nil continue end
-        var path = "\(symbol.name).\(caLayerPathSuffix)"
+        var path = "\(symbol.name)"
         var keyFrameAnimationNames = keyFrameAnimationNamesByKeyPath[path]
 
         if keyFrameAnimationNames != nil
