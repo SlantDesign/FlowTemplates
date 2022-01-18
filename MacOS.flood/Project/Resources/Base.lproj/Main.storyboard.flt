@@ -706,7 +706,7 @@
         <scene sceneID="hIz-AP-VOD">
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="<%= viewControllerClassName %>" customModule="<%= projectName %>" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="m2S-Jp-Qdl" customClass="<%= viewName %>" customModule="<%= projectName %>" customModuleProvider="target">
+                    <view key="view" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="<%= timeline.scene.size.width %>" height="<%= timeline.scene.size.height %>"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </view>
