@@ -6,9 +6,9 @@ func caLayerPath(property, layerName, keyPath)
         return "\(layerName).mask!"
     case "fillGradient":
         if keyPath == "path"
-            return "\(layerName).mask!"
+            return "\(layerName).gradientLayer.mask!"
         else
-            return "\(layerName)"
+            return "\(layerName).gradientLayer"
         end
     default:
         return "\(layerName)"
