@@ -5,5 +5,24 @@
 
 import <%= kit -%>Kit
 
-public class <%= viewControllerClassName %> : NSViewController {
+public class <%= viewControllerClassName %> : <%= prefix %>ViewController {
+    @IBOutlet var sceneView: <%= viewName %>!
+    var timeline: <%= timelineName %>?
+
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        timeline = <%= timelineName %>(view: sceneView, duration: <%= timeline.duration %>)
+    }
+
+    public override func mouseDown(with event: NSEvent) {
+        guard let timeline = timeline else {
+            return
+        }
+
+        if timeline.time >= timeline.duration {
+            timeline.reset()
+        } else {
+            timeline.playing ? timeline.pause() : timeline.play()
+        }
+    }
 }
