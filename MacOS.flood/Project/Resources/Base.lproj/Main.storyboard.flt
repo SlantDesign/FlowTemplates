@@ -705,10 +705,28 @@
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="<%= viewControllerClassName %>" customModule="<%= projectName %>" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XfG-lQ-9wD" customClass="<%= viewControllerClassName %>" customModule="<%= projectName %>" customModuleProvider="target" sceneMemberID="viewController">-%>
+                <%- var mainViewWidth = timeline.scene.size.width + 40
+                 var mainViewHeight = timeline.scene.size.height + 40
+                -%>
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="<%= timeline.scene.size.width %>" height="<%= timeline.scene.size.height %>"/>
+                        <rect key="frame" x="0.0" y="0.0" width="<%= mainViewWidth %>" height="<%= mainViewHeight %>""/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="M7s-UD-ppD">
+                                <rect key="frame" x="20" y="20" width="<%= timeline.scene.size.width %>" height="<%= timeline.scene.size.height %>/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="<%= timeline.scene.size.height %>" id="AKv-5l-WiA"/>
+                                    <constraint firstAttribute="width" constant="<%= timeline.scene.size.width %>" id="shF-2g-WzX"/>
+                                </constraints>
+                            </customView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="M7s-UD-ppD" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" symbolic="YES" id="1JY-To-31K"/>
+                            <constraint firstItem="M7s-UD-ppD" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="JWt-Nv-qiU"/>
+                            <constraint firstAttribute="trailing" secondItem="M7s-UD-ppD" secondAttribute="trailing" constant="20" symbolic="YES" id="bTD-43-JeQ"/>
+                            <constraint firstAttribute="bottom" secondItem="M7s-UD-ppD" secondAttribute="bottom" constant="20" symbolic="YES" id="ibb-Fp-tgg"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
