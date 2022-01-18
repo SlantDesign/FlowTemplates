@@ -685,7 +685,7 @@
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController id="<%= viewControllerID %>" sceneMemberID="viewController">
-                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
+                    <window key="window" title="<%= projectName %>" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="0" y="0" width="<%= timeline.scene.size.width %>" height="<%= timeline.scene.size.height %>"/>
@@ -710,11 +710,11 @@
                  var mainViewHeight = timeline.scene.size.height + 40
                 -%>
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="<%= mainViewWidth %>" height="<%= mainViewHeight %>""/>
+                        <rect key="frame" x="0.0" y="0.0" width="<%= mainViewWidth %>" height="<%= mainViewHeight %>"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="M7s-UD-ppD" customClass="<%= viewName %>" customModule="Outline" customModuleProvider="target">
-                                <rect key="frame" x="20" y="20" width="<%= timeline.scene.size.width %>" height="<%= timeline.scene.size.height %>/>
+                                <rect key="frame" x="20" y="20" width="<%= timeline.scene.size.width %>" height="<%= timeline.scene.size.height %>"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="<%= timeline.scene.size.height %>" id="AKv-5l-WiA"/>
                                     <constraint firstAttribute="width" constant="<%= timeline.scene.size.width %>" id="shF-2g-WzX"/>
