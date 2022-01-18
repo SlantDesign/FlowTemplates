@@ -713,7 +713,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="<%= mainViewWidth %>" height="<%= mainViewHeight %>""/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="M7s-UD-ppD">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="M7s-UD-ppD" customClass="<%= viewName %>" customModule="Outline" customModuleProvider="target">
                                 <rect key="frame" x="20" y="20" width="<%= timeline.scene.size.width %>" height="<%= timeline.scene.size.height %>/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="<%= timeline.scene.size.height %>" id="AKv-5l-WiA"/>
@@ -728,10 +728,18 @@
                             <constraint firstAttribute="bottom" secondItem="M7s-UD-ppD" secondAttribute="bottom" constant="20" symbolic="YES" id="ibb-Fp-tgg"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="sceneView" destination="M7s-UD-ppD" id="Nqe-zh-wuS"/>
+                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="655"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="M7s-UD-ppD">
+            <size key="intrinsicContentSize" width="<%= timeline.scene.size.width %>" height="<%= timeline.scene.size.height %>"/>
+        </designable>
+    </designables>
 </document>
