@@ -1,14 +1,14 @@
-<%- import Swift -%>
-<%= symbol.name %>.textLayer.name = "<%= symbol.name %>.textLayer"
-<%= symbol.name %>.textLayer.string = <% printCodeFor(string: snapshot.string, withIndentation: "            ") %>
-<%= symbol.name %>.textLayer.font = "<%= snapshot.font.name %>" as NSString
-<%= symbol.name %>.textLayer.fontSize = <%= snapshot.fontSize %>
-<%= symbol.name %>.textLayer.foregroundColor = <%= Swift.code(snapshot.foregroundColor, layer: snapshot) %>.cgColor
-<%= symbol.name %>.textLayer.alignmentMode = .<%= snapshot.alignment.name %>
-<%= symbol.name %>.textLayer.truncationMode = .<%= snapshot.truncation.name  %>
-<%= symbol.name %>.textLayer.isWrapped = <%= snapshot.truncation.name == "none" %>
+<%- import SwiftMacOS -%>
+<%= symbol.name %>.name = "<%= symbol.name %>"
+<%= symbol.name %>.string = <% printCodeFor(string: snapshot.string, withIndentation: "            ") %>
+<%= symbol.name %>.font = "<%= snapshot.font.name %>" as NSString
+<%= symbol.name %>.fontSize = <%= snapshot.fontSize %>
+<%= symbol.name %>.foregroundColor = <%= SwiftMacOS.code(snapshot.foregroundColor, layer: snapshot) %>.cgColor
+<%= symbol.name %>.alignmentMode = .<%= snapshot.alignment.name %>
+<%= symbol.name %>.truncationMode = .<%= snapshot.truncation.name  %>
+<%= symbol.name %>.isWrapped = <%= snapshot.truncation.name == "none" %>
 <%- if snapshot.attributedString != nil -%>
-<%= symbol.name %>.textLayer.string = {
+<%= symbol.name %>.string = {
     let string = <% printCodeFor(string: snapshot.attributedString.string, withIndentation: "                ") %>
     let attrString = NSMutableAttributedString(string: string)
     <%- for run in snapshot.attributedString.runs -%>

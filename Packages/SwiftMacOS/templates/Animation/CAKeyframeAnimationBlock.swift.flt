@@ -1,10 +1,10 @@
-let <%= Swift.caKeyframeAnimationName(layerName: symbol.name, keyPath: keyPath, property: property) %>: CAKeyframeAnimation = {
+let <%= SwiftMacOS.caKeyframeAnimationName(layerName: symbol.name, keyPath: keyPath, property: property) %>: CAKeyframeAnimation = {
     let keyframeAnimation = CAKeyframeAnimation()
     keyframeAnimation.keyPath = "<%= keyPath %>"
-    keyframeAnimation.values = <%= values %> <%- insert("Animation/ValueType.swift.flt", from: Swift, indentation: 0) %>
-    keyframeAnimation.keyTimes = <%= keyTimes %> 
+    keyframeAnimation.values = <%= values %> <%- insert("Animation/ValueType.swift.flt", from: SwiftMacOS, indentation: 0) %>
+    keyframeAnimation.keyTimes = <%= keyTimes %>
     keyframeAnimation.timingFunctions = <%= timingFunctions %>
     keyframeAnimation.duration = duration
-    
+
     return keyframeAnimation
 }()

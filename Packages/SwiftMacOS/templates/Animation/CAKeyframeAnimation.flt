@@ -2,7 +2,7 @@
 import Swift
 
 var duration = timeline.duration
-var keyPaths = Swift.keyPaths(property: track.property)
+var keyPaths = SwiftMacOS.keyPaths(property: track.property)
 var property = track.property
 
 var keyTimes = track.keyvaluesWithSimulatedSteps.map(Swift.timeFromKeyvalue)
@@ -10,7 +10,7 @@ var timingFunctions = track.animationsFromKeyvaluesWithSimulatedSteps.map(Swift.
 
 // This function is declared to remove the `layer` parameter from `Swift.valuesByKeyPath`.
 func valuesByKeyPath(keyvalue)
-	return Swift.valuesByKeyPath(keyvalue: keyvalue, layer: layer)
+	return SwiftMacOS.valuesByKeyPath(keyvalue: keyvalue, layer: layer)
 end
 
 // Returns the values to include in the keyframe animation for the given track and keypath.
@@ -22,5 +22,5 @@ end
 
 for keyPath in keyPaths
 	var values = valuesFor(track: track, keyPath: keyPath)
-	insert("Animation/CAKeyframeAnimationBlock.swift.flt", from: Swift, indentation: indentation)
+	insert("Animation/CAKeyframeAnimationBlock.swift.flt", from: SwiftMacOS, indentation: indentation)
 end	-%>
