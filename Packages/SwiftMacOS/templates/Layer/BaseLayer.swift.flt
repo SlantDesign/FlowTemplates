@@ -23,9 +23,9 @@ if snapshot.anchorPoint.x != 0.5 || snapshot.anchorPoint.y != 0.5 -%>
 end
 
 if !snapshot.visible -%>
-<%= symbol.name %>.alpha = 0
+<%= symbol.name %>.opacity = 0
 <%- else if snapshot.opacity != 1 -%>
-<%= symbol.name %>.alpha = <%= snapshot.opacity %>
+<%= symbol.name %>.opacity = <%= snapshot.opacity %>
 <%-
 end
 
