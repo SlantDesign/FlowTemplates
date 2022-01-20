@@ -4,7 +4,7 @@
 // DO NOT MODIFY, your changes will be lost when this file is regenerated.
 //
 
-import AppKit
+import <%= kit %>Kit
 
 @IBDesignable
 public class <%= viewClassName %>: <%= prefix -%>View {
