@@ -9,7 +9,7 @@ import AVFoundation
 <%- end -%>
 
 public class <%= timelineName %>: Timeline {
-    public convenience init(view: <%= viewName %>, duration: TimeInterval, autoreverses: Bool = false, repeatCount: Float = 0) {
+    public convenience init(view: <%= viewClassName %>, duration: TimeInterval, autoreverses: Bool = false, repeatCount: Float = 0) {
         let animationsByLayer = <%= timelineName %>.animationsByLayer(view: view, duration: duration)
         <%- if timeline.soundTracks.isEmpty -%>
         self.init(view: view, animationsByLayer: animationsByLayer, sounds: [], duration: duration, autoreverses: autoreverses, repeatCount: repeatCount)
@@ -18,7 +18,7 @@ public class <%= timelineName %>: Timeline {
         self.init(view: view, animationsByLayer: animationsByLayer, sounds: sounds, duration: duration, autoreverses: autoreverses, repeatCount: repeatCount)
         <%- end -%>
     }
-    private static func animationsByLayer(view: <%= viewName %>, duration: TimeInterval) -> [CALayer: [CAKeyframeAnimation]] {
+    private static func animationsByLayer(view: <%= viewClassName %>, duration: TimeInterval) -> [CALayer: [CAKeyframeAnimation]] {
         <%- insert("Project/Sources/Animations.swift.flt", indentation: 2) %>
     }
     <%- if !timeline.soundTracks.isEmpty %>

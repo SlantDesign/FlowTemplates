@@ -7,7 +7,7 @@
 import AppKit
 
 @IBDesignable
-public class <%= viewName %>: <%= prefix -%>View {
+public class <%= viewClassName %>: <%= prefix -%>View {
     public struct Defaults {
         public static let size = <%= code(initialRootSnapshot.bounds.size, layer: initialRootSnapshot) %>
         public static let backgroundColor = <%= code(initialRootSnapshot.backgroundColor, layer: initialRootSnapshot) %>.cgColor
