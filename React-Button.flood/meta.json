@@ -23,6 +23,13 @@
       "variable": "baseUrl",
       "type": "text",
       "default": "https://flow-services.s3-us-west-2.amazonaws.com/"
+    },
+    {
+      "label": "Artboard Animation",
+      "description": "A workaround, for older versions of Safari that had a rendering bug where only the contents of layers would be re-rendered, leaving traces on the background of the artboard.",
+      "variable": "includeSafariArtboardAnimtionBugFix",
+      "type": "boolean",
+      "default": false
     }
   ]
 }
