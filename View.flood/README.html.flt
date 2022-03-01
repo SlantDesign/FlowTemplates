@@ -1,0 +1,10 @@
+<%
+// Set escape to true to print < and > as &lt and &gt
+escape = true
+var title = "Flow-Integrating a React Button"
+var content = "This is how you integrate a React Button into your site."
+var bodyClass = "integrating a React Button"
+var body = process("READMEBody.html.flt", into: nil, indentation: 1)
+insert("html/README.html.flt", from: Web, indentation: 0)
+escape = false
+%>
