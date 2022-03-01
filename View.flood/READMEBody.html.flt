@@ -80,7 +80,7 @@
                             <div class="highlighter-rouge">
                                 <div class="highlight">
                                     <pre class="highlight">
-                                        <code><%= Web.escapeOpenClosingTags(input: process("button/timelineToggleButton.html.flt", into: nil, indentation: 0)) -%></code>
+                                        
                                     </pre>
                                 </div>
                             </div>
@@ -97,7 +97,7 @@
                     <p>You installed the <code><%= React.nodeModuleName %></code> node package into your project.</p>
                     <p>You moved the entire <code><%= timelineName %></code> folder from your exported animation into your React project <strong>(without editing anything)</strong>.</p>
                     <p>You imported a React component by using a <strong>single line of code</strong>: <br/><code>import <%=timelineName%> from "./components/<%=timelineName%>";</code></p>
-                    <p>You inserted your component using <strong>a single tag</strong>:<br/><code><%= Web.escapeOpenClosingTags(input: process("button/timelineToggleButton.html.flt", into: nil, indentation: 0)) -%></code></p>
+
                     <p>You learned that the <b>elementID</b> property needs to be unique and that the <b>callback</b> property takes in a function that will execute at the end of the Animation.</p>
                     <h2 id="flowcommon"><%= React.nodeModuleName %></h2>
                     <p><%= React.nodeModuleName %> is a node package containing the set of files you’ll need to run your component on the web. One is a polyfill for the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API">Web Animations</a> api, the others are a player and a button class.</p>

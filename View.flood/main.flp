@@ -16,6 +16,7 @@ for timeline in timelines
     // Set the name for the html & css files to the name of the timeline
     var timelineName = timelineFolder
     var forwardTimelineName = "\(timelineName)Timeline"
+    var timelineClassName =  forwardTimelineName
     var timelineComponentName = "\(timelineName)Component"
     var timelineNameLowercased = timelineName.lowercased()
     var customElementName = "\(timelineNameLowercased)-component"
@@ -63,7 +64,6 @@ for timeline in timelines
     process("view_component/index.js.flt", into: "\(timelineOutputPath)/index.js", indentation: 0)
 
     // Generate Forward Timeline
-    var timelineClassName =  forwardTimelineName
     process("timeline.js.flt", into: "\(timelineOutputPath)/\(jsFolderName)/\(forwardTimelineName).js", indentation: 0)
 
     // Copy Images
