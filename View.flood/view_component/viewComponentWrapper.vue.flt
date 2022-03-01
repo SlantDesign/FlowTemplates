@@ -5,7 +5,7 @@ import <%= timelineComponentName %> from "./<%= timelineComponentName %>";
 import { createPlayer } from "<%= React.nodeModuleName %>";
 
 export default {
-  name: "<%= timelineClassName %>",
+  name: "<%= timelineName %>",
   props: {
   elementID: String,
   },
