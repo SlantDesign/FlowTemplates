@@ -1,5 +1,5 @@
 import Web
-import React
+import WebApp
 
 var escape = false
 

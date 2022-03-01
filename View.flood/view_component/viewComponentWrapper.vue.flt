@@ -2,7 +2,7 @@
 import <%= forwardTimelineName %> from "./<%= forwardTimelineName %>";
 // eslint-disable-next-line no-unused-vars
 import <%= timelineComponentName %> from "./<%= timelineComponentName %>";
-import { createPlayer } from "<%= React.nodeModuleName %>";
+import { createPlayer } from "<%= WebApp.nodeModuleName %>";
 
 export default {
   name: "<%= timelineName %>",
