@@ -1,30 +1,29 @@
-import React from "react";
-import <%= timelineComponentName %> from "./<%= timelineComponentName %>";
-import { createToggleButton, setContainerClick } from "<%= React.nodeModuleName %>";
 import <%= forwardTimelineName %> from "./<%= forwardTimelineName %>";
+import <%= timelineComponentName %> from "./<%= timelineComponentName %>";
+import { createPlayer } from "<%= React.nodeModuleName %>";
 
-export default class <%= timelineName %> extends React.Component {
-  constructor() {
-    super();
-  }
+export default {
+  name: "<%= timelineClassName %>",
+  props: {
+  elementID: String,
+  },
 
-  componentDidMount() {
-    let toggleButton = createToggleButton(
-      this.props.elementID,
-      this.props.callback,
-      "#<%= timelineName %>",
-      ".",
+  mounted() {
+    let player = createPlayer(
       <%= forwardTimelineName %>,
+      "timerID",
+      true,
+      0,
+      null,
+      this.elementID,
+      "#<%= timelineName %>",
+      "."
     );
-    setContainerClick(this.props.elementID, toggleButton)
-    this.setState({ toggleButton });
-  }
+    player.play();
+  },
+};
+</script>
 
-  render() {
-    return (
-      <<%= customElementName %>
-        id={this.props.elementID}
-      ></<%= customElementName %>>
-    );
-  }
-}
+<template>
+  <<%= customElementName %> id="<%= timelineName %>"></<%= customElementName %>> 
+</template>
