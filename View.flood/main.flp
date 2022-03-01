@@ -20,7 +20,6 @@ for timeline in timelines
     var timelineNameLowercased = timelineName.lowercased()
     var customElementName = "\(timelineNameLowercased)-component"
     var resourcesPath = "\(timelineNameLowercased)ResourcesPath"
-    var reverseTimelineName = "\(timelineName)ReverseTimeline"
     var timelineToggleButtonName = "\(timelineNameLowercased)ToggleButton.js"
     var buttonID = "\(timelineName)-ButtonID"
 
@@ -86,12 +85,6 @@ for timeline in timelines
     escape = true
     process("README.html.flt", into: "\(timelineOutputPath)/README.html", indentation: 0)
     escape = false
-
-    // Generate Reverse Timeline
-    timelineClassName =  reverseTimelineName
-    timeline = timeline.reversed
-    layer = timeline.rootLayer(at: 0)
-    process("timeline.js.flt", into: "\(timelineOutputPath)/\(jsFolderName)/\(reverseTimelineName).js", indentation: 0)
 
     // Clear the symbol table
     symbolTable.removeAllSymbols()

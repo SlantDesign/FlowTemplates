@@ -2,7 +2,6 @@ import React from "react";
 import <%= timelineComponentName %> from "./<%= timelineComponentName %>";
 import { createToggleButton, setContainerClick } from "<%= React.nodeModuleName %>";
 import <%= forwardTimelineName %> from "./<%= forwardTimelineName %>";
-import <%= reverseTimelineName %> from "./<%= reverseTimelineName %>";
 
 export default class <%= timelineName %> extends React.Component {
   constructor() {
@@ -16,7 +15,6 @@ export default class <%= timelineName %> extends React.Component {
       "#<%= timelineName %>",
       ".",
       <%= forwardTimelineName %>,
-      <%= reverseTimelineName %>
     );
     setContainerClick(this.props.elementID, toggleButton)
     this.setState({ toggleButton });
