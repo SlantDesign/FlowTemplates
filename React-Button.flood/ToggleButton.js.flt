@@ -1,1 +1,1 @@
-<% insert("js/components/ReactToggleButton.js", from: React, indentation: 0) %>
+<% insert("js/components/ReactToggleButton.js", from: WebApp, indentation: 0) %>

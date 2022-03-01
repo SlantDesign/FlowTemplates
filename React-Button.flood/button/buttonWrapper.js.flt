@@ -1,6 +1,6 @@
 import React from "react";
 import <%= timelineComponentName %> from "./<%= timelineComponentName %>";
-import { createToggleButton, setContainerClick } from "<%= React.nodeModuleName %>";
+import { createToggleButton, setContainerClick } from "<%= WebApp.nodeModuleName %>";
 import <%= forwardTimelineName %> from "./<%= forwardTimelineName %>";
 import <%= reverseTimelineName %> from "./<%= reverseTimelineName %>";
 

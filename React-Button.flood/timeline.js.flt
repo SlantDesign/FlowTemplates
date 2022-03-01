@@ -1,5 +1,5 @@
 <% for image in imagesInTimeline -%>
     import <%= image.name %> from "<%= "../img/\(image.name).png" -%>";
 <% end -%>
-<% insert("js/ReactTimeline.js.flt", from: React, indentation: 0) %>
+<% insert("js/ReactTimeline.js.flt", from: WebApp, indentation: 0) %>
 export default <%= timelineClassName %>;
