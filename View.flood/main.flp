@@ -16,11 +16,11 @@ for timeline in timelines
     // Set the name for the html & css files to the name of the timeline
     var timelineName = timelineFolder
     var forwardTimelineName = "\(timelineName)Timeline"
+    var timelineClassName =  forwardTimelineName
     var timelineComponentName = "\(timelineName)Component"
     var timelineNameLowercased = timelineName.lowercased()
-    var customElementName = "\(timelineNameLowercased)-button"
+    var customElementName = "\(timelineNameLowercased)-component"
     var resourcesPath = "\(timelineNameLowercased)ResourcesPath"
-    var reverseTimelineName = "\(timelineName)ReverseTimeline"
     var timelineToggleButtonName = "\(timelineNameLowercased)ToggleButton.js"
     var buttonID = "\(timelineName)-ButtonID"
 
@@ -60,11 +60,10 @@ for timeline in timelines
 
     process("component.js.flt", into: "\(timelineOutputPath)/js/\(timelineComponentName).js", indentation: 0)
     process("css/style.css.flt", from: Web, into: "\(timelineOutputPath)/\(cssFolderName)/\(timelineName).css", indentation: 0)
-    process("button/buttonWrapper.js.flt", into: "\(timelineOutputPath)/js/\(timelineName).js", indentation: 0)
-    process("button/index.js.flt", into: "\(timelineOutputPath)/index.js", indentation: 0)
+    process("view_component/viewComponentWrapper.vue.flt", into: "\(timelineOutputPath)/js/\(timelineName).vue", indentation: 0)
+    process("view_component/index.js.flt", into: "\(timelineOutputPath)/index.js", indentation: 0)
 
     // Generate Forward Timeline
-    var timelineClassName =  forwardTimelineName
     process("timeline.js.flt", into: "\(timelineOutputPath)/\(jsFolderName)/\(forwardTimelineName).js", indentation: 0)
 
     // Copy Images
@@ -86,12 +85,6 @@ for timeline in timelines
     escape = true
     process("README.html.flt", into: "\(timelineOutputPath)/README.html", indentation: 0)
     escape = false
-
-    // Generate Reverse Timeline
-    timelineClassName =  reverseTimelineName
-    timeline = timeline.reversed
-    layer = timeline.rootLayer(at: 0)
-    process("timeline.js.flt", into: "\(timelineOutputPath)/\(jsFolderName)/\(reverseTimelineName).js", indentation: 0)
 
     // Clear the symbol table
     symbolTable.removeAllSymbols()

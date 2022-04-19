@@ -1,0 +1,31 @@
+<script>
+import <%= forwardTimelineName %> from "./<%= forwardTimelineName %>";
+// eslint-disable-next-line no-unused-vars
+import <%= timelineComponentName %> from "./<%= timelineComponentName %>";
+import { createPlayer } from "<%= WebApp.nodeModuleName %>";
+
+export default {
+  name: "<%= timelineName %>",
+  props: {
+  elementID: String,
+  },
+
+  mounted() {
+    let player = createPlayer(
+      <%= forwardTimelineName %>,
+      "timerID",
+      true,
+      0,
+      null,
+      this.elementID,
+      "#<%= timelineName %>",
+      "."
+    );
+    player.play();
+  },
+};
+</script>
+
+<template>
+  <<%= customElementName %> id="<%= timelineName %>"></<%= customElementName %>> 
+</template>

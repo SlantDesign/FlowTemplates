@@ -28,6 +28,7 @@ class <%= timelineClassName %> {
     get duration() { return <%= timeline.duration * 1000 %> }
 
 	loadFillImages() {
+        // eslint-disable-next-line no-unused-vars
         let pattern;
 <%- for layer in layer.descendants 
 	if layer.type.name == "shape" 
@@ -55,6 +56,7 @@ end -%>
 
     loadSVGShapeAnimations() {
         // Path Animations
+        // eslint-disable-next-line no-unused-vars
         let path;<%-
     for layer in layer.descendants
         if layer.type.name == "shape"
@@ -72,6 +74,7 @@ end -%>
     end -%>
 
         // Gradient Animations
+        // eslint-disable-next-line no-unused-vars
         let defs;<%-
     for layer in layer.descendants
         if layer.type.name == "shape"
