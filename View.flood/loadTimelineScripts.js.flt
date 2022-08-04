@@ -1,0 +1,3 @@
+<%= Web.openTag(escaped: escape) %>script<%= Web.closeTag(escaped: escape) %>
+    import "./components/<%= timelineName %>"
+<%= Web.openTag(escaped: escape) %>/script<%= Web.closeTag(escaped: escape) %>

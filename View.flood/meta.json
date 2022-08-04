@@ -1,14 +1,14 @@
 {
-  "uuid": "FFEEEC80-099F-44F4-9A74-54F5146BCA35",
-  "title": "React - Toggle Button",
-  "description": "A template that generates a toggle button React Component.",
+  "uuid": "4D705563-5219-4394-9559-450F416C5F3B",
+  "title": "View",
+  "description": "A template that generates a View component.",
   "parameters": [
     {
       "label": "Output Folder",
       "description": "Folder name for export, relative to main export folder",
       "variable": "folderName",
       "type": "text",
-      "default": "React - ToggleButton"
+      "default": "View"
     },
     {
       "label": "Hostable",

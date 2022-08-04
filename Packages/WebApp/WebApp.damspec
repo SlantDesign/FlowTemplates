@@ -1,4 +1,4 @@
-name: React
+name: WebApp
 version: 1.0.0
-summary: React template utilities
+summary: Single Page Website template utilities
 description: Provides functions and templates for generating HTML/CSS/Javascript code
