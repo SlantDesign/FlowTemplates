@@ -29,9 +29,9 @@ class <%= timelineClassName %> {
 
 	loadFillImages() {
         let pattern;
-<%- for layer in layer.descendants 
-	if layer.type.name == "shape" 
- 		if layer.currentFillType == "Image" 
+<%- for layer in layer.descendants
+	if layer.type.name == "shape"
+ 		if layer.currentFillType == "Image"
         var id = Web.elementIDFor(layer: layer, symbolTable: symbolTable) -%>
         pattern = this.rootElement.getElementById("<%= timelineNameLowercased %>-<%= id %>-fillImage")
         pattern.innerHTML = `<%- insert("/svg/image.svg.flt", from: Web, indentation: 1) -%>`
@@ -44,10 +44,10 @@ class <%= timelineClassName %> {
         <%- end -%>
 
 		<%- end
-	end 
+	end
 end -%>
 	}
-  
+
     loadSVGAnimations() {
         this.loadSVGShapeAnimations()
         this.loadSVGShapeMaskAnimations()
@@ -67,8 +67,8 @@ end -%>
 <%- insert("svg/pathAnimation.svg.flt", from: Web, indentation: 2)
  -%>
  `
-<%          end  
-        end 
+<%          end
+        end
     end -%>
 
         // Gradient Animations
@@ -78,40 +78,40 @@ end -%>
             var id = Web.elementIDFor(layer: layer, symbolTable: symbolTable)
             var gradientID = "\(id)-fill"
             if layer.currentFillType == "Gradient"
--%>         
+-%>
         defs = this.rootElement.getElementById("<%= gradientID %>")
         defs.innerHTML = `
         <%- insert("svg/gradient.svg.flt", from: Web, indentation: indentation + 2) -%>
         `<%- end
-            end 
+            end
         end %>
-    } 
+    }
 
     loadSVGShapeMaskAnimations() {<%-
     for layer in layer.descendants
         if layer.type.name == "shapeMask"
-            var maskID = Web.elementIDForMask(layer: layer, symbolTable: symbolTable, timeline: timeline) 
+            var maskID = Web.elementIDForMask(layer: layer, symbolTable: symbolTable, timeline: timeline)
             var property = "maskPath"
-            var pathTrack = timeline.trackFor(layer: layer, property: property) 
+            var pathTrack = timeline.trackFor(layer: layer, property: property)
             if pathTrack != nil
--%> 
+-%>
             this.rootElement.querySelector(
                 "#<%= maskID %>"
             ).innerHTML = `
             <path vector-effect="non-scaling-stroke" d="<%= layer.maskPath.svgc(width: layer.size.width, height: layer.size.height) %>">
-<% 
+<%
             insert("svg/pathAnimation.svg.flt", from: Web, indentation: 2)
 -%>
             </path>
         </path>
         `
-<% 
+<%
 
-            end 
-        end 
-    end        
+            end
+        end
+    end
 -%>
-    } 
+    }
 
     /**
     * @return
@@ -125,17 +125,6 @@ end -%>
     ]
     }
 
-<%- if includeSafariArtboardAnimtionBugFix -%>
-    artboardAnimation() {
-        // Workaround for Safari bug
-        return this.rootElement.querySelector(`${this.elementID}.flow-artboard`).animate({
-        backgroundPosition: ['0px', '1px'],
-        }, {
-            delay: 0,
-            duration: <%= timeline.duration * 1000 %>,
-        });
-    }
-<%- end -%>
     <%
     var animationNames = []
     var trackNames = []
