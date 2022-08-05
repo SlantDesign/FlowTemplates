@@ -35,7 +35,7 @@ if snapshot.rotation.radians != 0 -%>
 end
 
 if snapshot.flippedHorizontal != 1 || snapshot.flippedVertical != 1 -%>
-<%= symbol.name %>.transform = CATransform3DScale(<%= snapshot.flippedHorizontal %>, <%= snapshot.flippedVertical %>, 1)
+<%= symbol.name %>.transform = CATransform3DScale(CATransform3D(), <%= snapshot.flippedHorizontal %>, <%= snapshot.flippedVertical %>, 1)
 <%-
 end
 
