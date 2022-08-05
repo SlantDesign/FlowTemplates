@@ -14,8 +14,8 @@ public class <%= viewName %>: UIView {
     }
 
 <%- for snapshot in initialRootSnapshot.descendants
-        if snapshot.type.name == "path" 
-            continue 
+        if snapshot.type.name == "path"
+            continue
         end
         var suggestedName = snapshot.name.lowerCamelCased()
         var className = viewClassName(of: snapshot.type)
@@ -83,13 +83,13 @@ public class <%= viewName %>: UIView {
 
     <%- end -%>
     private func addSubviews() {
-        <%- 
+        <%-
         // Add descendant views of sceneView
-        for snapshot in initialRootSnapshot.sublayers 
+        for snapshot in initialRootSnapshot.sublayers
             Swift.addDescendantViews(of: snapshot, symbolTable: symbolTable)
         end
         // Add direct SubViews to sceneView
-        for snapshot in initialRootSnapshot.sublayers 
+        for snapshot in initialRootSnapshot.sublayers
             if snapshot.type.name == "path" continue end
             var symbol = symbolTable.symbolForID(snapshot.id, "") -%>
         addSubview(<%= symbol.name %>)
