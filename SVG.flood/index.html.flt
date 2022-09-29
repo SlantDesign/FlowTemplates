@@ -3,9 +3,9 @@
 <html>
 <head>
     <title><%= timelineName %></title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/<%= timelineName %>.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="css/<%= timelineName %>.css" />
 </head>
 <body>
   <object class="flow-artboard" id="<%= timelineName %>" type="image/svg+xml" data="<%= timelineName %>.svg"></object>

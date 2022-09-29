@@ -2,7 +2,7 @@
 <html lang="EN">
 <head>
 <title><%= timelineName %></title>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <%- insert("html/cdn.html.flt", from: Web, indentation: indentation + 1) %>
 
     <%- insert("js/components/loadFlowCommonScripts.js.flt", from: Web, indentation: 1) %>

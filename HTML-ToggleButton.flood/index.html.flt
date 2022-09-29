@@ -4,9 +4,9 @@
 <head>
 <%- var buttonName = "button\(timelineName)" -%>
     <title><%= timelineName %></title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="<%= Web.pathPrefix(relativePath: "./css", absolutePath: cssFolderAbsPath, relative: relative) %>/<%= timelineName %>.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="<%= Web.pathPrefix(relativePath: "./css", absolutePath: cssFolderAbsPath, relative: relative) %>/<%= timelineName %>.css" />
 </head>
 <body>
 

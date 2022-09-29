@@ -3,16 +3,16 @@
 <html>
 <head>
     <title><%= timelineName %></title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="<%= Web.pathPrefix(relativePath: "./css", absolutePath: cssFolderAbsPath, relative: relative) %>/<%= timelineName %>.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="<%= Web.pathPrefix(relativePath: "./css", absolutePath: cssFolderAbsPath, relative: relative) %>/<%= timelineName %>.css" />
 <% if generateUI -%>
     <link rel="stylesheet" href="<%= Web.pathPrefix(relativePath: "./css", absolutePath: cssFolderAbsPath, relative: relative) %>/driver.css">
 <% end -%>
 </head>
 <body>
     <% insert("html/artboard.html.flt", from: Web, indentation: 0) %>
-    
+
     <%- insert("html/cdn.html.flt", from: Web, indentation: indentation + 1) %>
 
     <!-- If you want to use the FlowCommonWeb CDN delete the following script tags -->

@@ -8,7 +8,7 @@
       "description": "Folder name for export, relative to main export folder",
       "variable": "folderName",
       "type": "text",
-      "default": "HTML"
+      "default": "HTML - Driver"
     },
     {
       "label": "Generate UI",
