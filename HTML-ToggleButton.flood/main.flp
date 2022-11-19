@@ -18,7 +18,7 @@ for timeline in timelines
     var forwardTimelineNameLowerCased = forwardTimelineName.lowercased()
     var reverseTimelineName = "\(timelineName)ReverseTimeline"
     var containerID = "\(timelineName)-ContainerID"
-
+    var buttonName = "button\(timelineName)"
     //Import image file or generate path to image file
     var importImage = false
 
