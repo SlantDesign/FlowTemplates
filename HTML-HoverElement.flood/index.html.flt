@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%- var hoverElementName = "hoverElement\(timelineName)" -%>
     <title><%= timelineName %></title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -10,8 +9,7 @@
 </head>
 <body>
 
-    <!-- A div element is used instead of a button to avoid default properties,
-         as well as allowing the element to resize with the animation. -->
+    <!-- A div element is used to track hover events. -->
     <div onmouseenter="<%= hoverElementName %>.enter()" onmouseleave="<%= hoverElementName %>.exit()" id="<%= containerID %>">
     <% insert("html/artboard.html.flt", from: Web, indentation: 0) %>
     </div>
@@ -21,10 +19,10 @@
     <!-- If you want to use the FlowCommonWeb CDN delete the following script tags -->
     <script src="<%= Web.pathPrefix(relativePath: "./FlowCommon", absolutePath: commonFolderAbsPath, relative: relative) %>/web-animations.min.js"></script>
     <script src="<%= Web.pathPrefix(relativePath: "./FlowCommon", absolutePath: commonFolderAbsPath, relative: relative) %>/Player.js"></script>
+    <script src="<%= Web.pathPrefix(relativePath: "./FlowCommon", absolutePath: commonFolderAbsPath, relative: relative) %>/HoverElement.js"></script>
     <!-- End of script tags you need to delete -->
 
     <script src="<%= Web.pathPrefix(relativePath: "./js", absolutePath: jsFolderAbsPath, relative: relative) %>/<%= forwardTimelineName %>.js"></script>
-    <script src="<%= Web.pathPrefix(relativePath: "./FlowCommon", absolutePath: commonFolderAbsPath, relative: relative) %>/HoverElement.js"></script>
     <script src="<%= Web.pathPrefix(relativePath: "./js", absolutePath: jsFolderAbsPath, relative: relative) %>/<%= reverseTimelineName %>.js"></script>
 
     <div id="<%=timerID%>"></div>
@@ -32,11 +30,11 @@
     <script type="text/javascript">
     let timer = document.getElementById('<%= timerID %>')
     let <%= resourcesPath %> = "."
-    let <%= forwardTimelineName.lowerCamelCased() %> = new <%= forwardTimelineName %>(document, "#<%= timelineName %>", <%= resourcesPath %>)
+    let <%= forwardTimelineNameLowerCased %> = new <%= forwardTimelineName %>(document, "#<%= timelineName %>", <%= resourcesPath %>)
     let <%= reverseTimelineName.lowerCamelCased() %> = new <%= reverseTimelineName %>(document, "#<%= timelineName %>", <%= resourcesPath %>)
-    document.getElementById("<%= containerID %>").setAttribute("style", "<% insert("css/container.css.flt", from: Web, indentation: 0) %>");
-    <%= hoverElementName %> = new HoverElement(<%= forwardTimelineName.lowerCamelCased() %>, <%= reverseTimelineName.lowerCamelCased() %>, '<%= containerID %>', timer, false, null)
+    <%= hoverElementName %> = new HoverElement(<%= forwardTimelineNameLowerCased %>, <%= reverseTimelineName.lowerCamelCased() %>, timer, false, null)
     </script>
 
+    <div id="<%=timerID%>"></div>
 </body>
 </html>
