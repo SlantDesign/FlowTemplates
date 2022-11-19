@@ -20,7 +20,7 @@
     <script src="<%= Web.pathPrefix(relativePath: "./FlowCommon", absolutePath: commonFolderAbsPath, relative: relative) %>/Player.js"></script>
     <!-- End of script tags you need to delete -->
 
-    <script src="<%= Web.pathPrefix(relativePath: "./js", absolutePath: jsFolderAbsPath, relative: relative) %>/<%= forwardTimelineName %>.js"></script>
+    <script src="<%= Web.pathPrefix(relativePath: "./js", absolutePath: jsFolderAbsPath, relative: relative) %>/<%= timelineClassName %>.js"></script>
     <div id="<%= timerID %>"></div>
 
   <% if generateUI -%>
@@ -48,7 +48,7 @@
     <script type="text/javascript">
     let <%= timelineNameLowerCamelCased %>Timer = document.getElementById('<%= timerID %>')
     let <%= resourcesPath %> = "."
-    let <%= timelineNameLowerCamelCased %> = new <%= forwardTimelineName %>(document, "#<%= timelineName %>", <%= resourcesPath %>)
+    let <%= timelineNameLowerCamelCased %> = new <%= timelineClassName %>(document, "#<%= timelineName %>", <%= resourcesPath %>)
         document.<%= driverName %> = new Driver(<%= timelineNameLowerCamelCased %>, '<%= loopButtonID %>', '<%= playPauseButtonID %>', '<%= sliderID %>', '<%= timeLabelID %>', <%= timelineNameLowerCamelCased %>Timer)
         document.<%= driverName %>.pause()
         document.<%= driverName %>.currentTime = 0
@@ -71,7 +71,7 @@
   <script>
     let <%= resourcesPath %> = "."
     let <%= timelineNameLowerCamelCased %>Timer = document.getElementById('<%= timerID %>')
-    let <%= timelineNameLowerCamelCased %> = new <%= forwardTimelineName %>(document, "#<%= timelineName %>", <%= resourcesPath %>)
+    let <%= timelineNameLowerCamelCased %> = new <%= timelineClassName %>(document, "#<%= timelineName %>", <%= resourcesPath %>)
     this.player = new Player(<%= timelineNameLowerCamelCased %>, <%= timelineNameLowerCamelCased %>Timer, true, 0)
     this.player.play()
   </script>
